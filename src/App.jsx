@@ -1,9 +1,15 @@
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-function App() {
+import { Button } from "@/components/ui/button"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Page from "./app/dashboard/page"
 
+function App() {
   return (
-    null
+    <Router>
+      <Routes>
+        <Route path="/" element={<Page />} >
+        </Route>
+      </Routes>
+    </Router>
   )
 }
 
