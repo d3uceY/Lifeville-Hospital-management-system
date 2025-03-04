@@ -33,7 +33,7 @@ export function NavInventory({
             className="group/collapsible">
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
+                <SidebarMenuButton tooltip={item.title} className="hover:!bg-[#b2d2c6b9]">
                   {item.icon && <item.icon color="#268a63" />}
                   <span className="font-medium">{item.title}</span>
                   <ChevronRight
@@ -44,7 +44,7 @@ export function NavInventory({
                 <SidebarMenuSub className="border-l-[#b2d2c6]" >
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
+                      <SidebarMenuSubButton asChild className="hover:!bg-[#b2d2c63f]">
                         <a href={subItem.url}>
                           <span>{subItem.title}</span>
                         </a>
