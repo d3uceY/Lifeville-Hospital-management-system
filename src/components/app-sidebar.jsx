@@ -13,6 +13,8 @@ import {
 import lifeVilleLogo from '/lifeville-logo.svg'
 
 import { NavMain } from "@/components/nav-main"
+import { NavClinical } from "./nav-clinical"
+import { NavInventory } from "./nav-inventory"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
@@ -58,6 +60,47 @@ const data = {
         },
       ],
     },
+
+
+
+
+    {
+      title: "Reports & Analytics",
+      url: "#",
+      icon: BarChart,
+      items: [
+        {
+          title: "Daily Activity Reports",
+          url: "#",
+        },
+        {
+          title: "Revenue & Financial Tracking",
+          url: "#",
+        },
+        {
+          title: "Appointment Statistics",
+          url: "#",
+        }
+      ],
+    },
+    {
+      title: "User & System Settings",
+      url: "#",
+      icon: UserCog,
+      items: [
+        {
+          title: "Manage User Roles",
+          url: "#",
+        },
+        {
+          title: "System Configuration & Security",
+          url: "#",
+        }
+      ],
+    },
+  ],
+
+  clinical: [
     {
       title: "Patient Management",
       url: "#",
@@ -122,6 +165,8 @@ const data = {
         }
       ],
     },
+  ],
+  inventory: [
     {
       title: "Bills & Payments",
       url: "#",
@@ -152,41 +197,7 @@ const data = {
         }
       ],
     },
-    {
-      title: "Reports & Analytics",
-      url: "#",
-      icon: BarChart,
-      items: [
-        {
-          title: "Daily Activity Reports",
-          url: "#",
-        },
-        {
-          title: "Revenue & Financial Tracking",
-          url: "#",
-        },
-        {
-          title: "Appointment Statistics",
-          url: "#",
-        }
-      ],
-    },
-    {
-      title: "User & System Settings",
-      url: "#",
-      icon: UserCog,
-      items: [
-        {
-          title: "Manage User Roles",
-          url: "#",
-        },
-        {
-          title: "System Configuration & Security",
-          url: "#",
-        }
-      ],
-    },
-  ],
+  ]
 }
 
 export function AppSidebar({ ...props }) {
@@ -197,6 +208,8 @@ export function AppSidebar({ ...props }) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
+        <NavClinical items={data.clinical} />
+        <NavInventory items={data.inventory} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
