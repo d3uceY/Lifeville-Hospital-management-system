@@ -136,7 +136,7 @@ const data = {
       ],
     },
     {
-      title: "Electronic Medical Records (EMR)",
+      title: "Electronic Medical Records",
       url: "#",
       icon: FileText,
       items: [

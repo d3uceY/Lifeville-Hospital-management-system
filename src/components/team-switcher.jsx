@@ -26,11 +26,9 @@ export function TeamSwitcher({
   return (
     (<SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+              size="lg" 
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:!bg-[transparent]">
               <div
                 className="bg-[#268a6452] text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <img src={activeTeam.logo} alt="" className="h-5 w-6"/>
@@ -40,8 +38,6 @@ export function TeamSwitcher({
                 <span className="truncate text-xs">{activeTeam.plan}</span>
               </div>
             </SidebarMenuButton>
-          </DropdownMenuTrigger>
-        </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>)
   );
