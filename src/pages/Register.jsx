@@ -40,10 +40,10 @@ export default function Register() {
         <div>
             <form className=''>
                 <Tabs defaultValue={tabList[0].value} value={tabList[tab].value} className="">
-                    <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full !h-fit gap-1 bg-[#e8f9fd7c]">
+                    <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full !h-fit gap-1 bg-[#268a6485]">
                         {tabList.map((tab, index) => (
-                            <TabsTrigger onClick={() => tabsTrigger(index)} key={tab.value} value={tab.value} className="flex justify-center items-center">
-                                <span className='text-[#268A63] '>{index + 1}.</span>  <span>{tab.name}</span>
+                            <TabsTrigger onClick={() => tabsTrigger(index)} key={tab.value} value={tab.value} className="flex justify-center items-center text-white data-[state=active]:!text-[black]">
+                                <span className=' '>{index + 1}.</span>  <span className=''>{tab.name}</span>
                             </TabsTrigger>
                         ))}
                     </TabsList>
