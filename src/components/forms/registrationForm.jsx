@@ -24,20 +24,20 @@ export function RegistrationForm() {
             <div className='md:grid-cols-2 grid-cols grid gap-3'>
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="date">Date</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="date" />
+                    <Input name="date" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="date" />
                 </div>
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="hospitalNumber">Hospital Number</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="number" id="hospitalNumber" />
+                    <Input name="hospitalNumber" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="number" id="hospitalNumber" />
                 </div>
 
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="firstName">First Name</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="firstName" />
+                    <Input name="firstName" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="firstName" />
                 </div>
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="otherNames">Other Names</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="otherNames" />
+                    <Input name="otherNames" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="otherNames" />
                 </div>
             </div>
         </div>
@@ -52,8 +52,8 @@ export function ContactInformationForm() {
                 <div className='md:grid-cols-4 grid-cols grid gap-3'>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="sex">Sex</Label>
-                        <Select className="">
-                            <SelectTrigger className="w-full border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]">
+                        <Select>
+                            <SelectTrigger name="sex" className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]">
                                 <SelectValue placeholder="Select a Sex" />
                             </SelectTrigger>
                             <SelectContent>
@@ -66,31 +66,30 @@ export function ContactInformationForm() {
                         </Select>
                     </div>
                     <div className="form-group">
-                        <Label className="mb-2" htmlFor="maritalStatus" >Marital Status</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="maritalStatus" placeholder="eg. single, married" />
+                        <Label className="mb-2" htmlFor="maritalStatus">Marital Status</Label>
+                        <Input name="maritalStatus" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="maritalStatus" placeholder="eg. single, married" />
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="dateOfBirth">Date of Birth</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="date" />
+                        <Input name="dateOfBirth" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="date" />
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="phoneNumber">Phone Number</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6429]" type="number" id="phoneNumber" placeholder="eg. 0701234567" />
+                        <Input name="phoneNumber" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]" type="number" id="phoneNumber" placeholder="eg. 0701234567" />
                     </div>
                 </div>
 
-
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="address">Address</Label>
-                    <Textarea className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" placeholder="Type address here" />
+                    <Textarea name="address" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" placeholder="Type address here" />
                 </div>
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="occupation">Occupation</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="occupation" placeholder="Type occupation here" />
+                    <Input name="occupation" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="occupation" placeholder="Type occupation here" />
                 </div>
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="placeOfWorkAddress">Address of Place of Work</Label>
-                    <Textarea className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" placeholder="Type place of work address" />
+                    <Textarea name="placeOfWorkAddress" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" placeholder="Type place of work address" />
                 </div>
             </div>
         </div>
@@ -103,22 +102,20 @@ export function DemographicForm() {
         <div className='grid grid-cols-2 gap-3 mt-3'>
             <div className="form-group">
                 <Label className="mb-2" htmlFor="religion">Religion</Label>
-                <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="religion" placeholder="muslim" />
+                <Input name="religion" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="religion" placeholder="muslim" />
             </div>
             <div className="form-group">
                 <Label className="mb-2" htmlFor="nationality">Nationality</Label>
-                <Select className="">
-                    <SelectTrigger className="w-full border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]">
+                <Select>
+                    <SelectTrigger name="nationality" className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]">
                         <SelectValue placeholder="Select the nationality" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
                             <SelectLabel>Select</SelectLabel>
-                            {
-                                nationalities.map((nationality, index) => (
-                                    <SelectItem key={index} value={nationality}>{nationality}</SelectItem>
-                                ))
-                            }
+                            {nationalities.map((nationality, index) => (
+                                <SelectItem key={index} value={nationality}>{nationality}</SelectItem>
+                            ))}
                         </SelectGroup>
                     </SelectContent>
                 </Select>
@@ -135,20 +132,20 @@ export function NextOfKinForm() {
                 <div className='grid grid-cols-3 gap-3'>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="nextOfKin">Next of Kin</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="nextOfKin" />
+                        <Input name="nextOfKin" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="nextOfKin" />
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="relationship">Relationship</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="relationship" />
+                        <Input name="relationship" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="text" id="relationship" />
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="nextOfKinPhoneNumber">Next of Kin Phone Number</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="number" id="nextOfKinPhoneNumber" />
+                        <Input name="nextOfKinPhoneNumber" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" type="number" id="nextOfKinPhoneNumber" />
                     </div>
                 </div>
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="addressOfNextOfKin">Address of Next of Kin</Label>
-                    <Textarea className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" placeholder="Type address of next of kin" id="addressOfNextOfKin" />
+                    <Textarea name="addressOfNextOfKin" className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6465]" placeholder="Type address of next of kin" id="addressOfNextOfKin" />
                 </div>
             </div>
         </div>
@@ -163,6 +160,7 @@ export function MedicalHistoryForm() {
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="pastMedicalHistory">Past Medical History</Label>
                     <Textarea
+                        name="pastMedicalHistory"
                         id="pastMedicalHistory"
                         placeholder="Enter past medical history"
                     />
@@ -170,6 +168,7 @@ export function MedicalHistoryForm() {
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="pastSurgicalHistory">Past Surgical History</Label>
                     <Textarea
+                        name="pastSurgicalHistory"
                         id="pastSurgicalHistory"
                         placeholder="Enter past surgical history"
                     />
@@ -177,6 +176,7 @@ export function MedicalHistoryForm() {
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="familyHistory">Family History</Label>
                     <Textarea
+                        name="familyHistory"
                         id="familyHistory"
                         placeholder="Enter family history"
                     />
@@ -184,6 +184,7 @@ export function MedicalHistoryForm() {
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="socialHistory">Social History</Label>
                     <Textarea
+                        name="socialHistory"
                         id="socialHistory"
                         placeholder="Enter social history"
                     />
@@ -191,6 +192,7 @@ export function MedicalHistoryForm() {
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="drugHistory">Drug History</Label>
                     <Textarea
+                        name="drugHistory"
                         id="drugHistory"
                         placeholder="Enter drug history"
                     />
@@ -206,6 +208,7 @@ export function Allergies() {
             <div className="form-group">
                 <Label className="mb-2" htmlFor="allergies">Any Allergies?</Label>
                 <Textarea
+                    name="allergies"
                     id="allergies"
                     placeholder="List any allergies"
                 />
@@ -213,6 +216,7 @@ export function Allergies() {
             <div className="form-group mt-3">
                 <Label className="mb-2" htmlFor="dietaryRestrictions">Any Dietary Restrictions</Label>
                 <Textarea
+                    name="dietaryRestrictions"
                     id="dietaryRestrictions"
                     placeholder="List any dietary restrictions"
                 />
@@ -220,6 +224,7 @@ export function Allergies() {
             <div className="form-group mt-3">
                 <Label className="mb-2" htmlFor="dietAllergies">Specify Diet Allergies to Certain Drugs</Label>
                 <Textarea
+                    name="dietAllergies"
                     id="dietAllergies"
                     placeholder="Specify diet-related drug allergies"
                 />
@@ -227,7 +232,6 @@ export function Allergies() {
         </div>
     )
 }
-
 export const RegistrationFormList = [
     RegistrationForm,
     ContactInformationForm,

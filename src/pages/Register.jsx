@@ -78,9 +78,10 @@ export default function Register() {
                     }
                     {
                         !(tab >= tabList.length - 1) &&
-                        (<Button onClick={handleNextTab} className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><ChevronRight className="size-4" /> <span>Next</span></Button>)
+                        (<Button onClick={handleNextTab} className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><ChevronRight className="size-4" /> <span>Next</span></Button>) ||
+                        (<Button type="submit" className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><Save className="size-4" /> <span>Save changes</span></Button>)
                     }
-                    <Button type="submit" className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><Save className="size-4" /> <span>Save changes</span></Button>
+
 
                 </div>
             </form>
