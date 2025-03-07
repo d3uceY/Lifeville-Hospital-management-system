@@ -1,102 +1,97 @@
-import React from 'react'
-import { RegistrationFormList } from '../components/forms/registrationForm'
-import { Button } from "@/components/ui/button"
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-} from "@/components/ui/tabs"
-
+} from "@/components/ui/tabs";
+import { formTabData, tabList } from '../components/forms/data/RegistrationFormData';
 
 export default function Register() {
+    const [currentTabValue, setCurrentTabValue] = useState(tabList[0].value);
+    const currentIndex = tabList.findIndex(tab => tab.value === currentTabValue);
 
-    const [RegistrationForm,
-        ContactInformationForm,
-        DemographicForm,
-        NextOfKinForm,
-        MedicalHistoryForm,
-        Allergies] = RegistrationFormList
-
-    const formTabData = [
-        {
-            component: RegistrationForm,
-            title: "Basic Information",
-            cardDescription: "Enter basic registration details such as date, hospital number, and full name."
-        },
-        {
-            component: [ContactInformationForm, DemographicForm],
-            title: "Contact & Demographic Details",
-            cardDescription: "Provide gender, marital status, date of birth, phone number, address, occupation, and workplace address."
-        },
-        {
-            component: NextOfKinForm,
-            title: "Next of Kin / Emergency Contact",
-            cardDescription: "Enter details for your emergency contact including name, relationship, address, and phone number."
-        },
-        {
-            component: MedicalHistoryForm,
-            title: "Medical History",
-            cardDescription: "Record your past medical, surgical, family, social, and drug history."
-        },
-        {
-            component: Allergies,
-            title: "Allergies & Dietary Restrictions",
-            cardDescription: "Specify any allergies and dietary restrictions, including details on drug or food allergies."
+    const handleNext = () => {
+        if (currentIndex < tabList.length - 1) {
+            setCurrentTabValue(tabList[currentIndex + 1].value);
         }
-    ];
+    };
 
-    const tabList = [
-        { value: "basic-info", name: "Basic Information" },
-        { value: "contact", name: "Contact & Demographic Details" },
-        { value: "kin", name: "Next of Kin / Emergency Contact" },
-        { value: "medical", name: "Medical History" },
-        { value: "allergies", name: "Allergies & Dietary Restrictions" }
+    const handlePrevious = () => {
+        if (currentIndex > 0) {
+            setCurrentTabValue(tabList[currentIndex - 1].value);
+        }
+    };
 
-    ];
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission here
+        console.log('Form submitted');
+    };
 
     return (
-        <div>
-            <Tabs defaultValue="basic-info" className="">
-                <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full !h-fit gap-1">
+        <div className="p-4">
+            <form onSubmit={handleSubmit}>
+                <Tabs value={currentTabValue} onValueChange={setCurrentTabValue}>
+                    <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full h-fit gap-1 mb-4">
+                        {tabList.map((tab, index) => (
+                            <TabsTrigger 
+                                key={tab.value} 
+                                value={tab.value}
+                                className="flex justify-center items-center p-2"
+                            >
+                                <span className='text-[#268A63] mr-1'>{index + 1}.</span>
+                                <span className="truncate">{tab.name}</span>
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
 
-                    {tabList.map((tab, index) => (
-                        <TabsTrigger key={tab.value} value={tab.value} className="flex justify-center items-center">
-                            <span className='text-[#268A63] '>{index + 1}.</span>  <span>{tab.name}</span>
-                        </TabsTrigger>
-                    ))}
-                </TabsList>
-                {
-                    formTabData.map((tab, index) => (
-                        <TabsContent key={index} value={tabList[index].value} className="!w-full">
-                            <Card className=" w-full">
-                                <CardHeader className="mb-5">
+                    {formTabData.map((tab, index) => (
+                        <TabsContent key={tabList[index].value} value={tabList[index].value}>
+                            <Card>
+                                <CardHeader>
                                     <CardTitle>{tab.title}</CardTitle>
-                                    <CardDescription>
-                                        {tab.cardDescription}
-                                    </CardDescription>
+                                    <CardDescription>{tab.cardDescription}</CardDescription>
                                 </CardHeader>
-                                <CardContent className="space-y-2">
+                                <CardContent className="space-y-4">
                                     {Array.isArray(tab.component)
-                                        ? tab.component.map((component, idx) => React.createElement(component, { key: idx }))
-                                        : React.createElement(tab.component)}
+                                        ? tab.component.map((Component, idx) => (
+                                            <Component key={idx} />
+                                        ))
+                                        : <tab.component />}
                                 </CardContent>
-                                <CardFooter>
-                                    <Button>Save changes</Button>
-                                </CardFooter>
                             </Card>
                         </TabsContent>
-                    ))
-                }
-            </Tabs>
+                    ))}
+                </Tabs>
+
+                <div className="mt-4 flex gap-2 justify-end">
+                    {currentIndex > 0 && (
+                        <Button 
+                            type="button"
+                            onClick={handlePrevious}
+                            variant="outline"
+                        >
+                            Previous
+                        </Button>
+                    )}
+                    {currentIndex < tabList.length - 1 ? (
+                        <Button type="button" onClick={handleNext}>
+                            Next
+                        </Button>
+                    ) : (
+                        <Button type="submit">Submit</Button>
+                    )}
+                </div>
+            </form>
         </div>
-    )
+    );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea"
+import { nationalities } from './data/RegistrationFormData';
 
 import {
     Select,
@@ -19,7 +20,7 @@ import {
 // Basic Information Section
 export function RegistrationForm() {
     return (
-        <form>
+        <div>
             <div className='md:grid-cols-2 grid-cols grid gap-3'>
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="date">Date</Label>
@@ -39,14 +40,14 @@ export function RegistrationForm() {
                     <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="otherNames" />
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 
 // Contact Information Section
 export function ContactInformationForm() {
     return (
-        <form>
+        <div>
             <div>
                 <div className='md:grid-cols-4 grid-cols grid gap-3'>
                     <div className="form-group">
@@ -66,7 +67,7 @@ export function ContactInformationForm() {
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="maritalStatus" >Marital Status</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="maritalStatus" placeholder="eg. single, married"/>
+                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="maritalStatus" placeholder="eg. single, married" />
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="dateOfBirth">Date of Birth</Label>
@@ -74,7 +75,7 @@ export function ContactInformationForm() {
                     </div>
                     <div className="form-group">
                         <Label className="mb-2" htmlFor="phoneNumber">Phone Number</Label>
-                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6429]" type="number" id="phoneNumber" placeholder="eg. 0701234567"/>
+                        <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6429]" type="number" id="phoneNumber" placeholder="eg. 0701234567" />
                     </div>
                 </div>
 
@@ -85,14 +86,14 @@ export function ContactInformationForm() {
                 </div>
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="occupation">Occupation</Label>
-                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="occupation" placeholder="Type occupation here"/>
+                    <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="occupation" placeholder="Type occupation here" />
                 </div>
                 <div className="form-group mt-3">
                     <Label className="mb-2" htmlFor="placeOfWorkAddress">Address of Place of Work</Label>
                     <Textarea className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" placeholder="Type place of work address" />
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 
@@ -106,7 +107,21 @@ export function DemographicForm() {
             </div>
             <div className="form-group">
                 <Label className="mb-2" htmlFor="nationality">Nationality</Label>
-                <Input className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" type="text" id="nationality" placeholder="Nigeria" />
+                <Select className="">
+                    <SelectTrigger className="w-full border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]">
+                        <SelectValue placeholder="Select the nationality" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectLabel>Select</SelectLabel>
+                            {
+                                nationalities.map((nationality, index) => (
+                                    <SelectItem key={index} value={nationality}>{nationality}</SelectItem>
+                                ))
+                            }
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
             </div>
         </div>
     );
@@ -115,7 +130,7 @@ export function DemographicForm() {
 // Next of Kin Section
 export function NextOfKinForm() {
     return (
-        <form>
+        <div>
             <div>
                 <div className='grid grid-cols-3 gap-3'>
                     <div className="form-group">
@@ -136,14 +151,14 @@ export function NextOfKinForm() {
                     <Textarea className="border border-[#268a6461] rounded-sm  focus-visible:ring-[#268a6465]" placeholder="Type address of next of kin" id="addressOfNextOfKin" />
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 
 // Medical History Section
 export function MedicalHistoryForm() {
     return (
-        <form>
+        <div>
             <div>
                 <div className="form-group">
                     <Label className="mb-2" htmlFor="pastMedicalHistory">Past Medical History</Label>
@@ -181,13 +196,13 @@ export function MedicalHistoryForm() {
                     />
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
 
 export function Allergies() {
     return (
-        <form action="">
+        <div action="">
             <div className="form-group">
                 <Label className="mb-2" htmlFor="allergies">Any Allergies?</Label>
                 <Textarea
@@ -209,7 +224,7 @@ export function Allergies() {
                     placeholder="Specify diet-related drug allergies"
                 />
             </div>
-        </form>
+        </div>
     )
 }
 
