@@ -1,97 +1,89 @@
-import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
+import React from 'react'
+import { formTabData, tabList } from '../components/forms/data/RegistrationFormData'
+import { Save, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card"
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
-} from "@/components/ui/tabs";
-import { formTabData, tabList } from '../components/forms/data/RegistrationFormData';
+} from "@/components/ui/tabs"
+import { useState } from 'react'
 
 export default function Register() {
-    const [currentTabValue, setCurrentTabValue] = useState(tabList[0].value);
-    const currentIndex = tabList.findIndex(tab => tab.value === currentTabValue);
 
-    const handleNext = () => {
-        if (currentIndex < tabList.length - 1) {
-            setCurrentTabValue(tabList[currentIndex + 1].value);
-        }
-    };
+    const [tab, setTab] = useState(0)
 
-    const handlePrevious = () => {
-        if (currentIndex > 0) {
-            setCurrentTabValue(tabList[currentIndex - 1].value);
-        }
-    };
+    const handleNextTab = (e) => {
+        e.preventDefault()
+        setTab((prev) => prev + 1)
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission here
-        console.log('Form submitted');
-    };
+    const handlePrevTab = (e) => {
+        e.preventDefault()
+        setTab((prev) => prev - 1)
+    }
+
+    const tabsTrigger = (index) => {
+        setTab(index)
+    }
 
     return (
-        <div className="p-4">
-            <form onSubmit={handleSubmit}>
-                <Tabs value={currentTabValue} onValueChange={setCurrentTabValue}>
-                    <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full h-fit gap-1 mb-4">
+        <div>
+            <form className=''>
+                <Tabs defaultValue={tabList[0].value} value={tabList[tab].value} className="">
+                    <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full !h-fit gap-1 bg-[#e8f9fd7c]">
                         {tabList.map((tab, index) => (
-                            <TabsTrigger 
-                                key={tab.value} 
-                                value={tab.value}
-                                className="flex justify-center items-center p-2"
-                            >
-                                <span className='text-[#268A63] mr-1'>{index + 1}.</span>
-                                <span className="truncate">{tab.name}</span>
+                            <TabsTrigger onClick={() => tabsTrigger(index)} key={tab.value} value={tab.value} className="flex justify-center items-center">
+                                <span className='text-[#268A63] '>{index + 1}.</span>  <span>{tab.name}</span>
                             </TabsTrigger>
                         ))}
                     </TabsList>
-
-                    {formTabData.map((tab, index) => (
-                        <TabsContent key={tabList[index].value} value={tabList[index].value}>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>{tab.title}</CardTitle>
-                                    <CardDescription>{tab.cardDescription}</CardDescription>
-                                </CardHeader>
-                                <CardContent className="space-y-4">
-                                    {Array.isArray(tab.component)
-                                        ? tab.component.map((Component, idx) => (
-                                            <Component key={idx} />
-                                        ))
-                                        : <tab.component />}
-                                </CardContent>
-                            </Card>
-                        </TabsContent>
-                    ))}
+                    {
+                        formTabData.map((tab, index) => (
+                            <TabsContent key={index} value={tabList[index].value} className="!w-full">
+                                <Card className=" w-full">
+                                    <CardHeader className="mb-5">
+                                        <CardTitle>{tab.title}</CardTitle>
+                                        <CardDescription>
+                                            {tab.cardDescription}
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="space-y-2">
+                                        {
+                                            //just in case the component key is an array of components
+                                            //map components into the dom or else justr render the fucking component
+                                            Array.isArray(tab.component)
+                                                ? tab.component.map((component, idx) => React.createElement(component, { key: idx }))
+                                                : React.createElement(tab.component)
+                                        }
+                                    </CardContent>
+                                </Card>
+                            </TabsContent>
+                        ))
+                    }
                 </Tabs>
+                <div className="flex gap-2 mt-6 w-fit ml-auto">
+                    {
+                        (tab > 0) &&
+                        <Button onClick={handlePrevTab} type="button" variant="outline" className="border-[#268A63] text-[#268A63] hover:text-[#268A63] cursor-pointer flex items-center"><ChevronLeft className="size-4" /> <span>Previous</span></Button>
+                    }
+                    {
+                        !(tab >= tabList.length - 1) &&
+                        (<Button onClick={handleNextTab} className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><ChevronRight className="size-4" /> <span>Next</span></Button>)
+                    }
+                    <Button type="submit" className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><Save className="size-4" /> <span>Save changes</span></Button>
 
-                <div className="mt-4 flex gap-2 justify-end">
-                    {currentIndex > 0 && (
-                        <Button 
-                            type="button"
-                            onClick={handlePrevious}
-                            variant="outline"
-                        >
-                            Previous
-                        </Button>
-                    )}
-                    {currentIndex < tabList.length - 1 ? (
-                        <Button type="button" onClick={handleNext}>
-                            Next
-                        </Button>
-                    ) : (
-                        <Button type="submit">Submit</Button>
-                    )}
                 </div>
             </form>
         </div>
-    );
+    )
 }
