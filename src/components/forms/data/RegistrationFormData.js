@@ -47,9 +47,9 @@ export const formTabData = [
 //table header data
 export const tabList = [
   { value: "basic-info", name: "Basic Information" },
-  { value: "contact", name: "Contact & Demographic Details" },
+  {   value: "contact", name: "Contact & Demographic Details" },
   { value: "kin", name: "Next of Kin / Emergency Contact" },
-  { value: "medical", name: "Medical History" },
+  { value:  "medical", name: "Medical History" },
   { value: "allergies", name: "Allergies & Dietary Restrictions" },
 ];
 

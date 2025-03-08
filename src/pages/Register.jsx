@@ -36,9 +36,13 @@ export default function Register() {
         setTab(index)
     }
 
+    const handleSubmit = () => {
+        console.log("formsubmitted")
+    }
+
     return (
         <div>
-            <form className=''>
+            <form className='' onSubmit={handleSubmit}>
                 <Tabs defaultValue={tabList[0].value} value={tabList[tab].value} className="">
                     <TabsList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full !h-fit gap-1 bg-[#268a6485]">
                         {tabList.map((tab, index) => (
@@ -81,8 +85,6 @@ export default function Register() {
                         (<Button onClick={handleNextTab} className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><ChevronRight className="size-4" /> <span>Next</span></Button>) ||
                         (<Button type="submit" className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><Save className="size-4" /> <span>Save changes</span></Button>)
                     }
-
-
                 </div>
             </form>
         </div>
