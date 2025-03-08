@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 
+//api
+import { registerPatient } from '../providers/ApiProviders';
+
 //form data
 import {
     formTabData,
@@ -30,7 +33,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 //z from zod
-import { z } from "zod"
+// import { z } from "zod"
 
 import {
     useForm,
@@ -41,8 +44,6 @@ export default function Register() {
 
 
     const [tab, setTab] = useState(0);
-
-
 
     const handleNextTab = (e) => {
         e.preventDefault()
@@ -58,8 +59,13 @@ export default function Register() {
         setTab(index)
     }
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            const response = await registerPatient(data);
+            console.log(response.data);
+        } catch (err) {
+            console.error(response, err)
+        }
     };
 
 
@@ -105,8 +111,8 @@ export default function Register() {
             dietAllergies: ''
         }
     });
-
     const { handleSubmit } = methods;
+
     return (
         <div>
             <FormProvider {...methods}>
