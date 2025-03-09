@@ -69,14 +69,15 @@ export default function Register() {
         try {
             const response = await registerPatient(data);
             console.log(response.data);
+            console.log(data)
         } catch (err) {
             console.error(response, err)
         }
     };
 
 
-    //zod schema for form validation
     const schema = z.object({
+        // Required Fields
         date: z.string().nonempty({ message: "Date is required" }),
         hospitalNumber: z.string().nonempty({ message: "Hospital number is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
@@ -84,15 +85,30 @@ export default function Register() {
         otherNames: z.string().nonempty({ message: "Other names are required" }),
         sex: z.string().nonempty({ message: "Sex is required" }),
         dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
-        phoneNumber: z.string().nonempty({ message: "Phone number is required" }),
+        phoneNumber: z.string().nonempty({ message: "Phone number is required" })
+          .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         address: z.string().nonempty({ message: "Address is required" }),
         nationality: z.string().nonempty({ message: "Nationality is required" }),
         nextOfKin: z.string().nonempty({ message: "Next of kin is required" }),
         relationship: z.string().nonempty({ message: "Relationship is required" }),
-        nextOfKinPhoneNumber: z.string().nonempty({ message: "Next of kin phone number is required" }),
+        nextOfKinPhoneNumber: z.string().nonempty({ message: "Next of kin phone number is required" })
+          .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
-        // add additional fields as needed...
-    });
+      
+        // Optional Fields
+        maritalStatus: z.string().optional(),
+        occupation: z.string().optional(),
+        placeOfWorkAddress: z.string().optional(),
+        religion: z.string().optional(),
+        pastMedicalHistory: z.string().optional(),
+        pastSurgicalHistory: z.string().optional(),
+        familyHistory: z.string().optional(),
+        socialHistory: z.string().optional(),
+        drugHistory: z.string().optional(),
+        allergies: z.string().optional(),
+        dietaryRestrictions: z.string().optional(),
+        dietAllergies: z.string().optional(),
+      });
 
     //form methods that are going to be parsed throughout the form tree
     const methods = useForm({

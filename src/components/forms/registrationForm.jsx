@@ -131,12 +131,11 @@ export function ContactInformationForm() {
 
         <div className="form-group">
           <Label className="mb-3" htmlFor="maritalStatus">
-            Marital Status <Asterisk color="red" size={10} />
+            Marital Status
           </Label>
           <Controller
             name="maritalStatus"
             control={useFormContext().controll}
-            rules={{ required: "Marital Status is required" }}
             render={({ field }) => (
               <Select
                 onValueChange={(value) => field.onChange(value)}
@@ -269,7 +268,7 @@ export function DemographicForm() {
       </div>
 
       <div className="form-group">
-        <Label className="mb-3" htmlFor="nationality">Nationality</Label>
+        <Label className="mb-3" htmlFor="nationality">Nationality <Asterisk color="red" size={10} /></Label>
         <Controller
           name="nationality"
           control={useFormContext().control}
