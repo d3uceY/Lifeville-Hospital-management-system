@@ -142,6 +142,7 @@ export default function Register() {
 
     //this is destructured from the models variable
     const { handleSubmit, trigger, formState: { errors, isValid } } = methods;
+    console.log(isValid)
     return (
         <div>
             <FormProvider {...methods}>

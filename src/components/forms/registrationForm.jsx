@@ -130,14 +130,38 @@ export function ContactInformationForm() {
         </div>
 
         <div className="form-group">
-          <Label className="mb-3" htmlFor="maritalStatus">Marital Status</Label>
-          <Input
-            id="maritalStatus"
-            type="text"
-            placeholder="eg. single, married"
-            className="border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
-            {...register("maritalStatus")}
+          <Label className="mb-3" htmlFor="maritalStatus">
+            Marital Status <Asterisk color="red" size={10} />
+          </Label>
+          <Controller
+            name="maritalStatus"
+            control={useFormContext().controll}
+            rules={{ required: "Marital Status is required" }}
+            render={({ field }) => (
+              <Select
+                onValueChange={(value) => field.onChange(value)}
+                value={field.value || ""}
+              >
+                <SelectTrigger className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
+                  <SelectValue placeholder="Select marital status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Marital Status</SelectLabel>
+                    <SelectItem value="single">Single</SelectItem>
+                    <SelectItem value="married">Married</SelectItem>
+                    <SelectItem value="divorced">Divorced</SelectItem>
+                    <SelectItem value="widowed">Widowed</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            )}
           />
+          {errors.maritalStatus && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.maritalStatus.message}
+            </p>
+          )}
         </div>
 
         <div className="form-group">
@@ -212,7 +236,7 @@ export function ContactInformationForm() {
 
 // Demographic Information Section
 export function DemographicForm() {
-  const { register, setValue, trigger, watch, formState: { errors } } = useFormContext();
+  const { formState: { errors } } = useFormContext();
 
   return (
     <div className="grid grid-cols-2 gap-3 mt-3">
