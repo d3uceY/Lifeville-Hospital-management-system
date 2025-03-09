@@ -108,15 +108,15 @@ const data = {
       items: [
         {
           title: "Registration",
-          url: "#",
+          url: "/register",
         },
         {
           title: "Patients",
-          url: "#",
+          url: "/patients",
         },
         {
           title: "Patient History",
-          url: "#",
+          url: "/history",
         },
       ],
     },

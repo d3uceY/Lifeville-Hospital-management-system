@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronRight } from "lucide-react";
-
+import { Link } from "react-router-dom";
 import {
   Collapsible,
   CollapsibleContent,
@@ -45,11 +45,11 @@ export function NavClinical({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild className="hover:!bg-[#b2d2c63f]">
-                        <a href={subItem.url}>
+                        <Link to={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
-                    </SidebarMenuSubItem> 
+                    </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>
               </CollapsibleContent>

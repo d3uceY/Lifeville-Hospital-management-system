@@ -69,7 +69,6 @@ export default function Register() {
         try {
             const response = await registerPatient(data);
             console.log(response.data);
-            console.log(data)
         } catch (err) {
             console.error(response, err)
         }
@@ -86,15 +85,15 @@ export default function Register() {
         sex: z.string().nonempty({ message: "Sex is required" }),
         dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
         phoneNumber: z.string().nonempty({ message: "Phone number is required" })
-          .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         address: z.string().nonempty({ message: "Address is required" }),
         nationality: z.string().nonempty({ message: "Nationality is required" }),
         nextOfKin: z.string().nonempty({ message: "Next of kin is required" }),
         relationship: z.string().nonempty({ message: "Relationship is required" }),
         nextOfKinPhoneNumber: z.string().nonempty({ message: "Next of kin phone number is required" })
-          .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
-      
+
         // Optional Fields
         maritalStatus: z.string().optional(),
         occupation: z.string().optional(),
@@ -108,7 +107,7 @@ export default function Register() {
         allergies: z.string().optional(),
         dietaryRestrictions: z.string().optional(),
         dietAllergies: z.string().optional(),
-      });
+    });
 
     //form methods that are going to be parsed throughout the form tree
     const methods = useForm({
