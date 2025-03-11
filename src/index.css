@@ -130,3 +130,7 @@
 .green-button-outline {
   @apply border-[#268A63] text-[#268A63] hover:text-[#268A63] cursor-pointer flex items-center;
 }
+
+.checkbox {
+  @apply !bg-[#b2d2c68a] data-[state=checked]:!bg-[#268A63] border-none;
+}

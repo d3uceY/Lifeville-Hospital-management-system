@@ -54,6 +54,7 @@ const columns = [
         checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
+        className="checkbox"
       />
     ),
     cell: ({ row }) => (
@@ -61,6 +62,7 @@ const columns = [
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
+        className="checkbox"
       />
     ),
     enableSorting: false,
@@ -208,6 +210,8 @@ export default function Patients() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   })
 
+
+
   //runs api on every render to get patients data
   useEffect(() => {
     const getPatients = async () => {
@@ -226,18 +230,22 @@ export default function Patients() {
   }, [])
 
 
+  //looader
   if (tableLoading) return (
     <div className="p-4">
-      {/* The outer container uses animate-pulse to create the loading shimmer effect */}
       <div className="animate-pulse">
-        {/* Optional heading placeholder */}
-        <div className="mb-4 h-6 w-1/3 bg-gray-300 rounded"></div>
+        <div className="flex items-center gap-3">
+          {
+            Array.from({ length: 4 }).map((_, index) => (
+              <div className="mb-4 h-6 w-1/3 bg-gray-300 rounded"></div>
+            ))
+          }
+        </div>
 
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
-                {/* Render four header placeholders */}
                 {["", "", "", ""].map((_, idx) => (
                   <th key={idx} className="px-6 py-3 bg-gray-50">
                     <div className="h-4 bg-gray-300 rounded w-20"></div>
@@ -246,8 +254,7 @@ export default function Patients() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {/* Render five rows of cells as placeholders */}
-              {Array.from({ length: 5 }).map((_, rowIndex) => (
+              {Array.from({ length: 10 }).map((_, rowIndex) => (
                 <tr key={rowIndex}>
                   {Array.from({ length: 4 }).map((_, cellIndex) => (
                     <td key={cellIndex} className="px-6 py-4 whitespace-nowrap">
@@ -266,39 +273,43 @@ export default function Patients() {
   return (
     <div className="w-full">
       <div className="flex items-center py-4 gap-3">
-        <Input
-          placeholder="Filter surname..."
-          value={table.getColumn("surname")?.getFilterValue() || ""}
-          onChange={(event) => table.getColumn("surname")?.setFilterValue(event.target.value)}
-          className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
-        />
-        <Input
-          placeholder="Filter first_name..."
-          value={table.getColumn("first_name")?.getFilterValue() || ""}
-          onChange={(event) => table.getColumn("first_name")?.setFilterValue(event.target.value)}
-          className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
-        />
-        <Select
-          onValueChange={(value) => table.getColumn("sex")?.setFilterValue(value)}
-          value={table.getColumn("sex")?.getFilterValue() || ""}
-        >
-          <SelectTrigger className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
-            <SelectValue placeholder="filter by sex" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Select</SelectLabel>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-        <Input
-          placeholder="Filter phone number.."
-          value={table.getColumn("phone_number")?.getFilterValue() || ""}
-          onChange={(event) => table.getColumn("phone_number")?.setFilterValue(event.target.value)}
-          className="max-w-sm "
-        />
+        {/* filters */}
+        <div className="grid xl:grid-cols-4 md:grid-cols-3   w-full gap-3">
+          <Input
+            placeholder="Filter surname..."
+            value={table.getColumn("surname")?.getFilterValue() || ""}
+            onChange={(event) => table.getColumn("surname")?.setFilterValue(event.target.value)}
+            className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
+          />
+          <Input
+            placeholder="Filter first name..."
+            value={table.getColumn("first_name")?.getFilterValue() || ""}
+            onChange={(event) => table.getColumn("first_name")?.setFilterValue(event.target.value)}
+            className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
+          />
+          <Select
+            onValueChange={(value) => table.getColumn("sex")?.setFilterValue(value)}
+            value={table.getColumn("sex")?.getFilterValue() || ""}
+          >
+            <SelectTrigger className="w-full max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
+              <SelectValue placeholder="filter by sex" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select</SelectLabel>
+                <SelectItem  className="hover:!bg-[#b2d2c63f]">All</SelectItem>
+                <SelectItem value="male" className="hover:!bg-[#b2d2c63f]">Male</SelectItem>
+                <SelectItem value="female" className="hover:!bg-[#b2d2c63f]">Female</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Input
+            placeholder="Filter phone number.."
+            value={table.getColumn("phone_number")?.getFilterValue() || ""}
+            onChange={(event) => table.getColumn("phone_number")?.setFilterValue(event.target.value)}
+            className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
+          />
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -321,7 +332,7 @@ export default function Patients() {
       </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="hover:!bg-[#b2d2c63f]">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
@@ -335,7 +346,7 @@ export default function Patients() {
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map(row => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow className="hover:!bg-[#b2d2c63f]" key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
