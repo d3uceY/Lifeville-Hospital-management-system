@@ -197,12 +197,12 @@ export default function Register() {
                     <div className="flex gap-2 mt-6 w-fit ml-auto">
                         {
                             (tab > 0) &&
-                            <Button onClick={handlePrevTab} type="button" variant="outline" className="border-[#268A63] text-[#268A63] hover:text-[#268A63] cursor-pointer flex items-center"><ChevronLeft className="size-4" /> <span>Previous</span></Button>
+                            <Button onClick={handlePrevTab} type="button" variant="outline" className="green-button-outline"><ChevronLeft className="size-4" /> <span>Previous</span></Button>
                         }
                         {
                             !(tab >= tabList.length - 1) &&
-                            (<Button onClick={handleNextTab} className="bg-[#268A63] hover:bg-[#268a64e3] cursor-pointer flex items-center"><ChevronRight className="size-4" /> <span>Next</span></Button>) ||
-                            (<Button disabled={!isValid} type="submit" className="bg-[#268A63] hover:bg-[#268a64e3] disabled:text-muted disabled:bg-accent-foreground cursor-pointer flex items-center"><Save className="size-4" /> <span>Save changes</span></Button>)
+                            (<Button onClick={handleNextTab} className="green-button"><ChevronRight className="size-4" /> <span>Next</span></Button>) ||
+                            (<Button disabled={!isValid} type="submit" className="green-button"><Save className="size-4" /> <span>Save changes</span></Button>)
                         }
                     </div>
                 </form>

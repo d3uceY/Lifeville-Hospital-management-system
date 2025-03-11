@@ -352,14 +352,15 @@ export default function Patients() {
             )}
           </TableBody>
         </Table>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center justify-end space-x-2 py-4 px-3">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
-          <div className="space-x-2">
+          <div className="space-x-2 flex">
             <Button
-              variant="outline"
+              className="green-button"
+              // variant="outline"
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
@@ -367,7 +368,8 @@ export default function Patients() {
               Previous
             </Button>
             <Button
-              variant="outline"
+              className="green-button"
+              // variant="outline"
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}

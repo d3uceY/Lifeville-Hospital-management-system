@@ -122,3 +122,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.green-button {
+  @apply bg-[#268A63] hover:bg-[#268a64e3] disabled:text-muted disabled:bg-accent-foreground cursor-pointer flex items-center;
+}
+
+.green-button-outline {
+  @apply border-[#268A63] text-[#268A63] hover:text-[#268A63] cursor-pointer flex items-center;
+}
