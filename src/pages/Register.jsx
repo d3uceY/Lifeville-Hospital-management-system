@@ -45,11 +45,15 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
+import { toast, Toaster } from 'sonner';
+
 
 
 export default function Register() {
 
+
     const [tab, setTab] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleNextTab = async (e) => {
         e.preventDefault()
@@ -66,12 +70,23 @@ export default function Register() {
     }
 
     const onSubmit = async (data) => {
-        try {
-            const response = await registerPatient(data);
-            console.log(response.data);
-        } catch (err) {
-            console.error(response, err)
-        }
+        const promise = async () => {
+            try {
+                setIsSubmitting(true);
+                const response = await registerPatient(data);
+                return response.data; // Resolving the response data
+            } catch (err) {
+                throw err; // Throwing error to be caught by `toast.promise`
+            } finally {
+                setIsSubmitting(false);
+            }
+        };
+
+        toast.promise(promise(), {
+            loading: 'Registering patient...',
+            success: (data) => `${data.message}`, // Display success message from response
+            error: (err) => err.response?.data?.message || 'An error occurred', // Display error message
+        });
     };
 
 
@@ -155,7 +170,7 @@ export default function Register() {
         }
     });
 
-    //this is destructured from the models variable
+    //this is destructured from the methods variable
     const { handleSubmit, trigger, formState: { errors, isValid } } = methods;
     console.log(isValid)
     return (
@@ -202,8 +217,17 @@ export default function Register() {
                         {
                             !(tab >= tabList.length - 1) &&
                             (<Button onClick={handleNextTab} className="green-button"><ChevronRight className="size-4" /> <span>Next</span></Button>) ||
-                            (<Button disabled={!isValid} type="submit" className="green-button"><Save className="size-4" /> <span>Save changes</span></Button>)
+                            (<Button
+                                disabled={!isValid || isSubmitting}
+                                type="submit"
+                                className="green-button">
+                                <Save className="size-4" />
+                                <span>
+                                    Save changes
+                                </span>
+                            </Button>)
                         }
+                        <Toaster richColors />
                     </div>
                 </form>
             </FormProvider>

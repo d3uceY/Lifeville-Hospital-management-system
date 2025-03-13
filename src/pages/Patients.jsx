@@ -112,6 +112,12 @@ const columns = [
       </Button>
     ),
     cell: ({ row }) => <div className="lowercase">{row.getValue("sex")}</div>,
+
+    // Custom filter function that uses strict equality
+    filterFn: (row, columnId, filterValue) => {
+      if (!filterValue) return true; // If no filter is set, show all rows
+      return row.getValue(columnId) === filterValue;
+    },
   },
   {
     accessorKey: "date_of_birth",
@@ -151,15 +157,7 @@ const columns = [
     ),
     cell: ({ row }) => <div className="lowercase">{row.getValue("phone_number")}</div>,
   },
-  // {
-  //   accessorKey: "amount",
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue("amount"))
-  //     const formatted = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount)
-  //     return <div className="text-right font-medium">{formatted}</div>
-  //   },
-  // },
+
   {
     id: "actions",
     enableHiding: false,
@@ -189,6 +187,8 @@ const columns = [
 ]
 
 export default function Patients() {
+
+
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
@@ -237,7 +237,7 @@ export default function Patients() {
         <div className="flex items-center gap-3">
           {
             Array.from({ length: 4 }).map((_, index) => (
-              <div className="mb-4 h-6 w-1/3 bg-gray-300 rounded"></div>
+              <div key={index} className="mb-4 h-6 w-1/3 bg-gray-300 rounded"></div>
             ))
           }
         </div>
@@ -272,7 +272,7 @@ export default function Patients() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4 gap-3">
+      <div className="flex  py-4 gap-3">
         {/* filters */}
         <div className="grid xl:grid-cols-4 md:grid-cols-3   w-full gap-3">
           <Input
@@ -297,12 +297,18 @@ export default function Patients() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select</SelectLabel>
-                <SelectItem  className="hover:!bg-[#b2d2c63f]">All</SelectItem>
-                <SelectItem value="male" className="hover:!bg-[#b2d2c63f]">Male</SelectItem>
-                <SelectItem value="female" className="hover:!bg-[#b2d2c63f]">Female</SelectItem>
+                <SelectItem className="hover:!bg-[#b2d2c63f]">All</SelectItem>
+                <SelectItem value="Male" className="hover:!bg-[#b2d2c63f]">Male</SelectItem>
+                <SelectItem value="Female" className="hover:!bg-[#b2d2c63f]">Female</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
+          <Input
+            placeholder="Filter Hospital No..."
+            value={table.getColumn("hospital_number")?.getFilterValue() || ""}
+            onChange={(event) => table.getColumn("hospital_number")?.setFilterValue(event.target.value)}
+            className="max-w-sm border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]"
+          />
           <Input
             placeholder="Filter phone number.."
             value={table.getColumn("phone_number")?.getFilterValue() || ""}
