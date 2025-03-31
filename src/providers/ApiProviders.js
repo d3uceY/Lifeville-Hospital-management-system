@@ -20,7 +20,7 @@ export const getRegisteredPatients = async () => {
 
 
 
-//this is for vital signs
+//VITAL SIGNS API ENDPOINTS
 export const createVitalSign = async (vitalSignData) => {
   const response = await axios.post(
     "http://localhost:3000/api/vital-signs",
