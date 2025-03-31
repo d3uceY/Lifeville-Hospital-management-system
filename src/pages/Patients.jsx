@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -44,6 +44,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+
+import VitalSignsDialog from "../components/forms/vitalSignsDialog"
 
 
 const columns = [
@@ -162,7 +165,7 @@ const columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const hospitalNumber = row.original
+      const currentpatientData = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -173,12 +176,20 @@ const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(hospitalNumber.hospital_number)}>
+            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(currentpatientData.hospital_number)}>
               Copy Hospital Number
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View Patient Details</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem> <User2 className="" /> View Patient Profile</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <VitalSignsDialog patient={currentpatientData}>
+              <div>
+                <Activity
+                  className=""
+                />
+                Check Vital Signs
+              </div>
+            </VitalSignsDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -219,7 +230,7 @@ export default function Patients() {
         setTableLoading(true)
         const response = await getRegisteredPatients();
         setPatients(response)
-        console.log(response)
+        // console.log(response)
       } catch (err) {
         console.error(response, err)
       } finally {
