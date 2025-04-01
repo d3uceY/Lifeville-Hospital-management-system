@@ -172,7 +172,6 @@ export default function Register() {
 
     //this is destructured from the methods variable
     const { handleSubmit, formState: { isValid } } = methods;
-    console.log(isValid)
     return (
         <div>
             <FormProvider {...methods}>

@@ -12,7 +12,7 @@ export const usePatientData = () => {
 
 export function PatientContextProvider({ children }) {
 
-    const [patientData, setPatientData] = useState('')
+    const [patientData, setPatientData] = useState([])
     const [loading, setLoading] = useState(false)
 
     const getPatients = async () => {

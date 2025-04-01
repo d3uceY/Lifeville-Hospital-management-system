@@ -44,7 +44,6 @@ export default function VitalSignsDialog({ children, patient }) {
             date: new Date(),
         }
     })
-    console.log(patient)
     const onSubmit = async (data) => {
         try {
             // Merge the form data with the patient ID into one payload object
@@ -53,7 +52,6 @@ export default function VitalSignsDialog({ children, patient }) {
                 patientId: patient?.patient_id, // adding patientId into the body
             };
             const response = await createVitalSign(payload);
-            console.log(response); 
         } catch (error) {
             console.error(error);
         }
