@@ -15,6 +15,7 @@ import {
   ChartLegend,
   ChartLegendContent
 } from "@/components/ui/chart"
+import ChartSkeleton from "./chartSkeleton"
 
 // These configurations define labels and colors for your charts.
 const populationChartConfig = {
@@ -51,7 +52,7 @@ const genderPopulationChartConfig = {
     label: "Male",
     color: "#268A63",
   },
-  female: { 
+  female: {
     label: "Female",
     color: "#FE0B05",
   }
@@ -61,7 +62,17 @@ export default function DemographicCharts() {
   const { patientData, loading } = usePatientData()
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="grid grid-cols-1  lg:grid-cols-2 gap-4">
+        {
+          Array.from({ length: 2 }).map((_, i) => (
+            <div key={i}>
+              <ChartSkeleton />
+            </div>
+          ))
+        }
+      </div>
+    )
   }
 
   // Initialize counters for each age group and gender.
@@ -117,7 +128,7 @@ export default function DemographicCharts() {
   const populationChartData = Object.entries(ageGroups).map(([group, count]) => {
     // Match fill colors based on your config.
     let fill
-    switch(group) {
+    switch (group) {
       case "teenagers":
         fill = populationChartConfig.teenagers.color
         break
@@ -141,7 +152,7 @@ export default function DemographicCharts() {
 
   const genderPopulationChartData = Object.entries(genderCounts).map(([gender, count]) => {
     let fill
-    switch(gender) {
+    switch (gender) {
       case "male":
         fill = genderPopulationChartConfig.male.color
         break
