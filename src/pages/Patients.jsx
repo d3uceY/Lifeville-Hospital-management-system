@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { useEffect } from "react"
-//api function to get patients
-import { getRegisteredPatients } from "../providers/ApiProviders"
+
+//patients api context
+import { usePatientData } from "../providers/ApiContextProvider"
+
 import {
   flexRender,
   getCoreRowModel,
@@ -12,6 +13,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+
+//lucide react icons
 import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -198,17 +201,15 @@ const columns = [
 ]
 
 export default function Patients() {
-
+ const { patientData, loading} = usePatientData()
 
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
-  const [patients, setPatients] = React.useState([])
-  const [tableLoading, setTableLoading] = React.useState(true)
 
   const table = useReactTable({
-    data: patients,
+    data: patientData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -224,25 +225,9 @@ export default function Patients() {
 
 
   //runs api on every render to get patients data
-  useEffect(() => {
-    const getPatients = async () => {
-      try {
-        setTableLoading(true)
-        const response = await getRegisteredPatients();
-        setPatients(response)
-        // console.log(response)
-      } catch (err) {
-        console.error(response, err)
-      } finally {
-        setTableLoading(false)
-      }
-    }
-    getPatients()
-  }, [])
-
 
   //looader
-  if (tableLoading) return (
+  if (loading) return (
     <div className="p-4">
       <div className="animate-pulse">
         <div className="flex items-center gap-3">
