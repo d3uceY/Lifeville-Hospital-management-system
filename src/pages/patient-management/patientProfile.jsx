@@ -4,22 +4,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { nationalities } from '../../components/forms/data/RegistrationFormData';
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
+import PatientProfileSkeleton from './components/patientProfileSkeleton';
 
 export default function PatientProfile() {
     const [patient, setPatient] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
     const id = location.pathname.split('/').pop();
 
     useEffect(() => {
         const fetchPatient = async () => {
             try {
+                setIsLoading(true);
                 const response = await viewRegisteredPatient(id);
                 setPatient(response);
-                console.log(response);
             } catch (err) {
                 console.error(err);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -32,7 +35,9 @@ export default function PatientProfile() {
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
     };
-
+    if (isLoading) return (
+        <PatientProfileSkeleton />
+    )
     return (
         <div className="p-4">
             {/* Basic Information Section */}
