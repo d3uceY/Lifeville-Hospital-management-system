@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
 
 export default function PatientProfile() {
@@ -39,289 +40,497 @@ export default function PatientProfile() {
         <PatientProfileSkeleton />
     )
     return (
-        <div className="p-4">
+        <div className="container mx-auto py-8 px-4 max-w-5xl">
+            <div className="mb-8 border-l-4 border-[#106041] pl-4">
+                <h1 className="text-3xl font-bold text-[#106041]">
+                    {patient.first_name} {patient.surname}'s Profile
+                </h1>
+                <p className="text-muted-foreground mt-1">Hospital Number: {patient.hospital_number || "N/A"}</p>
+            </div>
+
             {/* Basic Information Section */}
-            <h2 className="text-xl font-semibold mb-2">Basic Information</h2>
-            <Separator className="my-4" />
-            <div className="md:grid-cols-2 grid gap-3">
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="date">Date:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="date"
-                        type="date"
-                        value={formatDate(patient.date)}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="hospitalNumber">Hospital Number:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="hospitalNumber"
-                        type="number"
-                        value={patient.hospital_number || 'N/A'}
-                        disabled
-                    />
-                </div>
-            </div>
-            <div className="grid grid-cols-3 gap-3 mt-4">
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="surname">Surname:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="surname"
-                        type="text"
-                        value={patient.surname || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="firstName">First Name:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="firstName"
-                        type="text"
-                        value={patient.first_name || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="otherNames">Other Names:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="otherNames"
-                        type="text"
-                        value={patient.other_names || 'N/A'}
-                        disabled
-                    />
-                </div>
-            </div>
+            <Card className="pt-0 mb-8 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-user"
+                        >
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Basic Information
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
+                                Date:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="date"
+                                type="date"
+                                value={formatDate(patient.date)}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="hospitalNumber">
+                                Hospital Number:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="hospitalNumber"
+                                type="number"
+                                value={patient.hospital_number || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">
+                                Surname:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="surname"
+                                type="text"
+                                value={patient.surname || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="firstName">
+                                First Name:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="firstName"
+                                type="text"
+                                value={patient.first_name || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="otherNames">
+                                Other Names:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="otherNames"
+                                type="text"
+                                value={patient.other_names || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Contact Information Section */}
-            <h2 className="text-xl font-semibold mt-8 mb-2">Contact Information</h2>
-            <Separator className="my-4" />
-            <div className="md:grid-cols-4 grid gap-3">
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="sex">Sex:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="sex"
-                        type="text"
-                        value={patient.sex || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="maritalStatus">Marital Status:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="maritalStatus"
-                        type="text"
-                        value={patient.marital_status || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="dateOfBirth">Date of Birth:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="dateOfBirth"
-                        type="date"
-                        value={formatDate(patient.date_of_birth)}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="phoneNumber">Phone Number:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="phoneNumber"
-                        type="text"
-                        value={patient.phone_number || 'N/A'}
-                        disabled
-                    />
-                </div>
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="address">Address:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="address"
-                    value={patient.address || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="occupation">Occupation:</Label>
-                <Input
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="occupation"
-                    type="text"
-                    value={patient.occupation || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="placeOfWorkAddress">Address of Place of Work:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="placeOfWorkAddress"
-                    value={patient.place_of_work_address || 'N/A'}
-                    disabled
-                />
-            </div>
+            <Card className="pt-0 mb-8 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-contact"
+                        >
+                            <path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2" />
+                            <rect width="18" height="18" x="3" y="4" rx="2" />
+                            <circle cx="12" cy="10" r="2" />
+                            <line x1="8" x2="8" y1="2" y2="4" />
+                            <line x1="16" x2="16" y1="2" y2="4" />
+                        </svg>
+                        Contact Information
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="sex">
+                                Sex:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="sex"
+                                type="text"
+                                value={patient.sex || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="maritalStatus">
+                                Marital Status:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="maritalStatus"
+                                type="text"
+                                value={patient.marital_status || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="dateOfBirth">
+                                Date of Birth:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="dateOfBirth"
+                                type="date"
+                                value={formatDate(patient.date_of_birth)}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="phoneNumber">
+                                Phone Number:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="phoneNumber"
+                                type="text"
+                                value={patient.phone_number || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6 mt-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="address">
+                                Address:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                                id="address"
+                                value={patient.address || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="occupation">
+                                Occupation:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="occupation"
+                                type="text"
+                                value={patient.occupation || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="placeOfWorkAddress">
+                                Address of Place of Work:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                                id="placeOfWorkAddress"
+                                value={patient.place_of_work_address || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Demographic Information Section */}
-            <h2 className="text-xl font-semibold mt-8 mb-2">Demographic Information</h2>
-            <Separator className="my-4" />
-            <div className="grid grid-cols-2 gap-3">
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="religion">Religion:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="religion"
-                        type="text"
-                        value={patient.religion || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="nationality">Nationality:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="nationality"
-                        type="text"
-                        value={patient.nationality || 'N/A'}
-                        disabled
-                    />
-                </div>
-            </div>
+            <Card className="pt-0 mb-8 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-users"
+                        >
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        Demographic Information
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="religion">
+                                Religion:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="religion"
+                                type="text"
+                                value={patient.religion || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nationality">
+                                Nationality:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="nationality"
+                                type="text"
+                                value={patient.nationality || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Next of Kin Section */}
-            <h2 className="text-xl font-semibold mt-8 mb-2">Next of Kin</h2>
-            <Separator className="my-4" />
-            <div className="grid grid-cols-3 gap-3">
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="nextOfKin">Next of Kin:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="nextOfKin"
-                        type="text"
-                        value={patient.next_of_kin || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="relationship">Relationship:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="relationship"
-                        type="text"
-                        value={patient.relationship || 'N/A'}
-                        disabled
-                    />
-                </div>
-                <div className="form-group">
-                    <Label className="mb-3" htmlFor="nextOfKinPhoneNumber">Next of Kin Phone Number:</Label>
-                    <Input
-                        className="!text-black disabled:opacity-90 border-[#268a6477]"
-                        id="nextOfKinPhoneNumber"
-                        type="text"
-                        value={patient.next_of_kin_phone || 'N/A'}
-                        disabled
-                    />
-                </div>
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="addressOfNextOfKin">Address of Next of Kin:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="addressOfNextOfKin"
-                    value={patient.next_of_kin_address || 'N/A'}
-                    disabled
-                />
-            </div>
+            <Card className="pt-0 mb-8 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-heart-handshake"
+                        >
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                            <path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08v0c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66" />
+                            <path d="m18 15-2-2" />
+                            <path d="m15 18-2-2" />
+                        </svg>
+                        Next of Kin
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nextOfKin">
+                                Next of Kin:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="nextOfKin"
+                                type="text"
+                                value={patient.next_of_kin || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="relationship">
+                                Relationship:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="relationship"
+                                type="text"
+                                value={patient.relationship || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nextOfKinPhoneNumber">
+                                Next of Kin Phone Number:
+                            </Label>
+                            <Input
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                id="nextOfKinPhoneNumber"
+                                type="text"
+                                value={patient.next_of_kin_phone || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6 mt-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="addressOfNextOfKin">
+                                Address of Next of Kin:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                                id="addressOfNextOfKin"
+                                value={patient.next_of_kin_address || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Medical History Section */}
-            <h2 className="text-xl font-semibold mt-8 mb-2">Medical History</h2>
-            <Separator className="my-4" />
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="pastMedicalHistory">Past Medical History:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="pastMedicalHistory"
-                    value={patient.past_medical_history || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="pastSurgicalHistory">Past Surgical History:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="pastSurgicalHistory"
-                    value={patient.past_surgical_history || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="familyHistory">Family History:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="familyHistory"
-                    value={patient.family_history || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="socialHistory">Social History:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="socialHistory"
-                    value={patient.social_history || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="drugHistory">Drug History:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="drugHistory"
-                    value={patient.drug_history || 'N/A'}
-                    disabled
-                />
-            </div>
+            <Card className="pt-0 mb-8 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-stethoscope"
+                        >
+                            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3" />
+                            <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4" />
+                            <circle cx="20" cy="10" r="2" />
+                        </svg>
+                        Medical History
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="pastMedicalHistory">
+                                Past Medical History:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="pastMedicalHistory"
+                                value={patient.past_medical_history || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="pastSurgicalHistory">
+                                Past Surgical History:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="pastSurgicalHistory"
+                                value={patient.past_surgical_history || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="familyHistory">
+                                Family History:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="familyHistory"
+                                value={patient.family_history || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="socialHistory">
+                                Social History:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="socialHistory"
+                                value={patient.social_history || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="drugHistory">
+                                Drug History:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="drugHistory"
+                                value={patient.drug_history || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
 
             {/* Allergies Section */}
-            <h2 className="text-xl font-semibold mt-8 mb-2">Allergies</h2>
-            <Separator className="my-4" />
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="allergies">Any Allergies?:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="allergies"
-                    value={patient.allergies || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="dietaryRestrictions">Any Dietary Restrictions:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="dietaryRestrictions"
-                    value={patient.dietary_restrictions || 'N/A'}
-                    disabled
-                />
-            </div>
-            <div className="form-group mt-4">
-                <Label className="mb-3" htmlFor="dietAllergies">Specify Diet Allergies to Certain Drugs:</Label>
-                <Textarea
-                    className="!text-black disabled:opacity-90 border-[#268a6477]"
-                    id="dietAllergies"
-                    value={patient.diet_allergies_to_drugs || 'N/A'}
-                    disabled
-                />
-            </div>
+            <Card className="pt-0 shadow-sm">
+                <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <CardTitle className=" pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-alert-triangle"
+                        >
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                            <path d="M12 9v4" />
+                            <path d="M12 17h.01" />
+                        </svg>
+                        Allergies
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-6">
+                    <div className="grid grid-cols-1 gap-6">
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="allergies">
+                                Any Allergies?:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="allergies"
+                                value={patient.allergies || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="dietaryRestrictions">
+                                Any Dietary Restrictions:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="dietaryRestrictions"
+                                value={patient.dietary_restrictions || "N/A"}
+                                disabled
+                            />
+                        </div>
+                        <div className="form-group">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="dietAllergies">
+                                Specify Diet Allergies to Certain Drugs:
+                            </Label>
+                            <Textarea
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
+                                id="dietAllergies"
+                                value={patient.diet_allergies_to_drugs || "N/A"}
+                                disabled
+                            />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
     );
 }
