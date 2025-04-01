@@ -2,13 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 
 //api
-import { registerPatient } from '../providers/ApiProviders';
+import { registerPatient } from '../../providers/ApiProviders';
 
 //form data
 import {
     formTabData,
     tabList
-} from '../components/forms/data/RegistrationFormData'
+} from '../../components/forms/data/RegistrationFormData'
 
 //icons
 import {

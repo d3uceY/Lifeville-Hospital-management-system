@@ -1,9 +1,9 @@
 "use client"
 
 import * as React from "react"
-
+import { Link } from "react-router-dom"
 //patients api context
-import { usePatientData } from "../providers/ApiContextProvider"
+import { usePatientData } from "../../providers/ApiContextProvider"
 
 import {
   flexRender,
@@ -49,7 +49,7 @@ import {
 } from "@/components/ui/select";
 
 
-import VitalSignsDialog from "../components/forms/vitalSignsDialog"
+import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 
 
 const columns = [
@@ -183,7 +183,7 @@ const columns = [
               Copy Hospital Number
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem> <User2 className="" /> View Patient Profile</DropdownMenuItem>
+            <DropdownMenuItem><Link className="flex gap-2 items-center" to={`/patient-profile/${currentpatientData.patient_id}`}> <User2 /> View Patient Profile</Link></DropdownMenuItem>
             <DropdownMenuSeparator />
             <VitalSignsDialog patient={currentpatientData}>
               <div>
@@ -194,14 +194,14 @@ const columns = [
               </div>
             </VitalSignsDialog>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu >
       )
     },
   },
 ]
 
 export default function Patients() {
- const { patientData, loading} = usePatientData()
+  const { patientData, loading } = usePatientData()
 
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])

@@ -1,9 +1,10 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Page from "./app/dashboard/page"
-import Register from "./pages/Register"
-import Patients from "./pages/Patients"
+import Register from "./pages/patient-management/Register"
+import Patients from "./pages/patient-management/Patients"
 import Overview from "./pages/dashboard/Overview"
+import PatientProfile from "./pages/patient-management/patientProfile"
 
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
@@ -17,6 +18,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/dashboard" element={<Overview />} />
+            <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
           </Route>
         </Routes>
       </Router>
