@@ -171,7 +171,7 @@ export default function PatientProfile() {
                                 Sex:
                             </Label>
                             <Input
-                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 capitalize"
                                 id="sex"
                                 type="text"
                                 value={patient.sex || "N/A"}

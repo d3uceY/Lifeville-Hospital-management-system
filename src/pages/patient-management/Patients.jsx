@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -134,7 +134,7 @@ const columns = [
       return (
         <Badge
           variant="outline"
-          className={`capitalize font-medium ${sex === "Male" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-pink-50 text-pink-700 border-pink-200"}`}
+          className={`capitalize font-medium ${sex.toLowerCase() === "male" ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-pink-50 text-pink-700 border-pink-200"}`}
         >
           {sex}
         </Badge>
@@ -222,6 +222,15 @@ const columns = [
                 to={`/patient-profile/${currentpatientData.patient_id}`}
               >
                 <User2 className="h-4 w-4" /> View Patient Profile
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="p-0">
+              <Link
+                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
+                to={`/patient-profile/${currentpatientData.patient_id}`}
+              >
+                <History className="h-4 w-4" /> View Patient History
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

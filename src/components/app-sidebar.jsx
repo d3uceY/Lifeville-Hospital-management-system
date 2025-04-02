@@ -127,11 +127,11 @@ const data = {
       items: [
         {
           title: "Book Appointments",
-          url: "#",
+          url: "/book-appointment",
         },
         {
           title: "Upcoming Appointments",
-          url: "#",
+          url: "/upcoming-appointments",
         }
       ],
     },
