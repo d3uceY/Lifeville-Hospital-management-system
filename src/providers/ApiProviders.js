@@ -1,10 +1,14 @@
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+
+
 //PATIENT API ENDPOINTS
 //this registers the patient as the data is passed as an argument
 export const registerPatient = async (patientData) => {
   const response = await axios.post(
-    "http://localhost:3000/api/patients",
+    apiUrl + "/api/patients",
     patientData
   );
   return response;
@@ -12,13 +16,13 @@ export const registerPatient = async (patientData) => {
 
 //this renders the registered patients
 export const getRegisteredPatients = async () => {
-  const response = await axios.get("http://localhost:3000/api/patients");
-  return response.data;
+  const response = await axios.get(apiUrl + "/api/patients");
+  return response.data; 
 };
 
 export const viewRegisteredPatient = async (patientId) => {
   const response = await axios.get(
-    `http://localhost:3000/api/patients/${patientId}`
+    apiUrl + "/api/patients/" + patientId
   );
   return response.data;
 };
@@ -29,7 +33,7 @@ export const viewRegisteredPatient = async (patientId) => {
 //VITAL SIGNS API ENDPOINTS
 export const createVitalSign = async (vitalSignData) => {
   const response = await axios.post(
-    "http://localhost:3000/api/vital-signs",
+    apiUrl + "/api/vital-signs",
     vitalSignData
   );
   return response;

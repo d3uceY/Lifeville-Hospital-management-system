@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
-import { Separator } from "@/components/ui/separator";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
@@ -301,7 +300,7 @@ export default function PatientProfile() {
                                 type="text"
                                 value={patient.nationality || "N/A"}
                                 disabled
-                            />
+                            />  
                         </div>
                     </div>
                 </CardContent>

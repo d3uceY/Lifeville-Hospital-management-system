@@ -15,9 +15,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Page />} >
+            <Route index element={<Overview />} />
             <Route path="/register" element={<Register />} />
             <Route path="/patients" element={<Patients />} />
-            <Route path="/dashboard" element={<Overview />} />
             <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
           </Route>
         </Routes>
