@@ -187,7 +187,7 @@ export default function DemographicCharts() {
               />
               <ChartLegend
                 content={<ChartLegendContent nameKey="patients" />}
-                className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+                className="-translate-y-2 flex-wrap md:flex-nowrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
               />
             </PieChart>
           </ChartContainer>
