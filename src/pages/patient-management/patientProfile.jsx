@@ -5,7 +5,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+//skeleton loader
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
+
 
 export default function PatientProfile() {
     const [patient, setPatient] = useState({});

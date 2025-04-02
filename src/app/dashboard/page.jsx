@@ -39,8 +39,9 @@ export default function Page() {
             </Breadcrumb>
           </div>
         </header>
-        <div className="p-6 bg-[#b2d2c6] min-h-screen overflow-y-auto">
-          <div className="rounded-2xl shadow-md h-full bg-white p-4">
+        <div className="md:p-6 p-2 bg-[#b2d2c6] min-h-screen overflow-y-auto">
+          <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
+            {/* //this is where the app routes are rendered */}
             <Outlet />
           </div>
         </div>
