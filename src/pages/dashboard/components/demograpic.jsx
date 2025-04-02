@@ -166,7 +166,7 @@ export default function DemographicCharts() {
   })
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-col md:flex-row gap-4">
       <Card className="flex flex-col flex-1">
         <CardHeader className="items-center pb-0">
           <CardTitle>Demographic Distribution</CardTitle>
