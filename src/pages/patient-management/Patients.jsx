@@ -263,9 +263,9 @@ export default function Patients() {
   //looader
   if (loading)
     return (
-      <div className="p-6">
-        <Card className="border-[#e0f0e8] shadow-sm">
-          <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4]">
+      <div className="p-6 border">
+        <Card className="border-[#e0f0e8] shadow-sm ">
+          <CardHeader className="pb-3 p-0 border-b border-[#e0f0e8] bg-[#f0f8f4]">
             <CardTitle className="text-[#106041] flex items-center gap-2">
               <User2 className="h-5 w-5" />
               Patients
@@ -311,8 +311,8 @@ export default function Patients() {
 
   return (
     <div className="p-6">
-      <Card className="border-[#e0f0e8] shadow-sm">
-        <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4]">
+      <Card className="border-[#e0f0e8] shadow-sm py-0 overflow-hidden">
+        <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6">
           <CardTitle className="text-[#106041] flex items-center gap-2">
             <User2 className="h-5 w-5" />
             Patients
