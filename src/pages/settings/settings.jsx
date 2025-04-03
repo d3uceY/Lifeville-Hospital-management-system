@@ -8,19 +8,60 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import AddDoctorDialog from "./components/addDoctorDialog"
+import { getDoctors, deleteDoctor } from "../../providers/ApiProviders"
+import { useEffect, useState } from "react"
+import { toast, Toaster } from 'sonner';
 
-// Mock data for doctors
-const doctors = [
-    { id: 1, firstName: "Emily", lastName: "Wilson", specialty: "Cardiology", image: null },
-    { id: 2, firstName: "Michael", lastName: "Chen", specialty: "Neurology", image: null },
-    { id: 3, firstName: "Sarah", lastName: "Johnson", specialty: "Endocrinology", image: null },
-    { id: 4, firstName: "James", lastName: "Wilson", specialty: "Orthopedics", image: null },
-    { id: 5, firstName: "Lisa", lastName: "Thompson", specialty: "Dermatology", image: null },
-]
 
 // List of medical specialties
 
 export default function Settings() {
+    const [loading, setLoading] = useState(false)
+    const [doctors, setDoctors] = useState([])
+
+    useEffect(() => {
+        fetchDoctors()
+    }, [])
+
+    const fetchDoctors = async () => {
+        setLoading(true)
+        try {
+            const response = await getDoctors()
+            console.log(response)
+            setDoctors(response)
+        } catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+
+    const handleDelete = async (id) => {
+        const promise = async () => {
+            try {
+
+                const deletedDoctor = await deleteDoctor(id)
+                fetchDoctors()
+                return deletedDoctor
+
+            } catch (error) {
+
+                console.log(error)
+                throw error;
+
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        toast.promise(promise(), {
+            loading: 'Deleting doctor...',
+            success: (data) => `${data.message}`, // Display success message from response
+            error: (err) => err.response?.data?.message || 'An error occurred', // Display error message
+        });
+    }
+
     return (
         <div className="container mx-auto p-6 max-w-7xl">
             <div className="mb-8 border-l-4 border-[#106041] pl-4">
@@ -85,22 +126,22 @@ export default function Settings() {
                             <ScrollArea className="h-[500px] pr-4">
                                 <div className="space-y-4">
                                     {doctors.map((doctor) => (
-                                        <Card key={doctor.id} className="border-[#e0f0e8] hover:shadow-md transition-shadow">
+                                        <Card key={doctor.doctor_id} className="border-[#e0f0e8] hover:shadow-md transition-shadow">
                                             <CardContent className="p-4 flex items-center justify-between">
                                                 <div className="flex items-center gap-4">
                                                     <Avatar className="h-12 w-12 border-2 border-[#e0f0e8]">
-                                                        <AvatarImage src={doctor.image} alt={`${doctor.firstName} ${doctor.lastName}`} />
+                                                        <AvatarImage src={doctor?.image} alt={`${doctor.first_name} ${doctor.last_name}`} />
                                                         <AvatarFallback className="bg-[#f0f8f4] text-[#106041]">
-                                                            {doctor.firstName.charAt(0)}
-                                                            {doctor.lastName.charAt(0)}
+                                                            {doctor?.first_name.charAt(0)}
+                                                            {doctor?.last_name.charAt(0)}
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div>
                                                         <h3 className="font-medium text-gray-900">
-                                                            Dr. {doctor.firstName} {doctor.lastName}
+                                                            Dr. {doctor?.first_name} {doctor?.last_name}
                                                         </h3>
                                                         <Badge variant="outline" className="bg-[#f0f8f4] text-[#106041] border-[#e0f0e8] mt-1">
-                                                            {doctor.specialty}
+                                                            {doctor?.specialty}
                                                         </Badge>
                                                     </div>
                                                 </div>
@@ -117,17 +158,11 @@ export default function Settings() {
                                                         variant="ghost"
                                                         size="icon"
                                                         className="text-gray-500 hover:text-red-600 hover:bg-red-50"
+                                                        onClick={() => handleDelete(doctor.doctor_id)}
+                                                        disabled={loading}
                                                     >
                                                         <Trash2 className="h-4 w-4" />
                                                         <span className="sr-only">Delete</span>
-                                                    </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                                    >
-                                                        <ChevronRight className="h-4 w-4" />
-                                                        <span className="sr-only">View Details</span>
                                                     </Button>
                                                 </div>
                                             </CardContent>
@@ -178,6 +213,7 @@ export default function Settings() {
                     </Card>
                 </TabsContent>
             </Tabs>
+            <Toaster richColors />
         </div>
     )
 }

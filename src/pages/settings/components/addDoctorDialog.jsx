@@ -218,7 +218,6 @@ export default function AddDoctorDialog() {
                         </Button>
                     </DialogFooter>
                 </form>
-                <Toaster richColors />
             </DialogContent>
         </Dialog>
 
