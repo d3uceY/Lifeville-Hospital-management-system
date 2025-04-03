@@ -1,6 +1,6 @@
-"use client"
+
 import { format, isPast, isToday, isTomorrow, addMinutes, parseISO } from "date-fns"
-import { Calendar, Clock, MapPin, User, Phone, FileText, Mail, CheckCircle, ChevronRight } from "lucide-react"
+import { Calendar, Clock, MapPin, User, Phone, FileText, Mail, CheckCircle } from "lucide-react"
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+
+import BookAppointmentDialog from "./components/BookAppointmentDialog"
 
 // Mock data for appointments based on the provided structure
 const appointments = [
@@ -136,7 +138,9 @@ export default function UpcomingAppointments() {
                 <Calendar className="h-12 w-12 text-[#268A64] mb-4 opacity-70" />
                 <p className="text-lg font-medium text-gray-700">No upcoming appointments</p>
                 <p className="text-muted-foreground mt-1">Schedule a new appointment to see it here</p>
-                <Button className="mt-6 bg-[#106041] hover:bg-[#0d4e34]">Schedule Appointment</Button>
+                <BookAppointmentDialog>
+                  <Button className="mt-6 bg-[#106041] hover:bg-[#0d4e34]">Schedule Appointment</Button>
+                </BookAppointmentDialog>
               </CardContent>
             </Card>
           ) : (
@@ -256,14 +260,8 @@ function AppointmentCard({ appointment, isPast }) {
         <TooltipProvider>
           {isPast ? (
             <>
-              <Button variant="outline" className="text-[#106041] border-[#268a6461] hover:bg-[#e6f2ed]">
-                <FileText className="mr-2 h-4 w-4" />
-                View Summary
-              </Button>
-              <Button variant="ghost" className="text-[#106041] hover:bg-[#e6f2ed]">
-                Schedule Follow-up
-                <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
+              <div className="text-sm text-muted-foreground">Appointment completed</div>
+              <div></div>
             </>
           ) : (
             <>
