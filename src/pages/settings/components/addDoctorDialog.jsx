@@ -26,7 +26,7 @@ import { registerDoctor } from "../../../providers/ApiProviders"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { toast, Toaster } from 'sonner';
+import { toast } from 'sonner';
 import { useState } from 'react'
 import spinnerLight from '/spinner-light.svg'
 
@@ -93,7 +93,7 @@ const specialties = [
     "Vascular Surgery"
 ]
 
-export default function AddDoctorDialog() {
+export default function AddDoctorDialog({ refresh }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const schema = z.object({
         firstName: z.string().nonempty({ message: "First Name is required" }),
@@ -122,6 +122,9 @@ export default function AddDoctorDialog() {
                 setIsSubmitting(true);
                 const response = await registerDoctor(data);
                 console.log(response.data);
+
+                refresh(); // this function calls the refresh function to update the doctor list
+
                 return response.data; // Resolving the response data
             } catch (err) {
                 throw err; // Throwing error to be caught by `toast.promise`

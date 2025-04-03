@@ -2,6 +2,9 @@ import { useContext, useState, useEffect } from "react";
 import { getRegisteredPatients } from "./ApiProviders";
 import React from "react";
 
+/* ============================
+   API context for patients
+   ============================ */
 
 const PatientContext = React.createContext() //*
 
@@ -30,6 +33,7 @@ export function PatientContextProvider({ children }) {
     useEffect(() => {
         getPatients();
     }, [])
+
 
     return (
         <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>

@@ -92,7 +92,7 @@ const specialties = [
     "Vascular Surgery"
 ]
 
-export default function EditDoctorDialog({ children, doctor }) {
+export default function EditDoctorDialog({ children, doctor, refresh }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const schema = z.object({
         firstName: z.string().nonempty({ message: "First Name is required" }),
@@ -124,7 +124,9 @@ export default function EditDoctorDialog({ children, doctor }) {
                     doctorId: doctor?.doctor_id
                 }
                 const response = await updateDoctor(payload);
-                console.log(response)
+
+                //this function calls the refresh function to update the doctor list
+                refresh();
                 return response; // Resolving the response data
             } catch (err) {
                 console.log(err)

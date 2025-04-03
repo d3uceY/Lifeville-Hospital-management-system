@@ -98,7 +98,7 @@ export default function Settings() {
                 </TabsList>
 
                 <TabsContent value="doctors" className="mt-0">
-                    <DoctorSettings props={{ handleDelete, doctors, loading }} />
+                    <DoctorSettings props={{ handleDelete, doctors, loading, refresh: fetchDoctors }} />
                 </TabsContent>
 
                 <TabsContent value="notifications" className="mt-0">

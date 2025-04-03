@@ -11,17 +11,17 @@ import EditDoctorDialog from './editDoctorDialog'
 
 export default function DoctorSettings(data) {
 
-    const { handleDelete, doctors, loading } = data.props
+    const { handleDelete, doctors, loading, refresh } = data.props
 
     return (
-        <Card className="border-[#e0f0e8] shadow-sm">
+        <Card className="border-[#e0f0e8] shadow-sm py-0">
             <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6">
                     <div>
                         <CardTitle className="text-[#106041]">Doctor Management</CardTitle>
                         <CardDescription>Add, edit, or remove doctors from the system</CardDescription>
                     </div>
-                    <AddDoctorDialog />
+                    <AddDoctorDialog refresh={refresh} />
                 </div>
             </CardHeader>
             <CardContent className="p-6">
@@ -58,7 +58,7 @@ export default function DoctorSettings(data) {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <EditDoctorDialog doctor={doctor}>
+                                        <EditDoctorDialog doctor={doctor} refresh={refresh}>
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
@@ -85,7 +85,7 @@ export default function DoctorSettings(data) {
                     </div>
                 </ScrollArea>
             </CardContent>
-            <CardFooter className="bg-[#f9fcfa] border-t border-[#e0f0e8] py-3 px-6">
+            <CardFooter className="bg-[#f9fcfa] border-t border-[#e0f0e8] py-3 px-6 pb-6">
                 <p className="text-sm text-gray-500">Showing {doctors.length} doctors</p>
             </CardFooter>
         </Card>
