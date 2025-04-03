@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import AddDoctorDialog from './addDoctorDialog'
+import EditDoctorDialog from './editDoctorDialog'
 
 export default function DoctorSettings(data) {
 
@@ -57,14 +58,16 @@ export default function DoctorSettings(data) {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                        >
-                                            <Edit className="h-4 w-4" />
-                                            <span className="sr-only">Edit</span>
-                                        </Button>
+                                        <EditDoctorDialog doctor={doctor}>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                            >
+                                                <Edit className="h-4 w-4" />
+                                                <span className="sr-only">Edit</span>
+                                            </Button>
+                                        </EditDoctorDialog>
                                         <Button
                                             variant="ghost"
                                             size="icon"

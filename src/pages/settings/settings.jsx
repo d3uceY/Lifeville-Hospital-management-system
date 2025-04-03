@@ -32,6 +32,7 @@ export default function Settings() {
         }
     }
 
+
     const handleDelete = async (id) => {
         const promise = async () => {
             try {
