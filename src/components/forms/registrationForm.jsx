@@ -89,7 +89,7 @@ export function RegistrationForm() {
           {errors.otherNames && <p className="text-red-500 text-sm mt-1">{errors.otherNames.message}</p>}
         </div>
       </div>
-    </div>
+    </div> 
   );
 }
 
@@ -244,7 +244,6 @@ export function DemographicForm() {
         <Controller
           name="religion"
           control={useFormContext().control}
-          // rules={{ required: "Religion is required" }}
           render={({ field }) => (
             <Select
               onValueChange={(value) => field.onChange(value)}
@@ -272,7 +271,6 @@ export function DemographicForm() {
         <Controller
           name="nationality"
           control={useFormContext().control}
-          // rules={{ required: "Nationality is required" }}
           render={({ field }) => (
             <Select
               onValueChange={(value) => field.onChange(value)}

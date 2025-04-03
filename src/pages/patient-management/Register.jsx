@@ -197,7 +197,7 @@ export default function Register() {
                                         <CardContent className="space-y-2">
                                             {
                                                 //just in case the component key is an array of components
-                                                //map components into the dom or else justr render the fucking component
+                                                //map components into the dom or else just render the fucking component
                                                 Array.isArray(tab.component)
                                                     ? tab.component.map((component, idx) => React.createElement(component, { key: idx }))
                                                     : React.createElement(tab.component)

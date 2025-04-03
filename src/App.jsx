@@ -6,6 +6,7 @@ import Patients from "./pages/patient-management/Patients"
 import Overview from "./pages/dashboard/Overview"
 import PatientProfile from "./pages/patient-management/patientProfile"
 import UpcomingAppointments from "./pages/appointments/UpcomingAppointments"
+import Settings from "./pages/settings/settings"
 
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
@@ -21,6 +22,7 @@ function App() {
             <Route path="/patients" element={<Patients />} />
             <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
             <Route path="/upcoming-appointments" element={<UpcomingAppointments />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
       </Router>
