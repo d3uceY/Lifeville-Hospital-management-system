@@ -21,6 +21,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
+import { Toaster } from "sonner"
 
 
 
@@ -521,6 +522,7 @@ export default function DoctorAppointmentsUI() {
           </div>
         </div>
       </div>
+      <Toaster richColors />
     </TooltipProvider>
   )
 }

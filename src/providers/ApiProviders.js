@@ -5,7 +5,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 /* ============================
    API Helper function here for PATIENTS
    ============================ */
-
 export const registerPatient = async (patientData) => {
   const response = await axios.post(apiUrl + "/api/patients", patientData);
   return response;
@@ -54,5 +53,33 @@ export const deleteDoctor = async (doctorId) => {
 
 export const updateDoctor = async (doctorData) => {
   const response = await axios.put(apiUrl + "/api/doctors/", doctorData);
+  return response.data;
+};
+
+/* ============================
+   API Helper function here for Appointments
+   ============================ */
+export const getAppointments = async () => {
+  const response = await axios.get(apiUrl + "/api/appointments");
+  return response.data;
+};
+
+export const viewAppointment = async (appointmentId) => {
+  const response = await axios.get(apiUrl + "/api/appointments/" + appointmentId);
+  return response.data;
+};
+
+export const createAppointment = async (appointmentData) => {
+  const response = await axios.post(apiUrl + "/api/appointments", appointmentData);
+  return response.data;
+};
+
+export const updateAppointment = async (appointmentData, appointmentId) => {
+  const response = await axios.put(apiUrl + "/api/appointments/" + appointmentId, appointmentData);
+  return response.data;
+};
+
+export const deleteAppointment = async (appointmentId) => {
+  const response = await axios.delete(apiUrl + "/api/appointments/" + appointmentId);
   return response.data;
 };

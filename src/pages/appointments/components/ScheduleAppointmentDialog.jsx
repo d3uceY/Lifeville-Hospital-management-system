@@ -21,6 +21,7 @@ import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
+import { createAppointment } from "../../../providers/ApiProviders"
 
 
 export default function ScheduleAppointmentDialog() {
@@ -47,7 +48,34 @@ export default function ScheduleAppointmentDialog() {
             appointmentDate: "",
             notes: "",
         }
-    })
+    });
+
+    const onSubmit = async (values) => {
+        const promise = async () => {
+            try {
+                const payload = {
+                    ...values,
+                    doctorId: Number(values.doctorId),
+                    patientId: Number(values.patientId)
+                }
+                setIsSubmitting(true);
+                const response = await createAppointment(payload);
+                return response;
+            } catch (error) {
+                throw error;
+            } finally {
+                setIsSubmitting(false);
+            }
+        }
+
+        toast.promise(promise(), {
+            loading: 'Creating appointment...',
+            success: (data) => `${data.message}`,
+            error: (err) => err.response?.message || 'An error occurred'
+        });
+    }
+
+
 
     const { patientData, loading } = usePatientData();
     const { doctors, loadingDoctors } = useDoctorData();
@@ -70,7 +98,7 @@ export default function ScheduleAppointmentDialog() {
                         Fill in the appointment details below to schedule a new patient appointment.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={handleSubmit((data) => console.log(data))}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-5 py-4">
                         {/* Date and Time */}
                         <div className="grid gap-2">
@@ -198,9 +226,12 @@ export default function ScheduleAppointmentDialog() {
                             </Label>
                             <Textarea
                                 id="notes"
+                                name="notes"
                                 placeholder="Enter appointment notes or reason for visit"
                                 className="min-h-[100px] border-[#268a6461] focus-visible:ring-[#268a6429]"
+                                {...register("notes")}
                             />
+                            {errors.notes && <p className="text-red-500 text-[12px]">{errors.notes.message}</p>}
                         </div>
                     </div>
 
@@ -211,12 +242,14 @@ export default function ScheduleAppointmentDialog() {
                                 Cancel
                             </Button>
                         </DialogClose>
-                        <Button type="submit" className="bg-[#106041] hover:bg-[#0d4e34]">
-                            <CheckCircle className="mr-2 h-4 w-4" />
+                        <Button disabled={!isValid || isSubmitting} type="submit" className="bg-[#106041] hover:bg-[#0d4e34]">
+                            {
+                                isSubmitting ? (<img src={spinnerLight} alt="" className=" h-8 w-8" />) : (<CheckCircle className="mr-2 h-4 w-4" />)
+                            }
+
                             Schedule Appointment
                         </Button>
                     </DialogFooter>
-
                 </form>
             </DialogContent>
         </Dialog>
