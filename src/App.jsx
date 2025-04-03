@@ -5,7 +5,7 @@ import Register from "./pages/patient-management/Register"
 import Patients from "./pages/patient-management/Patients"
 import Overview from "./pages/dashboard/Overview"
 import PatientProfile from "./pages/patient-management/patientProfile"
-import UpcomingAppointments from "./pages/appointments/UpcomingAppointments"
+import UpcomingAppointments from "./pages/appointments/Appointments"
 import Settings from "./pages/settings/settings"
 
 //context providers
