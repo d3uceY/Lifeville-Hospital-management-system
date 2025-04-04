@@ -1,6 +1,23 @@
 import { useState, useEffect } from "react"
 import { format, parseISO } from "date-fns"
-import { Phone, PenSquare, MoreVertical, User, Calendar, FileText, ClipboardList } from "lucide-react"
+import {
+    Phone, PenSquare, MoreVertical, User, Calendar, FileText, ClipboardList, RefreshCw, Trash2, CheckCircle,
+    Clock,
+    XCircle,
+    CheckCircle2,
+} from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuPortal
+} from "@/components/ui/dropdown-menu"
+
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -97,8 +114,8 @@ export default function AppointmentCard({ appointment }) {
                     </TooltipProvider>
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger asChild>
-                                <EditAppointmentDialog appointment={appointment}>
+                            <EditAppointmentDialog appointment={appointment}>
+                                <TooltipTrigger asChild>
                                     <Button
                                         variant="ghost"
                                         size="icon"
@@ -106,29 +123,72 @@ export default function AppointmentCard({ appointment }) {
                                     >
                                         <PenSquare className="h-4 w-4" />
                                     </Button>
-                                </EditAppointmentDialog>
-                            </TooltipTrigger>
+                                </TooltipTrigger>
+                            </EditAppointmentDialog>
                             <TooltipContent>
                                 <p>Edit Appointment</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                    <MoreVertical className="h-4 w-4" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>More Options</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                            >
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48 border-[#e0f0e8]">
+                            <DropdownMenuSub>
+                                <DropdownMenuSubTrigger className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:text-[#106041] focus:bg-[#e6f2ed] focus:text-[#106041]">
+                                    <RefreshCw className="h-4 w-4" />
+                                    <span>Change Status</span>
+                                </DropdownMenuSubTrigger>
+                                <DropdownMenuPortal>
+                                    <DropdownMenuSubContent className="border-[#e0f0e8] min-w-[180px]">
+                                        <DropdownMenuItem
+                                            className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus:bg-blue-50"
+                                        >
+                                            <Calendar className="h-4 w-4 text-blue-600" />
+                                            <span className="text-blue-800">Scheduled</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            className="flex items-center gap-2 cursor-pointer hover:bg-green-50 focus:bg-green-50"
+                                        >
+                                            <CheckCircle className="h-4 w-4 text-green-600" />
+                                            <span className="text-green-800">Confirmed</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            className="flex items-center gap-2 cursor-pointer hover:bg-yellow-50 focus:bg-yellow-50"
+                                        >
+                                            <Clock className="h-4 w-4 text-yellow-600" />
+                                            <span className="text-yellow-800">Pending</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            className="flex items-center gap-2 cursor-pointer hover:bg-purple-50 focus:bg-purple-50"
+
+                                        >
+                                            <CheckCircle2 className="h-4 w-4 text-purple-600" />
+                                            <span className="text-purple-800">Completed</span>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            className="flex items-center gap-2 cursor-pointer hover:bg-red-50 focus:bg-red-50"
+                                        >
+                                            <XCircle className="h-4 w-4 text-red-600" />
+                                            <span className="text-red-800">Cancelled</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuSubContent>
+                                </DropdownMenuPortal>
+                            </DropdownMenuSub>
+                            <DropdownMenuSeparator className="bg-[#e0f0e8]" />
+                            <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700">
+                                <Trash2 className="h-4 w-4" />
+                                <span>Delete</span>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
             <div className="ml-7 pl-3 border-l-2 border-[#e0f0e8]">

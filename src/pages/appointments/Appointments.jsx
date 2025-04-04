@@ -29,7 +29,6 @@ import AppointmentCard from "./components/AppointmentCard"
 
 export default function DoctorAppointmentsUI() {
   const { appointments } = useAppointmentsData();
-  console.log("appointments", appointments)
   return (
     <TooltipProvider>
       <div className="container mx-auto p-6 max-w-7xl">

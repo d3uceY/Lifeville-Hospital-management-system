@@ -61,7 +61,6 @@ export default function EditAppointmentDialog({ children, appointment }) {
 
     // form submission
     const onSubmit = async (values) => {
-        // console.log(values)
         const promise = async () => {
             try {
                 setIsSubmitting(true);
@@ -74,7 +73,7 @@ export default function EditAppointmentDialog({ children, appointment }) {
                 refreshAppointments();
                 return response;
             } catch (error) {
-                console.log(error)
+                console.error(error)
                 throw error;
             } finally {
                 setIsSubmitting(false);
@@ -160,7 +159,7 @@ export default function EditAppointmentDialog({ children, appointment }) {
                                                         </SelectItem>
                                                     ))}
                                             </SelectContent>
-                                        </Select>
+                                        </Select>   
                                     )}
                                 />
                             </div>
