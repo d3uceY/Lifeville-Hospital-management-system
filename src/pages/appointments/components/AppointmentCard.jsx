@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { format, parseISO } from "date-fns"
 import { Phone, PenSquare, MoreVertical, User, Calendar, FileText, ClipboardList } from "lucide-react"
@@ -86,6 +84,7 @@ export default function AppointmentCard({ appointment }) {
                                     variant="ghost"
                                     size="icon"
                                     className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                    onClick={() => window.open(`tel:${patient_phone_number}`)}
                                 >
                                     <Phone className="h-4 w-4" />
                                 </Button>
