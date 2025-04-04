@@ -130,8 +130,8 @@ const data = {
           url: "/book-appointment",
         },
         {
-          title: "Upcoming Appointments",
-          url: "/upcoming-appointments",
+          title: "Appointments",
+          url: "/appointments",
         }
       ],
     },

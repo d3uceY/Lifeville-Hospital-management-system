@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { getRegisteredPatients, getDoctors } from "./ApiProviders";
+import { getRegisteredPatients, getDoctors, getAppointments } from "./ApiProviders";
 import React from "react";
 
 /* ============================
@@ -21,7 +21,14 @@ export const useDoctorData = () => {
     return useContext(DoctorContext)
 }
 
+/* ============================
+   API context for Appointments
+   ============================ */
+const AppointmentsContext = React.createContext()
 
+export const useAppointmentsData = () => {
+    return useContext(AppointmentsContext)
+}
 
 
 export function PatientContextProvider({ children }) {
@@ -75,12 +82,38 @@ export function PatientContextProvider({ children }) {
     }
 
 
+    /* ============================
+   Appointments code block
+   ============================ */
+    const [loadingAppointments, setLoadingAppointments] = useState(false);
+    const [appointments, setAppointments] = useState([]);
+
+    useEffect(() => {
+        fetchAppointments()
+    }, [])
+
+    const fetchAppointments = async () => {
+        setLoadingAppointments(true)
+        try {
+            const response = await getAppointments()
+            setAppointments(response)
+        } catch (error) {
+            console.log(error)
+        }
+        finally {
+            setLoadingAppointments(false)
+        }
+    }
+
+
     return (
-        <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
-            <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
-                {children}
-            </PatientContext.Provider>
-        </DoctorContext.Provider>
+        <AppointmentsContext.Provider value={{ appointments, loadingAppointments, refreshAppointments: fetchAppointments }}>
+            <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
+                <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
+                    {children}
+                </PatientContext.Provider>
+            </DoctorContext.Provider>
+        </AppointmentsContext.Provider>
     )
 }
 

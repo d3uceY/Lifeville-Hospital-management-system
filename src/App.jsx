@@ -21,7 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/patients" element={<Patients />} />
             <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
-            <Route path="/upcoming-appointments" element={<UpcomingAppointments />} />
+            <Route path="/appointments" element={<UpcomingAppointments />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
