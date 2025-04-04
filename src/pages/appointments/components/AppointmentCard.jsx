@@ -88,12 +88,11 @@ export default function AppointmentCard({ appointment }) {
     const handleUpdateStatus = (newStatus) => {
         const promise = async () => {
             try {
-                console.log(newStatus)
                 const response = await updateAppointmentStatus(appointment_id, newStatus)
                 refreshAppointments()
                 return response
             } catch (err) {
-                console.log(err)
+                console.error(err)
                 throw err;
             }
         }

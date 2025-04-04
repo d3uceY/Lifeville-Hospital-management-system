@@ -258,7 +258,7 @@ export default function EditAppointmentDialog({ children, appointment }) {
                                 isSubmitting ? (<img src={spinnerLight} alt="" className=" h-8 w-8" />) : (<CheckCircle className="mr-2 h-4 w-4" />)
                             }
 
-                            Schedule Appointment
+                            Update Appointment
                         </Button>
                     </DialogFooter>
                 </form>
