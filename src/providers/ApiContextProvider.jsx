@@ -56,8 +56,6 @@ export function PatientContextProvider({ children }) {
 
 
 
-
-
     /* ============================
    Doctors code block
    ============================ */
@@ -74,7 +72,7 @@ export function PatientContextProvider({ children }) {
             const response = await getDoctors()
             setDoctors(response)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
         finally {
             setLoadingDoctors(false)
@@ -89,7 +87,7 @@ export function PatientContextProvider({ children }) {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        fetchAppointments()
+        fetchAppointments();
     }, [])
 
     const fetchAppointments = async () => {
@@ -98,7 +96,7 @@ export function PatientContextProvider({ children }) {
             const response = await getAppointments()
             setAppointments(response)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
         finally {
             setLoadingAppointments(false)

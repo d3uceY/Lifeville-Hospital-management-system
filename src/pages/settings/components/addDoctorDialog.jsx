@@ -121,7 +121,6 @@ export default function AddDoctorDialog({ refresh }) {
             try {
                 setIsSubmitting(true);
                 const response = await registerDoctor(data);
-                console.log(response.data);
 
                 refresh(); // this function calls the refresh function to update the doctor list
 

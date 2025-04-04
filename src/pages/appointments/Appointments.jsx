@@ -22,10 +22,14 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
 import { Toaster } from "sonner"
+import { useAppointmentsData } from "../../providers/ApiContextProvider"
+import AppointmentCard from "./components/AppointmentCard"
 
 
 
 export default function DoctorAppointmentsUI() {
+  const { appointments } = useAppointmentsData();
+  console.log("appointments", appointments)
   return (
     <TooltipProvider>
       <div className="container mx-auto p-6 max-w-7xl">
@@ -35,7 +39,7 @@ export default function DoctorAppointmentsUI() {
             <p className="text-muted-foreground mt-1">Manage your patient appointments</p>
           </div>
           <div className="flex gap-2">
-           <ScheduleAppointmentDialog/>
+            <ScheduleAppointmentDialog />
           </div>
         </div>
 
@@ -152,233 +156,12 @@ export default function DoctorAppointmentsUI() {
                   </CardHeader>
                   <CardContent className="p-0">
                     <div className="divide-y divide-[#e0f0e8]">
-                      {/* Appointment 1 */}
-                      <div className="p-4 hover:bg-[#f9fcfa] transition-colors">
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-1 h-12 rounded-full bg-blue-100"></div>
-                            <div className="text-center">
-                              <p className="text-lg font-bold text-[#106041]">10:30</p>
-                              <p className="text-xs text-gray-500">AM</p>
-                            </div>
-                            <div className="ml-2">
-                              <p className="font-medium">John Smith</p>
-                              <Badge className="mt-1 bg-blue-100 text-blue-800 border-blue-200">Scheduled</Badge>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <Phone className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Call Patient</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <PenSquare className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Edit Appointment</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <MoreVertical className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>More Options</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </div>
-                        </div>
-                        <div className="ml-7 pl-3 border-l-2 border-[#e0f0e8]">
-                          <div className="grid grid-cols-2 gap-2 text-sm">
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <Clock className="h-3 w-3 text-[#268A64]" />
-                              <span>30 minutes</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <MapPin className="h-3 w-3 text-[#268A64]" />
-                              <span>Main Building, Room 204</span>
-                            </div>
-                          </div>
-                          <div className="mt-2 text-sm text-gray-600">
-                            <p className="line-clamp-1">Follow-up on ECG results</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Appointment 2 */}
-                      <div className="p-4 hover:bg-[#f9fcfa] transition-colors">
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-1 h-12 rounded-full bg-green-100"></div>
-                            <div className="text-center">
-                              <p className="text-lg font-bold text-[#106041]">11:15</p>
-                              <p className="text-xs text-gray-500">AM</p>
-                            </div>
-                            <div className="ml-2">
-                              <p className="font-medium">Sarah Johnson</p>
-                              <Badge className="mt-1 bg-green-100 text-green-800 border-green-200">Confirmed</Badge>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <Phone className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Call Patient</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <PenSquare className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Edit Appointment</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <MoreVertical className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>More Options</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </div>
-                        </div>
-                        <div className="ml-7 pl-3 border-l-2 border-[#e0f0e8]">
-                          <div className="grid grid-cols-2 gap-2 text-sm">
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <Clock className="h-3 w-3 text-[#268A64]" />
-                              <span>45 minutes</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <MapPin className="h-3 w-3 text-[#268A64]" />
-                              <span>Main Building, Room 204</span>
-                            </div>
-                          </div>
-                          <div className="mt-2 text-sm text-gray-600">
-                            <p className="line-clamp-1">Initial consultation for chest pain</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Appointment 3 */}
-                      <div className="p-4 hover:bg-[#f9fcfa] transition-colors">
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-1 h-12 rounded-full bg-yellow-100"></div>
-                            <div className="text-center">
-                              <p className="text-lg font-bold text-[#106041]">2:00</p>
-                              <p className="text-xs text-gray-500">PM</p>
-                            </div>
-                            <div className="ml-2">
-                              <p className="font-medium">Robert Davis</p>
-                              <Badge className="mt-1 bg-yellow-100 text-yellow-800 border-yellow-200">Pending</Badge>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <Phone className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Call Patient</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <PenSquare className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Edit Appointment</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                  <MoreVertical className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>More Options</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </div>
-                        </div>
-                        <div className="ml-7 pl-3 border-l-2 border-[#e0f0e8]">
-                          <div className="grid grid-cols-2 gap-2 text-sm">
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <Clock className="h-3 w-3 text-[#268A64]" />
-                              <span>30 minutes</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-gray-700">
-                              <MapPin className="h-3 w-3 text-[#268A64]" />
-                              <span>Main Building, Room 204</span>
-                            </div>
-                          </div>
-                          <div className="mt-2 text-sm text-gray-600">
-                            <p className="line-clamp-1">Hypertension follow-up</p>
-                          </div>
-                        </div>
-                      </div>
+                      {/* Appointments */}
+                      {
+                        appointments.map((appointment) => (
+                          <AppointmentCard key={appointment.appointment_id} appointment={appointment} />
+                        ))
+                      }
                     </div>
                   </CardContent>
                 </Card>

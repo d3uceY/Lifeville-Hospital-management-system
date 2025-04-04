@@ -22,10 +22,9 @@ export default function Settings() {
         setLoading(true)
         try {
             const response = await getDoctors()
-            console.log(response)
             setDoctors(response)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
         finally {
             setLoading(false)
@@ -43,7 +42,7 @@ export default function Settings() {
 
             } catch (error) {
 
-                console.log(error)
+                console.error(error)
                 throw error;
 
             } finally {

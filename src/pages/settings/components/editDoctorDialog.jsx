@@ -129,7 +129,7 @@ export default function EditDoctorDialog({ children, doctor, refresh }) {
                 refresh();
                 return response; // Resolving the response data
             } catch (err) {
-                console.log(err)
+                console.error(err)
                 throw err; // Throwing error to be caught by `toast.promise`
             } finally {
                 setIsSubmitting(false);
