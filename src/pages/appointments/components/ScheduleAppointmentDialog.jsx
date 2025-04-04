@@ -22,9 +22,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { createAppointment } from "../../../providers/ApiProviders"
+import { useAppointmentsData } from "../../../providers/ApiContextProvider"
 
 
 export default function ScheduleAppointmentDialog() {
+    const { refreshAppointments } = useAppointmentsData()
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const schema = z.object({
@@ -60,6 +62,7 @@ export default function ScheduleAppointmentDialog() {
                 }
                 setIsSubmitting(true);
                 const response = await createAppointment(payload);
+                refreshAppointments()
                 return response;
             } catch (error) {
                 throw error;

@@ -65,21 +65,39 @@ export const getAppointments = async () => {
 };
 
 export const viewAppointment = async (appointmentId) => {
-  const response = await axios.get(apiUrl + "/api/appointments/" + appointmentId);
+  const response = await axios.get(
+    apiUrl + "/api/appointments/" + appointmentId
+  );
   return response.data;
 };
 
 export const createAppointment = async (appointmentData) => {
-  const response = await axios.post(apiUrl + "/api/appointments", appointmentData);
+  const response = await axios.post(
+    apiUrl + "/api/appointments",
+    appointmentData
+  );
   return response.data;
 };
 
 export const updateAppointment = async (appointmentData, appointmentId) => {
-  const response = await axios.put(apiUrl + "/api/appointments/" + appointmentId, appointmentData);
+  const response = await axios.put(
+    apiUrl + "/api/appointments/" + appointmentId,
+    appointmentData
+  );
+  return response.data;
+};
+
+export const updateAppointmentStatus = async (appointmentId, status) => {
+  const response = await axios.put(
+    apiUrl + "/api/appointments/" + appointmentId + "/status",
+    { status }
+  );
   return response.data;
 };
 
 export const deleteAppointment = async (appointmentId) => {
-  const response = await axios.delete(apiUrl + "/api/appointments/" + appointmentId);
+  const response = await axios.delete(
+    apiUrl + "/api/appointments/" + appointmentId
+  );
   return response.data;
 };

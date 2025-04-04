@@ -17,7 +17,12 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuPortal
 } from "@/components/ui/dropdown-menu"
+//api provider
+import { deleteAppointment, updateAppointmentStatus } from "../../../providers/ApiProviders"
+//api context provider
+import { useAppointmentsData } from "../../../providers/ApiContextProvider"
 
+import { toast } from "sonner"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -43,6 +48,9 @@ const getStatusColor = (status) => {
 }
 
 export default function AppointmentCard({ appointment }) {
+
+    const { refreshAppointments } = useAppointmentsData()
+
     const {
         patient_first_name,
         patient_surname,
@@ -53,10 +61,8 @@ export default function AppointmentCard({ appointment }) {
         doctor_specialty,
         hospital_number,
         notes,
-        patient_id,
         patient_phone_number,
         status,
-        updated_at,
     } = appointment
 
     // Parse the ISO date string
@@ -77,6 +83,46 @@ export default function AppointmentCard({ appointment }) {
 
     // Get status badge color
     const statusColor = getStatusColor(status)
+
+
+    const handleUpdateStatus = (newStatus) => {
+        const promise = async () => {
+            try {
+                console.log(newStatus)
+                const response = await updateAppointmentStatus(appointment_id, newStatus)
+                refreshAppointments()
+                return response
+            } catch (err) {
+                console.log(err)
+                throw err;
+            }
+        }
+
+        toast.promise(promise(), {
+            loading: 'Updating appointment status...',
+            success: (data) => `${data.message}`,
+            error: (err) => err.response.data.error || err.message || 'An error occurred'
+        })
+    }
+
+
+    const handleDeleteAppointment = async () => {
+        const promise = async () => {
+            try {
+                const response = await deleteAppointment(appointment_id)
+                refreshAppointments()
+                return response
+            } catch (err) {
+                throw err;
+            }
+        }
+
+        toast.promise(promise(), {
+            loading: 'Deleting appointment...',
+            success: (data) => `${data.message}`,
+            error: (err) => err.response.data.error || err.message || 'An error occurred'
+        })
+    }
 
     return (
         <div className="p-4 hover:bg-[#f9fcfa] transition-colors border-b border-[#e0f0e8] last:border-b-0">
@@ -150,31 +196,35 @@ export default function AppointmentCard({ appointment }) {
                                     <DropdownMenuSubContent className="border-[#e0f0e8] min-w-[180px]">
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus:bg-blue-50"
+                                            onClick={() => handleUpdateStatus('scheduled')}
                                         >
                                             <Calendar className="h-4 w-4 text-blue-600" />
                                             <span className="text-blue-800">Scheduled</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-green-50 focus:bg-green-50"
+                                            onClick={() => handleUpdateStatus('confirmed')}
                                         >
                                             <CheckCircle className="h-4 w-4 text-green-600" />
                                             <span className="text-green-800">Confirmed</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-yellow-50 focus:bg-yellow-50"
+                                            onClick={() => handleUpdateStatus('pending')}
                                         >
                                             <Clock className="h-4 w-4 text-yellow-600" />
                                             <span className="text-yellow-800">Pending</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-purple-50 focus:bg-purple-50"
-
+                                            onClick={() => handleUpdateStatus('completed')}
                                         >
                                             <CheckCircle2 className="h-4 w-4 text-purple-600" />
                                             <span className="text-purple-800">Completed</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-red-50 focus:bg-red-50"
+                                            onClick={() => handleUpdateStatus('canceled')}
                                         >
                                             <XCircle className="h-4 w-4 text-red-600" />
                                             <span className="text-red-800">Cancelled</span>
@@ -183,7 +233,7 @@ export default function AppointmentCard({ appointment }) {
                                 </DropdownMenuPortal>
                             </DropdownMenuSub>
                             <DropdownMenuSeparator className="bg-[#e0f0e8]" />
-                            <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700">
+                            <DropdownMenuItem className="flex items-center gap-2 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700" onClick={handleDeleteAppointment}>
                                 <Trash2 className="h-4 w-4" />
                                 <span>Delete</span>
                             </DropdownMenuItem>
