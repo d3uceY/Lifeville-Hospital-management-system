@@ -5,6 +5,7 @@ import { Phone, PenSquare, MoreVertical, User, Calendar, FileText, ClipboardList
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import EditAppointmentDialog from "./EditAppointmentDialog"
 
 // Helper function to get status badge color
 const getStatusColor = (status) => {
@@ -17,7 +18,7 @@ const getStatusColor = (status) => {
             return "bg-yellow-100 text-yellow-800 border-yellow-200"
         case "completed":
             return "bg-purple-100 text-purple-800 border-purple-200"
-        case "cancelled":
+        case "canceled":
             return "bg-red-100 text-red-800 border-red-200"
         default:
             return "bg-blue-100 text-blue-800 border-blue-200"
@@ -97,13 +98,15 @@ export default function AppointmentCard({ appointment }) {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
-                                >
-                                    <PenSquare className="h-4 w-4" />
-                                </Button>
+                                <EditAppointmentDialog appointment={appointment}>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                    >
+                                        <PenSquare className="h-4 w-4" />
+                                    </Button>
+                                </EditAppointmentDialog>
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Edit Appointment</p>
