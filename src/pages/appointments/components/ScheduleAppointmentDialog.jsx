@@ -28,6 +28,7 @@ import { useAppointmentsData } from "../../../providers/ApiContextProvider"
 export default function ScheduleAppointmentDialog() {
     const { refreshAppointments } = useAppointmentsData()
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const schema = z.object({
         patientId: z.string().nonempty({ message: "Patient is required" }),
@@ -55,6 +56,7 @@ export default function ScheduleAppointmentDialog() {
     const onSubmit = async (values) => {
         const promise = async () => {
             try {
+                // I changed the payload to match the API's expected format
                 const payload = {
                     ...values,
                     doctorId: Number(values.doctorId),
@@ -62,6 +64,9 @@ export default function ScheduleAppointmentDialog() {
                 }
                 setIsSubmitting(true);
                 const response = await createAppointment(payload);
+                // Close the dialog after successful creation
+                setIsOpen(false);
+                // Refresh appointments after successful creation
                 refreshAppointments()
                 return response;
             } catch (error) {
@@ -79,14 +84,17 @@ export default function ScheduleAppointmentDialog() {
     }
 
 
-
-    const { patientData, loading } = usePatientData();
-    const { doctors, loadingDoctors } = useDoctorData();
+    // Data fetches
+    const { patientData, loading, refreshPatients } = usePatientData();
+    const { doctors, loadingDoctors, refreshDoctors } = useDoctorData();
 
     return (
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-[#106041] hover:bg-[#0d4e34]">
+                <Button className="bg-[#106041] hover:bg-[#0d4e34]" onClick={() => {
+                    refreshPatients();
+                    refreshDoctors();
+                }}>
                     <CalendarDays className="mr-2 h-4 w-4" />
                     Schedule Appointment
                 </Button>
@@ -198,7 +206,7 @@ export default function ScheduleAppointmentDialog() {
 
 
                         {/* Status */}
-                        <div className="grid gap-2">
+                        {/* <div className="grid gap-2">
                             <Label htmlFor="status" className="text-gray-700 font-medium">
                                 Status
                             </Label>
@@ -220,7 +228,7 @@ export default function ScheduleAppointmentDialog() {
                                 )}
                             />
                         </div>
-                        {errors.status && <p className="text-red-500 text-[12px]">{errors.status.message}</p>}
+                        {errors.status && <p className="text-red-500 text-[12px]">{errors.status.message}</p>} */}
 
                         {/* Notes */}
                         <div className="grid gap-2">
@@ -245,6 +253,7 @@ export default function ScheduleAppointmentDialog() {
                                 Cancel
                             </Button>
                         </DialogClose>
+
                         <Button disabled={!isValid || isSubmitting} type="submit" className="bg-[#106041] hover:bg-[#0d4e34]">
                             {
                                 isSubmitting ? (<img src={spinnerLight} alt="" className=" h-8 w-8" />) : (<CheckCircle className="mr-2 h-4 w-4" />)

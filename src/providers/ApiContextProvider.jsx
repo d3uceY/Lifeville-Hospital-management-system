@@ -11,7 +11,6 @@ export const usePatientData = () => {
     return useContext(PatientContext)
 }
 
-
 /* ============================
    API context for doctors
    ============================ */
@@ -31,7 +30,14 @@ export const useAppointmentsData = () => {
 }
 
 
+
+
+
+
+
 export function PatientContextProvider({ children }) {
+
+
     /* ============================
    Patients code block
    ============================ */
@@ -44,7 +50,7 @@ export function PatientContextProvider({ children }) {
             const response = await getRegisteredPatients();
             setPatientData(response)
         } catch (err) {
-            console.error(response, err)
+            console.error(err)
         } finally {
             setLoading(false)
         }
@@ -62,10 +68,6 @@ export function PatientContextProvider({ children }) {
     const [loadingDoctors, setLoadingDoctors] = useState(false)
     const [doctors, setDoctors] = useState([])
 
-    useEffect(() => {
-        fetchDoctors()
-    }, [])
-
     const fetchDoctors = async () => {
         setLoadingDoctors(true)
         try {
@@ -78,6 +80,10 @@ export function PatientContextProvider({ children }) {
             setLoadingDoctors(false)
         }
     }
+    useEffect(() => {
+        fetchDoctors()
+    }, [])
+
 
 
     /* ============================
@@ -85,10 +91,6 @@ export function PatientContextProvider({ children }) {
    ============================ */
     const [loadingAppointments, setLoadingAppointments] = useState(false);
     const [appointments, setAppointments] = useState([]);
-
-    useEffect(() => {
-        fetchAppointments();
-    }, [])
 
     const fetchAppointments = async () => {
         setLoadingAppointments(true)
@@ -102,6 +104,10 @@ export function PatientContextProvider({ children }) {
             setLoadingAppointments(false)
         }
     }
+    useEffect(() => {
+        fetchAppointments();
+    }, [])
+
 
 
     return (

@@ -222,6 +222,5 @@ export default function AddDoctorDialog({ refresh }) {
                 </form>
             </DialogContent>
         </Dialog>
-
     )
 }
