@@ -7,26 +7,29 @@ import Overview from "./pages/dashboard/Overview"
 import PatientProfile from "./pages/patient-management/patientProfile"
 import UpcomingAppointments from "./pages/appointments/Appointments"
 import Settings from "./pages/settings/settings"
+import { SocketContextProvider } from "./providers/SocketContextProvider"
 
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
 
 function App() {
   return (
-    <PatientContextProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Page />} >
-            <Route index element={<Overview />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/patients" element={<Patients />} />
-            <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
-            <Route path="/appointments" element={<UpcomingAppointments />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
-        </Routes>
-      </Router>
-    </PatientContextProvider>
+    <SocketContextProvider>
+      <PatientContextProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Page />} >
+              <Route index element={<Overview />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/patients" element={<Patients />} />
+              <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
+              <Route path="/appointments" element={<UpcomingAppointments />} />
+              <Route path="/settings" element={<Settings />} />
+            </Route>
+          </Routes>
+        </Router>
+      </PatientContextProvider>
+    </SocketContextProvider>
   )
 }
 

@@ -6,6 +6,7 @@ import { getDoctors, deleteDoctor } from "../../providers/ApiProviders"
 import { useEffect, useState } from "react"
 import { toast, Toaster } from 'sonner';
 import DoctorSettings from "./components/doctorSettings"
+import Notifications from "./components/notifications"
 
 
 // List of medical specialties
@@ -107,7 +108,7 @@ export default function Settings() {
                             <CardDescription>Configure how you receive notifications</CardDescription>
                         </CardHeader>
                         <CardContent className="p-6">
-                            <p className="text-center py-12 text-gray-500">Notification settings will be available soon.</p>
+                            <Notifications />
                         </CardContent>
                     </Card>
                 </TabsContent>
