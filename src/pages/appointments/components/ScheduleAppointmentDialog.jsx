@@ -87,6 +87,7 @@ export default function ScheduleAppointmentDialog() {
     // Data fetches
     const { patientData, loading, refreshPatients } = usePatientData();
     const { doctors, loadingDoctors, refreshDoctors } = useDoctorData();
+    console.log(doctors)
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -149,7 +150,7 @@ export default function ScheduleAppointmentDialog() {
                                     render={({ field }) => (
                                         <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
                                             <SelectTrigger id="patient" className="pl-10 border-[#268a6461] focus:ring-[#268a6429]">
-                                                <SelectValue placeholder="Select a patient" />
+                                                <SelectValue placeholder={loading ? "Loading..." : patientData.length > 0 ? `Select a patient` : `No patients found`} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {patientData
@@ -187,7 +188,7 @@ export default function ScheduleAppointmentDialog() {
                                     render={({ field }) => (
                                         <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
                                             <SelectTrigger id="doctor" className="pl-10 border-[#268a6461] focus:ring-[#268a6429]">
-                                                <SelectValue placeholder="Select a doctor" />
+                                                <SelectValue placeholder={loadingDoctors ? "Loading..." : doctors.length > 0 ? `Select a doctor` : "No doctors available"} />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {doctors.map((doctor) => (

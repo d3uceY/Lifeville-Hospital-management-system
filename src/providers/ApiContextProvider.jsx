@@ -39,7 +39,7 @@ export function PatientContextProvider({ children }) {
 
 
     /* ============================
-   Patients code block
+   Patients custom hook
    ============================ */
     const [patientData, setPatientData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ export function PatientContextProvider({ children }) {
 
 
     /* ============================
-   Doctors code block
+   Doctors custom hook
    ============================ */
     const [loadingDoctors, setLoadingDoctors] = useState(false)
     const [doctors, setDoctors] = useState([])
@@ -87,7 +87,7 @@ export function PatientContextProvider({ children }) {
 
 
     /* ============================
-   Appointments code block
+   Appointments custom hook
    ============================ */
     const [loadingAppointments, setLoadingAppointments] = useState(false);
     const [appointments, setAppointments] = useState([]);
@@ -109,7 +109,9 @@ export function PatientContextProvider({ children }) {
     }, [])
 
 
-
+    /* ============================
+   API context providers
+   ============================ */
     return (
         <AppointmentsContext.Provider value={{ appointments, loadingAppointments, refreshAppointments: fetchAppointments }}>
             <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
@@ -121,7 +123,3 @@ export function PatientContextProvider({ children }) {
     )
 }
 
-//Deuce's notes
-
-//React.createContext is a funtion so it has to look like this
-//React.createContext() with parentheses
