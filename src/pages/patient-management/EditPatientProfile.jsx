@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+"use client"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useForm, Controller } from "react-hook-form"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Select,
   SelectTrigger,
@@ -12,25 +12,36 @@ import {
   SelectContent,
   SelectGroup,
   SelectLabel,
-  SelectItem
-} from '@/components/ui/select';
-import { nationalities } from '../../components/forms/data/RegistrationFormData';
+  SelectItem,
+} from "@/components/ui/select"
+import { nationalities } from "../../components/forms/data/RegistrationFormData"
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 
-import { toast, Toaster } from 'sonner';
-import { Button } from '@/components/ui/button';
+import { Toaster } from "sonner"
+import { Button } from "@/components/ui/button"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
-import { formatForDateInput } from '../../helpers/formatForDateInput';
+import { formatForDateInput } from "../../helpers/formatForDateInput"
 
 export default function EditPatientProfile() {
-
-  const location = useLocation();
-  const patient = location.state;
+  
+  const location = useLocation()
+  
+  const patient = location.state
   // console.log(patient);
+  
+  const navigate = useNavigate()
 
+  function goBackToProfile() {
+    navigate(`/patient-profile/${patient.patient_id}`)
+  }
+
+
+
+
+  // Form validation schema
   const schema = z.object({
     // Required Fields
     date: z.string().nonempty({ message: "Date is required" }),
@@ -40,13 +51,17 @@ export default function EditPatientProfile() {
     otherNames: z.string().nonempty({ message: "Other names are required" }),
     sex: z.string().nonempty({ message: "Sex is required" }),
     dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
-    phoneNumber: z.string().nonempty({ message: "Phone number is required" })
+    phoneNumber: z
+      .string()
+      .nonempty({ message: "Phone number is required" })
       .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
     address: z.string().nonempty({ message: "Address is required" }),
     nationality: z.string().nonempty({ message: "Nationality is required" }),
     nextOfKin: z.string().nonempty({ message: "Next of kin is required" }),
     relationship: z.string().nonempty({ message: "Relationship is required" }),
-    nextOfKinPhoneNumber: z.string().nonempty({ message: "Next of kin phone number is required" })
+    nextOfKinPhoneNumber: z
+      .string()
+      .nonempty({ message: "Next of kin phone number is required" })
       .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
     addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
 
@@ -63,7 +78,9 @@ export default function EditPatientProfile() {
     allergies: z.string().optional(),
     dietaryRestrictions: z.string().optional(),
     dietAllergies: z.string().optional(),
-  });
+  })
+
+
 
   //form methods that are going to be parsed throughout the form tree
   const methods = useForm({
@@ -106,27 +123,72 @@ export default function EditPatientProfile() {
       // Allergies & Dietary Restrictions
       allergies: patient?.allergies || "",
       dietaryRestrictions: patient?.dietary_restrictions || "",
-      dietAllergies: patient?.diet_allergies_to_drugs || ""
-    }
-  });
-  //this is destructured from the methods variable
-  const { handleSubmit, formState: { isValid, errors }, register, control } = methods;
+      dietAllergies: patient?.diet_allergies_to_drugs || "",
+    },
+  })
 
+
+
+
+  //this is destructured from the methods variable
+  const {
+    handleSubmit,
+    formState: { isValid, errors },
+    register,
+    control,
+  } = methods
+
+
+  
   const onSubmit = async (values) => {
-    console.log(values);
-  };
+    console.log(values)
+  }
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-5xl">
-      <div className="mb-8 border-l-4 border-[#106041] pl-4">
-        <h1 className="text-3xl font-bold text-[#106041]">
-          Update  {patient?.first_name} {patient?.surname}'s Profile
-        </h1>
-        <p className="text-muted-foreground mt-1">Hospital Number: {patient?.hospital_number || "N/A"}</p>
+      {/* Edit Mode Banner */}
+      <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-md shadow-sm">
+        <div className="flex items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-amber-500 mr-3"
+          >
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          <div>
+            <h2 className="text-amber-800 font-medium text-lg">Edit Mode</h2>
+            <p className="text-amber-700 text-sm">You are currently editing patient information</p>
+          </div>
+        </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+
+      <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
+        <h1 className="text-3xl font-bold text-[#106041]">
+          Update {patient?.first_name} {patient?.surname}'s Profile
+        </h1>
+        <div className="flex items-center mt-2 text-gray-600">
+          <span className="bg-[#106041] text-white px-2 py-0.5 rounded text-xs mr-2">ID</span>
+          <p className="text-muted-foreground">Hospital Number: {patient?.hospital_number || "N/A"}</p>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="relative">
+        {/* Floating Edit Indicator */}
+        <div className="absolute -right-4 top-0 bg-amber-400 text-white px-3 py-1.5 rounded-l-md shadow-md transform rotate-90 origin-right translate-y-16 font-medium">
+          EDITING
+        </div>
+
         {/* Basic Information */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -150,30 +212,62 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">Date</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="date" type="date" {...register('date')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
+                  Date
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="date"
+                  type="date"
+                  {...register("date")}
+                />
                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="hospital_number">Hospital Number</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="hospital_number" type="text" {...register('hospitalNumber')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="hospital_number">
+                  Hospital Number
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="hospital_number"
+                  type="text"
+                  {...register("hospitalNumber")}
+                />
                 {errors.hospitalNumber && <p className="text-red-500 text-sm mt-1">{errors.hospitalNumber.message}</p>}
               </div>
             </div>
             <div className="grid md:grid-cols-3 gap-6 mt-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">Surname</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="surname" {...register('surname')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">
+                  Surname
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="surname"
+                  {...register("surname")}
+                />
                 {errors.surname && <p className="text-red-500 text-sm mt-1">{errors.surname.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="first_name">First Name</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="first_name" {...register('firstName')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="first_name">
+                  First Name
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="first_name"
+                  {...register("firstName")}
+                />
                 {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="other_names">Other Names</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="other_names" {...register('otherNames')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="other_names">
+                  Other Names
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="other_names"
+                  {...register("otherNames")}
+                />
                 {errors.otherNames && <p className="text-red-500 text-sm mt-1">{errors.otherNames.message}</p>}
               </div>
             </div>
@@ -181,7 +275,7 @@ export default function EditPatientProfile() {
         </Card>
 
         {/* Contact Information */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -208,13 +302,14 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="sex">Sex</Label>
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="sex">
+                  Sex
+                </Label>
                 <Controller
                   name="sex"
                   control={control}
                   render={({ field }) => (
-                    <Select onValueChange={(value) => field.onChange(value)}
-                      value={field.value || patient?.sex}>
+                    <Select onValueChange={(value) => field.onChange(value)} value={field.value || patient?.sex}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select sex" />
                       </SelectTrigger>
@@ -239,10 +334,7 @@ export default function EditPatientProfile() {
                   name="maritalStatus"
                   control={control}
                   render={({ field }) => (
-                    <Select
-                      onValueChange={(value) => field.onChange(value)}
-                      value={field.value || ""}
-                    >
+                    <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
                       <SelectTrigger className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
                         <SelectValue placeholder="Select marital status" />
                       </SelectTrigger>
@@ -261,36 +353,69 @@ export default function EditPatientProfile() {
                 {errors.maritalStatus && <p className="text-red-500 text-sm mt-1">{errors.maritalStatus.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date_of_birth">Date of Birth</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="date_of_birth" type="date" {...register('dateOfBirth')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date_of_birth">
+                  Date of Birth
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="date_of_birth"
+                  type="date"
+                  {...register("dateOfBirth")}
+                />
                 {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="phone_number">Phone Number</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="phone_number" {...register('phoneNumber')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="phone_number">
+                  Phone Number
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="phone_number"
+                  {...register("phoneNumber")}
+                />
                 {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
               </div>
             </div>
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="address">Address</Label>
-              <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="address" {...register('address')} />
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="address">
+                Address
+              </Label>
+              <Textarea
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                id="address"
+                {...register("address")}
+              />
               {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
             </div>
             <div>
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="occupation">Occupation</Label>
-              <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="occupation" {...register('occupation')} />
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="occupation">
+                Occupation
+              </Label>
+              <Input
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                id="occupation"
+                {...register("occupation")}
+              />
               {errors.occupation && <p className="text-red-500 text-sm mt-1">{errors.occupation.message}</p>}
             </div>
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="placeOfWorkAddress">Address of Place of Work</Label>
-              <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="placeOfWorkAddress" {...register('placeOfWorkAddress')} />
-              {errors.placeOfWorkAddress && <p className="text-red-500 text-sm mt-1">{errors.placeOfWorkAddress.message}</p>}
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="placeOfWorkAddress">
+                Address of Place of Work
+              </Label>
+              <Textarea
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                id="placeOfWorkAddress"
+                {...register("placeOfWorkAddress")}
+              />
+              {errors.placeOfWorkAddress && (
+                <p className="text-red-500 text-sm mt-1">{errors.placeOfWorkAddress.message}</p>
+              )}
             </div>
           </CardContent>
         </Card>
 
         {/* Demographic Information */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -316,7 +441,9 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="religion">Religion</Label>
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="religion">
+                  Religion
+                </Label>
                 <Controller
                   name="religion"
                   control={control}
@@ -340,7 +467,9 @@ export default function EditPatientProfile() {
                 {errors.religion && <p className="text-red-500 text-sm mt-1">{errors.religion.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nationality">Nationality</Label>
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nationality">
+                  Nationality
+                </Label>
                 <Controller
                   name="nationality"
                   control={control}
@@ -352,11 +481,11 @@ export default function EditPatientProfile() {
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Nationality</SelectLabel>
-                          {
-                            nationalities.map((nationality) => (
-                              <SelectItem key={nationality} value={nationality}>{nationality}</SelectItem>
-                            ))
-                          }
+                          {nationalities.map((nationality) => (
+                            <SelectItem key={nationality} value={nationality}>
+                              {nationality}
+                            </SelectItem>
+                          ))}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -368,7 +497,7 @@ export default function EditPatientProfile() {
         </Card>
 
         {/* Next of Kin Section */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -394,31 +523,59 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin">Next of Kin</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="next_of_kin" {...register('nextOfKin')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin">
+                  Next of Kin
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="next_of_kin"
+                  {...register("nextOfKin")}
+                />
                 {errors.nextOfKin && <p className="text-red-500 text-sm mt-1">{errors.nextOfKin.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="relationship">Relationship</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="relationship" {...register('relationship')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="relationship">
+                  Relationship
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="relationship"
+                  {...register("relationship")}
+                />
                 {errors.relationship && <p className="text-red-500 text-sm mt-1">{errors.relationship.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_phone">Phone Number</Label>
-                <Input className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50" id="next_of_kin_phone" {...register('nextOfKinPhoneNumber')} />
-                {errors.nextOfKinPhoneNumber && <p className="text-red-500 text-sm mt-1">{errors.nextOfKinPhoneNumber.message}</p>}
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_phone">
+                  Phone Number
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="next_of_kin_phone"
+                  {...register("nextOfKinPhoneNumber")}
+                />
+                {errors.nextOfKinPhoneNumber && (
+                  <p className="text-red-500 text-sm mt-1">{errors.nextOfKinPhoneNumber.message}</p>
+                )}
               </div>
             </div>
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_address">Address of Next of Kin</Label>
-              <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="next_of_kin_address" {...register('addressOfNextOfKin')} />
-              {errors.addressOfNextOfKin && <p className="text-red-500 text-sm mt-1">{errors.addressOfNextOfKin.message}</p>}
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_address">
+                Address of Next of Kin
+              </Label>
+              <Textarea
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                id="next_of_kin_address"
+                {...register("addressOfNextOfKin")}
+              />
+              {errors.addressOfNextOfKin && (
+                <p className="text-red-500 text-sm mt-1">{errors.addressOfNextOfKin.message}</p>
+              )}
             </div>
           </CardContent>
         </Card>
 
         {/* Medical History Section */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -443,38 +600,72 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="past_medical_history">Past Medical History</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="past_medical_history" {...register('pastMedicalHistory')} />
-                {errors.pastMedicalHistory && <p className="text-red-500 text-sm mt-1">{errors.pastMedicalHistory.message}</p>}
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="past_medical_history">
+                  Past Medical History
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="past_medical_history"
+                  {...register("pastMedicalHistory")}
+                />
+                {errors.pastMedicalHistory && (
+                  <p className="text-red-500 text-sm mt-1">{errors.pastMedicalHistory.message}</p>
+                )}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="past_surgical_history">Past Surgical History</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="past_surgical_history" {...register('pastSurgicalHistory')} />
-                {errors.pastSurgicalHistory && <p className="text-red-500 text-sm mt-1">{errors.pastSurgicalHistory.message}</p>}
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="past_surgical_history">
+                  Past Surgical History
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="past_surgical_history"
+                  {...register("pastSurgicalHistory")}
+                />
+                {errors.pastSurgicalHistory && (
+                  <p className="text-red-500 text-sm mt-1">{errors.pastSurgicalHistory.message}</p>
+                )}
               </div>
             </div>
             <div className="grid md:grid-cols-2 gap-6 mt-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="family_history">Family History</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="family_history" {...register('familyHistory')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="family_history">
+                  Family History
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="family_history"
+                  {...register("familyHistory")}
+                />
                 {errors.familyHistory && <p className="text-red-500 text-sm mt-1">{errors.familyHistory.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="social_history">Social History</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="social_history" {...register('socialHistory')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="social_history">
+                  Social History
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="social_history"
+                  {...register("socialHistory")}
+                />
                 {errors.socialHistory && <p className="text-red-500 text-sm mt-1">{errors.socialHistory.message}</p>}
               </div>
             </div>
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="drug_history">Drug History</Label>
-              <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="drug_history" {...register('drugHistory')} />
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="drug_history">
+                Drug History
+              </Label>
+              <Textarea
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                id="drug_history"
+                {...register("drugHistory")}
+              />
               {errors.drugHistory && <p className="text-red-500 text-sm mt-1">{errors.drugHistory.message}</p>}
             </div>
           </CardContent>
         </Card>
 
         {/* Allergies Section */}
-        <Card className="pt-0 mb-8 shadow-sm">
+        <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
             <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
               <svg
@@ -499,30 +690,77 @@ export default function EditPatientProfile() {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="allergies">Any Allergies?</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="allergies" {...register('allergies')} />
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="allergies">
+                  Any Allergies?
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="allergies"
+                  {...register("allergies")}
+                />
                 {errors.allergies && <p className="text-red-500 text-sm mt-1">{errors.allergies.message}</p>}
               </div>
               <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="dietary_restrictions">Dietary Restrictions</Label>
-                <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="dietary_restrictions" {...register('dietaryRestrictions')} />
-                {errors.dietaryRestrictions && <p className="text-red-500 text-sm mt-1">{errors.dietaryRestrictions.message}</p>}
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="dietary_restrictions">
+                  Dietary Restrictions
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="dietary_restrictions"
+                  {...register("dietaryRestrictions")}
+                />
+                {errors.dietaryRestrictions && (
+                  <p className="text-red-500 text-sm mt-1">{errors.dietaryRestrictions.message}</p>
+                )}
               </div>
             </div>
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="diet_allergies_to_drugs">Diet Allergies to Drugs</Label>
-              <Textarea className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]" id="diet_allergies_to_drugs" {...register('dietAllergies')} />
+              <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="diet_allergies_to_drugs">
+                Diet Allergies to Drugs
+              </Label>
+              <Textarea
+                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                id="diet_allergies_to_drugs"
+                {...register("dietAllergies")}
+              />
               {errors.dietAllergies && <p className="text-red-500 text-sm mt-1">{errors.dietAllergies.message}</p>}
             </div>
           </CardContent>
         </Card>
 
-        <div className="text-right">
-          <Button type="submit" className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80">
+        <div className="text-right mt-8 flex items-center justify-end gap-4">
+          <button
+            onClick={goBackToProfile}
+            type="button"
+            className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+          >
+            Cancel
+          </button>
+          <Button
+            type="submit"
+            className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80 flex items-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
             Save Changes
           </Button>
         </div>
       </form>
+      <Toaster position="top-right" />
     </div>
-  );
+  )
 }
+
