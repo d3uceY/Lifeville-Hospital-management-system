@@ -135,7 +135,7 @@ export function ContactInformationForm() {
           </Label>
           <Controller
             name="maritalStatus"
-            control={useFormContext().controll}
+            control={useFormContext().control}
             render={({ field }) => (
               <Select
                 onValueChange={(value) => field.onChange(value)}

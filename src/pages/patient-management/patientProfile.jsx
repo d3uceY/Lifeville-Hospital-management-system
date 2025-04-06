@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/Button';
+import { Link } from 'react-router-dom';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
@@ -42,11 +44,18 @@ export default function PatientProfile() {
     )
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
-            <div className="mb-8 border-l-4 border-[#106041] pl-4">
-                <h1 className="text-3xl font-bold text-[#106041]">
-                    {patient.first_name} {patient.surname}'s Profile
-                </h1>
-                <p className="text-muted-foreground mt-1">Hospital Number: {patient.hospital_number || "N/A"}</p>
+            <div className='flex justify-between items-center'>
+                <div className="mb-8 border-l-4 border-[#106041] pl-4">
+                    <h1 className="text-3xl font-bold text-[#106041]">
+                        {patient.first_name} {patient.surname}'s Profile
+                    </h1>
+                    <p className="text-muted-foreground mt-1">Hospital Number: {patient.hospital_number || "N/A"}</p>
+                </div>
+                <div>
+                    <Link to={`/patient-profile/edit/${id}`} state={patient}>
+                        <Button className="bg-[#106041] text-white hover:bg-[#106041]/80">Update</Button>
+                    </Link>
+                </div>
             </div>
 
             {/* Basic Information Section */}
@@ -302,7 +311,7 @@ export default function PatientProfile() {
                                 type="text"
                                 value={patient.nationality || "N/A"}
                                 disabled
-                            />  
+                            />
                         </div>
                     </div>
                 </CardContent>
@@ -491,7 +500,7 @@ export default function PatientProfile() {
                             <path d="M12 9v4" />
                             <path d="M12 17h.01" />
                         </svg>
-                        Allergies
+                        Allergies & Dietary Restrictions
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">

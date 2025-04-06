@@ -1,3 +1,6 @@
+
+//this formats date to dd/mm/yyyy but in words
+
 export function formatDate(isoString) {
   const date = new Date(isoString);
   return new Intl.DateTimeFormat("en-GB", {

@@ -7,6 +7,7 @@ import Overview from "./pages/dashboard/Overview"
 import PatientProfile from "./pages/patient-management/patientProfile"
 import UpcomingAppointments from "./pages/appointments/Appointments"
 import Settings from "./pages/settings/settings"
+import EditPatientProfile from "./pages/patient-management/EditPatientProfile"
 import { SocketContextProvider } from "./providers/SocketContextProvider"
 
 //context providers
@@ -22,7 +23,13 @@ function App() {
               <Route index element={<Overview />} />
               <Route path="/register" element={<Register />} />
               <Route path="/patients" element={<Patients />} />
-              <Route path="/patient-profile/:patient_id" element={<PatientProfile />} />
+
+              {/* nested patient profile */}
+              <Route path="/patient-profile">
+                <Route path=":patient_id" element={<PatientProfile />} />
+                <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+              </Route>
+
               <Route path="/appointments" element={<UpcomingAppointments />} />
               <Route path="/settings" element={<Settings />} />
             </Route>

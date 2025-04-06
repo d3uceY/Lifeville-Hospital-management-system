@@ -12,7 +12,6 @@ export const useSocket = () => {
 }
 
 export function SocketContextProvider({ children }) {
-    console.log(socket)
     return (
         <SocketContext.Provider value={socket}>
             {children}
