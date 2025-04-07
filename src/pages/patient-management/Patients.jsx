@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -47,6 +47,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
+import DeleteAlertDialog from "./components/deleteAlertDialog";
 
 const columns = [
   {
@@ -241,7 +242,10 @@ const columns = [
                 Check Vital Signs
               </div>
             </VitalSignsDialog>
-
+            <DropdownMenuSeparator />
+            <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
+              Delete Patient Record
+            </DeleteAlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       )

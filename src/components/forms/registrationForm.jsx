@@ -119,8 +119,8 @@ export function ContactInformationForm() {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Select</SelectLabel>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -147,10 +147,10 @@ export function ContactInformationForm() {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Marital Status</SelectLabel>
-                    <SelectItem value="single">Single</SelectItem>
-                    <SelectItem value="married">Married</SelectItem>
-                    <SelectItem value="divorced">Divorced</SelectItem>
-                    <SelectItem value="widowed">Widowed</SelectItem>
+                    <SelectItem value="Single">Single</SelectItem>
+                    <SelectItem value="Married">Married</SelectItem>
+                    <SelectItem value="Divorced">Divorced</SelectItem>
+                    <SelectItem value="Widowed">Widowed</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -255,10 +255,10 @@ export function DemographicForm() {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Religion</SelectLabel>
-                  <SelectItem value="christian">Christian</SelectItem>
-                  <SelectItem value="muslim">Muslim</SelectItem>
-                  <SelectItem value="traditional">Traditional</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="Christian">Christian</SelectItem>
+                  <SelectItem value="Muslim">Muslim</SelectItem>
+                  <SelectItem value="Traditional">Traditional</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
