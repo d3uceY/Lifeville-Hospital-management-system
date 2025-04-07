@@ -28,6 +28,11 @@ export const updateRegisteredPatient = async (patientId, patientData) => {
   return response.data;
 };
 
+export const deleteRegisteredPatient = async (patientId) => {
+  const response = await axios.delete(apiUrl + "/api/patients/" + patientId);
+  return response.data;
+};
+
 /* ============================
    API Helper function here for Vital Signs
    ============================ */

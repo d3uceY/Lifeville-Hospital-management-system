@@ -140,7 +140,6 @@ export default function EditPatientProfile() {
 
 
   const onSubmit = async (values) => {
-    return console.log(values)
     const promise = async () => {
       try {
         setIsSubmitting(true)

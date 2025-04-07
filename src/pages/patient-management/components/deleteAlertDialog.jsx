@@ -12,8 +12,34 @@ import {
 import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 
+import { deleteRegisteredPatient } from "../../../providers/ApiProviders";
+import { usePatientData } from "../../../providers/ApiContextProvider";
+import { toast } from "sonner";
+
+
 export default function DeleteAlertDialog({ children, deletedPatientInfo }) {
+
+    const { refreshPatients } = usePatientData();
     const { surname, first_name, hospital_number, patient_id } = deletedPatientInfo;
+
+    const deletePatient = async () => {
+        const promise = async () => {
+            try {
+                const response = await deleteRegisteredPatient(patient_id);
+                refreshPatients();
+                return response;
+            } catch (err) {
+                throw err;
+            }
+        }
+
+        toast.promise(promise(), {
+            loading: 'Deleting patient information...',
+            success: (data) => `${data.message}`,
+            error: (err) => `An error occurred (${err?.response?.data?.message}, ${err?.message})`
+        });
+    }
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -94,7 +120,9 @@ export default function DeleteAlertDialog({ children, deletedPatientInfo }) {
                     <AlertDialogCancel className="border-[#106041] text-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
                         Cancel
                     </AlertDialogCancel>
-                    <AlertDialogAction className="bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 flex items-center gap-2">
+                    <AlertDialogAction
+                        onClick={deletePatient}
+                        className="bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 flex items-center gap-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
