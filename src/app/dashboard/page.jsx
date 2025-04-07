@@ -14,6 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Outlet } from "react-router-dom"
+import { Toaster } from "sonner"
 
 export default function Page() {
   return (
@@ -43,6 +44,7 @@ export default function Page() {
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
             {/* //this is where the app routes are rendered */}
             <Outlet />
+            <Toaster richColors />
           </div>
         </div>
       </SidebarInset>

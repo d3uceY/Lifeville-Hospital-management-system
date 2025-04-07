@@ -44,12 +44,15 @@ export default function PatientProfile() {
     )
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
-            <div className='flex justify-between items-center'>
-                <div className="mb-8 border-l-4 border-[#106041] pl-4">
+            <div className='flex justify-between items-center pl-4 p-4 border-l-4  mb-8 border-[#106041] bg-[#f0f8f4] shadow-sm rounded-r-md'>
+                <div className="   bg-[#f0f8f4]   ">
                     <h1 className="text-3xl font-bold text-[#106041]">
-                        {patient.first_name} {patient.surname}'s Profile
+                        {patient?.first_name} {patient?.surname}'s Profile
                     </h1>
-                    <p className="text-muted-foreground mt-1">Hospital Number: {patient.hospital_number || "N/A"}</p>
+                    <div className="flex items-center mt-2 text-gray-600">
+                        <span className="bg-[#106041] text-white px-2 py-0.5 rounded text-xs mr-2">ID</span>
+                        <p className="text-muted-foreground">Hospital Number: {patient?.hospital_number || "N/A"}</p>
+                    </div>
                 </div>
                 <div>
                     <Link to={`/patient-profile/edit/${id}`} state={patient}>

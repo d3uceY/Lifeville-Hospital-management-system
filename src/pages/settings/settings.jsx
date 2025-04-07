@@ -137,7 +137,7 @@ export default function Settings() {
                     </Card>
                 </TabsContent>
             </Tabs>
-            <Toaster richColors />
+            {/* <Toaster richColors /> */}
         </div>
     )
 }

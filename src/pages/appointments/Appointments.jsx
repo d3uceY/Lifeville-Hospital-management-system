@@ -215,7 +215,7 @@ export default function DoctorAppointmentsUI() {
           </div>
         </div>
       </div>
-      <Toaster richColors />
+      {/* <Toaster richColors /> */}
     </TooltipProvider>
   )
 }

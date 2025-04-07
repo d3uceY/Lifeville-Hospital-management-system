@@ -1,4 +1,5 @@
-"use client"
+import { useState } from "react"
+import { updateRegisteredPatient } from "../../providers/ApiProviders"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useForm, Controller } from "react-hook-form"
 import { Input } from "@/components/ui/input"
@@ -15,25 +16,26 @@ import {
   SelectItem,
 } from "@/components/ui/select"
 import { nationalities } from "../../components/forms/data/RegistrationFormData"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-
 import { Toaster } from "sonner"
 import { Button } from "@/components/ui/button"
+
+import { toast } from "sonner"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
 import { formatForDateInput } from "../../helpers/formatForDateInput"
 
 export default function EditPatientProfile() {
-  
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+
+  // Get patient data from location
   const location = useLocation()
-  
   const patient = location.state
-  // console.log(patient);
-  
   const navigate = useNavigate()
 
+  //function that takes you back to the patient profile
   function goBackToProfile() {
     navigate(`/patient-profile/${patient.patient_id}`)
   }
@@ -110,7 +112,7 @@ export default function EditPatientProfile() {
       // Next of Kin / Emergency Contact
       nextOfKin: patient?.next_of_kin || "",
       relationship: patient?.relationship || "",
-      nextOfKinPhoneNumber: patient?.next_of_kin_phone_number || "",
+      nextOfKinPhoneNumber: patient?.next_of_kin_phone || "",
       addressOfNextOfKin: patient?.next_of_kin_address || "",
 
       // Medical History
@@ -127,9 +129,6 @@ export default function EditPatientProfile() {
     },
   })
 
-
-
-
   //this is destructured from the methods variable
   const {
     handleSubmit,
@@ -139,9 +138,27 @@ export default function EditPatientProfile() {
   } = methods
 
 
-  
+
   const onSubmit = async (values) => {
-    console.log(values)
+    const promise = async () => {
+      try {
+        setIsSubmitting(true)
+        const response = await updateRegisteredPatient(patient.patient_id, values)
+        goBackToProfile()
+        return response;
+      } catch (err) {
+        console.log(err)
+        throw err;
+      } finally {
+        setIsSubmitting(false)
+      }
+    }
+
+    toast.promise(promise(), {
+      loading: 'Updating patient information...',
+      success: (data) => `${data.message}`,
+      error: (err) => `An error occurred (${err?.response?.data?.message}, ${err?.message})`
+    });
   }
 
   return (
@@ -738,6 +755,7 @@ export default function EditPatientProfile() {
           </button>
           <Button
             type="submit"
+            disabled={!isValid || isSubmitting}
             className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80 flex items-center gap-2"
           >
             <svg
@@ -759,7 +777,7 @@ export default function EditPatientProfile() {
           </Button>
         </div>
       </form>
-      <Toaster position="top-right" />
+      {/* <Toaster position="top-right" /> */}
     </div>
   )
 }

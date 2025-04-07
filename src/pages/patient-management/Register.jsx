@@ -226,7 +226,7 @@ export default function Register() {
                                 </span>
                             </Button>)
                         }
-                        <Toaster richColors />
+                        {/* <Toaster richColors /> */}
                     </div>
                 </form>
             </FormProvider>

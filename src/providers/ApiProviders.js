@@ -20,6 +20,14 @@ export const viewRegisteredPatient = async (patientId) => {
   return response.data;
 };
 
+export const updateRegisteredPatient = async (patientId, patientData) => {
+  const response = await axios.put(
+    apiUrl + "/api/patients/" + patientId,
+    patientData  
+  );
+  return response.data;
+};
+
 /* ============================
    API Helper function here for Vital Signs
    ============================ */
