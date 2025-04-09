@@ -315,7 +315,7 @@ export default function Deaths() {
                                         className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                                     />
                                 </div>
-                            </div>
+                            </div> 
                             <div className="space-y-2">  
                                 <label className="text-xs font-medium text-gray-500">Sex</label>
                                 <Select
@@ -385,7 +385,7 @@ export default function Deaths() {
                     </div>
 
                     <div className="rounded-md border border-[#e0f0e8] overflow-hidden shadow-sm">
-                        <Table className="">
+                        <Table className="block max-w-[600px]">
                             <TableHeader className="bg-[#f0f8f4]">
                                 {table.getHeaderGroups().map((headerGroup) => (
                                     <TableRow key={headerGroup.id} className="hover:bg-[#e6f2ed] border-b border-[#e0f0e8]">
