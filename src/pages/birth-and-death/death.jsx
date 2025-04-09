@@ -316,7 +316,7 @@ export default function Deaths() {
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-2">  
                                 <label className="text-xs font-medium text-gray-500">Sex</label>
                                 <Select
                                     onValueChange={(value) => table.getColumn("sex")?.setFilterValue(value)}
