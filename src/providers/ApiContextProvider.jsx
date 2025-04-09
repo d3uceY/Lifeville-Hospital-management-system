@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { getRegisteredPatients, getDoctors, getAppointments } from "./ApiProviders";
+import { getRegisteredPatients, getDoctors, getAppointments, getDeaths } from "./ApiProviders";
 import React from "react";
 
 /* ============================
@@ -28,6 +28,17 @@ const AppointmentsContext = React.createContext()
 export const useAppointmentsData = () => {
     return useContext(AppointmentsContext)
 }
+
+
+/* ============================
+   API context for Birth and Deaths
+   ============================ */
+const BirthAndDeaths = React.createContext()
+
+export const useBirthAndDeaths = () => {
+    return useContext(BirthAndDeaths)
+}
+
 
 
 
@@ -110,14 +121,39 @@ export function PatientContextProvider({ children }) {
 
 
     /* ============================
+   Deaths custom hook
+   ============================ */
+    const [loadingDeaths, setIsLoadingDeaths] = useState(false);
+    const [deaths, setDeaths] = useState([]);
+
+    const fetchDeaths = async () => {
+        try {
+            setIsLoadingDeaths(true)
+            const response = await getDeaths()
+            // console.log(response)
+            setDeaths(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingDeaths(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchDeaths();
+    }, [])
+
+    /* ============================
    API context providers
    ============================ */
     return (
         <AppointmentsContext.Provider value={{ appointments, loadingAppointments, refreshAppointments: fetchAppointments }}>
             <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
-                <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
-                    {children}
-                </PatientContext.Provider>
+                <BirthAndDeaths.Provider value={{ deaths, loadingDeaths, refreshDeaths: fetchDeaths }}>
+                    <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
+                        {children}
+                    </PatientContext.Provider>
+                </BirthAndDeaths.Provider>
             </DoctorContext.Provider>
         </AppointmentsContext.Provider>
     )

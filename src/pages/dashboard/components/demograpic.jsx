@@ -75,6 +75,12 @@ export default function DemographicCharts() {
     )
   }
 
+  if (patientData.length === 0) {
+    return (
+      <div>No Demographic data Available</div>
+    )
+  }
+
   // Initialize counters for each age group and gender.
   const ageGroups = {
     "children": 0,

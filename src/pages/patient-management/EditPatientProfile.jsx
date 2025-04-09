@@ -137,8 +137,6 @@ export default function EditPatientProfile() {
     control,
   } = methods
 
-
-
   const onSubmit = async (values) => {
     const promise = async () => {
       try {
@@ -203,7 +201,7 @@ export default function EditPatientProfile() {
         <div className="absolute -right-4 top-0 bg-amber-400 text-white px-3 py-1.5 rounded-l-md shadow-md transform rotate-90 origin-right translate-y-16 font-medium">
           EDITING
         </div>
-
+    
         {/* Basic Information */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">

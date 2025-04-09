@@ -9,6 +9,7 @@ import {
   Box,
   BarChart,
   UserCog,
+  BookOpen
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -162,6 +163,22 @@ const data = {
         {
           title: "Review & Upload Results",
           url: "#",
+        }
+      ],
+    },
+    ,
+    {
+      title: "Birth & Death Records",
+      url: "#",
+      icon: BookOpen,
+      items: [
+        {
+          title: "Birth Records",
+          url: "/births",
+        },
+        {
+          title: "Death Records",
+          url: "/deaths",
         }
       ],
     },

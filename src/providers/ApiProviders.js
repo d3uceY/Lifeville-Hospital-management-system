@@ -23,7 +23,7 @@ export const viewRegisteredPatient = async (patientId) => {
 export const updateRegisteredPatient = async (patientId, patientData) => {
   const response = await axios.put(
     apiUrl + "/api/patients/" + patientId,
-    patientData  
+    patientData
   );
   return response.data;
 };
@@ -112,5 +112,14 @@ export const deleteAppointment = async (appointmentId) => {
   const response = await axios.delete(
     apiUrl + "/api/appointments/" + appointmentId
   );
+  return response.data;
+};
+
+/* ============================
+   API Helper function here for DEATHS
+   ============================ */
+
+export const getDeaths = async () => {
+  const response = await axios.get(apiUrl + "/api/deaths");
   return response.data;
 };
