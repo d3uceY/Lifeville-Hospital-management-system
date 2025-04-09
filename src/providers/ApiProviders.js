@@ -123,3 +123,21 @@ export const getDeaths = async () => {
   const response = await axios.get(apiUrl + "/api/deaths");
   return response.data;
 };
+
+export const createDeath = async (deathData) => {
+  const response = await axios.post(apiUrl + "/api/deaths", deathData);
+  return response.data;
+};
+
+export const updateDeath = async (deathData, deathId) => {
+  const response = await axios.put(
+    apiUrl + "/api/deaths/" + deathId,
+    deathData
+  );
+  return response.data;
+};
+
+export const deleteDeath = async (deathId) => {
+  const response = await axios.delete(apiUrl + "/api/deaths/" + deathId);
+  return response.data;
+};

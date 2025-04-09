@@ -1,6 +1,6 @@
 
 import * as React from "react"
-
+import { DeathRecordDialog } from "./components/deathRecordDialog"
 //patients api context
 import { usePatientData, useBirthAndDeaths } from "../../providers/ApiContextProvider"
 //skeleton loader
@@ -183,7 +183,7 @@ const columns = [
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Date of Death
+                Date & Time of Death
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
@@ -256,7 +256,7 @@ export default function Deaths() {
     const [columnVisibility, setColumnVisibility] = React.useState({})
     const [rowSelection, setRowSelection] = React.useState({})
 
-    const table = useReactTable({ 
+    const table = useReactTable({
         data: deaths,
         columns,
         onSortingChange: setSorting,
@@ -273,17 +273,18 @@ export default function Deaths() {
     //looader
     if (loading || loadingDeaths)
         return (
-           <DeathSkeleton/>
+            <DeathSkeleton />
         )
 
     return (
         <div className="lg:p-6">
             <Card className="border-[#e0f0e8] shadow-sm py-0 overflow-hidden">
-                <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6">
+                <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="text-[#106041] flex items-center gap-2">
                         <User2 className="h-5 w-5" />
                         Death Records
                     </CardTitle>
+                    <DeathRecordDialog />
                 </CardHeader>
                 <CardContent className="md:p-6">
                     <div className="mb-6 bg-white rounded-lg border border-[#e0f0e8] p-4 shadow-sm">
@@ -315,8 +316,8 @@ export default function Deaths() {
                                         className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                                     />
                                 </div>
-                            </div> 
-                            <div className="space-y-2">  
+                            </div>
+                            <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Sex</label>
                                 <Select
                                     onValueChange={(value) => table.getColumn("sex")?.setFilterValue(value)}
