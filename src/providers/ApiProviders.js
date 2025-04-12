@@ -129,15 +129,15 @@ export const createDeath = async (deathData) => {
   return response.data;
 };
 
-export const updateDeath = async (deathData, deathId) => {
+export const deleteDeath = async (deathId) => {
+  const response = await axios.delete(apiUrl + "/api/deaths/" + deathId);
+  return response.data;
+};
+
+export const updateDeathRecord = async (deathId, deathData) => {
   const response = await axios.put(
     apiUrl + "/api/deaths/" + deathId,
     deathData
   );
-  return response.data;
-};
-
-export const deleteDeath = async (deathId) => {
-  const response = await axios.delete(apiUrl + "/api/deaths/" + deathId);
   return response.data;
 };

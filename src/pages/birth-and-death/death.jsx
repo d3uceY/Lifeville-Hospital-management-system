@@ -48,6 +48,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
 import DeleteDeathRecordDialog from "./components/deleteDeathRecordDialog"
 import ViewDeathRecordDialog from "./components/viewDeathRecord"
+import EditDeathDialog from "./components/editDeathDialog"
 
 const columns = [
     {
@@ -222,13 +223,9 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="p-0">
-                            <div
-                                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
-                            >
-                                <FilePenLine className="h-4 w-4" /> Edit
-                            </div>
-                        </DropdownMenuItem>
+                        <EditDeathDialog deathRecord={currentpatientData}>
+                            Edit Death Record
+                        </EditDeathDialog>
                         <DropdownMenuSeparator />
                         <ViewDeathRecordDialog deathRecord={currentpatientData}>
                             <>

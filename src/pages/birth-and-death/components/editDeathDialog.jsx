@@ -1,7 +1,7 @@
 import { usePatientData, useBirthAndDeaths } from "../../../providers/ApiContextProvider"
 import { useState } from "react"
-import { Calendar, Upload, FilePlus, X, User, FileText, UserRound, Clock } from "lucide-react"
-import { createDeath } from "../../../providers/ApiProviders"
+import { Calendar, User, FileText, UserRound, Clock, Edit2 } from "lucide-react"
+import { updateDeathRecord } from "../../../providers/ApiProviders"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -24,12 +24,14 @@ import { useForm } from "react-hook-form"
 import { Controller } from "react-hook-form"
 
 
-export function DeathRecordDialog() {
+export default function EditDeathDialog({ children, deathRecord }) {
     const { patientData, loading } = usePatientData();
     const { refreshDeaths } = useBirthAndDeaths();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
 
+    const { patient_id, death_date, guardian, report, id } = deathRecord
+    console.log(death_date)
     const schema = z.object({
         patientId: z.string().nonempty({ message: "Patient is required" }),
         deathDate: z.string().nonempty({ message: "Death date is required" }),
@@ -41,10 +43,10 @@ export function DeathRecordDialog() {
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            patientId: "",
-            deathDate: "",
-            guardian: "",
-            report: ""
+            patientId: patient_id.toString() || "",
+            deathDate: death_date || "",
+            guardian: guardian || "",
+            report: report || ""
         }
     })
 
@@ -56,7 +58,7 @@ export function DeathRecordDialog() {
             }
             setIsSubmitting(true)
             try {
-                const response = await createDeath(payload)
+                const response = await updateDeathRecord(id, payload)
                 console.log(response)
                 setOpen(false)
                 refreshDeaths()
@@ -70,7 +72,7 @@ export function DeathRecordDialog() {
         }
 
         toast.promise(promise(), {
-            loading: 'Creating death record...',
+            loading: 'updating death record...',
             success: (data) => `${data.message}`,
             error: (err) => err.response?.data?.message || err?.message || 'An error occurred'
         })
@@ -79,16 +81,16 @@ export function DeathRecordDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-[#106041] hover:bg-[#0d4e34]">
-                    <FilePlus className="mr-2 h-4 w-4" />
-                    Add Death Record
+                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                    <Edit2 className="mr-2 h-4 w-4" />
+                    {children}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">
                 <DialogHeader>
                     <DialogTitle className="text-[#106041] flex items-center gap-2">
                         <FileText className="h-5 w-5" />
-                        Add Patient Death Record
+                        Edit Patient Death Record
                     </DialogTitle>
                     <DialogDescription>
                         Enter the details of the patient's death record. All fields are required.
@@ -206,12 +208,3 @@ export function DeathRecordDialog() {
     )
 }
 
-// Example usage
-export default function DeathRecordPage() {
-    return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold text-[#106041] mb-6">Patient Records</h1>
-            <DeathRecordDialog />
-        </div>
-    )
-}
