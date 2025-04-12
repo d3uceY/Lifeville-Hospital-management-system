@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, Trash2 } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter, FilePenLine, History, Eye } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -47,6 +47,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
 import DeleteDeathRecordDialog from "./components/deleteDeathRecordDialog"
+import ViewDeathRecordDialog from "./components/viewDeathRecord"
 
 const columns = [
     {
@@ -221,23 +222,23 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
+                        <DropdownMenuItem className="p-0">
+                            <div
+                                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
+                            >
+                                <FilePenLine className="h-4 w-4" /> Edit
+                            </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <ViewDeathRecordDialog deathRecord={currentpatientData}>
+                            <>
+                                View
+                            </>
+                        </ViewDeathRecordDialog>
+                        <DropdownMenuSeparator />
                         <DeleteDeathRecordDialog deletedDeathRecordInfo={currentpatientData}>
                             Delete
                         </DeleteDeathRecordDialog>
-                        <DropdownMenuItem className="p-0">
-                            <div
-                                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
-                            >
-                                <History className="h-4 w-4" /> Edit
-                            </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="p-0">
-                            <div
-                                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
-                            >
-                                <History className="h-4 w-4" /> View
-                            </div>
-                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )

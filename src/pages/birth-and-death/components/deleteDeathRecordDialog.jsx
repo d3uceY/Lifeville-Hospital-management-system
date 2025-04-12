@@ -25,7 +25,7 @@ export default function DeleteDeathRecordDialog({ children, deletedDeathRecordIn
     const deletePatient = async () => {
         const promise = async () => {
             try {
-                const response = await deleteDeath(patient_id);
+                const response = await deleteDeath(id);
                 refreshDeaths();
                 return response;
             } catch (err) {
