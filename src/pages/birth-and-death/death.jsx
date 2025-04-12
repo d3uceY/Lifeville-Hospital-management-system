@@ -46,6 +46,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
+import DeleteDeathRecordDialog from "./components/deleteDeathRecordDialog"
 
 const columns = [
     {
@@ -220,13 +221,9 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="p-0">
-                            <div
-                                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
-                            >
-                                <History className="h-4 w-4" /> Delete
-                            </div>
-                        </DropdownMenuItem>
+                        <DeleteDeathRecordDialog deletedDeathRecordInfo={currentpatientData}>
+                            Delete
+                        </DeleteDeathRecordDialog>
                         <DropdownMenuItem className="p-0">
                             <div
                                 className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
