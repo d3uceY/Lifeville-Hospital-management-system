@@ -141,3 +141,30 @@ export const updateDeathRecord = async (deathId, deathData) => {
   );
   return response.data;
 };
+
+/* ============================
+   API Helper function here for BIRTHS
+   ============================ */
+
+export const getBirths = async () => {
+  const response = await axios.get(apiUrl + "/api/births");
+  return response.data;
+};
+
+export const createBirths = async (birthData) => {
+  const response = await axios.post(apiUrl + "/api/births", birthData);
+  return response.data;
+};
+
+export const deleteBirth = async (birthId) => {
+  const response = await axios.delete(apiUrl + "/api/births/" + birthId);
+  return response.data;
+};
+
+export const updateBirthRecord = async (birthId, birthData) => {
+  const response = await axios.put(
+    apiUrl + "/api/births/" + birthId,
+    birthData
+  );
+  return response.data;
+};
