@@ -10,6 +10,7 @@ import Settings from "./pages/settings/settings"
 import EditPatientProfile from "./pages/patient-management/EditPatientProfile"
 import { SocketContextProvider } from "./providers/SocketContextProvider"
 import Deaths from "./pages/birth-and-death/death"
+import Births from "./pages/birth-and-death/birth"
 
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
@@ -31,7 +32,7 @@ function App() {
                 <Route path="edit/:patient_id" element={<EditPatientProfile />} />
               </Route>
 
-              {/* <Route path="/births" element={<Births />} /> */}
+              <Route path="/births" element={<Births />} />
               <Route path="/deaths" element={<Deaths />} />
 
               <Route path="/appointments" element={<UpcomingAppointments />} />

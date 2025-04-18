@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter, FilePenLine, History, Eye } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -78,7 +78,7 @@ const columns = [
     //   cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
     // },
     {
-        accessorKey: "id",
+        accessorKey: "birth_id",
         header: ({ column }) => (
             <Button
                 variant="ghost"
@@ -89,67 +89,24 @@ const columns = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">DREF-{row.getValue("id")}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700">DREF-{row.getValue("birth_id")}</div>,
     },
     {
-        accessorKey: "hospital_number",
+        accessorKey: "child_name",
         header: ({ column }) => (
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Hospital Number
+                Child Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">HS-{row.getValue("hospital_number")}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700">{row.getValue("child_name")}</div>,
     },
     {
-        accessorKey: "patient_surname",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
-            >
-                Surname
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("patient_surname")}</div>,
-    },
-    {
-        accessorKey: "patient_first_name",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
-            >
-                First name
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("patient_first_name")}</div>,
-    },
-    ,
-    {
-        accessorKey: "guardian",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
-            >
-                Guardian
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("guardian")}</div>,
-    },
-    {
-        accessorKey: "sex",
+        accessorKey: "gender",
         header: ({ column }) => (
             <Button
                 variant="ghost"
@@ -161,7 +118,7 @@ const columns = [
             </Button>
         ),
         cell: ({ row }) => {
-            const sex = row.getValue("sex")
+            const sex = row.getValue("gender")
             return (
                 <Badge
                     variant="outline"
@@ -179,18 +136,47 @@ const columns = [
         },
     },
     {
-        accessorKey: "death_date",
+        accessorKey: "mother_name",
         header: ({ column }) => (
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Date & Time of Death
+                Mother's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">{formatDate(row?.getValue("death_date"))}</div>,
+        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("mother_name")}</div>,
+    },
+    ,
+    {
+        accessorKey: "father_name",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium text-gray-700 hover:text-[#106041]"
+            >
+                Father Name
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("father_name")}</div>,
+    },
+    {
+        accessorKey: "birth_date",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium text-gray-700 hover:text-[#106041]"
+            >
+                Date & Time of Birth
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="font-medium text-gray-700">{formatDate(row?.getValue("birth_date"))}</div>,
     },
     {
         accessorKey: "report",
@@ -211,7 +197,7 @@ const columns = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const currentpatientData = row.original
+            const currentbirthData = row.original
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -223,17 +209,17 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <EditDeathDialog deathRecord={currentpatientData}>
+                        <EditDeathDialog birthRecord={currentbirthData}>
                             Edit Death Record
                         </EditDeathDialog>
                         <DropdownMenuSeparator />
-                        <ViewDeathRecordDialog deathRecord={currentpatientData}>
+                        <ViewDeathRecordDialog birthRecord={currentbirthData}>
                             <>
                                 View
                             </>
                         </ViewDeathRecordDialog>
                         <DropdownMenuSeparator />
-                        <DeleteDeathRecordDialog deletedDeathRecordInfo={currentpatientData}>
+                        <DeleteDeathRecordDialog deletedBirthRecordInfo={currentbirthData}>
                             Delete
                         </DeleteDeathRecordDialog>
                     </DropdownMenuContent>
@@ -244,15 +230,15 @@ const columns = [
 ]
 
 export default function Births() {
-    const { patientData, loading } = usePatientData()
-    const { deaths, loadingDeaths } = useBirthAndDeaths()
+    const { loading } = usePatientData()
+    const { births, loadingBirths } = useBirthAndDeaths()
     const [sorting, setSorting] = React.useState([])
     const [columnFilters, setColumnFilters] = React.useState([])
     const [columnVisibility, setColumnVisibility] = React.useState({})
     const [rowSelection, setRowSelection] = React.useState({})
 
     const table = useReactTable({
-        data: deaths,
+        data: births,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -266,7 +252,7 @@ export default function Births() {
     })
 
     //looader
-    if (loading || loadingDeaths)
+    if (loading || loadingBirths)
         return (
             <DeathSkeleton />
         )
@@ -289,25 +275,25 @@ export default function Births() {
                         </h3>
                         <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-xs font-medium text-gray-500">Surname</label>
+                                <label className="text-xs font-medium text-gray-500">Child's Name</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input
-                                        placeholder="Filter surname..."
-                                        value={table.getColumn("patient_surname")?.getFilterValue() || ""}
-                                        onChange={(event) => table.getColumn("patient_surname")?.setFilterValue(event.target.value)}
+                                        placeholder="Filter by Child's name..."
+                                        value={table.getColumn("child_name")?.getFilterValue() || ""}
+                                        onChange={(event) => table.getColumn("child_name")?.setFilterValue(event.target.value)}
                                         className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                                     />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-xs font-medium text-gray-500">First Name</label>
+                                <label className="text-xs font-medium text-gray-500">Mother's Name</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input
-                                        placeholder="Filter first name..."
-                                        value={table.getColumn("patient_first_name")?.getFilterValue() || ""}
-                                        onChange={(event) => table.getColumn("patient_first_name")?.setFilterValue(event.target.value)}
+                                        placeholder="Filter Mother's Name..."
+                                        value={table.getColumn("mother_name")?.getFilterValue() || ""}
+                                        onChange={(event) => table.getColumn("mother_name")?.setFilterValue(event.target.value)}
                                         className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                                     />
                                 </div>
@@ -315,8 +301,8 @@ export default function Births() {
                             <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Sex</label>
                                 <Select
-                                    onValueChange={(value) => table.getColumn("sex")?.setFilterValue(value)}
-                                    value={table.getColumn("sex")?.getFilterValue() || ""}
+                                    onValueChange={(value) => table.getColumn("gender")?.setFilterValue(value)}
+                                    value={table.getColumn("gender")?.getFilterValue() || ""}
                                 >
                                     <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
                                         <SelectValue placeholder="Filter by sex" />
@@ -337,7 +323,7 @@ export default function Births() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="space-y-2">
+                            {/* <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Hospital Number</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
@@ -348,7 +334,7 @@ export default function Births() {
                                         className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="flex justify-end mt-4">
                             <DropdownMenu>
