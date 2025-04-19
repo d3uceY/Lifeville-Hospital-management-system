@@ -1,6 +1,7 @@
 import { useBirthAndDeaths } from "../../../providers/ApiContextProvider"
 import { useState } from "react"
 import { updateBirthRecord } from "../../../providers/ApiProviders"
+import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
 import { User, FileText, Clock, Baby, Weight, Phone, MapPin, VenusAndMars, Edit2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -49,7 +50,7 @@ export function EditBirthDialog({ children, birthRecord }) {
         defaultValues: {
             childName: child_name || '',
             gender: gender || '',
-            birthDate: new Date(birth_date) || '',
+            birthDate: formatDateForDateTimeLocal(birth_date) || '',
             motherName: mother_name || '',
             fatherName: father_name || '',
             weight: weight || '',
