@@ -28,7 +28,7 @@ export function EditBirthDialog({ children, birthRecord }) {
     const { refreshBirths } = useBirthAndDeaths();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
-    const { birth_id, child_name, gender, birth_date, mother_name, father_name, weight, phone_number, address, report } = birthRecord
+    const { birth_id, child_name, gender, birth_date, mother_name, father_name, weight, phone_number, address, report } = birthRecord;
     console.log(birth_date)
     const schema = z.object({
         childName: z.string().nonempty({ message: "Child name is required" }),

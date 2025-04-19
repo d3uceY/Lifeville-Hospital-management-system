@@ -47,6 +47,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
 import { EditBirthDialog } from "./components/editBirthDialog"
+import ViewBirthRecordDialog from "./components/viewBirthDialog"
 
 const columns = [
     {
@@ -211,11 +212,11 @@ const columns = [
                                 Edit Birth Record
                         </EditBirthDialog>
                         <DropdownMenuSeparator />
-                        {/* <ViewDeathRecordDialog birthRecord={currentbirthData}>
+                        <ViewBirthRecordDialog birthRecord={currentbirthData}>
                             <>
                                 View
                             </>
-                        </ViewDeathRecordDialog> */}
+                        </ViewBirthRecordDialog>
                         <DropdownMenuSeparator />
                         {/* <DeleteDeathRecordDialog deletedBirthRecordInfo={currentbirthData}>
                             Delete
