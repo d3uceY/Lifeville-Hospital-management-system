@@ -1,6 +1,6 @@
 
 import * as React from "react"
-import { DeathRecordDialog } from "./components/deathRecordDialog"
+import { BirthRecordDialog } from "./components/birthRecordDialog"
 //patients api context
 import { usePatientData, useBirthAndDeaths } from "../../providers/ApiContextProvider"
 //skeleton loader
@@ -162,7 +162,7 @@ const columns = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("father_name")}</div>,
+        cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("father_name") || "Not specified"}</div>,
     },
     {
         accessorKey: "birth_date",
@@ -210,7 +210,7 @@ const columns = [
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <EditDeathDialog birthRecord={currentbirthData}>
-                            Edit Death Record
+                            Edit Birth Record
                         </EditDeathDialog>
                         <DropdownMenuSeparator />
                         <ViewDeathRecordDialog birthRecord={currentbirthData}>
@@ -263,9 +263,9 @@ export default function Births() {
                 <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="text-[#106041] flex items-center gap-2">
                         <User2 className="h-5 w-5" />
-                        Death Records
+                        Birth Records
                     </CardTitle>
-                    <DeathRecordDialog />
+                    <BirthRecordDialog />
                 </CardHeader>
                 <CardContent className="md:p-6">
                     <div className="mb-6 bg-white rounded-lg border border-[#e0f0e8] p-4 shadow-sm">
@@ -395,7 +395,7 @@ export default function Births() {
                                 ) : (
                                     <TableRow>
                                         <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
-                                            No Available Death record
+                                            No Available Birth record
                                         </TableCell>
                                     </TableRow>
                                 )}
