@@ -92,7 +92,7 @@ export function EditBirthDialog({ children, birthRecord }) {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
-                    <Edit2 className="mr-2 h-4 w-4" />
+                    <Edit2 className=" h-4 w-4" />
                     {children}
                 </Button>
             </DialogTrigger>
@@ -271,7 +271,7 @@ export function EditBirthDialog({ children, birthRecord }) {
                                 isSubmitting && (<img src={spinnerLight} alt="" className=" h-8 w-8" />)
                             }
 
-                            Save Record
+                        Update Record
                         </Button>
                     </DialogFooter>
                 </form>

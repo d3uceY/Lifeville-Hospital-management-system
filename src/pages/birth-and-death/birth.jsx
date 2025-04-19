@@ -48,6 +48,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
 import { EditBirthDialog } from "./components/editBirthDialog"
 import ViewBirthRecordDialog from "./components/viewBirthDialog"
+import DeleteBirthRecordDialog from "./components/deleteBirthRecord"
 
 const columns = [
     {
@@ -98,7 +99,7 @@ const columns = [
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Child Name
+                Child's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
@@ -157,7 +158,7 @@ const columns = [
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Father Name
+                Father's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
@@ -208,8 +209,8 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <EditBirthDialog birthRecord={currentbirthData}>                   
-                                Edit Birth Record
+                        <EditBirthDialog birthRecord={currentbirthData}>
+                            Edit Birth Record
                         </EditBirthDialog>
                         <DropdownMenuSeparator />
                         <ViewBirthRecordDialog birthRecord={currentbirthData}>
@@ -218,9 +219,9 @@ const columns = [
                             </>
                         </ViewBirthRecordDialog>
                         <DropdownMenuSeparator />
-                        {/* <DeleteDeathRecordDialog deletedBirthRecordInfo={currentbirthData}>
+                        <DeleteBirthRecordDialog deletedBirthRecordInfo={currentbirthData}>
                             Delete
-                        </DeleteDeathRecordDialog> */}
+                        </DeleteBirthRecordDialog>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -366,7 +367,7 @@ export default function Births() {
                     </div>
 
                     <div className="rounded-md border border-[#e0f0e8] overflow-hidden shadow-sm">
-                        <Table className="block max-w-[600px]">
+                        <Table className="block max-w-[fit-content]">
                             <TableHeader className="bg-[#f0f8f4]">
                                 {table.getHeaderGroups().map((headerGroup) => (
                                     <TableRow key={headerGroup.id} className="hover:bg-[#e6f2ed] border-b border-[#e0f0e8]">
