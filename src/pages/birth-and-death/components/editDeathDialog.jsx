@@ -1,4 +1,5 @@
 import { usePatientData, useBirthAndDeaths } from "../../../providers/ApiContextProvider"
+import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
 import { useState } from "react"
 import { Calendar, User, FileText, UserRound, Clock, Edit2 } from "lucide-react"
 import { updateDeathRecord } from "../../../providers/ApiProviders"
@@ -44,7 +45,7 @@ export default function EditDeathDialog({ children, deathRecord }) {
         resolver: zodResolver(schema),
         defaultValues: {
             patientId: patient_id.toString() || "",
-            deathDate: death_date || "",
+            deathDate: formatDateForDateTimeLocal(death_date) || "",
             guardian: guardian || "",
             report: report || ""
         }
