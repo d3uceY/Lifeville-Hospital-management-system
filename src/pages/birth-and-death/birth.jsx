@@ -46,9 +46,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeathSkeleton from "./components/deathSkeleton"
-import DeleteDeathRecordDialog from "./components/deleteDeathRecordDialog"
-import ViewDeathRecordDialog from "./components/viewDeathRecord"
-import EditDeathDialog from "./components/editDeathDialog"
+import { EditBirthDialog } from "./components/editBirthDialog"
 
 const columns = [
     {
@@ -209,19 +207,19 @@ const columns = [
                     <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
                         <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <EditDeathDialog birthRecord={currentbirthData}>
-                            Edit Birth Record
-                        </EditDeathDialog>
+                        <EditBirthDialog birthRecord={currentbirthData}>                   
+                                Edit Birth Record
+                        </EditBirthDialog>
                         <DropdownMenuSeparator />
-                        <ViewDeathRecordDialog birthRecord={currentbirthData}>
+                        {/* <ViewDeathRecordDialog birthRecord={currentbirthData}>
                             <>
                                 View
                             </>
-                        </ViewDeathRecordDialog>
+                        </ViewDeathRecordDialog> */}
                         <DropdownMenuSeparator />
-                        <DeleteDeathRecordDialog deletedBirthRecordInfo={currentbirthData}>
+                        {/* <DeleteDeathRecordDialog deletedBirthRecordInfo={currentbirthData}>
                             Delete
-                        </DeleteDeathRecordDialog>
+                        </DeleteDeathRecordDialog> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
