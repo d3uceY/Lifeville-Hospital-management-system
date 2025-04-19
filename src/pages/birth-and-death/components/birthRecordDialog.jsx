@@ -1,7 +1,7 @@
 import { useBirthAndDeaths } from "../../../providers/ApiContextProvider"
 import { useState } from "react"
 import { createBirths } from "../../../providers/ApiProviders"
-import { FilePlus, User, FileText, UserRound, Clock } from "lucide-react"
+import { FilePlus, User, FileText, UserRound, Clock, Baby, Calendar, Weight, Phone, MapPin, VenusAndMars } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -36,7 +36,8 @@ export function BirthRecordDialog() {
         motherName: z.string().nonempty({ message: "Mother name is required" }),
         fatherName: z.string().optional(),
         weight: z.string().nonempty({ message: "Weight is required" }),
-        phoneNumber: z.string().nonempty({ message: "Phone number is required" }),
+        phoneNumber: z.string().nonempty({ message: "Phone number is required" })
+            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         address: z.string().nonempty({ message: "Address is required" }),
         report: z.string().optional()
     });
@@ -67,7 +68,7 @@ export function BirthRecordDialog() {
             try {
                 const response = await createBirths(payload)
                 console.log(response)
-                // setOpen(false)
+                setOpen(false)
                 refreshBirths()
                 return response;
             } catch (error) {
@@ -108,7 +109,7 @@ export function BirthRecordDialog() {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label htmlFor="childName" className="text-gray-700 flex items-center gap-1">
-                                <UserRound className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Baby className="h-3.5 w-3.5 text-[#268A64]" />
                                 Child Name
                             </Label>
                             <div className="relative">
@@ -121,7 +122,7 @@ export function BirthRecordDialog() {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="gender" className="text-gray-700 flex items-center gap-1">
-                                    <UserRound className="h-3.5 w-3.5 text-[#268A64]" />
+                                    <VenusAndMars className="h-3.5 w-3.5 text-[#268A64]" />
                                     Gender
                                 </Label>
                                 <div className="relative">
@@ -193,7 +194,7 @@ export function BirthRecordDialog() {
 
                         <div className="grid gap-2">
                             <Label htmlFor="weight" className="text-gray-700 flex items-center gap-1">
-                                <User className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Weight className="h-3.5 w-3.5 text-[#268A64]" />
                                 Weight (kg)
                             </Label>
                             <Input
@@ -208,7 +209,7 @@ export function BirthRecordDialog() {
 
                         <div className="grid gap-2">
                             <Label htmlFor="phoneNumber" className="text-gray-700 flex items-center gap-1">
-                                <User className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Phone className="h-3.5 w-3.5 text-[#268A64]" />
                                 Phone Number
                             </Label>
                             <Input
@@ -224,7 +225,7 @@ export function BirthRecordDialog() {
 
                         <div className="grid gap-2">
                             <Label htmlFor="address" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <MapPin className="h-3.5 w-3.5 text-[#268A64]" />
                                 Address
                             </Label>
                             <Textarea

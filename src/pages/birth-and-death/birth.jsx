@@ -89,7 +89,7 @@ const columns = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">DREF-{row.getValue("birth_id")}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700">BREF-{row.getValue("birth_id")}</div>,
     },
     {
         accessorKey: "child_name",
