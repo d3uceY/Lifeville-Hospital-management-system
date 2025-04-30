@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
 import Page from "./app/dashboard/page"
 import Register from "./pages/patient-management/Register"
 import Patients from "./pages/patient-management/Patients"

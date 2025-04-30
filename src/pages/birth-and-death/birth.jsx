@@ -366,8 +366,8 @@ export default function Births() {
                         </div>
                     </div>
 
-                    <div className="rounded-md border border-[#e0f0e8] overflow-hidden shadow-sm">
-                        <Table className="block max-w-[fit-content]">
+                    <div className="rounded-md border overflow-x-scroll shadow-sm">
+                        <Table className="w-full">
                             <TableHeader className="bg-[#f0f8f4]">
                                 {table.getHeaderGroups().map((headerGroup) => (
                                     <TableRow key={headerGroup.id} className="hover:bg-[#e6f2ed] border-b border-[#e0f0e8]">

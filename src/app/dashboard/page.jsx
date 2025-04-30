@@ -44,6 +44,7 @@ export default function Page() {
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
             {/* //this is where the app routes are rendered */}
             <Outlet />
+            {/* this is the universal toaster component*/}
             <Toaster richColors />
           </div>
         </div>
