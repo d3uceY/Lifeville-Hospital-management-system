@@ -17,6 +17,7 @@ import { NavMain } from "@/components/nav-main"
 import { NavClinical } from "./nav-clinical"
 import { NavInventory } from "./nav-inventory"
 import { NavUser } from "@/components/nav-user"
+import { NavSetup } from "./nav-setup"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
@@ -40,6 +41,7 @@ const data = {
       plan: "Enterprise",
     }
   ],
+
   navMain: [
     {
       title: "Dashboard",
@@ -61,9 +63,6 @@ const data = {
         },
       ],
     },
-
-
-
 
     {
       title: "Reports & Analytics",
@@ -214,6 +213,23 @@ const data = {
         }
       ],
     },
+  ],
+  setup: [
+    {
+      title: "Symptoms",
+      url: "#",
+      icon: CreditCard,
+      items: [
+        {
+          title: "Symptom Types",
+          url: "#",
+        },
+        {
+          title: "Symptom heads",
+          url: "#",
+        }
+      ],
+    }
   ]
 }
 
@@ -227,6 +243,7 @@ export function AppSidebar({ ...props }) {
         <NavMain items={data.navMain} />
         <NavClinical items={data.clinical} />
         <NavInventory items={data.inventory} />
+        <NavSetup items={data.setup} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

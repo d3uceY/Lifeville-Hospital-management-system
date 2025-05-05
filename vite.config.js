@@ -15,7 +15,7 @@ export default defineConfig({
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
         name: "Lifeville Specialist Hospital Management System",
-        short_name: "LifevilleHMS",
+        short_name: "LifevilleHMS", 
         description: "Lifeville Hospital Management System",
         theme_color: "#88c682",
         icons: [
