@@ -168,3 +168,65 @@ export const updateBirthRecord = async (birthId, birthData) => {
   );
   return response.data;
 };
+
+/* ============================
+   API Helper function here for SYMPTOMS
+   ============================ */
+
+// SYMPTOM TYPES
+export const getSymptomTypes = async () => {
+  const response = await axios.get(apiUrl + "/api/symptom-types");
+  return response.data;
+};
+
+export const createSymptomType = async (symptomTypeData) => {
+  const response = await axios.post(
+    apiUrl + "/api/symptom-types",
+    symptomTypeData
+  );
+  return response.data;
+};
+
+export const updateSymptomType = async (symptomTypeId, symptomTypeData) => {
+  const response = await axios.put(
+    apiUrl + "/api/symptom-types/" + symptomTypeId,
+    symptomTypeData
+  );
+  return response.data;
+};
+
+export const deleteSymptomType = async (symptomTypeId) => {
+  const response = await axios.delete(
+    apiUrl + "/api/symptom-types/" + symptomTypeId
+  );
+  return response.data;
+};
+
+// SYMPTOM HEADS
+export const getSymptomHeads = async () => {
+  const response = await axios.get(apiUrl + "/api/symptom-heads");
+  return response.data;
+};
+
+export const createSymptomHead = async (symptomHeadData) => {
+  const response = await axios.post(
+    apiUrl + "/api/symptom-heads",
+    symptomHeadData
+  );
+  return response.data;
+};
+
+export const updateSymptomHead = async (symptomHeadId, symptomHeadData) => {
+  const response = await axios.put(
+    apiUrl + "/api/symptom-heads/" + symptomHeadId,
+    symptomHeadData
+  );
+  return response.data;
+};
+
+export const deleteSymptomHead = async (symptomHeadId) => {
+  const response = await axios.delete(
+    apiUrl + "/api/symptom-heads/" + symptomHeadId
+  );
+  return response.data;
+};

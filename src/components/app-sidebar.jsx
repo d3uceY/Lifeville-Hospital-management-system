@@ -9,7 +9,8 @@ import {
   Box,
   BarChart,
   UserCog,
-  BookOpen
+  BookOpen,
+  AlertTriangle
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -218,7 +219,7 @@ const data = {
     {
       title: "Symptoms",
       url: "#",
-      icon: CreditCard,
+      icon: AlertTriangle,
       items: [
         {
           title: "Symptom Types",
