@@ -13,7 +13,6 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
-import { Toaster } from "sonner"
 import { useAppointmentsData } from "../../providers/ApiContextProvider"
 import AppointmentCard from "./components/AppointmentCard"
 

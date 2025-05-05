@@ -223,11 +223,11 @@ const data = {
       items: [
         {
           title: "Symptom Types",
-          url: "#",
+          url: "/symptom-types",
         },
         {
           title: "Symptom heads",
-          url: "#",
+          url: "/symptom-heads",
         }
       ],
     }

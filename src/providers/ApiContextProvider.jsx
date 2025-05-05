@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { getRegisteredPatients, getDoctors, getAppointments, getDeaths, getBirths } from "./ApiProviders";
+import { getRegisteredPatients, getDoctors, getAppointments, getDeaths, getBirths, getSymptomTypes } from "./ApiProviders";
 import React from "react";
 
 /* ============================
@@ -37,6 +37,16 @@ const BirthAndDeaths = React.createContext()
 
 export const useBirthAndDeaths = () => {
     return useContext(BirthAndDeaths)
+}
+
+
+/* ============================
+   API context for Symptom Types
+   ============================ */
+const SymptomTypes = React.createContext()
+
+export const useSymptomTypes = () => {
+    return useContext(SymptomTypes)
 }
 
 
@@ -159,6 +169,28 @@ export function PatientContextProvider({ children }) {
     }, [])
 
     /* ============================
+  Symptom Types custom hook
+  ============================ */
+    const [loadingSymptomTypes, setIsLoadingSymptomTypes] = useState(false);
+    const [symptomTypes, setSymptomTypes] = useState([]);
+
+    const fetchSymptomTypes = async () => {
+        try {
+            setIsLoadingSymptomTypes(true)
+            const response = await getSymptomTypes()
+            setSymptomTypes(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingSymptomTypes(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchSymptomTypes();
+    }, [])
+
+    /* ============================
    API context providers
    ============================ */
     return (
@@ -166,7 +198,9 @@ export function PatientContextProvider({ children }) {
             <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
                 <BirthAndDeaths.Provider value={{ deaths, loadingDeaths, refreshDeaths: fetchDeaths, births, loadingBirths, refreshBirths: fetchBirths }}>
                     <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
-                        {children}
+                        <SymptomTypes.Provider value={{ symptomTypes, loadingSymptomTypes, refreshSymptomTypes: fetchSymptomTypes }}>
+                            {children}
+                        </SymptomTypes.Provider>
                     </PatientContext.Provider>
                 </BirthAndDeaths.Provider>
             </DoctorContext.Provider>

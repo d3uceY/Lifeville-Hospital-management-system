@@ -11,6 +11,8 @@ import EditPatientProfile from "./pages/patient-management/EditPatientProfile"
 import { SocketContextProvider } from "./providers/SocketContextProvider"
 import Deaths from "./pages/birth-and-death/death"
 import Births from "./pages/birth-and-death/birth"
+import SymptomTypes from "./pages/symptoms/SymptomTypes"
+import SymptomHeads from "./pages/symptoms/SymptomHeads"
 
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
@@ -37,6 +39,9 @@ function App() {
 
               <Route path="/appointments" element={<UpcomingAppointments />} />
               <Route path="/settings" element={<Settings />} />
+
+              <Route path="/symptom-types" element={<SymptomTypes />} />
+              <Route path="/symptom-heads" element={<SymptomHeads />} />
             </Route>
           </Routes>
         </Router>
