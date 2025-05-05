@@ -32,6 +32,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { EditSymptomTypeDialog } from "./components/editSymptomTypeDialog"
+import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
 
 const columns = [
 
@@ -43,7 +44,7 @@ const columns = [
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:text-[#106041]"
             >
-                Reference Id
+                Symptom Type
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
@@ -69,6 +70,9 @@ const columns = [
                             Edit Symptom Type
                         </EditSymptomTypeDialog>
                         <DropdownMenuSeparator />
+                        <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData}>
+                            Delete Symptom Type
+                        </DeleteSymptomTypeDialog>
                     </DropdownMenuContent>
                 </DropdownMenu>
             )
@@ -185,7 +189,7 @@ export default function SymptomTypes() {
                                             data-state={row.getIsSelected() && "selected"}
                                         >
                                             {row.getVisibleCells().map((cell) => (
-                                                <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                                                <TableCell key={cell.id} className="pl-5">{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                                             ))}
                                         </TableRow>
                                     ))
