@@ -34,6 +34,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { EditSymptomTypeDialog } from "./components/editSymptomTypeDialog"
 import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
 
+import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
+
 const columns = [
 
     {
@@ -100,11 +102,11 @@ export default function SymptomTypes() {
         onRowSelectionChange: setRowSelection,
         state: { sorting, columnFilters, columnVisibility, rowSelection },
     })
-
+ 
     //looader
     if (loadingSymptomTypes)
         return (
-            <div></div>
+            <SymptomTypeSkeletonLoader />
         )
 
     return (
@@ -204,8 +206,8 @@ export default function SymptomTypes() {
                         </Table>
                         <div className="flex items-center justify-end space-x-2 py-4 px-6 bg-[#f9fcfa] border-t border-[#e0f0e8]">
                             <div className="flex-1 text-sm text-gray-500">
-                                {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length}{" "}
-                                symptom type(s) selected
+                                {table.getFilteredRowModel().rows.length}{" "}
+                                symptom type(s)
                             </div>
                             <div className="space-x-2 flex">
                                 <Button
