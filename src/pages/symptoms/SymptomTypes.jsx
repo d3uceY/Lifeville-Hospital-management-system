@@ -127,7 +127,7 @@ export default function SymptomTypes() {
                         </h3>
                         <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <label className="text-xs font-medium text-gray-500">Surname</label>
+                                <label className="text-xs font-medium text-gray-500">Symptom Type</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input

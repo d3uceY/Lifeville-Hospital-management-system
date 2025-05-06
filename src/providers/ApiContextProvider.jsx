@@ -1,5 +1,15 @@
 import { useContext, useState, useEffect } from "react";
-import { getRegisteredPatients, getDoctors, getAppointments, getDeaths, getBirths, getSymptomTypes } from "./ApiProviders";
+
+import {
+    getRegisteredPatients,
+    getDoctors,
+    getAppointments,
+    getDeaths,
+    getBirths,
+    getSymptomTypes,
+    getSymptomHeads
+} from "./ApiProviders";
+
 import React from "react";
 
 /* ============================
@@ -47,6 +57,15 @@ const SymptomTypes = React.createContext()
 
 export const useSymptomTypes = () => {
     return useContext(SymptomTypes)
+}
+
+/* ============================
+   API context for Symptom Heads
+   ============================ */
+const SymptomHeads = React.createContext()
+
+export const useSymptomHeads = () => {
+    return useContext(SymptomHeads)
 }
 
 
@@ -191,6 +210,28 @@ export function PatientContextProvider({ children }) {
     }, [])
 
     /* ============================
+ Symptom Heads custom hook
+ ============================ */
+    const [loadingSymptomHeads, setIsLoadingSymptomHeads] = useState(false);
+    const [symptomHeads, setSymptomHeads] = useState([]);
+
+    const fetchSymptomHeads = async () => {
+        try {
+            setIsLoadingSymptomHeads(true)
+            const response = await getSymptomHeads()
+            setSymptomHeads(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingSymptomHeads(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchSymptomHeads();
+    }, [])
+
+    /* ============================
    API context providers
    ============================ */
     return (
@@ -199,7 +240,9 @@ export function PatientContextProvider({ children }) {
                 <BirthAndDeaths.Provider value={{ deaths, loadingDeaths, refreshDeaths: fetchDeaths, births, loadingBirths, refreshBirths: fetchBirths }}>
                     <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
                         <SymptomTypes.Provider value={{ symptomTypes, loadingSymptomTypes, refreshSymptomTypes: fetchSymptomTypes }}>
-                            {children}
+                            <SymptomHeads.Provider value={{ symptomHeads, loadingSymptomHeads, refreshSymptomHeads: fetchSymptomHeads }}>
+                                {children}
+                            </SymptomHeads.Provider>
                         </SymptomTypes.Provider>
                     </PatientContext.Provider>
                 </BirthAndDeaths.Provider>
