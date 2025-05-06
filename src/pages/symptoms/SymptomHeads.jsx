@@ -1,6 +1,7 @@
 
 import * as React from "react"
 import { CreateSymptomHeadDialog } from "./components/createSymptomHeadDialog"
+import { EditSymptomHeadDialog } from "./components/editSymptomHeadDialog"
 //patients api context
 import { useSymptomHeads } from "../../providers/ApiContextProvider"
 //skeleton loader
@@ -32,7 +33,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { EditSymptomTypeDialog } from "./components/editSymptomTypeDialog"
-import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
+import DeleteSymptomHeadDialog from "./components/deleteSymptomHeadDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
 
@@ -95,13 +96,13 @@ const columns = [
           <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
             <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <EditSymptomTypeDialog symptom={symptomHeadData}>
+            <EditSymptomHeadDialog symptomHead={symptomHeadData}>
               Edit Symptom Head
-            </EditSymptomTypeDialog>
+            </EditSymptomHeadDialog>
             <DropdownMenuSeparator />
-            <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomHeadData}>
+            <DeleteSymptomHeadDialog deletedSymptomHeadRecordInfo={symptomHeadData}>
               Delete Symptom Head
-            </DeleteSymptomTypeDialog>
+            </DeleteSymptomHeadDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       )
