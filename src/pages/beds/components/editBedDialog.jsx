@@ -5,7 +5,7 @@ import { FileText, Tags, Edit2, BedDouble, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
-    DialogContent, 
+    DialogContent,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -21,7 +21,8 @@ import { toast } from "sonner";
 import spinnerLight from '/spinner-light.svg';
 
 export function EditBedDialog({ bed, children }) {
-    const { bed_id, bed_name, bed_type_id, bed_group_id, in_use } = bed;
+    const { id, bed_name, bed_type_id, bed_group_id, used } = bed;
+    console.log(bed)
     const { refreshBeds, bedTypes, loadingBedTypes, bedGroups, loadingBedGroups } = useBeds();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ export function EditBedDialog({ bed, children }) {
             bedName: bed_name,
             bedTypeId: `${bed_type_id}`,
             bedGroupId: `${bed_group_id}`,
-            inUse: in_use,
+            inUse: used,
         }
     });
 
@@ -48,13 +49,12 @@ export function EditBedDialog({ bed, children }) {
         const promise = async () => {
             setIsSubmitting(true);
             const payload = {
-                bed_name: data.bedName,
-                bed_type_id: Number(data.bedTypeId),
-                bed_group_id: Number(data.bedGroupId),
-                in_use: data.inUse,
+                ...data,
+                bedTypeId: Number(data.bedTypeId),
+                bedGroupId: Number(data.bedGroupId),
             };
             try {
-                const response = await updateBed(bed_id, payload);
+                const response = await updateBed(id, payload);
                 setOpen(false);
                 refreshBeds();
                 return response;
@@ -123,8 +123,8 @@ export function EditBedDialog({ bed, children }) {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {bedTypes.map((bedType) => (
-                                                    <SelectItem key={bedType.bed_type_id} value={`${bedType.bed_type_id}`}>
-                                                        <span>{bedType.bed_type_name}</span>
+                                                    <SelectItem key={bedType.id} value={`${bedType.id}`}>
+                                                        <span>{bedType.type_name}</span>
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -154,8 +154,8 @@ export function EditBedDialog({ bed, children }) {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {bedGroups.map((bedGroup) => (
-                                                    <SelectItem key={bedGroup.bed_group_id} value={`${bedGroup.bed_group_id}`}>
-                                                        <span>{bedGroup.bed_group_name}</span>
+                                                    <SelectItem key={bedGroup.id} value={`${bedGroup.id}`}>
+                                                        <span>{bedGroup.group_name}</span>
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
