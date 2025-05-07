@@ -25,6 +25,11 @@ import Births from "./pages/birth-and-death/birth"
 import SymptomTypes from "./pages/symptoms/SymptomTypes"
 import SymptomHeads from "./pages/symptoms/SymptomHeads"
 
+//beds
+import Beds from "./pages/beds/Beds"
+import BedGroup from "./pages/beds/BedGroup"
+import BedType from "./pages/beds/BedType"
+
 //context providers
 import { PatientContextProvider } from "./providers/ApiContextProvider"
 import { SocketContextProvider } from "./providers/SocketContextProvider"
@@ -56,6 +61,10 @@ function App() {
 
               <Route path="/symptom-types" element={<SymptomTypes />} />
               <Route path="/symptom-heads" element={<SymptomHeads />} />
+
+              <Route path="/beds" element={<Beds />} />
+              <Route path="/bed-group" element={<BedGroup />} />
+              <Route path="/bed-type" element={<BedType />} />
 
             </Route>
           </Routes>

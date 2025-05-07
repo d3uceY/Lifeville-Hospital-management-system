@@ -57,7 +57,6 @@ export function DeathRecordDialog() {
             setIsSubmitting(true)
             try {
                 const response = await createDeath(payload)
-                console.log(response)
                 setOpen(false)
                 refreshDeaths()
                 return response;

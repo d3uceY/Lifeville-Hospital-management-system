@@ -87,7 +87,6 @@ export default function ScheduleAppointmentDialog() {
     // Data fetches
     const { patientData, loading, refreshPatients } = usePatientData();
     const { doctors, loadingDoctors, refreshDoctors } = useDoctorData();
-    console.log(doctors)
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

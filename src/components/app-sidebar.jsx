@@ -10,7 +10,8 @@ import {
   BarChart,
   UserCog,
   BookOpen,
-  AlertTriangle
+  AlertTriangle,
+  Bed
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -236,6 +237,25 @@ const data = {
         {
           title: "Symptom heads",
           url: "/symptom-heads",
+        }
+      ],
+    },
+    {
+      title: "Beds",
+      url: "#",
+      icon: Bed,
+      items: [
+        {
+          title: "Beds",
+          url: "/beds",
+        },
+        {
+          title: "Bed groups",
+          url: "/bed-group",
+        },
+        {
+          title: "Bed types",
+          url: "/bed-type",
         }
       ],
     }

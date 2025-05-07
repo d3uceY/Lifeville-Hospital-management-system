@@ -47,12 +47,11 @@ export function EditSymptomTypeDialog({ symptom, children }) {
             setIsSubmitting(true)
             try {
                 const response = await updateSymptomType(symptom_type_id, data)
-                console.log(response)
                 setOpen(false)
                 refreshSymptomTypes()
                 return response;
             } catch (error) {
-                console.log(error)
+                console.log(error) 
                 throw error
             } finally {
                 setIsSubmitting(false)

@@ -271,71 +271,71 @@ export const deleteInpatientAdmission = async (admissionId) => {
 
 // BED TYPES
 export const getBedTypes = async () => {
-  const response = await axios.get(`${apiUrl}/bed-types`);
+  const response = await axios.get(`${apiUrl}/api/bed-types`);
   return response.data;
 };
 
 export const createBedType = async (typeData) => {
-  const response = await axios.post(`${apiUrl}/bed-types`, typeData);
+  const response = await axios.post(`${apiUrl}/api/bed-types`, typeData);
   return response.data;
 };
 
 export const updateBedType = async (typeId, typeData) => {
-  const response = await axios.put(`${apiUrl}/bed-types/${typeId}`, typeData);
+  const response = await axios.put(`${apiUrl}/api/bed-types/${typeId}`, typeData);
   return response.data;
 };
 
 export const deleteBedType = async (typeId) => {
-  const response = await axios.delete(`${apiUrl}/bed-types/${typeId}`);
+  const response = await axios.delete(`${apiUrl}/api/bed-types/${typeId}`);
   return response.data;
 };
 
 // BED GROUPS
 export const getBedGroups = async () => {
-  const response = await axios.get(`${apiUrl}/bed-groups`);
+  const response = await axios.get(`${apiUrl}/api/bed-groups`);
   return response.data;
 };
 
 export const createBedGroup = async (groupData) => {
-  const response = await axios.post(`${apiUrl}/bed-groups`, groupData);
+  const response = await axios.post(`${apiUrl}/api/bed-groups`, groupData);
   return response.data;
 };
 
 export const updateBedGroup = async (groupId, groupData) => {
   const response = await axios.put(
-    `${apiUrl}/bed-groups/${groupId}`,
+    `${apiUrl}/api/bed-groups/${groupId}`,
     groupData
   );
   return response.data;
 };
 
 export const deleteBedGroup = async (groupId) => {
-  const response = await axios.delete(`${apiUrl}/bed-groups/${groupId}`);
+  const response = await axios.delete(`${apiUrl}/api/bed-groups/${groupId}`);
   return response.data;
 };
 
 // BEDS
 export const getBeds = async () => {
-  const response = await axios.get(`${apiUrl}/beds`);
+  const response = await axios.get(`${apiUrl}/api/beds`);
   return response.data;
 };
 
 export const getBed = async (bedId) => {
-  const response = await axios.get(`${apiUrl}/beds/${bedId}`);
+  const response = await axios.get(`${apiUrl}/api/beds/${bedId}`);
   return response.data;
 };
 
 export const createBed = async (bedData) => {
-  const response = await axios.post(`${apiUrl}/beds`, bedData);
+  const response = await axios.post(`${apiUrl}/api/beds`, bedData);
   return response.data;
 };
 
 export const updateBed = async (bedId, bedData) => {
-  const response = await axios.put(`${apiUrl}/beds/${bedId}`, bedData);
+  const response = await axios.put(`${apiUrl}/api/beds/${bedId}`, bedData);
   return response.data;
 };
 
 export const deleteBed = async (bedId) => {
-  const response = await axios.delete(`${apiUrl}/beds/${bedId}`);
+  const response = await axios.delete(`${apiUrl}/api/beds/${bedId}`);
   return response.data;
 };

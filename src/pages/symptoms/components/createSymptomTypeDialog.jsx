@@ -44,7 +44,6 @@ export function CreateSymptomTypeDialog() {
             setIsSubmitting(true)
             try {
                 const response = await createSymptomType(data)
-                console.log(response)
                 setOpen(false)
                 refreshSymptomTypes()
                 return response;

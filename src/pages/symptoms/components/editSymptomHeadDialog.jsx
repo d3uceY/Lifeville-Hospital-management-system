@@ -58,7 +58,6 @@ export function EditSymptomHeadDialog({ symptomHead, children }) {
             }
             try {
                 const response = await updateSymptomHead(symptom_head_id, payload)
-                console.log(response)
                 setOpen(false)
                 refreshSymptomHeads()
                 return response;

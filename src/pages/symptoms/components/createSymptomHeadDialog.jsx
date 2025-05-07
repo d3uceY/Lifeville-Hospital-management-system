@@ -57,7 +57,6 @@ export function CreateSymptomHeadDialog() {
             }
             try {
                 const response = await createSymptomHead(payload)
-                console.log(response)
                 setOpen(false)
                 refreshSymptomHeads()
                 return response;

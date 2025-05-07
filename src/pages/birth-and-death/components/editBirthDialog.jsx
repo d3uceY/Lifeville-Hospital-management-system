@@ -30,7 +30,6 @@ export function EditBirthDialog({ children, birthRecord }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
     const { birth_id, child_name, gender, birth_date, mother_name, father_name, weight, phone_number, address, report } = birthRecord;
-    console.log(birth_date)
     const schema = z.object({
         childName: z.string().nonempty({ message: "Child name is required" }),
         gender: z.string().nonempty({ message: "Gender is required" }),
@@ -69,7 +68,6 @@ export function EditBirthDialog({ children, birthRecord }) {
             setIsSubmitting(true)
             try {
                 const response = await updateBirthRecord(birth_id, payload)
-                console.log(response)
                 setOpen(false)
                 refreshBirths()
                 return response;

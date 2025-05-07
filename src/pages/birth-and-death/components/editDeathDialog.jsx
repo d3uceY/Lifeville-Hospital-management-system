@@ -32,7 +32,6 @@ export default function EditDeathDialog({ children, deathRecord }) {
     const [open, setOpen] = useState(false)
 
     const { patient_id, death_date, guardian, report, id } = deathRecord
-    console.log(death_date)
     const schema = z.object({
         patientId: z.string().nonempty({ message: "Patient is required" }),
         deathDate: z.string().nonempty({ message: "Death date is required" }),
@@ -60,7 +59,6 @@ export default function EditDeathDialog({ children, deathRecord }) {
             setIsSubmitting(true)
             try {
                 const response = await updateDeathRecord(id, payload)
-                console.log(response)
                 setOpen(false)
                 refreshDeaths()
                 return response;

@@ -67,7 +67,6 @@ export function BirthRecordDialog() {
             setIsSubmitting(true)
             try {
                 const response = await createBirths(payload)
-                console.log(response)
                 setOpen(false)
                 refreshBirths()
                 return response;
