@@ -8,7 +8,10 @@ import {
     getBirths,
     getSymptomTypes,
     getSymptomHeads,
-    getInpatientAdmissions
+    getInpatientAdmissions,
+    getBeds,
+    getBedGroups,
+    getBedTypes
 } from "./ApiProviders";
 
 import React from "react";
@@ -79,6 +82,15 @@ export const useInpatientAdmissions = () => {
     return useContext(InpatientAdmissions)
 }
 
+
+/* ============================
+   API context for Beds
+   ============================ */
+const Beds = React.createContext()
+
+export const useBeds = () => {
+    return useContext(Beds)
+}
 
 
 
@@ -261,6 +273,67 @@ export function PatientContextProvider({ children }) {
         fetchInpatientAdmissions();
     }, [])
 
+
+    /* ============================
+Beds custom hook
+============================ */
+    const [loadingBeds, setIsLoadingBeds] = useState(false);
+    const [beds, setBeds] = useState([]);
+
+    const fetchBeds = async () => {
+        try {
+            setIsLoadingBeds(true)
+            const response = await getBeds()
+            setBeds(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingBeds(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchBeds();
+    }, [])
+
+    const [loadingBedGroups, setIsLoadingBedGroups] = useState(false);
+    const [bedGroups, setBedGroups] = useState([]);
+
+    const fetchBedGroups = async () => {
+        try {
+            setIsLoadingBedGroups(true)
+            const response = await getBedGroups()
+            setBedGroups(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingBedGroups(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchBedGroups();
+    }, [])
+
+    const [loadingBedTypes, setIsLoadingBedTypes] = useState(false);
+    const [bedTypes, setBedTypes] = useState([]);
+
+    const fetchBedTypes = async () => {
+        try {
+            setIsLoadingBedTypes(true)
+            const response = await getBedTypes()
+            setBedTypes(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingBedTypes(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchBedTypes();
+    }, [])
+
     /* ============================
    API context providers
    ============================ */
@@ -272,7 +345,9 @@ export function PatientContextProvider({ children }) {
                         <SymptomTypes.Provider value={{ symptomTypes, loadingSymptomTypes, refreshSymptomTypes: fetchSymptomTypes }}>
                             <SymptomHeads.Provider value={{ symptomHeads, loadingSymptomHeads, refreshSymptomHeads: fetchSymptomHeads }}>
                                 <InpatientAdmissions.Provider value={{ inpatientAdmissions, loadingInpatientAdmissions, refreshInpatientAdmissions: fetchInpatientAdmissions }}>
-                                    {children}
+                                    <Beds.Provider value={{ beds, loadingBeds, refreshBeds: fetchBeds, bedGroups, loadingBedGroups, refreshBedGroups: fetchBedGroups, bedTypes, loadingBedTypes, refreshBedTypes: fetchBedTypes }}>
+                                        {children}
+                                    </Beds.Provider>
                                 </InpatientAdmissions.Provider>
                             </SymptomHeads.Provider>
                         </SymptomTypes.Provider>
