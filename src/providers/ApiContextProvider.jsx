@@ -7,7 +7,8 @@ import {
     getDeaths,
     getBirths,
     getSymptomTypes,
-    getSymptomHeads
+    getSymptomHeads,
+    getInpatientAdmissions
 } from "./ApiProviders";
 
 import React from "react";
@@ -69,7 +70,14 @@ export const useSymptomHeads = () => {
 }
 
 
+/* ============================
+   API context for Inpatient admissions
+   ============================ */
+const InpatientAdmissions = React.createContext()
 
+export const useInpatientAdmissions = () => {
+    return useContext(InpatientAdmissions)
+}
 
 
 
@@ -232,6 +240,28 @@ export function PatientContextProvider({ children }) {
     }, [])
 
     /* ============================
+ Inpatient Admissions custom hook
+ ============================ */
+    const [loadingInpatientAdmissions, setIsLoadingInpatientAdmissions] = useState(false);
+    const [inpatientAdmissions, setInpatientAdmissions] = useState([]);
+
+    const fetchInpatientAdmissions = async () => {
+        try {
+            setIsLoadingInpatientAdmissions(true)
+            const response = await getInpatientAdmissions()
+            setInpatientAdmissions(response)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoadingInpatientAdmissions(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchInpatientAdmissions();
+    }, [])
+
+    /* ============================
    API context providers
    ============================ */
     return (
@@ -241,7 +271,9 @@ export function PatientContextProvider({ children }) {
                     <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
                         <SymptomTypes.Provider value={{ symptomTypes, loadingSymptomTypes, refreshSymptomTypes: fetchSymptomTypes }}>
                             <SymptomHeads.Provider value={{ symptomHeads, loadingSymptomHeads, refreshSymptomHeads: fetchSymptomHeads }}>
-                                {children}
+                                <InpatientAdmissions.Provider value={{ inpatientAdmissions, loadingInpatientAdmissions, refreshInpatientAdmissions: fetchInpatientAdmissions }}>
+                                    {children}
+                                </InpatientAdmissions.Provider>
                             </SymptomHeads.Provider>
                         </SymptomTypes.Provider>
                     </PatientContext.Provider>

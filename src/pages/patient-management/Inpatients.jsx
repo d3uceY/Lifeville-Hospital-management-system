@@ -70,11 +70,6 @@ const columns = [
     enableSorting: false,
     enableHiding: false,
   },
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
-  // },
   {
     accessorKey: "hospital_number",
     header: ({ column }) => (

@@ -264,3 +264,78 @@ export const deleteInpatientAdmission = async (admissionId) => {
   );
   return response.data;
 };
+
+/* ============================
+   API Helper function here for BED TYPES
+   ============================ */
+
+// BED TYPES
+export const getBedTypes = async () => {
+  const response = await axios.get(`${apiUrl}/bed-types`);
+  return response.data;
+};
+
+export const createBedType = async (typeData) => {
+  const response = await axios.post(`${apiUrl}/bed-types`, typeData);
+  return response.data;
+};
+
+export const updateBedType = async (typeId, typeData) => {
+  const response = await axios.put(`${apiUrl}/bed-types/${typeId}`, typeData);
+  return response.data;
+};
+
+export const deleteBedType = async (typeId) => {
+  const response = await axios.delete(`${apiUrl}/bed-types/${typeId}`);
+  return response.data;
+};
+
+// BED GROUPS
+export const getBedGroups = async () => {
+  const response = await axios.get(`${apiUrl}/bed-groups`);
+  return response.data;
+};
+
+export const createBedGroup = async (groupData) => {
+  const response = await axios.post(`${apiUrl}/bed-groups`, groupData);
+  return response.data;
+};
+
+export const updateBedGroup = async (groupId, groupData) => {
+  const response = await axios.put(
+    `${apiUrl}/bed-groups/${groupId}`,
+    groupData
+  );
+  return response.data;
+};
+
+export const deleteBedGroup = async (groupId) => {
+  const response = await axios.delete(`${apiUrl}/bed-groups/${groupId}`);
+  return response.data;
+};
+
+// BEDS
+export const getBeds = async () => {
+  const response = await axios.get(`${apiUrl}/beds`);
+  return response.data;
+};
+
+export const getBed = async (bedId) => {
+  const response = await axios.get(`${apiUrl}/beds/${bedId}`);
+  return response.data;
+};
+
+export const createBed = async (bedData) => {
+  const response = await axios.post(`${apiUrl}/beds`, bedData);
+  return response.data;
+};
+
+export const updateBed = async (bedId, bedData) => {
+  const response = await axios.put(`${apiUrl}/beds/${bedId}`, bedData);
+  return response.data;
+};
+
+export const deleteBed = async (bedId) => {
+  const response = await axios.delete(`${apiUrl}/beds/${bedId}`);
+  return response.data;
+};
