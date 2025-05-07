@@ -116,6 +116,14 @@ const data = {
           url: "/patients",
         },
         {
+          title: "Inpatients",
+          url: "/inpatients",
+        },
+        {
+          title: "Outpatients",
+          url: "/outpatients",
+        },
+        {
           title: "Patient History",
           url: "/history",
         },

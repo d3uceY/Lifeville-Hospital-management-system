@@ -80,7 +80,7 @@ export function EditSymptomHeadDialog({ symptomHead, children }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-            <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
                     <Edit2 className=" h-4 w-4" />
                     {children}
                 </Button>
