@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
+import { Checkbox } from "@/components/ui/checkbox";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import spinnerLight from '/spinner-light.svg';
@@ -166,16 +167,15 @@ export function EditBedDialog({ bed, children }) {
                             {errors.bedGroupId && <p className="text-red-500">{errors.bedGroupId.message}</p>}
                         </div>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="inUse" className="text-gray-700 flex items-center gap-1">
-                                <input
-                                    type="checkbox"
-                                    id="inUse"
-                                    className="mr-2"
-                                    {...register("inUse")}
-                                />
-                                In Use
-                            </Label>
+                        <div className="flex items-center gap-2">
+                            <Controller
+                                name="inUse"
+                                control={control}
+                                render={({ field }) => (
+                                    <Checkbox className="data-[state=checked]:bg-[#106041]" checked={field.value} onCheckedChange={field.onChange} />
+                                )}
+                            />
+                            <Label>In Use</Label>
                         </div>
                     </div>
 
