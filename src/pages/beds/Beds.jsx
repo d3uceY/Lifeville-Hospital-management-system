@@ -213,7 +213,7 @@ export default function Beds() {
                   table.getRowModel().rows.map((row) => (
                     <TableRow key={row.id} className="hover:bg-[#e6f2ed] border-b border-[#e0f0e8]" data-state={row.getIsSelected() && "selected"}>
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                        <TableCell className="pl-5" key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
                   ))

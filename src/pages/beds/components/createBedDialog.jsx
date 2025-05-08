@@ -35,7 +35,7 @@ export function CreateBedDialog() {
         bedGroups,
         loadingBedGroups,
         bedTypes,
-        loadingBedTypes, 
+        loadingBedTypes,
     } = useBeds();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
@@ -112,51 +112,52 @@ export function CreateBedDialog() {
                             />
                             {errors.bedName && <p className="text-red-500">{errors.bedName.message}</p>}
                         </div>
+                        <div className="grid gap-2 grid-cols-2">
+                            <div className="grid gap-2 w-full">
+                                <Label className="flex items-center gap-1">
+                                    <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Type
+                                </Label>
+                                <Controller
+                                    name="bedTypeId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select onValueChange={field.onChange} value={field.value}>
+                                            <SelectTrigger className="border-[#268a6461] focus:ring-[#268a6429] w-full">
+                                                <SelectValue placeholder={loadingBedTypes ? "Loading..." : "Select a bed type"} />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {bedTypes.map((type) => (
+                                                    <SelectItem key={type.id} value={`${type.id}`}>{type.type_name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.bedTypeId && <p className="text-red-500">{errors.bedTypeId.message}</p>}
+                            </div>
 
-                        <div className="grid gap-2">
-                            <Label className="flex items-center gap-1">
-                                <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Type
-                            </Label>
-                            <Controller
-                                name="bedTypeId"
-                                control={control}
-                                render={({ field }) => (
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                        <SelectTrigger className="border-[#268a6461] focus:ring-[#268a6429]">
-                                            <SelectValue placeholder={loadingBedTypes ? "Loading..." : "Select a bed type"} />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {bedTypes.map((type) => (
-                                                <SelectItem key={type.id} value={`${type.id}`}>{type.type_name}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                )}
-                            />
-                            {errors.bedTypeId && <p className="text-red-500">{errors.bedTypeId.message}</p>}
-                        </div>
-
-                        <div className="grid gap-2">
-                            <Label className="flex items-center gap-1">
-                                <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Group
-                            </Label>
-                            <Controller
-                                name="bedGroupId"
-                                control={control}
-                                render={({ field }) => (
-                                    <Select onValueChange={field.onChange} value={field.value}>
-                                        <SelectTrigger className="border-[#268a6461] focus:ring-[#268a6429]">
-                                            <SelectValue placeholder={loadingBedGroups ? "Loading..." : "Select a bed group"} />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {bedGroups.map((group) => (
-                                                <SelectItem key={group.id} value={`${group.id}`}>{group.group_name}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                )}
-                            />
-                            {errors.bedGroupId && <p className="text-red-500">{errors.bedGroupId.message}</p>}
+                            <div className="grid gap-2 w-full">
+                                <Label className="flex items-center gap-1">
+                                    <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Group
+                                </Label>
+                                <Controller
+                                    name="bedGroupId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select onValueChange={field.onChange} value={field.value}>
+                                            <SelectTrigger className="border-[#268a6461] focus:ring-[#268a6429] w-full">
+                                                <SelectValue placeholder={loadingBedGroups ? "Loading..." : "Select a bed group"} />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {bedGroups.map((group) => (
+                                                    <SelectItem key={group.id} value={`${group.id}`}>{group.group_name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.bedGroupId && <p className="text-red-500">{errors.bedGroupId.message}</p>}
+                            </div>
                         </div>
 
                         <div className="flex items-center gap-2">
@@ -164,7 +165,7 @@ export function CreateBedDialog() {
                                 name="used"
                                 control={control}
                                 render={({ field }) => (
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                    <Checkbox className="data-[state=checked]:bg-[#106041]" checked={field.value} onCheckedChange={field.onChange} />
                                 )}
                             />
                             <Label>In Use</Label>
