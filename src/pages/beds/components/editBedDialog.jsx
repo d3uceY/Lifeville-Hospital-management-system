@@ -105,68 +105,69 @@ export function EditBedDialog({ bed, children }) {
                             {errors.bedName && <p className="text-red-500">{errors.bedName.message}</p>}
                         </div>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="bedTypeId" className="text-gray-700 flex items-center gap-1">
-                                <Tags className="h-3.5 w-3.5 text-[#268A64]" />
-                                Bed Type
-                            </Label>
-                            <div className="relative">
-                                {loadingBedTypes && (
-                                    <img src={spinnerLight} alt="" className="absolute left-1 top-1/2 -translate-y-1/2 h-8 w-8" />
-                                )}
-                                <Controller
-                                    name="bedTypeId"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger id="bedTypeId" className="border-[#268a6461] focus:ring-[#268a6429]">
-                                                <SelectValue placeholder={loadingBedTypes ? "Loading..." : bedTypes.length > 0 ? `Select a bed type` : `No bed types found`} />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {bedTypes.map((bedType) => (
-                                                    <SelectItem key={bedType.id} value={`${bedType.id}`}>
-                                                        <span>{bedType.type_name}</span>
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                        <div className="grid gap-2 grid-cols-2">
+                            <div className="grid gap-2 w-full">
+                                <Label htmlFor="bedTypeId" className="text-gray-700 flex items-center gap-1">
+                                    <Tags className="h-3.5 w-3.5 text-[#268A64]" />
+                                    Bed Type
+                                </Label>
+                                <div className="relative">
+                                    {loadingBedTypes && (
+                                        <img src={spinnerLight} alt="" className="absolute left-1 top-1/2 -translate-y-1/2 h-8 w-8" />
                                     )}
-                                />
+                                    <Controller
+                                        name="bedTypeId"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
+                                                <SelectTrigger id="bedTypeId" className="border-[#268a6461] focus:ring-[#268a6429] w-full">
+                                                    <SelectValue placeholder={loadingBedTypes ? "Loading..." : bedTypes.length > 0 ? `Select a bed type` : `No bed types found`} />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {bedTypes.map((bedType) => (
+                                                        <SelectItem key={bedType.id} value={`${bedType.id}`}>
+                                                            <span>{bedType.type_name}</span>
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        )}
+                                    />
+                                </div>
+                                {errors.bedTypeId && <p className="text-red-500">{errors.bedTypeId.message}</p>}
                             </div>
-                            {errors.bedTypeId && <p className="text-red-500">{errors.bedTypeId.message}</p>}
-                        </div>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="bedGroupId" className="text-gray-700 flex items-center gap-1">
-                                <Layers className="h-3.5 w-3.5 text-[#268A64]" />
-                                Bed Group
-                            </Label>
-                            <div className="relative">
-                                {loadingBedGroups && (
-                                    <img src={spinnerLight} alt="" className="absolute left-1 top-1/2 -translate-y-1/2 h-8 w-8" />
-                                )}
-                                <Controller
-                                    name="bedGroupId"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger id="bedGroupId" className="border-[#268a6461] focus:ring-[#268a6429]">
-                                                <SelectValue placeholder={loadingBedGroups ? "Loading..." : bedGroups.length > 0 ? `Select a bed group` : `No bed groups found`} />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {bedGroups.map((bedGroup) => (
-                                                    <SelectItem key={bedGroup.id} value={`${bedGroup.id}`}>
-                                                        <span>{bedGroup.group_name}</span>
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                            <div className="grid gap-2 w-full">
+                                <Label htmlFor="bedGroupId" className="text-gray-700 flex items-center gap-1">
+                                    <Layers className="h-3.5 w-3.5 text-[#268A64]" />
+                                    Bed Group
+                                </Label>
+                                <div className="relative">
+                                    {loadingBedGroups && (
+                                        <img src={spinnerLight} alt="" className="absolute left-1 top-1/2 -translate-y-1/2 h-8 w-8" />
                                     )}
-                                />
+                                    <Controller
+                                        name="bedGroupId"
+                                        control={control}
+                                        render={({ field }) => (
+                                            <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
+                                                <SelectTrigger id="bedGroupId" className="border-[#268a6461] focus:ring-[#268a6429] w-full">
+                                                    <SelectValue placeholder={loadingBedGroups ? "Loading..." : bedGroups.length > 0 ? `Select a bed group` : `No bed groups found`} />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {bedGroups.map((bedGroup) => (
+                                                        <SelectItem key={bedGroup.id} value={`${bedGroup.id}`}>
+                                                            <span>{bedGroup.group_name}</span>
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        )}
+                                    />
+                                </div>
+                                {errors.bedGroupId && <p className="text-red-500">{errors.bedGroupId.message}</p>}
                             </div>
-                            {errors.bedGroupId && <p className="text-red-500">{errors.bedGroupId.message}</p>}
                         </div>
-
                         <div className="flex items-center gap-2">
                             <Controller
                                 name="inUse"
