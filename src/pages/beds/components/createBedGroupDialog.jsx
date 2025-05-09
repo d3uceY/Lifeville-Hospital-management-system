@@ -25,14 +25,14 @@ export function CreateBedGroupDialog() {
     const [open, setOpen] = useState(false);
 
     const schema = z.object({
-        bedGroup: z.string().nonempty({ message: "Bed group name is required" }),
+        groupName: z.string().nonempty({ message: "Bed group name is required" }),
     });
 
     const { register, formState: { isValid, errors }, handleSubmit } = useForm({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            bedGroup: "",
+            groupName: "",
         }
     });
 
@@ -81,13 +81,13 @@ export function CreateBedGroupDialog() {
                                 Bed Group Name
                             </Label>
                             <Input
-                                id="bedGroup"
+                                id="groupName"
                                 placeholder="Enter bed group name..."
                                 required
                                 className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
-                                {...register("bedGroup")}
+                                {...register("groupName")}
                             />
-                            {errors.bedGroup && <p className="text-red-500">{errors.bedGroup.message}</p>}
+                            {errors.groupName && <p className="text-red-500">{errors.groupName.message}</p>}
                         </div>
                     </div>
                     <DialogFooter className="gap-2 flex items-center">
