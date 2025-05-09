@@ -191,7 +191,7 @@ export function EditBedDialog({ bed, children }) {
                         </Button>
                         <Button disabled={!isValid || isSubmitting} type="submit" className="bg-[#106041] hover:bg-[#0d4e34]">
                             {isSubmitting && (<img src={spinnerLight} alt="" className=" h-8 w-8" />)}
-                            Save Record
+                            Save
                         </Button>
                     </DialogFooter>
                 </form>
