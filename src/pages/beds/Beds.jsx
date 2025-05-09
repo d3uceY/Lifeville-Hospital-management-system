@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedDialog } from "./components/editBedDialog";
@@ -83,7 +84,12 @@ const columns = [
     ),
     cell: ({ row }) => (
       <div className="font-medium text-gray-700">
-        {row.getValue("used") ? "Yes" : "No"}
+        <Badge
+          variant="outline"
+          className={`capitalize font-medium ${row.getValue("used") ? "bg-green-50 text-green-700 border-green-200" : "bg-red-50 text-red-700 border-red-200"}`}
+        >
+          {row.getValue("used") ? "Available" : "Alloted"}
+        </Badge>
       </div>
     ),
   },

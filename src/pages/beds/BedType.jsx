@@ -175,7 +175,7 @@ export default function BedGroup() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
-                      No Beds Available
+                      No Bed Types Available
                     </TableCell>
                   </TableRow>
                 )}
@@ -183,7 +183,7 @@ export default function BedGroup() {
             </Table>
             <div className="flex items-center justify-end space-x-2 py-4 px-6 bg-[#f9fcfa] border-t border-[#e0f0e8]">
               <div className="flex-1 text-sm text-gray-500">
-                {table.getFilteredRowModel().rows.length} bed(s)
+                {table.getFilteredRowModel().rows.length} bed type(s)
               </div>
               <div className="space-x-2 flex">
                 <Button size="sm" className="bg-[#106041] text-white" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
