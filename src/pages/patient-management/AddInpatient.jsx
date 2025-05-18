@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,36 +16,39 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
-import { usePatientData } from "../../providers/ApiContextProvider"
-import {
-    Command,
-    CommandEmpty,
-    CommandGroup,
-    CommandInput,
-    CommandItem,
-    CommandList,
-    CommandSeparator,
-    CommandShortcut,
-  } from "@/components/ui/command"
+import { usePatientData, useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../providers/ApiContextProvider"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
 import { formatForDateInput } from "../../helpers/formatForDateInput"
 
 export default function AddInpatient() {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [selectedSymptomTypes, setSelectedSymptomTypes] = useState([]);
+    const [selectedSymptomHeads, setSelectedSymptomHeads] = useState([]);
+    const [symptomsDescription, setSymptomsDescription] = useState("");
     const { patientData } = usePatientData()
+    const { doctors } = useDoctorData()
+    const { beds } = useBeds()
+    const { symptomTypes } = useSymptomTypes()
+    const { symptomHeads } = useSymptomHeads()
+
+    console.log(symptomTypes, symptomHeads)
 
     // Form validation schema
     const schema = z.object({
-        // Required Fields
-        patient_id: z.string().min(1, "Patient is required"),
-        admissionDate: z.string().min(1, "Admission date is required"),
-        note: z.string().min(1, "Note is required"),
-        previousMedicalIssue: z.string().min(1, "Previous medical issue is required"),
-        symptomsDescription: z.string().min(1, "Symptoms description is required"),
+        patientId: z.string().min(1, "Patient is required"),
+        admissionDate: z.string().nonempty({ message: "Admission date is required" }),
+        note: z.string().optional(),
+        previousMedicalIssue: z.string().optional(),
+        symptomsDescription: z.string().optional(),
+        symptomTypes: z.string().optional(),
+        bedGroup: z.string().optional(),
+        bedNumber: z.string().optional(),
+        consultantDoctorId: z.string().nonempty({ message: "Consultant Doctor is required" }),
+    });
 
-    })
 
 
 
@@ -55,11 +58,15 @@ export default function AddInpatient() {
         resolver: zodResolver(schema),
         defaultValues: {
             // Basic Information
-            patient_id: "",
+            patientId: "",
+            consultantDoctorId: "",
             admissionDate: formatForDateInput(new Date()),
             note: "",
             previousMedicalIssue: "",
             symptomsDescription: "",
+            symptomTypes: "",
+            bedGroup: "",
+            bedNumber: "",
         },
     })
 
@@ -69,7 +76,75 @@ export default function AddInpatient() {
         formState: { isValid, errors },
         register,
         control,
+        setValue,
+        watch,
     } = methods
+
+
+    // Watch symptom description to keep our state in sync
+    const watchedSymptomsDescription = watch("symptomsDescription");
+
+    // Update the form's symptom description whenever our state changes
+    useEffect(() => {
+        setValue("symptomsDescription", symptomsDescription);
+    }, [symptomsDescription, setValue]);
+
+    // Handle symptom type checkbox changes
+    const handleSymptomTypeChange = (symptomTypeId, checked) => {
+        let updatedSelectedTypes;
+
+        if (checked) {
+            updatedSelectedTypes = [...selectedSymptomTypes, symptomTypeId];
+        } else {
+            updatedSelectedTypes = selectedSymptomTypes.filter(id => id !== symptomTypeId);
+
+            // Also unselect any symptom heads of this type
+            const headsToRemove = symptomHeads
+                .filter(head => head.symptom_type_id === symptomTypeId)
+                .map(head => head.symptom_head_id);
+
+            if (headsToRemove.length > 0) {
+                const updatedHeads = selectedSymptomHeads.filter(
+                    id => !headsToRemove.includes(id)
+                );
+                setSelectedSymptomHeads(updatedHeads);
+
+                // Update the description by removing descriptions of unselected heads
+                let newDescription = symptomsDescription;
+                headsToRemove.forEach(headId => {
+                    const head = symptomHeads.find(h => h.symptom_head_id === headId);
+                    if (head) {
+                        newDescription = newDescription.replace(`${head.symptom_head}: ${head.symptom_description}\n\n`, "");
+                    }
+                });
+                setSymptomsDescription(newDescription);
+            }
+        }
+
+        setSelectedSymptomTypes(updatedSelectedTypes);
+    };
+
+    // Handle symptom head checkbox changes
+    const handleSymptomHeadChange = (symptomHeadId, checked) => {
+        const symptomHead = symptomHeads.find(head => head.symptom_head_id === symptomHeadId);
+
+        if (checked) {
+            setSelectedSymptomHeads([...selectedSymptomHeads, symptomHeadId]);
+
+            // Add description to textarea
+            const descriptionToAdd = `${symptomHead.symptom_head}: ${symptomHead.symptom_description}\n\n`;
+            setSymptomsDescription(prev => prev + descriptionToAdd);
+        } else {
+            setSelectedSymptomHeads(selectedSymptomHeads.filter(id => id !== symptomHeadId));
+
+            // Remove description from textarea
+            const descriptionToRemove = `${symptomHead.symptom_head}: ${symptomHead.symptom_description}\n\n`;
+            setSymptomsDescription(prev => prev.replace(descriptionToRemove, ""));
+        }
+    };
+
+
+
 
     const onSubmit = async (values) => {
         const promise = async () => {
@@ -94,151 +169,231 @@ export default function AddInpatient() {
 
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
-            <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-                <h1 className="text-3xl font-bold text-[#106041]">
-                    Add Inpatient
-                </h1>
-            </div>
-
-            <form onSubmit={handleSubmit(onSubmit)} className="relative">
-                {/* Inpatient Information */}
-                <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-                    <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-                        <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-contact"
-                            >
-                                <path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2" />
-                                <rect width="18" height="18" x="3" y="4" rx="2" />
-                                <circle cx="12" cy="10" r="2" />
-                                <line x1="8" x2="8" y1="2" y2="4" />
-                                <line x1="16" x2="16" y1="2" y2="4" />
-                            </svg>
-                            Inpatient Information
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="patient_id">
-                                    Patient
-                                </Label>
-                                <Controller
-                                    name="patient_id"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select patient" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>Patients</SelectLabel>
-                                                    {patientData?.map((patient) => (
-                                                        <SelectItem key={patient.patient_id} value={`${patient.patient_id}`}>
-                                                            {patient.first_name} {patient.surname} ({patient.hospital_number})
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-                                />
-                                {errors.patient_id && <p className="text-red-500 text-sm mt-1">{errors.patient_id.message}</p>}
-                            </div>
-                            <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="admission_date">
-                                    Admission Date
-                                </Label>
-                                <Input
-                                    className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
-                                    id="admission_date"
-                                    type="date"
-                                    {...register("admissionDate")}
-                                />
-                                {errors.admissionDate && <p className="text-red-500 text-sm mt-1">{errors.admissionDate.message}</p>}
-                            </div>
-                        </div>
-                        <div className="mt-6">
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="note">
-                                Note
-                            </Label>
-                            <Textarea
-                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
-                                id="note"
-                                {...register("note")}
-                            />
-                            {errors.note && <p className="text-red-500 text-sm mt-1">{errors.note.message}</p>}
-                        </div>
-                        <div>
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="previousMedicalIssue">
-                                Previous Medical issue
-                            </Label>
-                            <Input
-                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
-                                id="previousMedicalIssue"
-                                {...register("previousMedicalIssue")}
-                            />
-                            {errors.previousMedicalIssue && <p className="text-red-500 text-sm mt-1">{errors.previousMedicalIssue.message}</p>}
-                        </div>
-                        <div className="mt-6">
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="placeOfWorkAddress">
-                                Symptoms description
-                            </Label>
-                            <Textarea
-                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
-                                id="symptomsDescription"
-                                {...register("symptomsDescription")}
-                            />
-                            {errors.symptomsDescription && (
-                                <p className="text-red-500 text-sm mt-1">{errors.symptomsDescription.message}</p>
-                            )}
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <div className="text-right mt-8 flex items-center justify-end gap-4">
-                    <button
-                        type="button"
-                        className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-                    >
-                        Cancel
-                    </button>
-                    <Button
-                        type="submit"
-                        disabled={!isValid || isSubmitting}
-                        className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80 flex items-center gap-2"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                            <polyline points="7 3 7 8 15 8"></polyline>
-                        </svg>
-                        Add Inpatient
-                    </Button>
-                </div>
-            </form>
-            {/* <Toaster position="top-right" /> */}
+        <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
+          <h1 className="text-3xl font-bold text-[#106041]">
+            Add Inpatient
+          </h1>
         </div>
-    )
+  
+        <form onSubmit={handleSubmit(onSubmit)} className="relative">
+          {/* Inpatient Information */}
+          <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+            <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+              <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                Inpatient Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div>
+                  <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="patientId">
+                    Patient
+                  </Label>
+                  <Controller
+                    name="patientId"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
+                        <SelectTrigger className="w-full border-[#268a6477] bg-gray-50">
+                          <SelectValue placeholder="Select patient" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Patients</SelectLabel>
+                            {patientData?.map((patient) => (
+                              <SelectItem key={patient.patient_id} value={`${patient.patient_id}`}>
+                                {patient.first_name} {patient.surname} ({patient.hospital_number})
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.patientId && <p className="text-red-500 text-sm mt-1">{errors.patientId.message}</p>}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="admission_date">
+                    Admission Date
+                  </Label>
+                  <Input
+                    className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                    id="admission_date"
+                    type="date"
+                    {...register("admissionDate")}
+                  />
+                  {errors.admissionDate && <p className="text-red-500 text-sm mt-1">{errors.admissionDate.message}</p>}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="consultantDoctorId">
+                    Consultant Doctor
+                  </Label>
+                  <Controller
+                    name="consultantDoctorId"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
+                        <SelectTrigger className="w-full border-[#268a6477] bg-gray-50">
+                          <SelectValue placeholder="Select doctor" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Doctors</SelectLabel>
+                            {doctors?.map((doctor) => (
+                              <SelectItem key={doctor.doctor_id} value={`${doctor.doctor_id}`}>
+                                {doctor.first_name} {doctor.last_name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.consultantDoctorId && <p className="text-red-500 text-sm mt-1">{errors.consultantDoctorId.message}</p>}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="bedNumber">
+                    Bed
+                  </Label>
+                  <Controller
+                    name="bedNumber"
+                    control={control}
+                    render={({ field }) => (
+                      <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
+                        <SelectTrigger className="w-full border-[#268a6477] bg-gray-50">
+                          <SelectValue placeholder="Select bed" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Beds</SelectLabel>
+                            {beds?.map((bed) => (
+                              <SelectItem key={bed.id} value={`${bed.id}`}>
+                                {bed.bed_name} ({bed.bed_group})
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.bedNumber && <p className="text-red-500 text-sm mt-1">{errors.bedNumber.message}</p>}
+                </div>
+              </div>
+  
+              {/* Symptom Types Selection */}
+              <div className="mt-6">
+                <Label className="text-sm font-medium mb-2 block text-gray-700">
+                  Symptom Types
+                </Label>
+                <div className="border border-[#268a6477] bg-gray-50 rounded-md p-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {symptomTypes.map((type) => (
+                      <div key={type.symptom_type_id} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={`symptom-type-${type.symptom_type_id}`} 
+                          checked={selectedSymptomTypes.includes(type.symptom_type_id)}
+                          onCheckedChange={(checked) => handleSymptomTypeChange(type.symptom_type_id, checked)}
+                        />
+                        <label
+                          htmlFor={`symptom-type-${type.symptom_type_id}`}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          {type.symptom_text}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+  
+              {/* Symptom Heads Selection - Only show for selected symptom types */}
+              {selectedSymptomTypes.length > 0 && (
+                <div className="mt-6">
+                  <Label className="text-sm font-medium mb-2 block text-gray-700">
+                    Symptom Details
+                  </Label>
+                  <div className="border border-[#268a6477] bg-gray-50 rounded-md p-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {symptomHeads
+                        .filter(head => selectedSymptomTypes.includes(head.symptom_type_id))
+                        .map((head) => (
+                          <div key={head.symptom_head_id} className="flex items-center space-x-2">
+                            <Checkbox 
+                              id={`symptom-head-${head.symptom_head_id}`} 
+                              checked={selectedSymptomHeads.includes(head.symptom_head_id)}
+                              onCheckedChange={(checked) => handleSymptomHeadChange(head.symptom_head_id, checked)}
+                            />
+                            <label
+                              htmlFor={`symptom-head-${head.symptom_head_id}`}
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              {head.symptom_head}
+                            </label>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+  
+              <div className="mt-6">
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="symptomsDescription">
+                  Symptoms Description
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[120px]"
+                  id="symptomsDescription"
+                  value={symptomsDescription}
+                  onChange={(e) => setSymptomsDescription(e.target.value)}
+                  {...register("symptomsDescription")}
+                />
+                {errors.symptomsDescription && (
+                  <p className="text-red-500 text-sm mt-1">{errors.symptomsDescription.message}</p>
+                )}
+              </div>
+              
+              <div className="mt-6">
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="note">
+                  Note
+                </Label>
+                <Textarea
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
+                  id="note"
+                  {...register("note")}
+                />
+                {errors.note && <p className="text-red-500 text-sm mt-1">{errors.note.message}</p>}
+              </div>
+              
+              <div className="mt-6">
+                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="previousMedicalIssue">
+                  Previous Medical Issue
+                </Label>
+                <Input
+                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
+                  id="previousMedicalIssue"
+                  {...register("previousMedicalIssue")}
+                />
+                {errors.previousMedicalIssue && <p className="text-red-500 text-sm mt-1">{errors.previousMedicalIssue.message}</p>}
+              </div>
+            </CardContent>
+          </Card>
+  
+          <div className="text-right mt-8 flex items-center justify-end gap-4">
+            <button
+              type="button"
+              className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+            >
+              Cancel
+            </button>
+            <Button
+              type="submit"
+              disabled={!isValid || isSubmitting}
+              className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80 flex items-center gap-2"
+            >
+              Add Inpatient
+            </Button>
+          </div>
+        </form>
+      </div>    )
 }
 

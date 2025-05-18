@@ -14,9 +14,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-
+ 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, Trash2 } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, BedIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -280,8 +280,8 @@ export default function Patients() {
       <Card className="border-[#e0f0e8] shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6">
           <CardTitle className="text-[#106041] flex items-center gap-2">
-            <User2 className="h-5 w-5" />
-            Patients
+            <BedIcon className="h-5 w-5" />
+            In Patients
           </CardTitle>
         </CardHeader>
         <CardContent className="md:p-6">
