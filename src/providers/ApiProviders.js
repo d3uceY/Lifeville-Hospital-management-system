@@ -339,3 +339,36 @@ export const deleteBed = async (bedId) => {
   const response = await axios.delete(`${apiUrl}/api/beds/${bedId}`);
   return response.data;
 };
+
+
+/* ============================
+   API Helper function here for inpatient admissions
+   ============================ */
+
+export const getInpatients = async () => {
+  const response = await axios.get(`${apiUrl}/api/inpatients`);
+  return response.data;
+};
+
+export const getInpatient = async (inpatientId) => {
+  const response = await axios.get(`${apiUrl}/api/inpatients/${inpatientId}`);
+  return response.data;
+};
+
+export const createInpatient = async (inpatientData) => {
+  const response = await axios.post(`${apiUrl}/api/inpatients`, inpatientData);
+  return response.data;
+};
+
+export const updateInpatient = async (inpatientId, inpatientData) => {
+  const response = await axios.put(
+    `${apiUrl}/api/inpatients/${inpatientId}`,
+    inpatientData
+  );
+  return response.data;
+};
+
+export const deleteInpatient = async (inpatientId) => {
+  const response = await axios.delete(`${apiUrl}/api/inpatients/${inpatientId}`);
+  return response.data;
+};

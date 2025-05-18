@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter, } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter, AlertTriangle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -32,7 +32,6 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { EditSymptomTypeDialog } from "./components/editSymptomTypeDialog"
 import DeleteSymptomHeadDialog from "./components/deleteSymptomHeadDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
@@ -142,7 +141,7 @@ export default function SymptomHeads() {
       <Card className="border-[#e0f0e8] shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b border-[#e0f0e8] bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="text-[#106041] flex items-center gap-2">
-            <User2 className="h-5 w-5" />
+            <AlertTriangle className="h-5 w-5" />
             Symptom Heads
           </CardTitle>
           <CreateSymptomHeadDialog />

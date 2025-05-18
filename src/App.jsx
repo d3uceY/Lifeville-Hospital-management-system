@@ -7,6 +7,7 @@ import Register from "./pages/patient-management/Register"
 import Patients from "./pages/patient-management/Patients"
 import Inpatients from "./pages/patient-management/Inpatients"
 import Outpatients from "./pages/patient-management/outpatients"
+import AddInpatient from "./pages/patient-management/AddInpatient"
 
 //appointments
 import Overview from "./pages/dashboard/Overview"
@@ -47,6 +48,7 @@ function App() {
               <Route path="/patients" element={<Patients />} />
               <Route path="/inpatients" element={<Inpatients />} />
               <Route path="/outpatients" element={<Outpatients />} />
+              <Route path="/add-inpatient" element={<AddInpatient />} />
               {/* nested patient profile */}
               <Route path="/patient-profile">
                 <Route path=":patient_id" element={<PatientProfile />} />
