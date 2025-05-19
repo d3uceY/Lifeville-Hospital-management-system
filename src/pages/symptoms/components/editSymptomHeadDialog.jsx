@@ -26,7 +26,7 @@ import { updateSymptomHead } from "../../../providers/ApiProviders"
 
 
 
-export function EditSymptomHeadDialog({ symptomHead, children }) {
+export function EditSymptomHeadDialog({ symptomHead }) {
     const { symptom_head_id, symptom_type_id, symptom_head, symptom_description } = symptomHead;
     const { refreshSymptomHeads } = useSymptomHeads();
     const { symptomTypes, loadingSymptomTypes } = useSymptomTypes();
@@ -79,9 +79,8 @@ export function EditSymptomHeadDialog({ symptomHead, children }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                <Button className="action-edit-btn">
                     <Edit2 className=" h-4 w-4" />
-                    {children}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">

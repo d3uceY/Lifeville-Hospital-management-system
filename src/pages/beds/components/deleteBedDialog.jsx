@@ -43,7 +43,7 @@ export default function DeleteBedDialog({ deletedBedRecordInfo }) {
             <AlertDialogTrigger asChild>
                 <Button
                     variant="outline"
-                    className="flex justify-start px-0 py-0 bg-red-100 w-fit items-center cursor-pointer border-0 outline-0 text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700"
+                    className="action-delete-btn"
                 >
                     <Trash2 className="h-4 w-4 text-red-600" />
                 </Button>

@@ -17,7 +17,7 @@ import { useSymptomTypes } from "../../../providers/ApiContextProvider";
 import { toast } from "sonner";
 
 
-export default function DeleteSymptomTypeDialog({ children, deletedSymptomTypeRecordInfo }) {
+export default function DeleteSymptomTypeDialog({ deletedSymptomTypeRecordInfo }) {
 
     const { refreshSymptomTypes } = useSymptomTypes();
     const { symptom_text, symptom_type_id } = deletedSymptomTypeRecordInfo;
@@ -45,10 +45,9 @@ export default function DeleteSymptomTypeDialog({ children, deletedSymptomTypeRe
             <AlertDialogTrigger asChild>
                 <Button
                     variant="outline"
-                    className="flex justify-start px-0 py-0 bg-transparent w-full items-center cursor-pointer border-0 outline-0 text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700"
+                    className="action-delete-btn"
                 >
                     <Trash2 className="h-4 w-4 text-red-600" />
-                    {children}
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="border-t-4 border-t-[#106041] max-w-md">

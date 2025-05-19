@@ -75,7 +75,7 @@ export function EditBedDialog({ bed, children }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className=" text-black hover:bg-[#e6f2ed]/20 cursor-pointer bg-[#e6f2ed] hover:text-[#106041] w-fit justify-start">
+                <Button className="action-edit-btn">
                     <Edit2 className=" h-4 w-4" />
                 </Button>
             </DialogTrigger>

@@ -48,21 +48,11 @@ const columns = [
     cell: ({ row }) => {
       const bedGroupData = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 rounded-full hover:bg-[#e6f2ed]">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-5 w-5 text-[#106041]" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
-            <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <EditBedGroupDialog bedGroup={bedGroupData}>Edit Bed Group</EditBedGroupDialog>
-            <DropdownMenuSeparator />
-            <DeleteBedGroupDialog deletedBedGroupRecordInfo={bedGroupData}>Delete Bed Group</DeleteBedGroupDialog>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-2 items-center">
+          <EditBedGroupDialog bedGroup={bedGroupData} />
+          <DeleteBedGroupDialog deletedBedGroupRecordInfo={bedGroupData} />
+        </div>
+
       );
     },
   },
