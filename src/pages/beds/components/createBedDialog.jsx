@@ -173,7 +173,7 @@ export function CreateBedDialog() {
                     </div>
 
                     <DialogFooter className="flex gap-2">
-                        <Button variant="outline" onClick={() => setOpen(false)}>
+                        <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
                         <Button disabled={!isValid || isSubmitting} type="submit" className="bg-[#106041] hover:bg-[#0d4e34]">
