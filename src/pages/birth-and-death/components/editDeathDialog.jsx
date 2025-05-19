@@ -81,7 +81,7 @@ export default function EditDeathDialog({ deathRecord }) {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button className="action-edit-btn">
-                    <Edit2 className="mr-2 h-4 w-4" />
+                    <Edit2 className=" h-4 w-4" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">
