@@ -40,7 +40,7 @@ export function EditSymptomHeadDialog({ symptomHead, children }) {
     });
 
     const { register, formState: { isValid, errors }, handleSubmit, control } = useForm({
-        mode: "onChange",
+
         resolver: zodResolver(schema),
         defaultValues: {
             symptomHeadText: symptom_head,

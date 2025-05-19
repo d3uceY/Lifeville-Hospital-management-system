@@ -23,7 +23,6 @@ import spinnerLight from '/spinner-light.svg';
 
 export function EditBedDialog({ bed, children }) {
     const { id, bed_name, bed_type_id, bed_group_id, used } = bed;
-    console.log(bed)
     const { refreshBeds, bedTypes, loadingBedTypes, bedGroups, loadingBedGroups } = useBeds();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
@@ -76,12 +75,12 @@ export function EditBedDialog({ bed, children }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                <Button className=" text-black hover:bg-[#e6f2ed]/20 cursor-pointer bg-[#e6f2ed] hover:text-[#106041] w-fit justify-start">
                     <Edit2 className=" h-4 w-4" />
-                    {children}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] overflow-y-auto border-[#e0f0e8]">
+            <DialogContent
+                className="sm:max-w-[500px] overflow-y-auto border-[#e0f0e8]">
                 <DialogHeader>
                     <DialogTitle className="text-[#106041] flex items-center gap-2">
                         <BedDouble className="h-5 w-5" />
