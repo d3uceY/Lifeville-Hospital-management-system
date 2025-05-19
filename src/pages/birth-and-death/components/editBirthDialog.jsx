@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form"
 import { Controller } from "react-hook-form"
 
 
-export function EditBirthDialog({ children, birthRecord }) {
+export function EditBirthDialog({  birthRecord }) {
     const { refreshBirths } = useBirthAndDeaths();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
@@ -89,9 +89,8 @@ export function EditBirthDialog({ children, birthRecord }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                <Button className="action-edit-btn">
                     <Edit2 className=" h-4 w-4" />
-                    {children}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] h-[80vh] max-h-[700px]   overflow-y-auto border-[#e0f0e8]">

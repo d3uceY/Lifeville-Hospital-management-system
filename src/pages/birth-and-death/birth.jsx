@@ -199,31 +199,11 @@ const columns = [
         cell: ({ row }) => {
             const currentbirthData = row.original
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0 rounded-full hover:bg-[#e6f2ed]">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-5 w-5 text-[#106041]" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56 border-[#e0f0e8]">
-                        <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <EditBirthDialog birthRecord={currentbirthData}>
-                            Edit Birth Record
-                        </EditBirthDialog>
-                        <DropdownMenuSeparator />
-                        <ViewBirthRecordDialog birthRecord={currentbirthData}>
-                            <>
-                                View
-                            </>
-                        </ViewBirthRecordDialog>
-                        <DropdownMenuSeparator />
-                        <DeleteBirthRecordDialog deletedBirthRecordInfo={currentbirthData}>
-                            Delete
-                        </DeleteBirthRecordDialog>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex items-center gap-2">
+                    <EditBirthDialog birthRecord={currentbirthData} />
+                    <ViewBirthRecordDialog birthRecord={currentbirthData} />
+                    <DeleteBirthRecordDialog deletedBirthRecordInfo={currentbirthData} />
+                </div>
             )
         },
     },

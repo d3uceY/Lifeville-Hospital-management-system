@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form"
 import { Controller } from "react-hook-form"
 
 
-export default function EditDeathDialog({ children, deathRecord }) {
+export default function EditDeathDialog({ deathRecord }) {
     const { patientData, loading } = usePatientData();
     const { refreshDeaths } = useBirthAndDeaths();
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -80,9 +80,8 @@ export default function EditDeathDialog({ children, deathRecord }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-transparent text-black hover:bg-[#e6f2ed] hover:text-[#106041] w-full justify-start">
+                <Button className="action-edit-btn">
                     <Edit2 className="mr-2 h-4 w-4" />
-                    {children}
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">

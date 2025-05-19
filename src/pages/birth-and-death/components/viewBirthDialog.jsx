@@ -7,7 +7,7 @@ import { formatDate } from "../../../helpers/formatDate"
 import { Badge } from "@/components/ui/badge"
 
 
-export default function ViewBirthRecordDialog({ children, birthRecord }) {
+export default function ViewBirthRecordDialog({ birthRecord }) {
 
     const { created_at, birth_id, child_name, gender, birth_date, mother_name, father_name, weight, phone_number, address, report } = birthRecord;
 
@@ -18,12 +18,9 @@ export default function ViewBirthRecordDialog({ children, birthRecord }) {
                 <div>
                     <Button
                         variant="outline"
-                        className="w-full items-center justify-start border-0 hover:bg-[#e6f2ed] hover:text-[#106041]"
+                        className="action-view-btn"
                     >
                         <Eye className="h-4 w-4 " />
-                        <span className="block ">
-                            {children}
-                        </span>
                     </Button>
                 </div>
             </DialogTrigger>

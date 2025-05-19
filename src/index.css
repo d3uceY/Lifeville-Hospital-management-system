@@ -142,3 +142,7 @@
 .action-delete-btn {
   @apply flex justify-start px-3 py-0 bg-red-100 w-fit items-center cursor-pointer border-0 outline-0 text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700;
 }
+
+.action-view-btn {
+  @apply text-black hover:bg-[#c5f5e1] cursor-pointer bg-[#e6f2ed] hover:text-[#106041] w-fit justify-start;
+}

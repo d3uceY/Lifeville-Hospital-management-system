@@ -7,7 +7,7 @@ import { formatDate } from "../../../helpers/formatDate"
 import { Badge } from "@/components/ui/badge"
 
 
-export default function ViewDeathRecordDialog({ children, deathRecord }) {
+export default function ViewDeathRecordDialog({ deathRecord }) {
     const { report, death_date, sex, patient_surname, patient_first_name, guardian, hospital_number, id } = deathRecord
     return (
         <Dialog>
@@ -15,12 +15,9 @@ export default function ViewDeathRecordDialog({ children, deathRecord }) {
                 <div>
                     <Button
                         variant="outline"
-                        className="w-full items-center justify-start border-0 hover:bg-[#e6f2ed] hover:text-[#106041]"
+                        className="action-view-btn"
                     >
                         <Eye className="h-4 w-4 " />
-                        <span className="block ">
-                            {children}
-                        </span>
                     </Button>
                 </div>
             </DialogTrigger>
