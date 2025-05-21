@@ -8,7 +8,7 @@ import {
     getBirths,
     getSymptomTypes,
     getSymptomHeads,
-    getInpatientAdmissions,
+    getInpatients,
     getBeds,
     getBedGroups,
     getBedTypes
@@ -260,7 +260,7 @@ export function PatientContextProvider({ children }) {
     const fetchInpatientAdmissions = async () => {
         try {
             setIsLoadingInpatientAdmissions(true)
-            const response = await getInpatientAdmissions()
+            const response = await getInpatients()
             setInpatientAdmissions(response)
         } catch (error) {
             console.error(error)

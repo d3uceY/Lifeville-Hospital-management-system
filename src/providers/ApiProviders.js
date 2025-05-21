@@ -231,39 +231,6 @@ export const deleteSymptomHead = async (symptomHeadId) => {
   return response.data;
 };
 
-/* ============================
-   API Helper function here for INPATIENT ADMISSIONS
-   ============================ */
-
-export const getInpatientAdmissions = async () => {
-  const response = await axios.get(`${apiUrl}/api/inpatients`);
-  return response.data;
-};
-
-export const getInpatientAdmission = async (admissionId) => {
-  const response = await axios.get(`${apiUrl}/api/inpatients/${admissionId}`);
-  return response.data;
-};
-
-export const createInpatientAdmission = async (admissionData) => {
-  const response = await axios.post(`${apiUrl}/api/inpatients`, admissionData);
-  return response.data;
-};
-
-export const updateInpatientAdmission = async (admissionId, admissionData) => {
-  const response = await axios.put(
-    `${apiUrl}/api/inpatients/${admissionId}`,
-    admissionData
-  );
-  return response.data;
-};
-
-export const deleteInpatientAdmission = async (admissionId) => {
-  const response = await axios.delete(
-    `${apiUrl}/api/inpatients/${admissionId}`
-  );
-  return response.data;
-};
 
 /* ============================
    API Helper function here for BED TYPES

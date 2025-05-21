@@ -196,7 +196,6 @@ export default function EditDeathDialog({ deathRecord }) {
                             {
                                 isSubmitting && (<img src={spinnerLight} alt="" className=" h-8 w-8" />)
                             }
-
                             Save
                         </Button>
                     </DialogFooter>

@@ -253,6 +253,7 @@ const columns = [
 ]
 
 export default function Patients() {
+
   const { patientData, loading } = usePatientData()
 
   const [sorting, setSorting] = React.useState([])

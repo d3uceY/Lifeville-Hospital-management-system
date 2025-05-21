@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { usePatientData, useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../providers/ApiContextProvider"
+import { createInpatient } from "../../providers/ApiProviders"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
 import { formatForDateInput } from "../../helpers/formatForDateInput"
@@ -34,7 +35,7 @@ export default function AddInpatient() {
     const { symptomTypes } = useSymptomTypes()
     const { symptomHeads } = useSymptomHeads()
 
-    
+
     // Form validation schema
     const schema = z.object({
         patientId: z.string().min(1, "Patient is required"),
@@ -42,7 +43,7 @@ export default function AddInpatient() {
         note: z.string().optional(),
         previousMedicalIssue: z.string().optional(),
         symptomsDescription: z.string().optional(),
-        symptomTypes: z.string().optional(),
+        symptomTypes: z.array(z.string()).optional(),
         bedGroup: z.string().optional(),
         bedNumber: z.string().optional(),
         consultantDoctorId: z.string().nonempty({ message: "Consultant Doctor is required" }),
@@ -63,7 +64,7 @@ export default function AddInpatient() {
             note: "",
             previousMedicalIssue: "",
             symptomsDescription: "",
-            symptomTypes: "",
+            symptomTypes: [],
             bedGroup: "",
             bedNumber: "",
         },
@@ -85,8 +86,23 @@ export default function AddInpatient() {
 
     // Update the form's symptom description whenever our state changes
     useEffect(() => {
+
         setValue("symptomsDescription", symptomsDescription);
     }, [symptomsDescription, setValue]);
+
+
+    // whenever the user checks/un-checks the boxes:
+    useEffect(() => {
+        // selected symptom types stores the id
+        // filters symptom types with id to get name as string
+        const symptomTypeValues = symptomTypes
+            .filter((st) => selectedSymptomTypes
+                .includes(st.symptom_type_id))
+            .map((t) => t.symptom_text);
+
+        setValue("symptomTypes", symptomTypeValues, { shouldValidate: true });
+    }, [selectedSymptomTypes, setValue]);
+
 
     // Handle symptom type checkbox changes
     const handleSymptomTypeChange = (symptomTypeId, checked) => {
@@ -147,11 +163,15 @@ export default function AddInpatient() {
 
     const onSubmit = async (values) => {
 
-        return console.log(values)
+        const payload = {
+            ...values,
+            patientId: Number(values.patientId),
+            consultantDoctorId: Number(values.consultantDoctorId)
+        }
         const promise = async () => {
             try {
                 setIsSubmitting(true)
-                const response = await updateRegisteredPatient(values)
+                const response = await createInpatient(payload)
                 return response;
             } catch (err) {
                 console.log(err)
@@ -268,7 +288,7 @@ export default function AddInpatient() {
                                                 <SelectGroup>
                                                     <SelectLabel>Beds</SelectLabel>
                                                     {beds?.map((bed) => (
-                                                        <SelectItem key={bed.id} value={`${bed.id}`}>
+                                                        <SelectItem key={bed.id} value={bed.bed_name + " " + bed.bed_group}>
                                                             {bed.bed_name} ({bed.bed_group})
                                                         </SelectItem>
                                                     ))}
@@ -286,8 +306,8 @@ export default function AddInpatient() {
                             <Label className="text-sm font-medium mb-2 block text-gray-700">
                                 Symptom Types
                             </Label>
-                            <div className="border border-[#268a6477] bg-gray-50 rounded-md p-3">
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                            <div className="border w-fit md:w-full border-[#268a6477] bg-gray-50 rounded-md p-3">
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[20rem] md:max-w-full max-h-[10rem] overflow-y-auto">
                                     {symptomTypes.map((type) => (
                                         <div key={type.symptom_type_id} className="flex items-center space-x-2">
                                             <Checkbox
@@ -305,6 +325,9 @@ export default function AddInpatient() {
                                     ))}
                                 </div>
                             </div>
+                            {errors.symptomTypes && <p className="text-red-500 text-sm mt-1">{errors.symptomTypes.message}</p>}
+                            {/* keep RHF aware of your array */}
+                            <input type="hidden" {...register("symptomTypes")} />
                         </div>
 
                         {/* Symptom Heads Selection - Only show for selected symptom types */}
@@ -341,16 +364,27 @@ export default function AddInpatient() {
                             <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="symptomsDescription">
                                 Symptoms Description
                             </Label>
-                            <Textarea
-                                className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[120px]"
-                                id="symptomsDescription"
-                                value={symptomsDescription}
-                                onChange={(e) => setSymptomsDescription(e.target.value)}
-                                {...register("symptomsDescription")}
+                            <Controller
+                                name="symptomsDescription"
+                                control={control}
+                                render={({ field }) => (
+                                    <Textarea
+                                        className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[120px]"
+                                        id="symptomsDescription"
+                                        {...field}                           // field.value & field.onChange
+                                        onChange={(e) => {
+                                            field.onChange(e);               // update RHF form state
+                                            setSymptomsDescription(e.target.value); // keep your local state in sync
+                                        }}
+                                    />
+                                )}
                             />
                             {errors.symptomsDescription && (
-                                <p className="text-red-500 text-sm mt-1">{errors.symptomsDescription.message}</p>
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.symptomsDescription.message}
+                                </p>
                             )}
+
                         </div>
 
                         <div className="mt-6">
@@ -396,6 +430,6 @@ export default function AddInpatient() {
                 </div>
             </form>
         </div>
-        )
+    )
 }
 
