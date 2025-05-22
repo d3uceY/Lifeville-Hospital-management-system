@@ -83,7 +83,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Reference Id
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -97,7 +97,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Child's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -111,7 +111,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Sex
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -141,7 +141,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Mother's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -156,7 +156,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Father's Name
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -170,7 +170,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Date & Time of Birth
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -184,7 +184,7 @@ const columns = [
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:text-[#106041]"
+                className="font-medium text-gray-700 hover:"
             >
                 Report
                 <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -290,13 +290,13 @@ export default function Births() {
                                     <SelectContent className="">
                                         <SelectGroup>
                                             <SelectLabel>Select</SelectLabel>
-                                            <SelectItem className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                                            <SelectItem className="hover:bg-[#e6f2ed] hover:">
                                                 All
                                             </SelectItem>
-                                            <SelectItem value="Male" className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                                            <SelectItem value="Male" className="hover:bg-[#e6f2ed] hover:">
                                                 Male
                                             </SelectItem>
-                                            <SelectItem value="Female" className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                                            <SelectItem value="Female" className="hover:bg-[#e6f2ed] hover:">
                                                 Female
                                             </SelectItem>
                                         </SelectGroup>
@@ -321,7 +321,7 @@ export default function Births() {
                                 <DropdownMenuTrigger asChild>
                                     <Button
                                         variant="outline"
-                                        className="border-[#268a6461] hover:bg-[#e6f2ed] hover:text-[#106041]"
+                                        className="border-[#268a6461] hover:bg-[#e6f2ed] hover:"
                                     >
                                         <ChevronDown className="mr-2 h-4 w-4" />
                                         Columns

@@ -34,7 +34,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Bed Name
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -48,7 +48,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Bed Group
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -62,7 +62,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Bed Type
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -76,7 +76,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         In Use
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -166,7 +166,7 @@ export default function Beds() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
-                    className="border-[#268a6461] hover:bg-[#e6f2ed] hover:text-[#106041]"
+                    className="border-[#268a6461] hover:bg-[#e6f2ed] hover:"
                   >
                     <ChevronDown className="mr-2 h-4 w-4" />
                     Columns

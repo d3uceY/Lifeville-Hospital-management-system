@@ -148,7 +148,7 @@ export default function AddDoctorDialog({ refresh }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle className="text-[#106041]">Add New Doctor</DialogTitle>
+                    <DialogTitle className="">Add New Doctor</DialogTitle>
                     <DialogDescription>
                         Enter the doctor's information below. Click save when you're done.
                     </DialogDescription>
@@ -195,7 +195,7 @@ export default function AddDoctorDialog({ refresh }) {
                                                     <SelectItem
                                                         key={specialty}
                                                         value={specialty}
-                                                        className="hover:bg-[#e6f2ed] hover:text-[#106041]"
+                                                        className="hover:bg-[#e6f2ed] hover:"
                                                     >
                                                         {specialty}
                                                     </SelectItem>

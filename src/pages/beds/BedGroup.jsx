@@ -34,7 +34,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Bed Group
         <ArrowUpDown className="ml-2 h-4 w-4" />

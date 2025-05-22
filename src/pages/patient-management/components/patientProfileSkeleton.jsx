@@ -8,7 +8,7 @@ export default function PatientProfileSkeleton() {
   return (
     <div className="container mx-auto py-8 px-4 max-w-5xl animate-pulse">
       {/* Header */}
-      <div className="mb-8 border-l-4 border-[#106041] pl-4">
+      <div className="mb-8 border-l-4  pl-4">
         <div className="h-8 w-64 bg-gray-300 rounded mb-2"></div>
         <div className="h-4 w-40 bg-gray-300 rounded"></div>
       </div>

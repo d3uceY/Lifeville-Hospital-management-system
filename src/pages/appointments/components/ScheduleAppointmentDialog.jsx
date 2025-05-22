@@ -248,7 +248,7 @@ export default function ScheduleAppointmentDialog() {
 
                     <DialogFooter className="flex flex-col sm:flex-row gap-2">
                         <DialogClose asChild>
-                            <Button variant="outline" className="border-[#268a6461] hover:bg-[#e6f2ed] hover:text-[#106041]">
+                            <Button variant="outline" className="border-[#268a6461] hover:bg-[#e6f2ed] hover:">
                                 <X className="mr-2 h-4 w-4" />
                                 Cancel
                             </Button>

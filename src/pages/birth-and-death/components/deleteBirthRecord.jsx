@@ -75,7 +75,7 @@ export default function DeleteBirthRecordDialog({ deletedBirthRecordInfo }) {
                     </AlertDialogTitle>
 
                     {/* Patient Information Box */}
-                    <div className="mt-2 mb-4 bg-[#f0f8f4] border border-[#106041]/30 rounded-md p-3 text-center">
+                    <div className="mt-2 mb-4 bg-[#f0f8f4] border /30 rounded-md p-3 text-center">
                         <div className="flex items-center justify-center mb-1">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ export default function DeleteBirthRecordDialog({ deletedBirthRecordInfo }) {
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
                             </svg>
-                            <span className="font-bold text-[#106041]">{child_name}</span>
+                            <span className="font-bold ">{child_name}</span>
                         </div>
                         <div className="text-sm text-gray-600 flex items-center justify-center">
                             <span className="bg-[#106041] text-white text-xs px-2 py-0.5 rounded mr-2">ID</span>
@@ -115,7 +115,7 @@ export default function DeleteBirthRecordDialog({ deletedBirthRecordInfo }) {
                     </p>
                 </div>
                 <AlertDialogFooter className="flex items-center gap-2 ">
-                    <AlertDialogCancel className="border-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
+                    <AlertDialogCancel className=" hover:bg-[#f0f8f4] hover:">
                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction

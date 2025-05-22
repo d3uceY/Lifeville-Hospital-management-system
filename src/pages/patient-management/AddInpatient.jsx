@@ -195,8 +195,8 @@ export default function AddInpatient() {
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
             <title>Lifeville HMS - Add Inpatient</title>
-            <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-                <h1 className="text-3xl font-bold text-[#106041]">
+            <div className="mb-8 border-l-4  pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
+                <h1 className="text-3xl font-bold ">
                     Add Inpatient
                 </h1>
             </div>

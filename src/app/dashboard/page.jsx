@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Outlet } from "react-router-dom"
 import { Toaster } from "sonner"
+import ThemeToggle from "../../components/themeToggle"
 
 export default function Page() {
   return (
@@ -39,6 +40,9 @@ export default function Page() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
+          {/* <div>
+            <ThemeToggle />
+          </div> */}
         </header>
         <div className="md:p-6 p-2 min-h-screen overflow-y-auto">
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">

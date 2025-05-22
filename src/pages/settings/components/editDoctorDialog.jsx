@@ -149,7 +149,7 @@ export default function EditDoctorDialog({ children, doctor, refresh }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle className="text-[#106041]">Edit Doctor</DialogTitle>
+                    <DialogTitle className="">Edit Doctor</DialogTitle>
                     <DialogDescription>
                         Edit the doctor information. Click save when you're done.
                     </DialogDescription>
@@ -196,7 +196,7 @@ export default function EditDoctorDialog({ children, doctor, refresh }) {
                                                     <SelectItem
                                                         key={specialty}
                                                         value={specialty}
-                                                        className="hover:bg-[#e6f2ed] hover:text-[#106041]"
+                                                        className="hover:bg-[#e6f2ed] hover:"
                                                     >
                                                         {specialty}
                                                     </SelectItem>

@@ -76,7 +76,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Inpatient No.
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -90,7 +90,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Hospital number
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -104,7 +104,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Surname
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -118,7 +118,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         First name
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -132,7 +132,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Consultant doctor
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -146,7 +146,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Bed
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -160,7 +160,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Sex
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -191,7 +191,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Age
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -223,7 +223,7 @@ const columns = [
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:text-[#106041]"
+        className="font-medium text-gray-700 hover:"
       >
         Phone number
         <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -242,21 +242,21 @@ const columns = [
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0 rounded-full hover:bg-[#e6f2ed]">
               <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-5 w-5 text-[#106041]" />
+              <MoreHorizontal className="h-5 w-5 " />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56 ">
-            <DropdownMenuLabel className="text-[#106041]">Actions</DropdownMenuLabel>
+            <DropdownMenuLabel className="">Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(currentpatientData.hospital_number)}
-              className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:text-[#106041]"
+              className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:"
             >
               <FileText className="h-4 w-4" /> Copy Hospital Number
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="p-0">
               <Link
-                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
+                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
                 to={`/patient-profile/${currentpatientData.patient_id}`}
               >
                 <User2 className="h-4 w-4" /> View Patient Profile
@@ -265,7 +265,7 @@ const columns = [
             <DropdownMenuSeparator />
             <DropdownMenuItem className="p-0">
               <Link
-                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:text-[#106041]"
+                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
                 to={`/patient-profile/${currentpatientData.patient_id}`}
               >
                 <History className="h-4 w-4" /> View Patient History
@@ -371,13 +371,13 @@ export default function Patients() {
                   <SelectContent className="">
                     <SelectGroup>
                       <SelectLabel>Select</SelectLabel>
-                      <SelectItem className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                      <SelectItem className="hover:bg-[#e6f2ed] hover:">
                         All
                       </SelectItem>
-                      <SelectItem value="Male" className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                      <SelectItem value="Male" className="hover:bg-[#e6f2ed] hover:">
                         Male
                       </SelectItem>
-                      <SelectItem value="Female" className="hover:bg-[#e6f2ed] hover:text-[#106041]">
+                      <SelectItem value="Female" className="hover:bg-[#e6f2ed] hover:">
                         Female
                       </SelectItem>
                     </SelectGroup>
@@ -414,7 +414,7 @@ export default function Patients() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="outline"
-                    className="border-[#268a6461] hover:bg-[#e6f2ed] hover:text-[#106041]"
+                    className="border-[#268a6461] hover:bg-[#e6f2ed] hover:"
                   >
                     <ChevronDown className="mr-2 h-4 w-4" />
                     Columns

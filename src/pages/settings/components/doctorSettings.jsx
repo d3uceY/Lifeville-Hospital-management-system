@@ -18,7 +18,7 @@ export default function DoctorSettings(data) {
             <CardHeader className="bg-[#f0f8f4] border-b ">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6">
                     <div>
-                        <CardTitle className="text-[#106041]">Doctor Management</CardTitle>
+                        <CardTitle className="">Doctor Management</CardTitle>
                         <CardDescription>Add, edit, or remove doctors from the system</CardDescription>
                     </div>
                     <AddDoctorDialog refresh={refresh} />
@@ -43,7 +43,7 @@ export default function DoctorSettings(data) {
                                     <div className="flex items-center gap-4">
                                         <Avatar className="h-12 w-12 border-2 ">
                                             <AvatarImage src={doctor?.image} alt={`${doctor.first_name} ${doctor.last_name}`} />
-                                            <AvatarFallback className="bg-[#f0f8f4] text-[#106041]">
+                                            <AvatarFallback className="bg-[#f0f8f4] ">
                                                 {doctor?.first_name.charAt(0)}
                                                 {doctor?.last_name.charAt(0)}
                                             </AvatarFallback>

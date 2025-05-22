@@ -44,9 +44,9 @@ export default function PatientProfile() {
     )
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
-            <div className='flex justify-between items-center pl-4 p-4 border-l-4  mb-8 border-[#106041] bg-[#f0f8f4] shadow-sm rounded-r-md'>
+            <div className='flex justify-between items-center pl-4 p-4 border-l-4  mb-8  bg-[#f0f8f4] shadow-sm rounded-r-md'>
                 <div className="   bg-[#f0f8f4]   ">
-                    <h1 className="text-3xl font-bold text-[#106041]">
+                    <h1 className="text-3xl font-bold ">
                         {patient?.first_name} {patient?.surname}'s Profile
                     </h1>
                     <div className="flex items-center mt-2 text-gray-600">

@@ -85,7 +85,7 @@ export function EditSymptomTypeDialog({ symptom }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="symptomText" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Symptom Type
                             </Label>
                             <Input

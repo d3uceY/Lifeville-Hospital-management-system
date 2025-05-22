@@ -96,7 +96,7 @@ export function EditSymptomHeadDialog({ symptomHead }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="symptomHeadText" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Symptom Head
                             </Label>
                             <Input
@@ -111,7 +111,7 @@ export function EditSymptomHeadDialog({ symptomHead }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="symptomTypeId" className="text-gray-700 flex items-center gap-1">
-                                <Tags className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Tags className="h-3.5 w-3.5 " />
                                 Symptom Type
                             </Label>
                             <div className="relative">
@@ -145,7 +145,7 @@ export function EditSymptomHeadDialog({ symptomHead }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="symptomDescription" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Description
                             </Label>
                             <Textarea

@@ -102,7 +102,7 @@ export function CreateBedDialog() {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label htmlFor="bedName" className="flex items-center gap-1">
-                                <Home className="h-3.5 w-3.5 text-[#268A64]" /> Bed Name
+                                <Home className="h-3.5 w-3.5 " /> Bed Name
                             </Label>
                             <Input
                                 id="bedName"
@@ -115,7 +115,7 @@ export function CreateBedDialog() {
                         <div className="grid gap-2 grid-cols-2">
                             <div className="grid gap-2 w-full">
                                 <Label className="flex items-center gap-1">
-                                    <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Type
+                                    <Tag className="h-3.5 w-3.5 " /> Bed Type
                                 </Label>
                                 <Controller
                                     name="bedTypeId"
@@ -138,7 +138,7 @@ export function CreateBedDialog() {
 
                             <div className="grid gap-2 w-full">
                                 <Label className="flex items-center gap-1">
-                                    <Tag className="h-3.5 w-3.5 text-[#268A64]" /> Bed Group
+                                    <Tag className="h-3.5 w-3.5 " /> Bed Group
                                 </Label>
                                 <Controller
                                     name="bedGroupId"

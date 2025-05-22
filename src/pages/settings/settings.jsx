@@ -60,8 +60,8 @@ export default function Settings() {
 
     return (
         <div className="container mx-auto p-6 max-w-7xl">
-            <div className="mb-8 border-l-4 border-[#106041] pl-4">
-                <h1 className="text-2xl font-bold text-[#106041]">Settings</h1>
+            <div className="mb-8 border-l-4  pl-4">
+                <h1 className="text-2xl font-bold ">Settings</h1>
                 <p className="text-muted-foreground mt-1">Manage your hospital system settings</p>
             </div>
 
@@ -104,7 +104,7 @@ export default function Settings() {
                 <TabsContent value="notifications" className="mt-0">
                     <Card className=" shadow-sm">
                         <CardHeader className="bg-[#f0f8f4] border-b ">
-                            <CardTitle className="text-[#106041]">Notification Settings</CardTitle>
+                            <CardTitle className="">Notification Settings</CardTitle>
                             <CardDescription>Configure how you receive notifications</CardDescription>
                         </CardHeader>
                         <CardContent className="p-6">
@@ -116,7 +116,7 @@ export default function Settings() {
                 <TabsContent value="security" className="mt-0">
                     <Card className=" shadow-sm">
                         <CardHeader className="bg-[#f0f8f4] border-b ">
-                            <CardTitle className="text-[#106041]">Security Settings</CardTitle>
+                            <CardTitle className="">Security Settings</CardTitle>
                             <CardDescription>Manage your security preferences</CardDescription>
                         </CardHeader>
                         <CardContent className="p-6">
@@ -128,7 +128,7 @@ export default function Settings() {
                 <TabsContent value="help" className="mt-0">
                     <Card className=" shadow-sm">
                         <CardHeader className="bg-[#f0f8f4] border-b ">
-                            <CardTitle className="text-[#106041]">Help & Support</CardTitle>
+                            <CardTitle className="">Help & Support</CardTitle>
                             <CardDescription>Get help with using the system</CardDescription>
                         </CardHeader>
                         <CardContent className="p-6">

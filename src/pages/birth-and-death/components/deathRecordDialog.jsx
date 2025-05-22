@@ -98,7 +98,7 @@ export function DeathRecordDialog() {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label htmlFor="patient" className="text-gray-700 flex items-center gap-1">
-                                <UserRound className="h-3.5 w-3.5 text-[#268A64]" />
+                                <UserRound className="h-3.5 w-3.5 " />
                                 Patient
                             </Label>
                             <div className="relative">
@@ -136,7 +136,7 @@ export function DeathRecordDialog() {
 
                         <div className="grid gap-2">
                             <Label htmlFor="deathDate" className="text-gray-700 flex items-center gap-1">
-                                <Clock className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Clock className="h-3.5 w-3.5 " />
                                 Date and Time of Death
                             </Label>
                             <div className="relative">
@@ -154,7 +154,7 @@ export function DeathRecordDialog() {
 
                         <div className="grid gap-2">
                             <Label htmlFor="guardianName" className="text-gray-700 flex items-center gap-1">
-                                <User className="h-3.5 w-3.5 text-[#268A64]" />
+                                <User className="h-3.5 w-3.5 " />
                                 Guardian/Next of Kin Name
                             </Label>
                             <Input
@@ -168,7 +168,7 @@ export function DeathRecordDialog() {
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="report" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Report
                             </Label>
                             <Textarea

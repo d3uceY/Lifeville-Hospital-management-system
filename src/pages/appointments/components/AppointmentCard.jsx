@@ -187,7 +187,7 @@ export default function AppointmentCard({ appointment }) {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-48 ">
                             <DropdownMenuSub>
-                                <DropdownMenuSubTrigger className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:focus:bg-[#e6f2ed] focus:text-[#106041]">
+                                <DropdownMenuSubTrigger className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:focus:bg-[#e6f2ed] focus:">
                                     <RefreshCw className="h-4 w-4" />
                                     <span>Change Status</span>
                                 </DropdownMenuSubTrigger>
@@ -245,14 +245,14 @@ export default function AppointmentCard({ appointment }) {
             <div className="ml-7 pl-3 border-l-2 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                     <div className="flex items-center gap-2 text-gray-700">
-                        <User className="h-3 w-3 text-[#268A64]" />
-                        <span className="font-medium text-[#106041]">
+                        <User className="h-3 w-3 " />
+                        <span className="font-medium ">
                             Dr. {doctor_first_name} {doctor_last_name}
                         </span>
                         <span className="text-xs text-gray-500">({doctor_specialty})</span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-700">
-                        <Calendar className="h-3 w-3 text-[#268A64]" />
+                        <Calendar className="h-3 w-3 " />
                         <span>{parsedDate ? format(parsedDate, "EEEE, MMMM d, yyyy") : ""}</span>
                     </div>
                 </div>
@@ -270,7 +270,7 @@ export default function AppointmentCard({ appointment }) {
                 )}
 
                 <div className="mt-3 text-xs flex items-center gap-2">
-                    <ClipboardList className="h-3 w-3 text-[#268A64]" />
+                    <ClipboardList className="h-3 w-3 " />
                     <span className="text-gray-700">
                         <span className="font-medium">Hospital #:</span> {hospital_number}
                     </span>

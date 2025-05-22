@@ -91,7 +91,7 @@ export function EditBedDialog({ bed, children }) {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label htmlFor="bedName" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Bed Name
                             </Label>
                             <Input
@@ -107,7 +107,7 @@ export function EditBedDialog({ bed, children }) {
                         <div className="grid gap-2 grid-cols-2">
                             <div className="grid gap-2 w-full">
                                 <Label htmlFor="bedTypeId" className="text-gray-700 flex items-center gap-1">
-                                    <Tags className="h-3.5 w-3.5 text-[#268A64]" />
+                                    <Tags className="h-3.5 w-3.5 " />
                                     Bed Type
                                 </Label>
                                 <div className="relative">
@@ -138,7 +138,7 @@ export function EditBedDialog({ bed, children }) {
 
                             <div className="grid gap-2 w-full">
                                 <Label htmlFor="bedGroupId" className="text-gray-700 flex items-center gap-1">
-                                    <Layers className="h-3.5 w-3.5 text-[#268A64]" />
+                                    <Layers className="h-3.5 w-3.5 " />
                                     Bed Group
                                 </Label>
                                 <div className="relative">

@@ -38,8 +38,8 @@ export default function DoctorAppointmentsUI() {
     <TooltipProvider>
       <div className="container mx-auto p-6 max-w-7xl">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-          <div className="border-l-4 border-[#106041] pl-4">
-            <h1 className="text-2xl font-bold text-[#106041]">My Appointments</h1>
+          <div className="border-l-4  pl-4">
+            <h1 className="text-2xl font-bold ">My Appointments</h1>
             <p className="text-muted-foreground mt-1">Manage your patient appointments</p>
           </div>
           <div className="flex gap-2">
@@ -137,7 +137,7 @@ export default function DoctorAppointmentsUI() {
                   {/* Tomorrow's appointments */}
                   <Card className=" shadow-sm py-0">
                     <CardHeader className="bg-[#f0f8f4] border-b  pb-3 pt-6">
-                      <CardTitle className="text-[#106041]">Coming soon</CardTitle>
+                      <CardTitle className="">Coming soon</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                       <div className="divide-y divide-[#e0f0e8]">
@@ -162,7 +162,7 @@ export default function DoctorAppointmentsUI() {
                 <Card className=" shadow-sm mb-6 py-0">
                   <CardHeader className="bg-[#f0f8f4] border-b  pb-3 pt-6">
                     <div className="flex justify-between items-center">
-                      <CardTitle className="text-[#106041]">Today's Schedule</CardTitle>
+                      <CardTitle className="">Today's Schedule</CardTitle>
                       <p className="text-sm text-gray-500">
                         {new Date().toLocaleString('default', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                       </p>
@@ -224,7 +224,7 @@ function NoAvailableAppointments({ children }) {
     <Card className=" shadow-sm">
       <CardContent className="flex flex-col items-center justify-center py-10 px-4 text-center">
         <div className="bg-[#f0f8f4] p-4 rounded-full mb-4">
-          <Calendar className="h-10 w-10 text-[#106041]" />
+          <Calendar className="h-10 w-10 " />
         </div>
 
         <h3 className="text-xl font-semibold mb-2">{children}</h3>

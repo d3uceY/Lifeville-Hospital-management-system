@@ -108,7 +108,7 @@ export function EditBirthDialog({  birthRecord }) {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label htmlFor="childName" className="text-gray-700 flex items-center gap-1">
-                                <Baby className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Baby className="h-3.5 w-3.5 " />
                                 Child Name
                             </Label>
                             <div className="relative">
@@ -121,7 +121,7 @@ export function EditBirthDialog({  birthRecord }) {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="grid gap-2">
                                 <Label htmlFor="gender" className="text-gray-700 flex items-center gap-1">
-                                    <VenusAndMars className="h-3.5 w-3.5 text-[#268A64]" />
+                                    <VenusAndMars className="h-3.5 w-3.5 " />
                                     Gender
                                 </Label>
                                 <div className="relative">
@@ -146,7 +146,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                             <div className="grid gap-2">
                                 <Label htmlFor="birthDate" className="text-gray-700 flex items-center gap-1">
-                                    <Clock className="h-3.5 w-3.5 text-[#268A64]" />
+                                    <Clock className="h-3.5 w-3.5 " />
                                     Date and Time of Birth
                                 </Label>
                                 <div className="relative">
@@ -164,7 +164,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="motherName" className="text-gray-700 flex items-center gap-1">
-                                <User className="h-3.5 w-3.5 text-[#268A64]" />
+                                <User className="h-3.5 w-3.5 " />
                                 Mother's Name
                             </Label>
                             <Input
@@ -179,7 +179,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="fatherName" className="text-gray-700 flex items-center gap-1">
-                                <User className="h-3.5 w-3.5 text-[#268A64]" />
+                                <User className="h-3.5 w-3.5 " />
                                 Father's Name
                             </Label>
                             <Input
@@ -193,7 +193,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="weight" className="text-gray-700 flex items-center gap-1">
-                                <Weight className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Weight className="h-3.5 w-3.5 " />
                                 Weight (kg)
                             </Label>
                             <Input
@@ -208,7 +208,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="phoneNumber" className="text-gray-700 flex items-center gap-1">
-                                <Phone className="h-3.5 w-3.5 text-[#268A64]" />
+                                <Phone className="h-3.5 w-3.5 " />
                                 Phone Number
                             </Label>
                             <Input
@@ -224,7 +224,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="address" className="text-gray-700 flex items-center gap-1">
-                                <MapPin className="h-3.5 w-3.5 text-[#268A64]" />
+                                <MapPin className="h-3.5 w-3.5 " />
                                 Address
                             </Label>
                             <Textarea
@@ -240,7 +240,7 @@ export function EditBirthDialog({  birthRecord }) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="report" className="text-gray-700 flex items-center gap-1">
-                                <FileText className="h-3.5 w-3.5 text-[#268A64]" />
+                                <FileText className="h-3.5 w-3.5 " />
                                 Report
                             </Label>
                             <Textarea

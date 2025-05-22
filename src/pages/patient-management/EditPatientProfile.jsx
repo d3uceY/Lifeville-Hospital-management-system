@@ -186,8 +186,8 @@ export default function EditPatientProfile() {
         </div>
       </div>
 
-      <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-        <h1 className="text-3xl font-bold text-[#106041]">
+      <div className="mb-8 border-l-4  pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
+        <h1 className="text-3xl font-bold ">
           Update {patient?.first_name} {patient?.surname}'s Profile
         </h1>
         <div className="flex items-center mt-2 text-gray-600">
