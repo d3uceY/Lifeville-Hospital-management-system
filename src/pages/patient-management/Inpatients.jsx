@@ -2,7 +2,7 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
 //patients api context
-import { usePatientData } from "../../providers/ApiContextProvider"
+import { useInpatientAdmissions } from "../../providers/ApiContextProvider";
 //skeleton loader
 import PatientSkeleton from './components/patientSkeleton';
 
@@ -14,7 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
- 
+
 //lucide react icons
 import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, BedIcon } from "lucide-react"
 
@@ -71,6 +71,20 @@ const columns = [
     enableHiding: false,
   },
   {
+    accessorKey: "Inpatient Number",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="font-medium text-gray-700 hover:text-[#106041]"
+      >
+        Inpatient No.
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <div className="font-medium text-gray-700">IPD-{row.original.id}</div>,
+  },
+  {
     accessorKey: "hospital_number",
     header: ({ column }) => (
       <Button
@@ -80,9 +94,9 @@ const columns = [
       >
         Hospital number
         <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
+      </Button> 
     ),
-    cell: ({ row }) => <div className="font-medium text-gray-700">{row.getValue("hospital_number")}</div>,
+    cell: ({ row }) => <div className="font-medium text-gray-700">HOSP-{row.getValue("hospital_number")}</div>,
   },
   {
     accessorKey: "surname",
@@ -113,6 +127,34 @@ const columns = [
     cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("first_name")}</div>,
   },
   {
+    accessorKey: "consultant doctor",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="font-medium text-gray-700 hover:text-[#106041]"
+      >
+        Consultant doctor
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <div className="capitalize font-medium">{row.original.consultant_doctor_first_name} {row.original.consultant_doctor_last_name}</div>,
+  },
+  {
+    accessorKey: "bed",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="font-medium text-gray-700 hover:text-[#106041]"
+      >
+        Bed
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => <div className="capitalize font-medium">{row.original.bed_number || "Not Specified"}</div>,
+  },
+  {
     accessorKey: "sex",
     header: ({ column }) => (
       <Button
@@ -135,6 +177,7 @@ const columns = [
         </Badge>
       )
     },
+
 
     // Custom filter function that uses strict equality
     filterFn: (row, columnId, filterValue) => {
@@ -248,7 +291,8 @@ const columns = [
 ]
 
 export default function Patients() {
-  const { patientData, loading } = usePatientData()
+  const { inpatientAdmissions, loadingInpatientAdmissions } = useInpatientAdmissions();
+  console.log(inpatientAdmissions)
 
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -256,7 +300,7 @@ export default function Patients() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: patientData,
+    data: inpatientAdmissions,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -270,7 +314,7 @@ export default function Patients() {
   })
 
   //looader
-  if (loading)
+  if (loadingInpatientAdmissions)
     return (
       <PatientSkeleton />
     )

@@ -20,6 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { usePatientData, useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../providers/ApiContextProvider"
 import { createInpatient } from "../../providers/ApiProviders"
+import { useNavigate } from "react-router-dom"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
 import { formatForDateInput } from "../../helpers/formatForDateInput"
@@ -34,6 +35,7 @@ export default function AddInpatient() {
     const { beds } = useBeds()
     const { symptomTypes } = useSymptomTypes()
     const { symptomHeads } = useSymptomHeads()
+    const navigate = useNavigate();
 
 
     // Form validation schema
@@ -168,10 +170,12 @@ export default function AddInpatient() {
             patientId: Number(values.patientId),
             consultantDoctorId: Number(values.consultantDoctorId)
         }
+
         const promise = async () => {
             try {
                 setIsSubmitting(true)
                 const response = await createInpatient(payload)
+                navigate('/inpatients')
                 return response;
             } catch (err) {
                 console.log(err)
@@ -190,6 +194,7 @@ export default function AddInpatient() {
 
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
+            <title>Lifeville HMS - Add Inpatient</title>
             <div className="mb-8 border-l-4 border-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
                 <h1 className="text-3xl font-bold text-[#106041]">
                     Add Inpatient
