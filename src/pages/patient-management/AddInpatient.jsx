@@ -204,8 +204,8 @@ export default function AddInpatient() {
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Inpatient Information */}
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-                    <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-                        <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+                    <CardHeader className="bg-[#f0f8f4] border-b ">
+                        <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                             Inpatient Information
                         </CardTitle>
                     </CardHeader>

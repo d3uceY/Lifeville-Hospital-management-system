@@ -70,7 +70,7 @@ export default function DeleteSymptomHeadDialog({ deletedSymptomHeadRecordInfo }
                     </svg>
                 </div>
                 <AlertDialogHeader className="pt-6">
-                    <AlertDialogTitle className="text-center text-xl text-[#106041] font-bold">
+                    <AlertDialogTitle className="text-center text-xl font-bold">
                         Delete Symptom Head
                     </AlertDialogTitle>
 
@@ -87,7 +87,7 @@ export default function DeleteSymptomHeadDialog({ deletedSymptomHeadRecordInfo }
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                className="text-[#106041] mr-2"
+                                className="mr-2"
                             >
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
@@ -115,7 +115,7 @@ export default function DeleteSymptomHeadDialog({ deletedSymptomHeadRecordInfo }
                     </p>
                 </div>
                 <AlertDialogFooter className="flex items-center gap-2 ">
-                    <AlertDialogCancel className="border-[#106041] text-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
+                    <AlertDialogCancel className="border-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction

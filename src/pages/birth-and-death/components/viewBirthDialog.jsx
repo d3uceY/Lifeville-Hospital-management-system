@@ -24,10 +24,10 @@ export default function ViewBirthRecordDialog({ birthRecord }) {
                     </Button>
                 </div>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[550px] border-[#e0f0e8]">
+            <DialogContent className="sm:max-w-[550px] ">
                 <DialogHeader className="flex flex-row items-start justify-between">
                     <div>
-                        <DialogTitle className="text-[#106041] flex items-center gap-2">
+                        <DialogTitle className="flex items-center gap-2">
                             <FileText className="h-5 w-5" />
                             Birth Record
                         </DialogTitle>
@@ -35,17 +35,17 @@ export default function ViewBirthRecordDialog({ birthRecord }) {
                             <Badge className="bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-200">
                                 BREF-{birth_id}
                             </Badge>
-                            {/* <Badge className="bg-[#f0f8f4] text-[#106041] border-[#e0f0e8] hover:bg-[#e6f2ed]">
+                            {/* <Badge className="bg-[#f0f8f4]  hover:bg-[#e6f2ed]">
                                 HS-{hospital_number}
                             </Badge> */}
                         </div>
                     </div>
                 </DialogHeader>
 
-                <div className="mt-4 bg-[#f9fcfa] border border-[#e0f0e8] rounded-md p-5 space-y-4">
+                <div className="mt-4  border  rounded-md p-5 space-y-4">
                     {/* Birth Information */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[#106041] flex items-center gap-2">
+                        <h3 className="text-sm font-semibold flex items-center gap-2">
                             <User className="h-4 w-4" />
                             Birth Information
                         </h3>
@@ -85,7 +85,7 @@ export default function ViewBirthRecordDialog({ birthRecord }) {
 
                     {/* Birth Information */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[#106041] flex items-center gap-2">
+                        <h3 className="text-sm font-semibold flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
                             Birth Information
                         </h3>
@@ -97,7 +97,7 @@ export default function ViewBirthRecordDialog({ birthRecord }) {
 
                     {/* Report */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[#106041] flex items-center gap-2">
+                        <h3 className="text-sm font-semibold flex items-center gap-2">
                             <ClipboardList className="h-4 w-4" />
                             Report
                         </h3>
@@ -108,7 +108,7 @@ export default function ViewBirthRecordDialog({ birthRecord }) {
 
                     {/* Record Information */}
                     <div className="space-y-3">
-                        <h3 className="text-sm font-semibold text-[#106041] flex items-center gap-2">
+                        <h3 className="text-sm font-semibold flex items-center gap-2">
                             <Info className="h-4 w-4" />
                             Record Information
                         </h3>

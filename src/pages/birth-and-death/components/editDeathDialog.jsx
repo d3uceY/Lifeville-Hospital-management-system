@@ -84,9 +84,9 @@ export default function EditDeathDialog({ deathRecord }) {
                     <Edit2 className=" h-4 w-4" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">
+            <DialogContent className="sm:max-w-[500px]   overflow-y-auto ">
                 <DialogHeader>
-                    <DialogTitle className="text-[#106041] flex items-center gap-2">
+                    <DialogTitle className="flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         Edit Patient Death Record
                     </DialogTitle>

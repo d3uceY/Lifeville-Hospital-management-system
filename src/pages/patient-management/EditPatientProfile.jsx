@@ -204,8 +204,8 @@ export default function EditPatientProfile() {
     
         {/* Basic Information */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -291,8 +291,8 @@ export default function EditPatientProfile() {
 
         {/* Contact Information */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -431,8 +431,8 @@ export default function EditPatientProfile() {
 
         {/* Demographic Information */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -513,8 +513,8 @@ export default function EditPatientProfile() {
 
         {/* Next of Kin Section */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -591,8 +591,8 @@ export default function EditPatientProfile() {
 
         {/* Medical History Section */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
@@ -681,8 +681,8 @@ export default function EditPatientProfile() {
 
         {/* Allergies Section */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-          <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
-            <CardTitle className="pt-6 text-xl text-[#106041] font-semibold flex items-center gap-2">
+          <CardHeader className="bg-[#f0f8f4] border-b ">
+            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

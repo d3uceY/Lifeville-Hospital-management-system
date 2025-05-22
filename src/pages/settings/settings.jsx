@@ -102,8 +102,8 @@ export default function Settings() {
                 </TabsContent>
 
                 <TabsContent value="notifications" className="mt-0">
-                    <Card className="border-[#e0f0e8] shadow-sm">
-                        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <Card className=" shadow-sm">
+                        <CardHeader className="bg-[#f0f8f4] border-b ">
                             <CardTitle className="text-[#106041]">Notification Settings</CardTitle>
                             <CardDescription>Configure how you receive notifications</CardDescription>
                         </CardHeader>
@@ -114,8 +114,8 @@ export default function Settings() {
                 </TabsContent>
 
                 <TabsContent value="security" className="mt-0">
-                    <Card className="border-[#e0f0e8] shadow-sm">
-                        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <Card className=" shadow-sm">
+                        <CardHeader className="bg-[#f0f8f4] border-b ">
                             <CardTitle className="text-[#106041]">Security Settings</CardTitle>
                             <CardDescription>Manage your security preferences</CardDescription>
                         </CardHeader>
@@ -126,8 +126,8 @@ export default function Settings() {
                 </TabsContent>
 
                 <TabsContent value="help" className="mt-0">
-                    <Card className="border-[#e0f0e8] shadow-sm">
-                        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+                    <Card className=" shadow-sm">
+                        <CardHeader className="bg-[#f0f8f4] border-b ">
                             <CardTitle className="text-[#106041]">Help & Support</CardTitle>
                             <CardDescription>Get help with using the system</CardDescription>
                         </CardHeader>

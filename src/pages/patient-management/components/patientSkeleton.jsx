@@ -4,9 +4,9 @@ import { User2 } from "lucide-react"
 export default function PatientSkeleton() {
     return (
         <div className="p-6 border">
-            <Card className="border-[#e0f0e8] shadow-sm ">
-                <CardHeader className="pb-3 p-0 border-b border-[#e0f0e8] bg-[#f0f8f4]">
-                    <CardTitle className="text-[#106041] flex items-center gap-2">
+            <Card className=" shadow-sm ">
+                <CardHeader className="pb-3 p-0 border-b  bg-[#f0f8f4]">
+                    <CardTitle className="flex items-center gap-2">
                         <User2 className="h-5 w-5" />
                         Patients
                     </CardTitle>

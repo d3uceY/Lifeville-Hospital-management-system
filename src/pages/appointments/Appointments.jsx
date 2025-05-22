@@ -50,9 +50,9 @@ export default function DoctorAppointmentsUI() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left sidebar - Filters */}
           <div className="lg:col-span-1">
-            <Card className="border-[#e0f0e8] shadow-sm">
-              <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8] pb-3">
-                <CardTitle className="text-[#106041] text-lg flex items-center">
+            <Card className=" shadow-sm">
+              <CardHeader className="bg-[#f0f8f4] border-b  pb-3">
+                <CardTitle className="text-lg flex items-center">
                   <ClipboardList className="mr-2 h-5 w-5" />
                   Filters
                 </CardTitle>
@@ -105,7 +105,7 @@ export default function DoctorAppointmentsUI() {
                   </div>
 
                   <div className="pt-2">
-                    <Button variant="outline" className="w-full border-[#268a6461] text-[#106041] hover:bg-[#e6f2ed]">
+                    <Button variant="outline" className="w-full border-[#268a6461] hover:bg-[#e6f2ed]">
                       Apply Filters
                     </Button>
                   </div>
@@ -135,8 +135,8 @@ export default function DoctorAppointmentsUI() {
               <TabsContent value="upcoming" className="mt-0">
                 <div className="space-y-6">
                   {/* Tomorrow's appointments */}
-                  <Card className="border-[#e0f0e8] shadow-sm py-0">
-                    <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8] pb-3 pt-6">
+                  <Card className=" shadow-sm py-0">
+                    <CardHeader className="bg-[#f0f8f4] border-b  pb-3 pt-6">
                       <CardTitle className="text-[#106041]">Coming soon</CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
@@ -159,8 +159,8 @@ export default function DoctorAppointmentsUI() {
               </TabsContent>
               {/* Today's Appointments */}
               <TabsContent value="today" className="mt-0">
-                <Card className="border-[#e0f0e8] shadow-sm mb-6 py-0">
-                  <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8] pb-3 pt-6">
+                <Card className=" shadow-sm mb-6 py-0">
+                  <CardHeader className="bg-[#f0f8f4] border-b  pb-3 pt-6">
                     <div className="flex justify-between items-center">
                       <CardTitle className="text-[#106041]">Today's Schedule</CardTitle>
                       <p className="text-sm text-gray-500">
@@ -190,7 +190,7 @@ export default function DoctorAppointmentsUI() {
               <TabsContent value="past" className="mt-0">
                 <ScrollArea className="h-[700px] pr-4">
                   <div className="space-y-4">
-                    <Card className="border-[#e0f0e8] shadow-sm">
+                    <Card className=" shadow-sm">
                       <CardContent className="p-4">
                         <div className="divide-y divide-[#e0f0e8]">
                           {/* Filter appointments to only include those in the past */}
@@ -221,13 +221,13 @@ export default function DoctorAppointmentsUI() {
 
 function NoAvailableAppointments({ children }) {
   return (
-    <Card className="border-[#e0f0e8] shadow-sm">
+    <Card className=" shadow-sm">
       <CardContent className="flex flex-col items-center justify-center py-10 px-4 text-center">
         <div className="bg-[#f0f8f4] p-4 rounded-full mb-4">
           <Calendar className="h-10 w-10 text-[#106041]" />
         </div>
 
-        <h3 className="text-xl font-semibold text-[#106041] mb-2">{children}</h3>
+        <h3 className="text-xl font-semibold mb-2">{children}</h3>
       </CardContent>
     </Card>
   )

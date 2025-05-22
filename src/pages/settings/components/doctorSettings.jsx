@@ -14,8 +14,8 @@ export default function DoctorSettings(data) {
     const { handleDelete, doctors, loading, refresh } = data.props
 
     return (
-        <Card className="border-[#e0f0e8] shadow-sm py-0">
-            <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <Card className=" shadow-sm py-0">
+            <CardHeader className="bg-[#f0f8f4] border-b ">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6">
                     <div>
                         <CardTitle className="text-[#106041]">Doctor Management</CardTitle>
@@ -38,10 +38,10 @@ export default function DoctorSettings(data) {
                 <ScrollArea className="h-[500px] pr-4">
                     <div className="space-y-4">
                         {doctors.map((doctor) => (
-                            <Card key={doctor.doctor_id} className="border-[#e0f0e8] hover:shadow-md transition-shadow">
+                            <Card key={doctor.doctor_id} className=" hover:shadow-md transition-shadow">
                                 <CardContent className="p-4 flex items-center justify-between">
                                     <div className="flex items-center gap-4">
-                                        <Avatar className="h-12 w-12 border-2 border-[#e0f0e8]">
+                                        <Avatar className="h-12 w-12 border-2 ">
                                             <AvatarImage src={doctor?.image} alt={`${doctor.first_name} ${doctor.last_name}`} />
                                             <AvatarFallback className="bg-[#f0f8f4] text-[#106041]">
                                                 {doctor?.first_name.charAt(0)}
@@ -52,7 +52,7 @@ export default function DoctorSettings(data) {
                                             <h3 className="font-medium text-gray-900">
                                                 Dr. {doctor?.first_name} {doctor?.last_name}
                                             </h3>
-                                            <Badge variant="outline" className="bg-[#f0f8f4] text-[#106041] border-[#e0f0e8] mt-1">
+                                            <Badge variant="outline" className="bg-[#f0f8f4]  mt-1">
                                                 {doctor?.specialty}
                                             </Badge>
                                         </div>
@@ -62,7 +62,7 @@ export default function DoctorSettings(data) {
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                className="text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                                className="text-gray-500 hover:hover:bg-[#e6f2ed]"
                                             >
                                                 <Edit className="h-4 w-4" />
                                                 <span className="sr-only">Edit</span>
@@ -85,7 +85,7 @@ export default function DoctorSettings(data) {
                     </div>
                 </ScrollArea>
             </CardContent>
-            <CardFooter className="bg-[#f9fcfa] border-t border-[#e0f0e8] py-3 px-6 pb-6">
+            <CardFooter className=" border-t  py-3 px-6 pb-6">
                 <p className="text-sm text-gray-500">Showing {doctors.length} doctors</p>
             </CardFooter>
         </Card>

@@ -124,12 +124,12 @@ export default function AppointmentCard({ appointment }) {
     }
 
     return (
-        <div className="p-4 hover:bg-[#f9fcfa] transition-colors border-b border-[#e0f0e8] last:border-b-0">
+        <div className="p-4 transition-colors border-b  last:border-b-0">
             <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-3">
                     <div className={`w-1 h-12 rounded-full ${statusColor}`}></div>
                     <div className="text-center">
-                        <p className="text-lg font-bold text-[#106041]">{formattedTime.time}</p>
+                        <p className="text-lg font-bold">{formattedTime.time}</p>
                         <p className="text-xs text-gray-500">{formattedTime.period}</p>
                     </div>
                     <div className="ml-2">
@@ -146,7 +146,7 @@ export default function AppointmentCard({ appointment }) {
                                 <Button
                                     variant="ghost"
                                     size="icon"
-                                    className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                    className="h-8 w-8 text-gray-500 hover:hover:bg-[#e6f2ed]"
                                     onClick={() => window.open(`tel:${patient_phone_number}`)}
                                 >
                                     <Phone className="h-4 w-4" />
@@ -164,7 +164,7 @@ export default function AppointmentCard({ appointment }) {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                        className="h-8 w-8 text-gray-500 hover:hover:bg-[#e6f2ed]"
                                     >
                                         <PenSquare className="h-4 w-4" />
                                     </Button>
@@ -180,19 +180,19 @@ export default function AppointmentCard({ appointment }) {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8 text-gray-500 hover:text-[#106041] hover:bg-[#e6f2ed]"
+                                className="h-8 w-8 text-gray-500 hover:hover:bg-[#e6f2ed]"
                             >
                                 <MoreVertical className="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-48 border-[#e0f0e8]">
+                        <DropdownMenuContent align="end" className="w-48 ">
                             <DropdownMenuSub>
-                                <DropdownMenuSubTrigger className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:text-[#106041] focus:bg-[#e6f2ed] focus:text-[#106041]">
+                                <DropdownMenuSubTrigger className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:focus:bg-[#e6f2ed] focus:text-[#106041]">
                                     <RefreshCw className="h-4 w-4" />
                                     <span>Change Status</span>
                                 </DropdownMenuSubTrigger>
                                 <DropdownMenuPortal>
-                                    <DropdownMenuSubContent className="border-[#e0f0e8] min-w-[180px]">
+                                    <DropdownMenuSubContent className=" min-w-[180px]">
                                         <DropdownMenuItem
                                             className="flex items-center gap-2 cursor-pointer hover:bg-blue-50 focus:bg-blue-50"
                                             onClick={() => handleUpdateStatus('scheduled')}
@@ -242,7 +242,7 @@ export default function AppointmentCard({ appointment }) {
                     </DropdownMenu>
                 </div>
             </div>
-            <div className="ml-7 pl-3 border-l-2 border-[#e0f0e8]">
+            <div className="ml-7 pl-3 border-l-2 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                     <div className="flex items-center gap-2 text-gray-700">
                         <User className="h-3 w-3 text-[#268A64]" />
@@ -258,11 +258,11 @@ export default function AppointmentCard({ appointment }) {
                 </div>
 
                 {notes && (
-                    <div className="mt-3 p-2 bg-[#f0f8f4] border border-[#e0f0e8] rounded-md">
+                    <div className="mt-3 p-2 bg-[#f0f8f4] border  rounded-md">
                         <div className="flex items-start gap-2">
-                            <FileText className="h-4 w-4 text-[#106041] mt-0.5" />
+                            <FileText className="h-4 w-4 mt-0.5" />
                             <div>
-                                <p className="font-medium text-[#106041] text-sm">Notes:</p>
+                                <p className="font-medium text-sm">Notes:</p>
                                 <p className="text-gray-800 line-clamp-2 mt-1">{notes}</p>
                             </div>
                         </div>

@@ -83,9 +83,9 @@ export function CreateSymptomHeadDialog() {
                     Create Symptom Head
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]   overflow-y-auto border-[#e0f0e8]">
+            <DialogContent className="sm:max-w-[500px]   overflow-y-auto ">
                 <DialogHeader>
-                    <DialogTitle className="text-[#106041] flex items-center gap-2">
+                    <DialogTitle className="flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         Create Symptom Head
                     </DialogTitle>

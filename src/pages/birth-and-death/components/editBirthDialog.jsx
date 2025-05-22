@@ -93,9 +93,9 @@ export function EditBirthDialog({  birthRecord }) {
                     <Edit2 className=" h-4 w-4" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] h-[80vh] max-h-[700px]   overflow-y-auto border-[#e0f0e8]">
+            <DialogContent className="sm:max-w-[500px] h-[80vh] max-h-[700px]   overflow-y-auto ">
                 <DialogHeader>
-                    <DialogTitle className="text-[#106041] flex items-center gap-2">
+                    <DialogTitle className="flex items-center gap-2">
                         <FileText className="h-5 w-5" />
                         Add Patient Birth Record
                     </DialogTitle>
@@ -281,7 +281,7 @@ export function EditBirthDialog({  birthRecord }) {
 export default function BirthRecordPage() {
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold text-[#106041] mb-6">Patient Records</h1>
+            <h1 className="text-2xl font-bold mb-6">Patient Records</h1>
             <DeathRecordDialog />
         </div>
     )

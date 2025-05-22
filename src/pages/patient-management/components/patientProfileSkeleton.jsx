@@ -15,7 +15,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Basic Information Section */}
       <Card className="pt-0 mb-8 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">
@@ -58,7 +58,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Contact Information Section */}
       <Card className="pt-0 mb-8 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">
@@ -99,7 +99,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Demographic Information Section */}
       <Card className="pt-0 mb-8 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">
@@ -118,7 +118,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Next of Kin Section */}
       <Card className="pt-0 mb-8 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">
@@ -147,7 +147,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Medical History Section */}
       <Card className="pt-0 mb-8 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">
@@ -170,7 +170,7 @@ export default function PatientProfileSkeleton() {
 
       {/* Allergies Section */}
       <Card className="pt-0 shadow-sm">
-        <CardHeader className="bg-[#f0f8f4] border-b border-[#e0f0e8]">
+        <CardHeader className="bg-[#f0f8f4] border-b ">
           <div className="h-6 w-48 bg-gray-300 rounded mb-2"></div>
         </CardHeader>
         <CardContent className="pt-6">

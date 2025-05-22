@@ -23,7 +23,7 @@ export default function Page() {
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1 hover:bg-[#b2d2c6b9] text-[#268a63] hover:text-[#268a63]" />
+            <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
@@ -40,7 +40,7 @@ export default function Page() {
             </Breadcrumb>
           </div>
         </header>
-        <div className="md:p-6 p-2 bg-[#b2d2c6] min-h-screen overflow-y-auto">
+        <div className="md:p-6 p-2 min-h-screen overflow-y-auto">
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
             {/* //this is where the app routes are rendered */}
             <Outlet />

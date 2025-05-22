@@ -68,7 +68,7 @@ export default function DeleteBedDialog({ deletedBedRecordInfo }) {
                     </svg>
                 </div>
                 <AlertDialogHeader className="pt-6">
-                    <AlertDialogTitle className="text-center text-xl text-[#106041] font-bold">
+                    <AlertDialogTitle className="text-center text-xl font-bold">
                         Delete Bed
                     </AlertDialogTitle>
 
@@ -85,7 +85,7 @@ export default function DeleteBedDialog({ deletedBedRecordInfo }) {
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                className="text-[#106041] mr-2"
+                                className="mr-2"
                             >
                                 <path d="M3 7v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7" />
                                 <path d="M3 7l9 6 9-6" />
@@ -112,7 +112,7 @@ export default function DeleteBedDialog({ deletedBedRecordInfo }) {
                     </p>
                 </div>
                 <AlertDialogFooter className="flex items-center gap-2">
-                    <AlertDialogCancel className="border-[#106041] text-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
+                    <AlertDialogCancel className="border-[#106041] hover:bg-[#f0f8f4] hover:text-[#106041]">
                         Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
