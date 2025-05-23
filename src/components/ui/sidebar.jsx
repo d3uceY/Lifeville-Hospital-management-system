@@ -2,7 +2,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva } from "class-variance-authority";
-import { PanelLeftIcon } from "lucide-react"
+import { PanelLeftClose, PanelLeftIcon } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -131,7 +131,7 @@ function SidebarProvider({
 
 function Sidebar({
   side = "left",
-  variant = "sidebar",
+  variant = "floating",
   collapsible = "offcanvas",
   className,
   children,
@@ -223,7 +223,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }) {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, state } = useSidebar()
 
   return (
     (<Button
@@ -231,13 +231,15 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn("h-7 w-7", className)}
+      className={cn("p-1", className)}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}>
-      <PanelLeftIcon />
+        {
+          state === "collapsed" ? <PanelLeftIcon className="!h-5 !w-5" /> : <PanelLeftClose className="!h-5 !w-5" />
+        }
       <span className="sr-only">Toggle Sidebar</span>
     </Button>)
   );
@@ -535,7 +537,7 @@ function SidebarMenuAction({
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
+        "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
         className
       )}
       {...props} />)
