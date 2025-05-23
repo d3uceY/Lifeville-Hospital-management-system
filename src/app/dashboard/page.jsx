@@ -15,9 +15,15 @@ import {
 } from "@/components/ui/sidebar"
 import { Outlet } from "react-router-dom"
 import { Toaster } from "sonner"
+import SuspenseFallback from "../../components/loader/SuspenseFallback"
+import { Suspense } from "react"
+import { useLocation } from "react-router-dom"
 // import ThemeToggle from "../../components/themeToggle"
 
 export default function Page() {
+  // this will be passed to suspense as location.key to force it
+  // to reload when the route changes
+  const location = useLocation()
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -47,7 +53,9 @@ export default function Page() {
         <div className="md:p-6 p-2 min-h-screen overflow-y-auto">
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
             {/* this is where the app routes are rendered */}
-            <Outlet />
+            <Suspense fallback={<SuspenseFallback />} key={location.key}>
+              <Outlet />
+            </Suspense>
             {/* this is the universal toaster component*/}
             <Toaster richColors />
           </div>

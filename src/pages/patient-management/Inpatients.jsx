@@ -440,7 +440,7 @@ export default function Patients() {
           </div>
 
           <div className="rounded-md border  overflow-hidden shadow-sm">
-            <Table>
+            <Table className="block max-w-[600px]">
               <TableHeader className="bg-[#f0f8f4]">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id} className="">
