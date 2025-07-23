@@ -1,360 +1,123 @@
-import { useContext, useState, useEffect } from "react";
-
+'use client';
+import React, { createContext, useContext } from 'react';
+import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
-    getRegisteredPatients,
-    getDoctors,
-    getAppointments,
-    getDeaths,
-    getBirths,
-    getSymptomTypes,
-    getSymptomHeads,
-    getInpatients,
-    getBeds,
-    getBedGroups,
-    getBedTypes
-} from "./ApiProviders";
+  getRegisteredPatients,
+  getDoctors,
+  getAppointments,
+  getDeaths,
+  getBirths,
+  getSymptomTypes,
+  getSymptomHeads,
+  getInpatients,
+  getBeds,
+  getBedGroups,
+  getBedTypes,
+} from './ApiProviders';
 
-import React from "react";
+// Context definitions
+const PatientContext = createContext(null);
+const DoctorContext = createContext(null);
+const AppointmentsContext = createContext(null);
+const BirthAndDeaths = createContext(null);
+const SymptomTypes = createContext(null);
+const SymptomHeads = createContext(null);
+const InpatientAdmissions = createContext(null);
+const Beds = createContext(null);
 
-/* ============================
-   API context for patients
-   ============================ */
-const PatientContext = React.createContext() //*
+// Exported hooks
+export const usePatientData = () => useContext(PatientContext);
+export const useDoctorData = () => useContext(DoctorContext);
+export const useAppointmentsData = () => useContext(AppointmentsContext);
+export const useBirthAndDeaths = () => useContext(BirthAndDeaths);
+export const useSymptomTypes = () => useContext(SymptomTypes);
+export const useSymptomHeads = () => useContext(SymptomHeads);
+export const useInpatientAdmissions = () => useContext(InpatientAdmissions);
+export const useBeds = () => useContext(Beds);
 
-export const usePatientData = () => {
-    return useContext(PatientContext)
+// Main provider component
+export function AppDataProvider({ children }) {
+  const patientsQ = useQuery({ queryKey: ['patients'], queryFn: getRegisteredPatients });
+  const doctorsQ = useQuery({ queryKey: ['doctors'], queryFn: getDoctors });
+  const appointmentsQ = useQuery({ queryKey: ['appointments'], queryFn: getAppointments });
+  const deathsQ = useQuery({ queryKey: ['deaths'], queryFn: getDeaths });
+  const birthsQ = useQuery({ queryKey: ['births'], queryFn: getBirths });
+  const symptomTypesQ = useQuery({ queryKey: ['symptomTypes'], queryFn: getSymptomTypes });
+  const symptomHeadsQ = useQuery({ queryKey: ['symptomHeads'], queryFn: getSymptomHeads });
+  const inpatientsQ = useQuery({ queryKey: ['inpatients'], queryFn: getInpatients });
+  const bedsQ = useQuery({ queryKey: ['beds'], queryFn: getBeds });
+  const bedGroupsQ = useQuery({ queryKey: ['bedGroups'], queryFn: getBedGroups });
+  const bedTypesQ = useQuery({ queryKey: ['bedTypes'], queryFn: getBedTypes });
+
+  return (
+    <AppointmentsContext.Provider value={{
+      appointments: appointmentsQ.data ?? [],
+      loadingAppointments: appointmentsQ.isLoading,
+      refreshAppointments: appointmentsQ.refetch,
+    }}>
+      <DoctorContext.Provider value={{
+        doctors: doctorsQ.data ?? [],
+        loadingDoctors: doctorsQ.isLoading,
+        refreshDoctors: doctorsQ.refetch,
+      }}>
+        <BirthAndDeaths.Provider value={{
+          deaths: deathsQ.data ?? [],
+          loadingDeaths: deathsQ.isLoading,
+          refreshDeaths: deathsQ.refetch,
+          births: birthsQ.data ?? [],
+          loadingBirths: birthsQ.isLoading,
+          refreshBirths: birthsQ.refetch,
+        }}>
+          <PatientContext.Provider value={{
+            patientData: patientsQ.data ?? [],
+            loading: patientsQ.isLoading,
+            refreshPatients: patientsQ.refetch,
+          }}>
+            <SymptomTypes.Provider value={{
+              symptomTypes: symptomTypesQ.data ?? [],
+              loadingSymptomTypes: symptomTypesQ.isLoading,
+              refreshSymptomTypes: symptomTypesQ.refetch,
+            }}>
+              <SymptomHeads.Provider value={{
+                symptomHeads: symptomHeadsQ.data ?? [],
+                loadingSymptomHeads: symptomHeadsQ.isLoading,
+                refreshSymptomHeads: symptomHeadsQ.refetch,
+              }}>
+                <InpatientAdmissions.Provider value={{
+                  inpatientAdmissions: inpatientsQ.data ?? [],
+                  loadingInpatientAdmissions: inpatientsQ.isLoading,
+                  refreshInpatientAdmissions: inpatientsQ.refetch,
+                }}>
+                  <Beds.Provider value={{
+                    beds: bedsQ.data ?? [],
+                    loadingBeds: bedsQ.isLoading,
+                    refreshBeds: bedsQ.refetch,
+                    bedGroups: bedGroupsQ.data ?? [],
+                    loadingBedGroups: bedGroupsQ.isLoading,
+                    refreshBedGroups: bedGroupsQ.refetch,
+                    bedTypes: bedTypesQ.data ?? [],
+                    loadingBedTypes: bedTypesQ.isLoading,
+                    refreshBedTypes: bedTypesQ.refetch,
+                  }}>
+                    {children}
+                  </Beds.Provider>
+                </InpatientAdmissions.Provider>
+              </SymptomHeads.Provider>
+            </SymptomTypes.Provider>
+          </PatientContext.Provider>
+        </BirthAndDeaths.Provider>
+      </DoctorContext.Provider>
+    </AppointmentsContext.Provider>
+  );
 }
 
-/* ============================
-   API context for doctors
-   ============================ */
-const DoctorContext = React.createContext() //*
+// Root-level wrapper
+const queryClient = new QueryClient();
 
-export const useDoctorData = () => {
-    return useContext(DoctorContext)
+export default function AppProviders({ children }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppDataProvider>{children}</AppDataProvider>
+    </QueryClientProvider>
+  );
 }
-
-/* ============================
-   API context for Appointments
-   ============================ */
-const AppointmentsContext = React.createContext()
-
-export const useAppointmentsData = () => {
-    return useContext(AppointmentsContext)
-}
-
-
-/* ============================
-   API context for Birth and Deaths
-   ============================ */
-const BirthAndDeaths = React.createContext()
-
-export const useBirthAndDeaths = () => {
-    return useContext(BirthAndDeaths)
-}
-
-
-/* ============================
-   API context for Symptom Types
-   ============================ */
-const SymptomTypes = React.createContext()
-
-export const useSymptomTypes = () => {
-    return useContext(SymptomTypes)
-}
-
-/* ============================
-   API context for Symptom Heads
-   ============================ */
-const SymptomHeads = React.createContext()
-
-export const useSymptomHeads = () => {
-    return useContext(SymptomHeads)
-}
-
-
-/* ============================
-   API context for Inpatient admissions
-   ============================ */
-const InpatientAdmissions = React.createContext()
-
-export const useInpatientAdmissions = () => {
-    return useContext(InpatientAdmissions)
-}
-
-
-/* ============================
-   API context for Beds
-   ============================ */
-const Beds = React.createContext()
-
-export const useBeds = () => {
-    return useContext(Beds)
-}
-
-
-
-export function PatientContextProvider({ children }) {
-
-
-    /* ============================
-   Patients custom hook
-   ============================ */
-    const [patientData, setPatientData] = useState([])
-    const [loading, setLoading] = useState(false)
-
-    const getPatients = async () => {
-        try {
-            setLoading(true)
-            const response = await getRegisteredPatients();
-            setPatientData(response)
-        } catch (err) {
-            console.error(err)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        getPatients();
-    }, [])
-
-
-
-    /* ============================
-   Doctors custom hook
-   ============================ */
-    const [loadingDoctors, setLoadingDoctors] = useState(false)
-    const [doctors, setDoctors] = useState([])
-
-    const fetchDoctors = async () => {
-        setLoadingDoctors(true)
-        try {
-            const response = await getDoctors()
-            setDoctors(response)
-        } catch (error) {
-            console.error(error)
-        }
-        finally {
-            setLoadingDoctors(false)
-        }
-    }
-    useEffect(() => {
-        fetchDoctors()
-    }, [])
-
-
-
-    /* ============================
-   Appointments custom hook
-   ============================ */
-    const [loadingAppointments, setLoadingAppointments] = useState(false);
-    const [appointments, setAppointments] = useState([]);
-
-    const fetchAppointments = async () => {
-        setLoadingAppointments(true)
-        try {
-            const response = await getAppointments()
-            setAppointments(response)
-        } catch (error) {
-            console.error(error)
-        }
-        finally {
-            setLoadingAppointments(false)
-        }
-    }
-    useEffect(() => {
-        fetchAppointments();
-    }, [])
-
-
-    /* ============================
-   Deaths and Births custom hook
-   ============================ */
-    const [loadingDeaths, setIsLoadingDeaths] = useState(false);
-    const [loadingBirths, setIsLoadingBirths] = useState(false);
-    const [deaths, setDeaths] = useState([]);
-    const [births, setBirths] = useState([]);
-
-    const fetchDeaths = async () => {
-        try {
-            setIsLoadingDeaths(true)
-            const response = await getDeaths()
-            // console.log(response)
-            setDeaths(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingDeaths(false)
-        }
-    }
-
-    const fetchBirths = async () => {
-        try {
-            setIsLoadingBirths(true)
-            const response = await getBirths()
-            // console.log(response)
-            setBirths(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingBirths(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchDeaths();
-        fetchBirths();
-    }, [])
-
-    /* ============================
-  Symptom Types custom hook
-  ============================ */
-    const [loadingSymptomTypes, setIsLoadingSymptomTypes] = useState(false);
-    const [symptomTypes, setSymptomTypes] = useState([]);
-
-    const fetchSymptomTypes = async () => {
-        try {
-            setIsLoadingSymptomTypes(true)
-            const response = await getSymptomTypes()
-            setSymptomTypes(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingSymptomTypes(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchSymptomTypes();
-    }, [])
-
-    /* ============================
- Symptom Heads custom hook
- ============================ */
-    const [loadingSymptomHeads, setIsLoadingSymptomHeads] = useState(false);
-    const [symptomHeads, setSymptomHeads] = useState([]);
-
-    const fetchSymptomHeads = async () => {
-        try {
-            setIsLoadingSymptomHeads(true)
-            const response = await getSymptomHeads()
-            setSymptomHeads(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingSymptomHeads(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchSymptomHeads();
-    }, [])
-
-    /* ============================
- Inpatient Admissions custom hook
- ============================ */
-    const [loadingInpatientAdmissions, setIsLoadingInpatientAdmissions] = useState(false);
-    const [inpatientAdmissions, setInpatientAdmissions] = useState([]);
-
-    const fetchInpatientAdmissions = async () => {
-        try {
-            setIsLoadingInpatientAdmissions(true)
-            const response = await getInpatients()
-            setInpatientAdmissions(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingInpatientAdmissions(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchInpatientAdmissions();
-    }, [])
-
-
-    /* ============================
-Beds custom hook
-============================ */
-    const [loadingBeds, setIsLoadingBeds] = useState(false);
-    const [beds, setBeds] = useState([]);
-
-    const fetchBeds = async () => {
-        try {
-            setIsLoadingBeds(true)
-            const response = await getBeds()
-            setBeds(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingBeds(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchBeds();
-    }, [])
-
-    const [loadingBedGroups, setIsLoadingBedGroups] = useState(false);
-    const [bedGroups, setBedGroups] = useState([]);
-
-    const fetchBedGroups = async () => {
-        try {
-            setIsLoadingBedGroups(true)
-            const response = await getBedGroups()
-            setBedGroups(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingBedGroups(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchBedGroups();
-    }, [])
-
-    const [loadingBedTypes, setIsLoadingBedTypes] = useState(false);
-    const [bedTypes, setBedTypes] = useState([]);
-
-    const fetchBedTypes = async () => {
-        try {
-            setIsLoadingBedTypes(true)
-            const response = await getBedTypes()
-            setBedTypes(response)
-        } catch (error) {
-            console.error(error)
-        } finally {
-            setIsLoadingBedTypes(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchBedTypes();
-    }, [])
-
-    /* ============================
-   API context providers
-   ============================ */
-    return (
-        <AppointmentsContext.Provider value={{ appointments, loadingAppointments, refreshAppointments: fetchAppointments }}>
-            <DoctorContext.Provider value={{ doctors, loadingDoctors, refreshDoctors: fetchDoctors }}>
-                <BirthAndDeaths.Provider value={{ deaths, loadingDeaths, refreshDeaths: fetchDeaths, births, loadingBirths, refreshBirths: fetchBirths }}>
-                    <PatientContext.Provider value={{ patientData, loading, refreshPatients: getPatients }}>
-                        <SymptomTypes.Provider value={{ symptomTypes, loadingSymptomTypes, refreshSymptomTypes: fetchSymptomTypes }}>
-                            <SymptomHeads.Provider value={{ symptomHeads, loadingSymptomHeads, refreshSymptomHeads: fetchSymptomHeads }}>
-                                <InpatientAdmissions.Provider value={{ inpatientAdmissions, loadingInpatientAdmissions, refreshInpatientAdmissions: fetchInpatientAdmissions }}>
-                                    <Beds.Provider value={{ beds, loadingBeds, refreshBeds: fetchBeds, bedGroups, loadingBedGroups, refreshBedGroups: fetchBedGroups, bedTypes, loadingBedTypes, refreshBedTypes: fetchBedTypes }}>
-                                        {children}
-                                    </Beds.Provider>
-                                </InpatientAdmissions.Provider>
-                            </SymptomHeads.Provider>
-                        </SymptomTypes.Provider>
-                    </PatientContext.Provider>
-                </BirthAndDeaths.Provider>
-            </DoctorContext.Provider>
-        </AppointmentsContext.Provider>
-    )
-}
-

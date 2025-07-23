@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SuspenseFallback from './components/loader/SuspenseFallback';
 
 // Context providers
-import { PatientContextProvider } from './providers/ApiContextProvider';
+import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
 
 // Lazy-loaded components
@@ -33,7 +33,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SocketContextProvider>
-        <PatientContextProvider>
+        <AppDataProvider>
           <Router>
             <Suspense fallback={<SuspenseFallback />}>
               <Routes>
@@ -61,7 +61,7 @@ function App() {
               </Routes>
             </Suspense>
           </Router>
-        </PatientContextProvider>
+        </AppDataProvider>
       </SocketContextProvider>
     </QueryClientProvider>
   );
