@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SuspenseFallback from './components/loader/SuspenseFallback';
 
 // Context providers
@@ -29,38 +29,41 @@ const BedType = lazy(() => import('./pages/beds/BedType'));
 
 
 function App() {
+  const queryClient = new QueryClient()
   return (
-    <SocketContextProvider>
-      <PatientContextProvider>
-        <Router>
-          <Suspense fallback={<SuspenseFallback />}>
-            <Routes>
-              <Route path="/" element={<Page />}>
-                <Route index element={<Overview />} />
-                <Route path="register" element={<Register />} />
-                <Route path="patients" element={<Patients />} />
-                <Route path="inpatients" element={<Inpatients />} />
-                <Route path="outpatients" element={<Outpatients />} />
-                <Route path="add-inpatient" element={<AddInpatient />} />
-                <Route path="patient-profile">
-                  <Route path=":patient_id" element={<PatientProfile />} />
-                  <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+    <QueryClientProvider client={queryClient}>
+      <SocketContextProvider>
+        <PatientContextProvider>
+          <Router>
+            <Suspense fallback={<SuspenseFallback />}>
+              <Routes>
+                <Route path="/" element={<Page />}>
+                  <Route index element={<Overview />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="patients" element={<Patients />} />
+                  <Route path="inpatients" element={<Inpatients />} />
+                  <Route path="outpatients" element={<Outpatients />} />
+                  <Route path="add-inpatient" element={<AddInpatient />} />
+                  <Route path="patient-profile">
+                    <Route path=":patient_id" element={<PatientProfile />} />
+                    <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+                  </Route>
+                  <Route path="births" element={<Births />} />
+                  <Route path="deaths" element={<Deaths />} />
+                  <Route path="appointments" element={<UpcomingAppointments />} />
+                  <Route path="settings" element={<Settings />} />
+                  <Route path="symptom-types" element={<SymptomTypes />} />
+                  <Route path="symptom-heads" element={<SymptomHeads />} />
+                  <Route path="beds" element={<Beds />} />
+                  <Route path="bed-group" element={<BedGroup />} />
+                  <Route path="bed-type" element={<BedType />} />
                 </Route>
-                <Route path="births" element={<Births />} />
-                <Route path="deaths" element={<Deaths />} />
-                <Route path="appointments" element={<UpcomingAppointments />} />
-                <Route path="settings" element={<Settings />} />
-                <Route path="symptom-types" element={<SymptomTypes />} />
-                <Route path="symptom-heads" element={<SymptomHeads />} />
-                <Route path="beds" element={<Beds />} />
-                <Route path="bed-group" element={<BedGroup />} />
-                <Route path="bed-type" element={<BedType />} />
-              </Route>
-            </Routes>
-          </Suspense>
-        </Router>
-      </PatientContextProvider>
-    </SocketContextProvider>
+              </Routes>
+            </Suspense>
+          </Router>
+        </PatientContextProvider>
+      </SocketContextProvider>
+    </QueryClientProvider>
   );
 }
 
