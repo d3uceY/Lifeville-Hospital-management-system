@@ -21,6 +21,7 @@ import { toast } from "sonner"
 import { usePatientData, useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../providers/ApiContextProvider"
 import { createInpatient } from "../../providers/ApiProviders"
 import { useNavigate } from "react-router-dom"
+import { useInpatientAdmissions } from "../../providers/ApiContextProvider"
 
 // Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
 import { formatForDateInput } from "../../helpers/formatForDateInput"
@@ -36,7 +37,7 @@ export default function AddInpatient() {
     const { symptomTypes } = useSymptomTypes()
     const { symptomHeads } = useSymptomHeads()
     const navigate = useNavigate();
-
+    const { refreshInpatientAdmissions } = useInpatientAdmissions()
 
     // Form validation schema
     const schema = z.object({
@@ -176,6 +177,7 @@ export default function AddInpatient() {
                 setIsSubmitting(true)
                 const response = await createInpatient(payload)
                 navigate('/inpatients')
+                refreshInpatientAdmissions()
                 return response;
             } catch (err) {
                 console.log(err)
