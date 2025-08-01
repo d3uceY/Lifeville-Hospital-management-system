@@ -16,7 +16,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, BedIcon } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, BedIcon, FilePlus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -94,7 +94,7 @@ const columns = [
       >
         Hospital number
         <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button> 
+      </Button>
     ),
     cell: ({ row }) => <div className="font-medium text-gray-700">HOSP-{row.getValue("hospital_number")}</div>,
   },
@@ -322,11 +322,16 @@ export default function Patients() {
   return (
     <div className="lg:p-6">
       <Card className=" shadow-sm py-0 overflow-hidden">
-        <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6">
+        <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex justify-between items-center">
           <CardTitle className="flex items-center gap-2">
             <BedIcon className="h-5 w-5" />
             In Patients
           </CardTitle>
+
+          <Button className="bg-[#106041] hover:bg-[#0d4e34]">
+            <FilePlus className="mr-2 h-4 w-4" />
+            Add Inpatient
+          </Button>
         </CardHeader>
         <CardContent className="md:p-6">
           <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
