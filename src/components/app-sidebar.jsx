@@ -54,52 +54,44 @@ const data = {
         {
           title: "Overview",
           url: "/",
-        },
-        {
-          title: "Today's Schedule",
-          url: "#",
-        },
-        {
-          title: "Alerts & Notifications",
-          url: "#",
-        },
+        }
       ],
     },
 
-    {
-      title: "Reports & Analytics",
-      url: "#",
-      icon: BarChart,
-      items: [
-        {
-          title: "Daily Activity Reports",
-          url: "#",
-        },
-        {
-          title: "Revenue & Financial Tracking",
-          url: "#",
-        },
-        {
-          title: "Appointment Statistics",
-          url: "#",
-        }
-      ],
-    },
-    {
-      title: "User & System Settings",
-      url: "#",
-      icon: UserCog,
-      items: [
-        {
-          title: "Manage User Roles",
-          url: "#",
-        },
-        {
-          title: "System Configuration & Security",
-          url: "#",
-        }
-      ],
-    },
+    // {
+    //   title: "Reports & Analytics",
+    //   url: "#",
+    //   icon: BarChart,
+    //   items: [
+    //     {
+    //       title: "Daily Activity Reports",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Revenue & Financial Tracking",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Appointment Statistics",
+    //       url: "#",
+    //     }
+    //   ],
+    // },
+    // {
+    //   title: "User & System Settings",
+    //   url: "#",
+    //   icon: UserCog,
+    //   items: [
+    //     {
+    //       title: "Manage User Roles",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "System Configuration & Security",
+    //       url: "#",
+    //     }
+    //   ],
+    // },
   ],
 
   clinical: [
@@ -124,10 +116,10 @@ const data = {
           title: "Outpatients",
           url: "/outpatients",
         },
-        {
-          title: "Patient History",
-          url: "/history",
-        },
+        // {
+        //   title: "Patient History",
+        //   url: "/history",
+        // },
       ],
     },
     {
@@ -135,10 +127,10 @@ const data = {
       url: "#",
       icon: Calendar,
       items: [
-        {
-          title: "Book Appointments",
-          url: "/book-appointment",
-        },
+        // {
+        //   title: "Book Appointments",
+        //   url: "/book-appointment",
+        // },
         {
           title: "Appointments",
           url: "/appointments",
@@ -150,10 +142,10 @@ const data = {
       url: "#",
       icon: FileText,
       items: [
-        {
-          title: "Patient Records",
-          url: "#",
-        },
+        // {
+        //   title: "Patient Records",
+        //   url: "#",
+        // },
         {
           title: "Diagnostics and Prescriptions",
           url: "#",
