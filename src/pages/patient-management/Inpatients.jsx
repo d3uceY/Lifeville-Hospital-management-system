@@ -198,21 +198,11 @@ const columns = [
       </Button>
     ),
     cell: ({ row }) => {
-      // Retrieve the date_of_birth value (e.g., "1990-05-14T23:00:00.000Z") because that is how the date is returned from the db
       const dob = new Date(row.getValue("date_of_birth"))
 
-      // Calculate the difference in milliseconds between now and the date of birth.
-      // Date.now() returns the current time in milliseconds.
       const diffMs = Date.now() - dob.getTime()
 
-      // Create a new Date object from the time difference.
-      // The Date object is based on Unix time, which starts at January 1, 1970.
-      // This means that when we create a Date from diffMs, its year represents (1970 + number of years passed).
       const ageDate = new Date(diffMs) // miliseconds from epoch
-
-      // Get the year portion from the ageDate.
-      // Since the Date object counts years starting at 1970, subtracting 1970 gives the number of years elapsed,
-      // which is the person's age.
       const age = Math.abs(ageDate.getUTCFullYear() - 1970)
       return <div className="font-medium text-center">{age}</div>
     },
@@ -292,7 +282,6 @@ const columns = [
 
 export default function Patients() {
   const { inpatientAdmissions, loadingInpatientAdmissions } = useInpatientAdmissions();
-  console.log(inpatientAdmissions)
 
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])

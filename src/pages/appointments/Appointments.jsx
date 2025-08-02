@@ -41,12 +41,10 @@ import {
 } from "@/components/ui/select"
 
 
-
-
-
-
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
 import { useAppointmentsData } from "../../providers/ApiContextProvider"
+
+import { filterAppointmentByWhen } from "../../helpers/filterAppointmentByWhen"
 
 
 
@@ -89,7 +87,7 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div className="font-medium text-gray-700">{row.getValue("appointment_id")}</div>,
+    cell: ({ row }) => <div className="font-medium text-gray-700">APD-{row.getValue("appointment_id")}</div>,
   },
   {
     accessorKey: "patient_first_name",
@@ -152,6 +150,11 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
+    filterFn: (row, _, filterValue) => {
+      const appointmentDateStr = row.getValue("appointment_date")
+      if (!filterValue) return true // If no filter is set, show all rows
+      return filterAppointmentByWhen(appointmentDateStr, filterValue)
+    },
     cell: ({ row }) => <div className="capitalize font-medium">{formatDate(row.getValue("appointment_date"))}</div>,
   },
   {
@@ -219,9 +222,6 @@ export default function DoctorAppointmentsUI() {
     onRowSelectionChange: setRowSelection,
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   })
-
-
-  console.log(appointments)
 
   return (
 
@@ -295,6 +295,37 @@ export default function DoctorAppointmentsUI() {
                         </SelectItem>
                         <SelectItem value="canceled" className="hover:bg-[#e6f2ed] hover:">
                           canceled
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-medium text-gray-500">Sex</label>
+                  <Select
+                    onValueChange={(value) => table.getColumn("appointment_date")?.setFilterValue(value)}
+                    value={table.getColumn("appointment_date")?.getFilterValue() || ""}
+                  >
+                    <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
+                      <SelectValue placeholder="Filter by When" />
+                    </SelectTrigger>
+                    <SelectContent className="">
+                      <SelectGroup>
+                        <SelectLabel>Select</SelectLabel>
+                        <SelectItem className="hover:bg-[#e6f2ed] hover:">
+                          All
+                        </SelectItem>
+                        <SelectItem value="upcoming" className="hover:bg-[#e6f2ed] hover:">
+                          Upcoming
+                        </SelectItem>
+                        <SelectItem value="past" className="hover:bg-[#e6f2ed] hover:">
+                          Past
+                        </SelectItem>
+                        <SelectItem value="today" className="hover:bg-[#e6f2ed] hover:">
+                          Today
+                        </SelectItem>
+                        <SelectItem value="futureOrToday" className="hover:bg-[#e6f2ed] hover:">
+                          Future or Today
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>

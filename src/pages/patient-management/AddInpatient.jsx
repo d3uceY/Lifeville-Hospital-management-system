@@ -180,7 +180,7 @@ export default function AddInpatient() {
                 refreshInpatientAdmissions()
                 return response;
             } catch (err) {
-                console.log(err)
+                console.error(err)
                 throw err;
             } finally {
                 setIsSubmitting(false)

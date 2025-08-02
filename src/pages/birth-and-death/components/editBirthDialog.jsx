@@ -72,7 +72,7 @@ export function EditBirthDialog({  birthRecord }) {
                 refreshBirths()
                 return response;
             } catch (error) {
-                console.log(error)
+                console.error(error)
                 throw error
             } finally {
                 setIsSubmitting(false)
