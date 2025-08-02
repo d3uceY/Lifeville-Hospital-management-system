@@ -267,18 +267,6 @@ export default function DoctorAppointmentsUI() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">Phone Number</label>
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-                    <Input
-                      placeholder="Filter phone number..."
-                      value={table.getColumn("patient_phone_number")?.getFilterValue() || ""}
-                      onChange={(event) => table.getColumn("patient_phone_number")?.setFilterValue(event.target.value)}
-                      className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
                   <label className="text-xs font-medium text-gray-500">Sex</label>
                   <Select
                     onValueChange={(value) => table.getColumn("status")?.setFilterValue(value)}
