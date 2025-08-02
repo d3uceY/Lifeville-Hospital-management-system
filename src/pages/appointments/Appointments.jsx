@@ -30,6 +30,16 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 
 
@@ -118,7 +128,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-       Status
+        Status
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -268,6 +278,41 @@ export default function DoctorAppointmentsUI() {
                     />
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-medium text-gray-500">Sex</label>
+                  <Select
+                    onValueChange={(value) => table.getColumn("status")?.setFilterValue(value)}
+                    value={table.getColumn("status")?.getFilterValue() || ""}
+                  >
+                    <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
+                      <SelectValue placeholder="Filter by status" />
+                    </SelectTrigger>
+                    <SelectContent className="">
+                      <SelectGroup>
+                        <SelectLabel>Select</SelectLabel>
+                        <SelectItem className="hover:bg-[#e6f2ed] hover:">
+                          All
+                        </SelectItem>
+                        <SelectItem value="scheduled" className="hover:bg-[#e6f2ed] hover:">
+                          scheduled
+                        </SelectItem>
+                        <SelectItem value="confirmed" className="hover:bg-[#e6f2ed] hover:">
+                          confirmed
+                        </SelectItem>
+                        <SelectItem value="pending" className="hover:bg-[#e6f2ed] hover:">
+                          pending
+                        </SelectItem>
+                        <SelectItem value="completed" className="hover:bg-[#e6f2ed] hover:">
+                          completed
+                        </SelectItem>
+                        <SelectItem value="canceled" className="hover:bg-[#e6f2ed] hover:">
+                          canceled
+                        </SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
+
               </div>
               <div className="flex justify-end mt-4">
                 <DropdownMenu>
