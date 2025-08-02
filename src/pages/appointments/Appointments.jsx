@@ -15,8 +15,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import AppointmentDropdownOptions from "./components/AppointmentDropdownOptions"
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
+import { getAppointmentStatusColor } from "../../helpers/getAppointmentStatusColor"
 
 import {
   flexRender,
@@ -107,6 +110,25 @@ const columns = [
     ),
     cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("patient_surname")}</div>,
   },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="font-medium text-gray-700 hover:"
+      >
+        Appointment Status
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const statusColor = getAppointmentStatusColor(row.original.status)
+      return (
+        <Badge className={`mt-1 ${statusColor} capitalize`}>{row.original.status}</Badge>
+      )
+    }
+  },
 
   {
     accessorKey: "appointment_date",
@@ -155,10 +177,10 @@ const columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const currentpatientData = row.original
+      const appointmentData = row.original
       return (
         <div>
-
+          <AppointmentDropdownOptions appointment={appointmentData} />
         </div>
       )
     },
@@ -187,6 +209,8 @@ export default function DoctorAppointmentsUI() {
     onRowSelectionChange: setRowSelection,
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   })
+
+
   console.log(appointments)
 
   return (
