@@ -301,13 +301,13 @@ export default function DoctorAppointmentsUI() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">Sex</label>
+                  <label className="text-xs font-medium text-gray-500">When</label>
                   <Select
                     onValueChange={(value) => table.getColumn("appointment_date")?.setFilterValue(value)}
                     value={table.getColumn("appointment_date")?.getFilterValue() || ""}
                   >
                     <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
-                      <SelectValue placeholder="Filter by When" />
+                      <SelectValue placeholder="Filter by when" />
                     </SelectTrigger>
                     <SelectContent className="">
                       <SelectGroup>
