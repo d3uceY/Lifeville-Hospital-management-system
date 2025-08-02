@@ -89,7 +89,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-        Patient first name
+        First name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -104,7 +104,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-        Patient last name
+        Last name
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -118,7 +118,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-        Appointment Status
+       Status
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -138,7 +138,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-        Appointment Date
+        Scheduled Date
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
@@ -152,7 +152,7 @@ const columns = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         className="font-medium text-gray-700 hover:"
       >
-        Phone number
+        Phone no.
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),

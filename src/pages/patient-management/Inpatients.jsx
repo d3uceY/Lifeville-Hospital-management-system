@@ -328,10 +328,12 @@ export default function Patients() {
             In Patients
           </CardTitle>
 
-          <Button className="bg-[#106041] hover:bg-[#0d4e34]">
-            <FilePlus className="mr-2 h-4 w-4" />
-            Add Inpatient
-          </Button>
+          <Link to="/add-inpatient">
+            <Button className="bg-[#106041] hover:bg-[#0d4e34]">
+              <FilePlus className="mr-2 h-4 w-4" />
+              Add Inpatient
+            </Button>
+          </Link>
         </CardHeader>
         <CardContent className="md:p-6">
           <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
