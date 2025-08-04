@@ -47,7 +47,7 @@ export default function LoginForm({
           return "Login successful!";
         },
         error: (error) => {
-          // console.log(error)
+          console.log(error)
           return "Login failed!";
         },
       }
@@ -67,6 +67,7 @@ export default function LoginForm({
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" {...register("email")} placeholder="m@example.com" required />
+          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -76,12 +77,13 @@ export default function LoginForm({
             </a>
           </div>
           <Input id="password" type="password" {...register("password")} required />
+          {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         </div>
         <Button type="submit" className="w-full">
           Login
         </Button>
       </div>
-      <Toaster richColors/>
+      <Toaster richColors />
     </form>)
   );
 }
