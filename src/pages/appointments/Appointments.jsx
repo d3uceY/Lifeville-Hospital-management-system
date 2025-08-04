@@ -231,7 +231,7 @@ export default function DoctorAppointmentsUI() {
           <CardHeader className="pb-3 border-b flex items-center justify-between bg-[#f0f8f4] pt-6">
             <CardTitle className="flex items-center gap-2">
               <User2 className="h-5 w-5" />
-              Patients
+              Appointments
             </CardTitle>
             <ScheduleAppointmentDialog />
           </CardHeader>
@@ -239,7 +239,7 @@ export default function DoctorAppointmentsUI() {
             <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
               <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                 <Filter className="h-4 w-4" />
-                Filter Patients
+                Filter Appointments
               </h3>
               <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">

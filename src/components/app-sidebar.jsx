@@ -200,21 +200,21 @@ const data = {
         }
       ],
     },
-    {
-      title: "Pharmacy & Inventory",
-      url: "#",
-      icon: Box,
-      items: [
-        {
-          title: "Issue Medicines",
-          url: "#",
-        },
-        {
-          title: "Inventory Levels & Stock Alerts",
-          url: "#",
-        }
-      ],
-    },
+    // {
+    //   title: "Pharmacy & Inventory",
+    //   url: "#",
+    //   icon: Box,
+    //   items: [
+    //     {
+    //       title: "Issue Medicines",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Inventory Levels & Stock Alerts",
+    //       url: "#",
+    //     }
+    //   ],
+    // },
   ],
   setup: [
     {
