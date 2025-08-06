@@ -47,7 +47,7 @@ export default function LoginForm({
           return "Login successful!";
         },
         error: (error) => {
-          console.log(error)
+          console.error(error)
           return "Login failed!";
         },
       }

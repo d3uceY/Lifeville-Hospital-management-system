@@ -37,9 +37,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SocketContextProvider>
-        <AuthProvider>
-          <AppDataProvider>
-            <Router>
+        <Router>
+          <AuthProvider>
+            <AppDataProvider>
               <Suspense fallback={<SuspenseFallback />}>
                 <Routes>
                   <Route path="/login" element={<Login />} />
@@ -68,9 +68,9 @@ function App() {
                   </Route>
                 </Routes>
               </Suspense>
-            </Router>
-          </AppDataProvider>
-        </AuthProvider>
+            </AppDataProvider>
+          </AuthProvider>
+        </Router>
       </SocketContextProvider>
     </QueryClientProvider>
   );
