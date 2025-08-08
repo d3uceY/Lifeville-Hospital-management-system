@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-// import { useAxios } from '../api/axiosClient';
 import { useNavigate } from 'react-router-dom';
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -15,7 +14,6 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
     const navigate = useNavigate();
-    // const axiosClient = useAxios();
     const [accessToken, setAccessToken] = useState(null);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);

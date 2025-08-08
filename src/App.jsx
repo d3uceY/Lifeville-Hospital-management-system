@@ -30,7 +30,8 @@ const SymptomHeads = lazy(() => import('./pages/symptoms/SymptomHeads'));
 const Beds = lazy(() => import('./pages/beds/Beds'));
 const BedGroup = lazy(() => import('./pages/beds/BedGroup'));
 const BedType = lazy(() => import('./pages/beds/BedType'));
-
+const AddBill = lazy(() => import('./pages/bills/AddBill'));
+// const Bills = lazy(() => import('./pages/bills/Bills'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -64,6 +65,7 @@ function App() {
                       <Route path="beds" element={<Beds />} />
                       <Route path="bed-group" element={<BedGroup />} />
                       <Route path="bed-type" element={<BedType />} />
+                      <Route path="add-bill" element={<AddBill />} />
                     </Route>
                   </Route>
                 </Routes>

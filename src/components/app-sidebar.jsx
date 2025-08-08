@@ -186,11 +186,11 @@ const data = {
       icon: CreditCard,
       items: [
         {
-          title: "Create Invoice",
+          title: "Create Bill",
           url: "#",
         },
         {
-          title: "Payment Status & Receipts",
+          title: "Bills",
           url: "#",
         }
       ],
