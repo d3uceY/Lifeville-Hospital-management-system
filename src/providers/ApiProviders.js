@@ -343,3 +343,36 @@ export const deleteInpatient = async (inpatientId) => {
   const response = await api.delete(`/inpatients/${inpatientId}`);
   return response.data;
 };
+
+
+/* ============================
+API Helper function here for BILLS
+============================ */
+
+export const getBills = async () => {
+  const response = await api.get(`/bills`);
+  return response.data;
+};
+
+export const getBill = async (billId) => {
+  const response = await api.get(`/bills/${billId}`);
+  return response.data;
+};
+
+export const createBill = async (billData) => {
+  const response = await api.post(`/bills`, billData);
+  return response.data;
+};
+
+export const updateBill = async (billId, billData) => {
+  const response = await api.put(
+    `/bills/${billId}`,
+    billData
+  );
+  return response.data;
+};
+
+export const deleteBill = async (billId) => {
+  const response = await api.delete(`/bills/${billId}`);
+  return response.data;
+};

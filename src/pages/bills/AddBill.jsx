@@ -20,6 +20,7 @@ import { toast } from "sonner"
 import { Receipt, CreditCard, FileText, Plus, Trash2, Calculator, Save, X } from 'lucide-react'
 import { generateBillNumber } from "../../helpers/generateBillNumber"
 import { useAuth } from "../../providers/AuthContext"
+import { createBill } from "../../providers/ApiProviders"
 
 
 export default function AddBill() {
@@ -127,8 +128,29 @@ export default function AddBill() {
     }
 
     const onSubmit = async (values) => {
+
+        const payload = {
+            ...values,
+            patientId: Number(values.patientId),
+            billItems: values.billItems.map((item) => ({
+                ...item,
+                unitPrice: Number(item.unitPrice),
+                quantity: Number(item.quantity),
+            })),
+            billDate: new Date().toISOString().split('T')[0]
+        }
+        
         const promise = async () => {
-            console.log(values)
+            try {
+                setIsSubmitting(true)
+                const response = await createBill(payload)
+                return response.data
+            } catch (err) {
+                console.error(err)
+                throw err
+            } finally {
+                setIsSubmitting(false)
+            }
         }
 
         toast.promise(promise(), {
