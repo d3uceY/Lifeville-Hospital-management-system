@@ -187,11 +187,11 @@ const data = {
       items: [
         {
           title: "Create Bill",
-          url: "#",
+          url: "/add-bill",
         },
         {
           title: "Bills",
-          url: "#",
+          url: "/bills",
         }
       ],
     },
