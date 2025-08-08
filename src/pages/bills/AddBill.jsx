@@ -21,9 +21,11 @@ import { Receipt, CreditCard, FileText, Plus, Trash2, Calculator, Save, X } from
 import { generateBillNumber } from "../../helpers/generateBillNumber"
 import { useAuth } from "../../providers/AuthContext"
 import { createBill } from "../../providers/ApiProviders"
+import { useNavigate } from "react-router-dom"
 
 
 export default function AddBill() {
+    const navigate = useNavigate()
     const { user } = useAuth()
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -139,11 +141,12 @@ export default function AddBill() {
             })),
             billDate: new Date().toISOString().split('T')[0]
         }
-        
+
         const promise = async () => {
             try {
                 setIsSubmitting(true)
                 const response = await createBill(payload)
+                navigate('/bills')
                 return response.data
             } catch (err) {
                 console.error(err)
