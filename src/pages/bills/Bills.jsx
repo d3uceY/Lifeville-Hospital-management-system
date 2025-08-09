@@ -12,13 +12,15 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue, 
+    SelectValue,
     SelectGroup,
     SelectLabel,
 } from "@/components/ui/select"
 import { Search, Filter, Receipt, Eye, Download } from "lucide-react"
 import { getBillStatusBadge } from "../../helpers/getBillStatusBadge"
-import PatientSkeleton from "../patient-management/components/patientSkeleton"
+import { formatToShortDate } from "../../helpers/formatToShortDate"
+import { formatToNaira } from "../../helpers/formatToNaira"
+import { ViewBillDialog } from "./components/ViewBillDialog"
 
 export default function Bills() {
     const [page, setPage] = useState(1)
@@ -30,6 +32,7 @@ export default function Bills() {
     const [issuedByFilter, setIssuedByFilter] = useState("")
     const [patientIdFilter, setPatientIdFilter] = useState("")
 
+    console.log(statusFilter)
     const { data, isLoading, error } = useQuery({
         queryKey: ["bills", page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter],
         queryFn: () => getBills(page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter),
@@ -40,13 +43,6 @@ export default function Bills() {
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
 
-    const formatCurrency = (amount) => {
-        return `₦${Number.parseFloat(amount).toFixed(2)}`
-    }
-
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString()
-    }
 
     const handlePreviousPage = () => {
         if (page > 1) {
@@ -169,20 +165,22 @@ export default function Bills() {
                                         <TableRow key={bill.id}>
                                             <TableCell className="font-medium">{bill.billNumber}</TableCell>
                                             <TableCell>{bill.patientId}</TableCell>
-                                            <TableCell>{formatDate(bill.billDate)}</TableCell>
-                                            <TableCell className="font-semibold">{formatCurrency(bill.totalAmount)}</TableCell>
+                                            <TableCell>{formatToShortDate(bill.billDate)}</TableCell>
+                                            <TableCell className="font-semibold">{formatToNaira(bill.totalAmount)}</TableCell>
                                             <TableCell>{getBillStatusBadge(bill.status)}</TableCell>
                                             <TableCell className="capitalize">{bill.paymentMethod.replace("_", " ")}</TableCell>
                                             <TableCell>{bill.issuedBy}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
-                                                    <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
-                                                    >
-                                                        <Eye className="h-4 w-4" />
-                                                    </Button>
+                                                    <ViewBillDialog bill={bill}>
+                                                        <Button
+                                                            variant="outline"
+                                                            size="sm"
+                                                            className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                                                        >
+                                                            <Eye className="h-4 w-4" />
+                                                        </Button>
+                                                    </ViewBillDialog>
                                                     <Button
                                                         variant="outline"
                                                         size="sm"
