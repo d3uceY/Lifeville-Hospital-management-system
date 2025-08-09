@@ -32,7 +32,6 @@ export default function Bills() {
     const [issuedByFilter, setIssuedByFilter] = useState("")
     const [patientIdFilter, setPatientIdFilter] = useState("")
 
-    console.log(statusFilter)
     const { data, isLoading, error } = useQuery({
         queryKey: ["bills", page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter],
         queryFn: () => getBills(page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter),
@@ -150,6 +149,8 @@ export default function Bills() {
                             <TableHeader className="bg-[#f0f8f4]">
                                 <TableRow>
                                     <TableHead className="font-medium">Bill Number</TableHead>
+                                    <TableHead className="font-medium">Patient Name</TableHead>
+                                    <TableHead className="font-medium">Hospital Number</TableHead>
                                     <TableHead className="font-medium">Patient ID</TableHead>
                                     <TableHead className="font-medium">Bill Date</TableHead>
                                     <TableHead className="font-medium">Total Amount</TableHead>
@@ -164,6 +165,8 @@ export default function Bills() {
                                     data?.data?.map((bill) => (
                                         <TableRow key={bill.id}>
                                             <TableCell className="font-medium">{bill.billNumber}</TableCell>
+                                            <TableCell>{bill.patientName}</TableCell>
+                                            <TableCell>{bill.hospitalNumber}</TableCell>
                                             <TableCell>{bill.patientId}</TableCell>
                                             <TableCell>{formatToShortDate(bill.billDate)}</TableCell>
                                             <TableCell className="font-semibold">{formatToNaira(bill.totalAmount)}</TableCell>
