@@ -13,32 +13,38 @@ import { updateBill } from "../../../providers/ApiProviders"
 import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
 import { toast } from "sonner"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-
-const billEditSchema = z.object({
-    status: z.enum(["paid", "pending", "overdue", "cancelled"], {
-        required_error: "Please select a status",
-    }),
-    amountPaid: z
-        .string()
-        .min(1, "Amount paid is required")
-        .refine((val) => {
-            const num = Number.parseFloat(val)
-            return !isNaN(num) && num >= 0
-        }, "Amount paid must be a valid positive number"),
-    paymentMethod: z.enum(["bank_transfer", "cash", "card", "insurance"], {
-        required_error: "Please select a payment method",
-    }),
-    paymentDate: z.string().optional(),
-    notes: z.string().optional(),
-}).optional()
+import { useAuth } from "../../../providers/AuthContext"
 
 export function EditBillDialog({ bill, children }) {
+
+    const { user } = useAuth()
+
     const [open, setOpen] = useState(false)
+
+    const billEditSchema = z.object({
+        status: z.enum(["paid", "pending", "overdue", "cancelled"], {
+            required_error: "Please select a status",
+        }),
+        updatedBy: z.string().optional(),
+        amountPaid: z
+            .string()
+            .min(1, "Amount paid is required")
+            .refine((val) => {
+                const num = Number.parseFloat(val)
+                return !isNaN(num) && num >= 0
+            }, "Amount paid must be a valid positive number"),
+        paymentMethod: z.enum(["bank_transfer", "cash", "card", "insurance"], {
+            required_error: "Please select a payment method",
+        }),
+        paymentDate: z.string().optional(),
+        notes: z.string().optional(),
+    }).optional()
 
     const form = useForm({
         resolver: zodResolver(billEditSchema),
         defaultValues: {
             status: bill.status,
+            updatedBy: user?.name,
             amountPaid: bill.amountPaid,
             paymentMethod: bill.paymentMethod,
             paymentDate: bill.paymentDate ? formatDateForDateTimeLocal(bill.paymentDate) : undefined,
@@ -49,12 +55,12 @@ export function EditBillDialog({ bill, children }) {
     const { register, formState: { errors } } = form
 
 
-
     const queryClient = useQueryClient()
+
     const { mutateAsync, isPending } = useMutation({
-        mutationFn: ({billId, data}) => updateBill(billId, data),
+        mutationFn: ({ billId, data }) => updateBill(billId, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["bills"] }) 
+            queryClient.invalidateQueries({ queryKey: ["bills"] })
             setOpen(false)
         },
     })
@@ -64,7 +70,7 @@ export function EditBillDialog({ bill, children }) {
             ...data,
             paymentDate: data.paymentDate ? new Date(data.paymentDate).toISOString() : undefined,
         }
-        toast.promise(mutateAsync({billId: bill.id, data: payload}), {
+        toast.promise(mutateAsync({ billId: bill.id, data: payload }), {
             loading: 'Updating bill...',
             success: (data) => `Bill updated successfully!`,
             error: (err) => `Failed to update bill: ${err.message}`,
@@ -115,7 +121,7 @@ export function EditBillDialog({ bill, children }) {
                                 </FormItem>
                             )}
                         />
-                       <p className="text-red-500">{errors.status?.message}</p>
+                        <p className="text-red-500">{errors.status?.message}</p>
                         <FormField
                             control={form.control}
                             name="amountPaid"
@@ -203,11 +209,11 @@ export function EditBillDialog({ bill, children }) {
                             </Button>
                             <Button
                                 type="submit"
-                                // disabled={isLoading}
+                                disabled={isPending}
                                 className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
                             >
                                 <Save className="h-4 w-4 mr-2" />
-                                Save Changes
+                               {isPending ? "Updating..." : "Update"}
                             </Button>
                         </div>
                     </form>
