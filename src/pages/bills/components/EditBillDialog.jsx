@@ -10,6 +10,9 @@ import * as z from "zod"
 import { useState } from "react"
 import { Save, X } from "lucide-react"
 import { updateBill } from "../../../providers/ApiProviders"
+import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
+import { toast } from "sonner"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 const billEditSchema = z.object({
     status: z.enum(["paid", "pending", "overdue", "cancelled"], {
@@ -25,9 +28,9 @@ const billEditSchema = z.object({
     paymentMethod: z.enum(["bank_transfer", "cash", "card", "insurance"], {
         required_error: "Please select a payment method",
     }),
-    paymentDate: z.date().optional(),
+    paymentDate: z.string().optional(),
     notes: z.string().optional(),
-})
+}).optional()
 
 export function EditBillDialog({ bill, children }) {
     const [open, setOpen] = useState(false)
@@ -38,13 +41,34 @@ export function EditBillDialog({ bill, children }) {
             status: bill.status,
             amountPaid: bill.amountPaid,
             paymentMethod: bill.paymentMethod,
-            paymentDate: bill.paymentDate ? new Date(bill.paymentDate) : undefined,
+            paymentDate: bill.paymentDate ? formatDateForDateTimeLocal(bill.paymentDate) : undefined,
             notes: bill.notes || "",
         },
     })
 
+    const { register, formState: { errors } } = form
+
+
+
+    const queryClient = useQueryClient()
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: ({billId, data}) => updateBill(billId, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["bills"] }) 
+            setOpen(false)
+        },
+    })
+
     const onSubmit = async (data) => {
-        console.log(data)
+        const payload = {
+            ...data,
+            paymentDate: data.paymentDate ? new Date(data.paymentDate).toISOString() : undefined,
+        }
+        toast.promise(mutateAsync({billId: bill.id, data: payload}), {
+            loading: 'Updating bill...',
+            success: (data) => `Bill updated successfully!`,
+            error: (err) => `Failed to update bill: ${err.message}`,
+        })
     }
 
     return (
@@ -91,7 +115,7 @@ export function EditBillDialog({ bill, children }) {
                                 </FormItem>
                             )}
                         />
-
+                       <p className="text-red-500">{errors.status?.message}</p>
                         <FormField
                             control={form.control}
                             name="amountPaid"
@@ -112,7 +136,7 @@ export function EditBillDialog({ bill, children }) {
                                 </FormItem>
                             )}
                         />
-
+                        <p className="text-red-500">{errors.amountPaid?.message}</p>
                         <FormField
                             control={form.control}
                             name="paymentMethod"
@@ -144,8 +168,9 @@ export function EditBillDialog({ bill, children }) {
                                 </FormItem>
                             )}
                         />
-
-                        <Input type="date" name="paymentDate" {...form.register("paymentDate")} />
+                        <p className="text-red-500">{errors.paymentMethod?.message}</p>
+                        <Input type="datetime-local" name="paymentDate" {...register("paymentDate")} />
+                        <p className="text-red-500">{errors.paymentDate?.message}</p>
 
                         <FormField
                             control={form.control}
@@ -165,7 +190,7 @@ export function EditBillDialog({ bill, children }) {
                                 </FormItem>
                             )}
                         />
-
+                        <p className="text-red-500">{errors.notes?.message}</p>
                         <div className="flex justify-end space-x-2 pt-4">
                             <Button
                                 type="button"
