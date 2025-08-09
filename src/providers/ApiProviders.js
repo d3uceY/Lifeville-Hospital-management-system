@@ -349,8 +349,8 @@ export const deleteInpatient = async (inpatientId) => {
 API Helper function here for BILLS
 ============================ */
 
-export const getBills = async () => {
-  const response = await api.get(`/bills`);
+export const getBills = async (page = 1, pageSize = 20) => {
+  const response = await api.get(`/bills?page=${page}&pageSize=${pageSize}`);
   return response.data;
 };
 

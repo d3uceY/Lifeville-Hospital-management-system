@@ -5,7 +5,6 @@ import SuspenseFallback from './components/loader/SuspenseFallback';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './pages/auth/Login';
 import { AuthProvider } from './providers/AuthContext';
-import { Toaster } from 'sonner';
 
 // Context providers
 import { AppDataProvider } from './providers/ApiContextProvider';
@@ -31,7 +30,7 @@ const Beds = lazy(() => import('./pages/beds/Beds'));
 const BedGroup = lazy(() => import('./pages/beds/BedGroup'));
 const BedType = lazy(() => import('./pages/beds/BedType'));
 const AddBill = lazy(() => import('./pages/bills/AddBill'));
-// const Bills = lazy(() => import('./pages/bills/Bills'));
+const Bills = lazy(() => import('./pages/bills/Bills'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -66,6 +65,7 @@ function App() {
                       <Route path="bed-group" element={<BedGroup />} />
                       <Route path="bed-type" element={<BedType />} />
                       <Route path="add-bill" element={<AddBill />} />
+                      <Route path="bills" element={<Bills />} />
                     </Route>
                   </Route>
                 </Routes>
