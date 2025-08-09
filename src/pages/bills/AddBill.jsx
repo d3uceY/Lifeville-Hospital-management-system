@@ -21,6 +21,7 @@ import { Receipt, CreditCard, FileText, Plus, Trash2, Calculator, Save, X } from
 import { generateBillNumber } from "../../helpers/generateBillNumber"
 import { useAuth } from "../../providers/AuthContext"
 import { createBill } from "../../providers/ApiProviders"
+import { formatToNaira } from "../../helpers/formatToNaira"
 import { useNavigate } from "react-router-dom"
 
 
@@ -340,7 +341,7 @@ export default function AddBill() {
                                 </div>
                                 <div className="mt-2 text-right">
                                     <span className="text-sm text-gray-600">
-                                        Line Total: ${((watchedItems[index]?.unitPrice || 0) * (watchedItems[index]?.quantity || 1)).toFixed(2)}
+                                        Line Total: {formatToNaira((watchedItems[index]?.unitPrice || 0) * (watchedItems[index]?.quantity || 1))}
                                     </span>
                                 </div>
                             </div>
