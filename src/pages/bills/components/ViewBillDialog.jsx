@@ -87,6 +87,14 @@ export function ViewBillDialog({ bill, children }) {
                                     <label className="text-sm font-medium text-gray-500">Issued By</label>
                                     <p className="text-sm font-medium">{bill.issuedBy}</p>
                                 </div>
+                                {
+                                    bill.updatedBy && (
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-500">Updated By</label>
+                                            <p className="text-sm font-medium">{bill.updatedBy} at <span className="text-xs text-gray-500">{formatDateTime(bill.updatedAt)}</span></p>
+                                        </div>
+                                    )
+                                }
                             </CardContent>
                         </Card>
                     </div>
