@@ -462,9 +462,8 @@ export default function AddBill() {
                                                 <SelectGroup>
                                                     <SelectLabel>Payment Status</SelectLabel>
                                                     <SelectItem value="unpaid">Unpaid</SelectItem>
-                                                    <SelectItem value="partial">Partially Paid</SelectItem>
-                                                    <SelectItem value="paid">Paid</SelectItem>
                                                     <SelectItem value="overdue">Overdue</SelectItem>
+                                                    <SelectItem value="paid">Paid</SelectItem>
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>

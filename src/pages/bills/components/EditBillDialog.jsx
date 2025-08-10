@@ -22,7 +22,7 @@ export function EditBillDialog({ bill, children }) {
     const [open, setOpen] = useState(false)
 
     const billEditSchema = z.object({
-        status: z.enum(["paid", "pending", "overdue", "cancelled"], {
+        status: z.enum(["paid", "overdue", "unpaid", "cancelled"], {
             required_error: "Please select a status",
         }),
         updatedBy: z.string().optional(),
@@ -106,11 +106,11 @@ export function EditBillDialog({ bill, children }) {
                                             <SelectItem value="paid" className="hover:bg-[#e6f2ed]">
                                                 Paid
                                             </SelectItem>
-                                            <SelectItem value="pending" className="hover:bg-[#e6f2ed]">
-                                                Pending
-                                            </SelectItem>
                                             <SelectItem value="overdue" className="hover:bg-[#e6f2ed]">
                                                 Overdue
+                                            </SelectItem>
+                                            <SelectItem value="unpaid" className="hover:bg-[#e6f2ed]">
+                                                Unpaid
                                             </SelectItem>
                                             <SelectItem value="cancelled" className="hover:bg-[#e6f2ed]">
                                                 Cancelled
