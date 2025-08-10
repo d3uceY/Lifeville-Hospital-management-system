@@ -15,7 +15,6 @@ const Page = lazy(() => import('./app/dashboard/page'));
 const Register = lazy(() => import('./pages/patient-management/Register'));
 const Patients = lazy(() => import('./pages/patient-management/Patients'));
 const Inpatients = lazy(() => import('./pages/patient-management/Inpatients'));
-const Outpatients = lazy(() => import('./pages/patient-management/outpatients'));
 const AddInpatient = lazy(() => import('./pages/patient-management/AddInpatient'));
 const Overview = lazy(() => import('./pages/dashboard/Overview'));
 const PatientProfile = lazy(() => import('./pages/patient-management/patientProfile'));
@@ -31,6 +30,7 @@ const BedGroup = lazy(() => import('./pages/beds/BedGroup'));
 const BedType = lazy(() => import('./pages/beds/BedType'));
 const AddBill = lazy(() => import('./pages/bills/AddBill'));
 const Bills = lazy(() => import('./pages/bills/Bills'));
+const LabTestTypes = lazy(() => import('./pages/lab-tests/LabTestTypes'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -49,7 +49,6 @@ function App() {
                       <Route path="register" element={<Register />} />
                       <Route path="patients" element={<Patients />} />
                       <Route path="inpatients" element={<Inpatients />} />
-                      <Route path="outpatients" element={<Outpatients />} />
                       <Route path="add-inpatient" element={<AddInpatient />} />
                       <Route path="patient-profile">
                         <Route path=":patient_id" element={<PatientProfile />} />
@@ -66,6 +65,7 @@ function App() {
                       <Route path="bed-type" element={<BedType />} />
                       <Route path="add-bill" element={<AddBill />} />
                       <Route path="bills" element={<Bills />} />
+                      <Route path="lab-test-types" element={<LabTestTypes />} />
                     </Route>
                   </Route>
                 </Routes>

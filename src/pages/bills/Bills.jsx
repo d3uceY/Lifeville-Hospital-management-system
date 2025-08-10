@@ -101,11 +101,11 @@ export default function Bills() {
                                             <SelectItem value="paid" className="hover:bg-[#e6f2ed]">
                                                 Paid
                                             </SelectItem>
-                                            <SelectItem value="pending" className="hover:bg-[#e6f2ed]">
-                                                Pending
-                                            </SelectItem>
                                             <SelectItem value="overdue" className="hover:bg-[#e6f2ed]">
                                                 Overdue
+                                            </SelectItem>
+                                            <SelectItem value="unpaid" className="hover:bg-[#e6f2ed]">
+                                                Unpaid
                                             </SelectItem>
                                             <SelectItem value="cancelled" className="hover:bg-[#e6f2ed]">
                                                 Cancelled

@@ -13,6 +13,7 @@ import {
   getBeds,
   getBedGroups,
   getBedTypes,
+  getLabTestTypes,
 } from './ApiProviders';
 
 // Context definitions
@@ -24,6 +25,7 @@ const SymptomTypes = createContext(null);
 const SymptomHeads = createContext(null);
 const InpatientAdmissions = createContext(null);
 const Beds = createContext(null);
+const LabTests = createContext(null);
 
 // Exported hooks
 export const usePatientData = () => useContext(PatientContext);
@@ -34,6 +36,7 @@ export const useSymptomTypes = () => useContext(SymptomTypes);
 export const useSymptomHeads = () => useContext(SymptomHeads);
 export const useInpatientAdmissions = () => useContext(InpatientAdmissions);
 export const useBeds = () => useContext(Beds);
+export const useLabTests = () => useContext(LabTests);
 
 // Main provider component
 export function AppDataProvider({ children }) {
@@ -48,6 +51,7 @@ export function AppDataProvider({ children }) {
   const bedsQ = useQuery({ queryKey: ['beds'], queryFn: getBeds });
   const bedGroupsQ = useQuery({ queryKey: ['bedGroups'], queryFn: getBedGroups });
   const bedTypesQ = useQuery({ queryKey: ['bedTypes'], queryFn: getBedTypes });
+  const labTestTypesQ = useQuery({ queryKey: ['labTestTypes'], queryFn: getLabTestTypes });
 
   return (
     <AppointmentsContext.Provider value={{
@@ -99,7 +103,13 @@ export function AppDataProvider({ children }) {
                     loadingBedTypes: bedTypesQ.isLoading,
                     refreshBedTypes: bedTypesQ.refetch,
                   }}>
-                    {children}
+                    <LabTests.Provider value={{
+                      labTestTypes: labTestTypesQ.data ?? [],
+                      loadingLabTestTypes: labTestTypesQ.isLoading,
+                      refreshLabTestTypes: labTestTypesQ.refetch,
+                    }}>
+                      {children}
+                    </LabTests.Provider>
                   </Beds.Provider>
                 </InpatientAdmissions.Provider>
               </SymptomHeads.Provider>

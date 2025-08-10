@@ -107,10 +107,6 @@ const data = {
           title: "Inpatients",
           url: "/inpatients",
         },
-        {
-          title: "Outpatients",
-          url: "/outpatients",
-        },
         // {
         //   title: "Patient History",
         //   url: "/history",
@@ -122,47 +118,38 @@ const data = {
       url: "#",
       icon: Calendar,
       items: [
-        // {
-        //   title: "Book Appointments",
-        //   url: "/book-appointment",
-        // },
         {
           title: "Appointments",
           url: "/appointments",
         }
       ],
     },
-    {
-      title: "Electronic Medical Records",
-      url: "#",
-      icon: FileText,
-      items: [
-        // {
-        //   title: "Patient Records",
-        //   url: "#",
-        // },
-        {
-          title: "Diagnostics and Prescriptions",
-          url: "#",
-        }
-      ],
-    },
+    // {
+    //   title: "Electronic Medical Records",
+    //   url: "#",
+    //   icon: FileText,
+    //   items: [
+    //     // {
+    //     //   title: "Patient Records",
+    //     //   url: "#",
+    //     // },
+    //     {
+    //       title: "Diagnostics and Prescriptions",
+    //       url: "#",
+    //     }
+    //   ],
+    // },
     {
       title: "Lab Tests",
       url: "#",
       icon: FlaskConical,
       items: [
         {
-          title: "Request Lab Tests",
-          url: "#",
-        },
-        {
-          title: "Review & Upload Results",
-          url: "#",
+          title: "Laboratory",
+          url: "/laboratory",
         }
       ],
     },
-    ,
     {
       title: "Birth & Death Records",
       url: "#",
@@ -213,7 +200,7 @@ const data = {
   ],
   setup: [
     {
-      title: "Symptoms",
+      title: "Symptoms (🛠️)",
       url: "#",
       icon: AlertTriangle,
       items: [
@@ -228,7 +215,7 @@ const data = {
       ],
     },
     {
-      title: "Beds",
+      title: "Beds (🛠️)",
       url: "#",
       icon: Bed,
       items: [
@@ -243,6 +230,17 @@ const data = {
         {
           title: "Bed types",
           url: "/bed-type",
+        }
+      ],
+    },
+    {
+      title: "Lab test (🛠️)",
+      url: "#",
+      icon: FlaskConical,
+      items: [
+        {
+          title: "Lab Test Types",
+          url: "/lab-test-types",
         }
       ],
     }
