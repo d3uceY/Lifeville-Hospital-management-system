@@ -82,61 +82,63 @@ export default function LabTestAnalysis() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-                <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
-                    <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
-                        <FileText size={20} />
-                        Prescribe Analysis
-                    </CardTitle>
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+                    <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
+                        <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
+                            <FileText size={20} />
+                            Prescribe Analysis
+                        </CardTitle>
 
-                    <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                        {isSubmitting ? "Submitting..." : "Add Analysis"}
-                    </Button>
-                </CardHeader>
-                <CardContent>
-                    <div className="mb-4">
-                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="testType">
-                            Test Type
-                        </Label>
-                        <Controller
-                            name="testType"
-                            control={control}
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <SelectTrigger className="w-full bg-gray-50">
-                                        <SelectValue placeholder="Select test type" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Test Types</SelectLabel>
-                                            {labTestTypes.map((testType) => (
-                                                <SelectItem key={testType.id} value={testType.name}>
-                                                    {testType.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            )}
-                        />
-                        {errors.testType && <p className="text-red-500 text-sm mt-1">{errors.testType.message}</p>}
-                    </div>
+                        <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
+                            {isSubmitting ? "Submitting..." : "Add Analysis"}
+                        </Button>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-4">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="testType">
+                                Test Type
+                            </Label>
+                            <Controller
+                                name="testType"
+                                control={control}
+                                render={({ field }) => (
+                                    <Select onValueChange={field.onChange} value={field.value}>
+                                        <SelectTrigger className="w-full bg-gray-50">
+                                            <SelectValue placeholder="Select test type" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>Test Types</SelectLabel>
+                                                {labTestTypes.map((testType) => (
+                                                    <SelectItem key={testType.id} value={testType.name}>
+                                                        {testType.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            />
+                            {errors.testType && <p className="text-red-500 text-sm mt-1">{errors.testType.message}</p>}
+                        </div>
 
-                    <div>
-                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="comments">
-                            Comments
-                        </Label>
-                        <Textarea
-                            className="text-black border-[#268a6477] bg-gray-50"
-                            id="comments"
-                            placeholder="Any additional notes or comments about this bill..."
-                            {...register("comments")}
-                        />
-                    </div>
-                </CardContent>
-            </Card>
+                        <div>
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="comments">
+                                Comments
+                            </Label>
+                            <Textarea
+                                className="text-black border-[#268a6477] bg-gray-50"
+                                id="comments"
+                                placeholder="Any additional notes or comments about this bill..."
+                                {...register("comments")}
+                            />
+                        </div>
+                    </CardContent>
+                </Card>
 
-        </form>
+            </form>
+        </div>
     )
 }
