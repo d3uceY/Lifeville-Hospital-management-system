@@ -247,7 +247,7 @@ const columns = [
             <DropdownMenuItem className="p-0">
               <Link
                 className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                to={`/patient-profile/full-profile/${currentpatientData.patient_id}`}
+                to={`/patient-profile/${currentpatientData.patient_id}/full-profile`}
               >
                 <User2 className="h-4 w-4" /> View Patient Profile
               </Link>
@@ -256,7 +256,7 @@ const columns = [
             <DropdownMenuItem className="p-0">
               <Link
                 className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                to={`/patient-profile/full-profile/${currentpatientData.patient_id}`}
+                to={`/patient-profile/${currentpatientData.patient_id}/history`}
               >
                 <History className="h-4 w-4" /> View Patient History
               </Link>

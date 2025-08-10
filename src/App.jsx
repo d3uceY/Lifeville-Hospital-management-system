@@ -5,7 +5,6 @@ import SuspenseFallback from './components/loader/SuspenseFallback';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './pages/auth/Login';
 import { AuthProvider } from './providers/AuthContext';
-
 // Context providers
 import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
@@ -32,6 +31,7 @@ const BedType = lazy(() => import('./pages/beds/BedType'));
 const AddBill = lazy(() => import('./pages/bills/AddBill'));
 const Bills = lazy(() => import('./pages/bills/Bills'));
 const LabTestTypes = lazy(() => import('./pages/lab-tests/LabTestTypes'));
+const LabTestAnalysis = lazy(() => import('./pages/lab-tests/LabTestAnalysis'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -51,10 +51,11 @@ function App() {
                       <Route path="patients" element={<Patients />} />
                       <Route path="inpatients" element={<Inpatients />} />
                       <Route path="add-inpatient" element={<AddInpatient />} />
-                      <Route path="patient-profile">
+                      <Route path="patient-profile/:patient_id">
                         <Route element={<PatientProfileSidebar />}>
-                          <Route path="full-profile/:patient_id" element={<PatientProfile />} />
-                          <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+                          <Route path="full-profile" element={<PatientProfile />} />
+                          <Route path="edit" element={<EditPatientProfile />} />
+                          <Route path="analysis" element={<LabTestAnalysis />} />
                         </Route>
                       </Route>
                       <Route path="births" element={<Births />} />

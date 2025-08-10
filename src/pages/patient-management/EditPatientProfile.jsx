@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Toaster } from "sonner"
 import { Button } from "@/components/ui/button"
+import { useParams } from "react-router-dom"
 
 import { toast } from "sonner"
 
@@ -33,11 +34,12 @@ export default function EditPatientProfile() {
   // Get patient data from location
   const location = useLocation()
   const patient = location.state
+  const { patient_id: id } = useParams();
   const navigate = useNavigate()
 
   //function that takes you back to the patient profile
   function goBackToProfile() {
-    navigate(`/patient-profile/${patient.patient_id}`)
+    navigate(`/patient-profile/${id}/full-profile/`)
   }
 
 
@@ -135,8 +137,10 @@ export default function EditPatientProfile() {
     formState: { isValid, errors },
     register,
     control,
+    getValues,
   } = methods
 
+console.log(getValues())
   const onSubmit = async (values) => {
     const promise = async () => {
       try {

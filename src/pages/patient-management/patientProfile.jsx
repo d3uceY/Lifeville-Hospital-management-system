@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useParams } from 'react-router-dom';
 //skeleton loader
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
 
@@ -15,7 +16,7 @@ export default function PatientProfile() {
     const [patient, setPatient] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
-    const id = location.pathname.split('/').pop();
+    const { patient_id: id } = useParams();
 
     useEffect(() => {
         const fetchPatient = async () => {
@@ -55,7 +56,7 @@ export default function PatientProfile() {
                     </div>
                 </div>
                 <div>
-                    <Link to={`/patient-profile/edit/${id}`} state={patient}>
+                    <Link to={`/patient-profile/${id}/edit`} state={patient}>
                         <Button className="bg-[#106041] text-white hover:bg-[#106041]/80">Update</Button>
                     </Link>
                 </div>

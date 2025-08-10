@@ -409,3 +409,36 @@ export const deleteLabTestType = async (labTestTypeId) => {
   const response = await api.delete(`/lab-tests/lab-test-type/${labTestTypeId}`);
   return response.data;
 };
+
+
+/* ============================
+API Helper function here for LAB TEST ANALYSIS
+============================ */
+
+export const getLabTests = async () => {
+  const response = await api.get(`/lab-tests`);
+  return response.data;
+};
+
+export const getLabTest = async (labTestId) => {
+  const response = await api.get(`/lab-tests/${labTestId}`);
+  return response.data;
+};
+
+export const createLabTest = async (labTestData) => {
+  const response = await api.post(`/lab-tests`, labTestData);
+  return response.data;
+};
+
+export const updateLabTest = async (labTestId, labTestData) => {
+  const response = await api.put(
+    `/lab-tests/${labTestId}`,
+    labTestData
+  );
+  return response.data;
+};
+
+export const deleteLabTest = async (labTestId) => {
+  const response = await api.delete(`/lab-tests/${labTestId}`);
+  return response.data;
+};

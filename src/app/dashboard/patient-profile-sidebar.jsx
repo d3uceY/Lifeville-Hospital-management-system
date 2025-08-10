@@ -21,30 +21,25 @@ import {
 } from "@/components/ui/sidebar"
 import { Outlet } from "react-router-dom"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 
-const data = {
-  nav: [
-    { name: "summary", icon: FileText, href: "/patient-profile/summary/:patient_id" },
-    { name: "full info", icon: IdCard, href: "/patient-profile/full-profile/:patient_id" },
-    { name: "history", icon: History, href: "/patient-profile/history/:patient_id" },
-    { name: "vital signs", icon: Activity, href: "/patient-profile/vital-signs/:patient_id" },
-    { name: "analysis", icon: Activity, href: "/patient-profile/analysis/:patient_id" },
-    { name: "prescriptions", icon: Pill, href: "/patient-profile/prescriptions/:patient_id" },
-    { name: "services", icon: Stethoscope, href: "/patient-profile/services/:patient_id" },
-    { name: "invoices", icon: FileArchiveIcon, href: "/patient-profile/invoices/:patient_id" },
-  ],
-}
 
 export default function PatientProfileSidebar() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const patientId = location.pathname.split("/").pop()
-
-  useEffect(() => {
-    if (!patientId) {
-      navigate("/")
-    }
-  }, [patientId])
+  const { patient_id } = useParams();
+  const location = useLocation();
+  
+  const data = {
+    nav: [
+      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/summary/` },
+      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/full-profile/` },
+      { name: "history", icon: History, href: `/patient-profile/${patient_id}/history/` },
+      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs/` },
+      { name: "analysis", icon: Activity, href: `/patient-profile/${patient_id}/analysis/` },
+      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions/` },
+      { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services/` },
+      { name: "invoices", icon: FileArchiveIcon, href: `/patient-profile/${patient_id}/invoices/` },
+    ],
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -58,7 +53,7 @@ export default function PatientProfileSidebar() {
                     <SidebarMenuItem key={item.name}>
                       <SidebarMenuButton
                         asChild
-                        isActive={location.pathname === item.href.replace(":patient_id", patientId)}
+                        isActive={location.pathname === item.href}
                         className="w-full justify-start px-3 py-2 text-sm font-medium transition-colors hover:bg-[#e6f2ed] hover:text-[#106041] data-[active=true]:bg-[#f0f8f4] data-[active=true]:text-[#106041] data-[active=true]:border-r-2 data-[active=true]:border-[#268a64]"
                       >
                         <Link to={item.href} className="flex items-center gap-3 w-full">
@@ -98,7 +93,7 @@ export default function PatientProfileSidebar() {
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto">
             <div className="p-6">
-              <Outlet context={{ patientId }} />
+              <Outlet />
             </div>
           </div>
         </main>
