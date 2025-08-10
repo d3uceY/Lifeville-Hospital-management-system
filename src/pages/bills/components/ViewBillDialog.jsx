@@ -136,16 +136,21 @@ export function ViewBillDialog({ bill, children }) {
                                 <Calendar className="h-4 w-4" />
                                 Payment Information
                             </CardTitle>
-                            <EditBillDialog bill={bill}>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                                >
-                                    <Edit className="h-4 w-4 mr-2" />
-                                    Edit
-                                </Button>
-                            </EditBillDialog>
+                            {
+                                !(bill.status == "paid" || bill.status == "cancelled") && (
+                                    <EditBillDialog bill={bill}>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
+                                        >
+                                            <Edit className="h-4 w-4 mr-2" />
+                                            Edit
+                                        </Button>
+                                    </EditBillDialog>
+
+                                )
+                            }
                         </CardHeader>
                         <CardContent className="pt-4">
                             <div className="grid md:grid-cols-2 gap-6">
