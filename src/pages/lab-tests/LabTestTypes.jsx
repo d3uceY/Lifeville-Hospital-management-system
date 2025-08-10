@@ -8,7 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,10 +21,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { EditBedTypesDialog } from "./components/editBedTypesDialog";
-// import DeleteBedTypeDialog from "./components/deletBedTypesDialog";
-// import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
-// import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
+import { EditLabTestTypesDialog } from "./components/EditLabTestTypesDialog";
+import DeleteLabTestTypeDialog from "./components/DeleteLabTestTypeDialog";
 import { CreateLabTestTypesDialog } from "./components/AddLabTestTypesDialog";
 
 const columns = [
@@ -62,11 +60,11 @@ const columns = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const bedTypeData = row.original;
+      const labTestTypeData = row.original;
       return (
         <div className="flex items-center gap-2">
-          {/* <EditBedTypesDialog bedType={bedTypeData} /> */}
-          {/* <DeleteBedTypeDialog deletedBedTypeRecordInfo={bedTypeData} /> */}
+          <EditLabTestTypesDialog labTestType={labTestTypeData} />
+          <DeleteLabTestTypeDialog deletedLabTestTypeRecordInfo={labTestTypeData} />
         </div>
       );
     },
@@ -101,7 +99,7 @@ export default function LabTestTypes() {
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <User2 className="h-5 w-5" />
+            <FlaskConical className="h-5 w-5" />
             Lab Test Types
           </CardTitle>
           <CreateLabTestTypesDialog />
