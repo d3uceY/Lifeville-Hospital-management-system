@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // import DeleteBedTypeDialog from "./components/deletBedTypesDialog";
 // import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
+import { CreateLabTestTypesDialog } from "./components/AddLabTestTypesDialog";
 
 const columns = [
 
@@ -103,7 +104,7 @@ export default function LabTestTypes() {
             <User2 className="h-5 w-5" />
             Lab Test Types
           </CardTitle>
-          {/* <CreateBedTypeDialog /> */}
+          <CreateLabTestTypesDialog />
         </CardHeader>
         <CardContent className="md:p-6">
           <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
@@ -179,7 +180,7 @@ export default function LabTestTypes() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
-                      No Bed Types Available
+                      No Lab Test Types Available
                     </TableCell>
                   </TableRow>
                 )}
@@ -187,7 +188,7 @@ export default function LabTestTypes() {
             </Table>
             <div className="flex items-center justify-end space-x-2 py-4 px-6  border-t ">
               <div className="flex-1 text-sm text-gray-500">
-                {table.getFilteredRowModel().rows.length} bed type(s)
+                {table.getFilteredRowModel().rows.length} lab test type(s)
               </div>
               <div className="space-x-2 flex">
                 <Button size="sm" className="bg-[#106041] text-white" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>

@@ -388,24 +388,24 @@ export const getLabTestTypes = async () => {
 };
 
 export const getLabTestType = async (labTestTypeId) => {
-  const response = await api.get(`/lab-tests/lab-test-types/${labTestTypeId}`);
+  const response = await api.get(`/lab-tests/lab-test-type/${labTestTypeId}`);
   return response.data;
 };
 
 export const createLabTestType = async (labTestTypeData) => {
-  const response = await api.post(`/lab-tests/lab-test-types`, labTestTypeData);
+  const response = await api.post(`/lab-tests/lab-test-type`, labTestTypeData);
   return response.data;
 };
 
 export const updateLabTestType = async (labTestTypeId, labTestTypeData) => {
   const response = await api.put(
-    `/lab-tests/lab-test-types/${labTestTypeId}`,
+    `/lab-tests/lab-test-type/${labTestTypeId}`,
     labTestTypeData
   );
   return response.data;
 };
 
 export const deleteLabTestType = async (labTestTypeId) => {
-  const response = await api.delete(`/lab-tests/lab-test-types/${labTestTypeId}`);
+  const response = await api.delete(`/lab-tests/lab-test-type/${labTestTypeId}`);
   return response.data;
 };

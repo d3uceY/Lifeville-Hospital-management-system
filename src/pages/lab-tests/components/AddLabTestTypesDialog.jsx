@@ -1,7 +1,7 @@
-import { useBeds } from "../../../providers/ApiContextProvider";
-import { createBedType } from "../../../providers/ApiProviders";
+import { useLabTests } from "../../../providers/ApiContextProvider";
+import { createLabTestType } from "../../../providers/ApiProviders";
 import { useState } from "react";
-import { FilePlus, BedDouble, FileText } from "lucide-react";
+import { FilePlus, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -12,6 +12,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,20 +20,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import spinnerLight from '/spinner-light.svg';
 
-export function CreateBedTypeDialog() {
-    const { refreshBedTypes } = useBeds();
+export function CreateLabTestTypesDialog() {
+    const { refreshLabTestTypes } = useLabTests();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
 
     const schema = z.object({
-        typeName: z.string().nonempty({ message: "Bed type name is required" }),
+        name: z.string().nonempty({ message: "Lab test type name is required" }),
+        description: z.string().nonempty({ message: "Lab test type description is required" }),
     });
 
     const { register, formState: { isValid, errors }, handleSubmit } = useForm({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            typeName: "",
+            name: "",
+            description: "",
         }
     });
 
@@ -40,9 +43,9 @@ export function CreateBedTypeDialog() {
         const promise = async () => {
             setIsSubmitting(true);
             try {
-                const response = await createBedType(data);
+                const response = await createLabTestType(data);
                 setOpen(false);
-                refreshBedTypes();
+                refreshLabTestTypes();
                 return response;
             } catch (error) {
                 throw error;
@@ -52,8 +55,8 @@ export function CreateBedTypeDialog() {
         };
 
         toast.promise(promise(), {
-            loading: 'Creating bed type...',
-            success: (data) => `${data.message}`,
+            loading: 'Creating lab test type...',
+            success: `Lab test type created successfully`,
             error: (err) => err.response?.data?.message || err?.message || 'An error occurred'
         });
     };
@@ -63,31 +66,45 @@ export function CreateBedTypeDialog() {
             <DialogTrigger asChild>
                 <Button className="bg-[#106041] hover:bg-[#0d4e34]">
                     <FilePlus className="mr-2 h-4 w-4" />
-                    Create Bed Type
+                    Create Lab Test Type
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px] overflow-y-auto ">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <BedDouble className="h-5 w-5" />
-                        Create Bed Type
+                        <FileText className="h-5 w-5" />
+                        Create Lab Test Type
                     </DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="bedType" className="text-gray-700 flex items-center gap-1">
+                            <Label htmlFor="name" className="text-gray-700 flex items-center gap-1">
                                 <FileText className="h-3.5 w-3.5 " />
-                                Bed Type Name
+                                Lab Test Type Name
                             </Label>
                             <Input
-                                id="typeName"
-                                placeholder="Enter bed type name..."
+                                id="name"
+                                placeholder="Enter lab test type name..."
                                 required
                                 className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
-                                {...register("typeName")}
+                                {...register("name")}
                             />
-                            {errors.typeName && <p className="text-red-500">{errors.typeName.message}</p>}
+                            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="description" className="text-gray-700 flex items-center gap-1">
+                                <FileText className="h-3.5 w-3.5 " />
+                                Lab Test Type Description
+                            </Label>
+                            <Textarea
+                                id="description"
+                                placeholder="Enter lab test type description..."
+                                required
+                                className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
+                                {...register("description")}
+                            ></Textarea>
+                            {errors.description && <p className="text-red-500">{errors.description.message}</p>}
                         </div>
                     </div>
                     <DialogFooter className="gap-2 flex items-center">
