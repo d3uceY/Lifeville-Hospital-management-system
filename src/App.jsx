@@ -12,6 +12,7 @@ import { SocketContextProvider } from './providers/SocketContextProvider';
 
 // Lazy-loaded components
 const Page = lazy(() => import('./app/dashboard/page'));
+const PatientProfileSidebar = lazy(() => import('./app/dashboard/patient-profile-sidebar'));
 const Register = lazy(() => import('./pages/patient-management/Register'));
 const Patients = lazy(() => import('./pages/patient-management/Patients'));
 const Inpatients = lazy(() => import('./pages/patient-management/Inpatients'));
@@ -51,8 +52,10 @@ function App() {
                       <Route path="inpatients" element={<Inpatients />} />
                       <Route path="add-inpatient" element={<AddInpatient />} />
                       <Route path="patient-profile">
-                        <Route path=":patient_id" element={<PatientProfile />} />
-                        <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+                        <Route element={<PatientProfileSidebar />}>
+                          <Route path=":patient_id" element={<PatientProfile />} />
+                          <Route path="edit/:patient_id" element={<EditPatientProfile />} />
+                        </Route>
                       </Route>
                       <Route path="births" element={<Births />} />
                       <Route path="deaths" element={<Deaths />} />
