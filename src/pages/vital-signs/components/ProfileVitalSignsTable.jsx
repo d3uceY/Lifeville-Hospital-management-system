@@ -1,0 +1,178 @@
+import * as React from "react";
+import {
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable,
+} from "@tanstack/react-table";
+import { ArrowUpDown, Activity } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+import { getVitalSignsByPatientId } from "../../../providers/ApiProviders";
+import { formatDate } from "../../../helpers/formatDate";
+
+const columns = [
+    {
+        accessorKey: "recorded_at",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium text-gray-700"
+            >
+                Recorded At
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="text-gray-700">{formatDate(row.original.created_at)}</div>,
+    },
+    {
+        accessorKey: "temperature",
+        header: "Temp (°C)",
+        cell: ({ row }) => {
+            const temp = row.getValue("temperature");
+            const color =
+                temp < 36.1 || temp > 37.2 ? "text-red-600 font-semibold" : "text-green-600 font-semibold";
+            return <div className={color}>{temp}°C</div>;
+        },
+    },
+    {
+        accessorKey: "blood_pressure_systolic",
+        header: "BP (Systolic/Diastolic)",
+        cell: ({ row }) => {
+            const sys = row.getValue("blood_pressure_systolic");
+            const dia = row.original.blood_pressure_diastolic;
+            const color =
+                sys < 90 || sys > 120 || dia < 60 || dia > 80
+                    ? "text-red-600 font-semibold"
+                    : "text-green-600 font-semibold";
+            return <div className={color}>{sys}/{dia} mmHg</div>;
+        },
+    },
+    {
+        accessorKey: "pulse_rate",
+        header: "Pulse (bpm)",
+        cell: ({ row }) => {
+            const pulse = row.getValue("pulse_rate");
+            const color =
+                pulse < 60 || pulse > 100 ? "text-red-600 font-semibold" : "text-green-600 font-semibold";
+            return <div className={color}>{pulse}</div>;
+        },
+    },
+    {
+        accessorKey: "spo2",
+        header: "SpO₂ (%)",
+        cell: ({ row }) => {
+            const spo2 = row.getValue("spo2");
+            let color = "text-green-600 font-semibold";
+            if (spo2 < 90) color = "text-red-600 font-semibold";
+            else if (spo2 < 95) color = "text-orange-500 font-semibold";
+            return <div className={color}>{spo2}%</div>;
+        },
+    },
+    {
+        accessorKey: "weight",
+        header: "Weight (kg)",
+        cell: ({ row }) => <div className="text-gray-700">{row.getValue("weight")} kg</div>,
+    },
+    {
+        accessorKey: "recorded_by",
+        header: "Recorded By",
+        cell: ({ row }) => <div className="capitalize">{row.getValue("recorded_by")}</div>,
+    },
+];
+
+export default function ProfileVitalSignsTable({ patientId }) {
+    const { data: vitalSigns, isLoading } = useQuery({
+        queryKey: ["vitalSigns", patientId],
+        queryFn: () => getVitalSignsByPatientId(patientId),
+    });
+
+    const [sorting, setSorting] = React.useState([]);
+    const [columnFilters, setColumnFilters] = React.useState([]);
+    const [columnVisibility, setColumnVisibility] = React.useState({});
+    const [rowSelection, setRowSelection] = React.useState({});
+
+    const table = useReactTable({
+        data: vitalSigns?.vitalSigns || [],
+        columns,
+        onSortingChange: setSorting,
+        onColumnFiltersChange: setColumnFilters,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        onColumnVisibilityChange: setColumnVisibility,
+        onRowSelectionChange: setRowSelection,
+        state: { sorting, columnFilters, columnVisibility, rowSelection },
+        initialState: {
+            pagination: { pageSize: 5 },
+        },
+    });
+
+    if (isLoading) return <div>Loading...</div>;
+
+    return (
+        <Card className="shadow-sm py-0 overflow-hidden mt-8">
+            <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                    <Activity className="h-5 w-5" />
+                    Vital Signs
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="md:p-6">
+                <div className="rounded-md border overflow-hidden shadow-sm">
+                    <Table>
+                        <TableHeader className="bg-[#f0f8f4]">
+                            {table.getHeaderGroups().map((hg) => (
+                                <TableRow key={hg.id}>
+                                    {hg.headers.map((header) => (
+                                        <TableHead key={header.id} className="font-medium">
+                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                        </TableHead>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            {table.getRowModel().rows.length ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell className="pl-5" key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
+                                        No Vital Signs Recorded
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                    <div className="flex items-center justify-end space-x-2 py-4 px-6 border-t">
+                        <div className="flex-1 text-sm text-gray-500">
+                            {table.getFilteredRowModel().rows.length} record(s)
+                        </div>
+                        <div className="space-x-2 flex">
+                            <Button size="sm" className="bg-[#106041] text-white" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+                                Previous
+                            </Button>
+                            <Button size="sm" className="bg-[#106041] text-white" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+                                Next
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+}

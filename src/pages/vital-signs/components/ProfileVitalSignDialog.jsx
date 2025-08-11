@@ -15,15 +15,17 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Activity, Thermometer } from "lucide-react" // Example icon
-import { createVitalSign } from "../../providers/ApiProviders"
+import { createVitalSign } from "../../../providers/ApiProviders"
 import { useState } from "react"
 import { toast } from "sonner"
-import { useAuth } from "../../providers/AuthContext"
+import { useAuth } from "../../../providers/AuthContext"
+import { useParams } from "react-router-dom"
 
-export default function VitalSignsDialog({ children, patient }) {
+export default function ProfileVitalSignDialog() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
+    const { patient_id } = useParams()
 
     const schema = z.object({
         temperature: z.number().min(0).max(45).optional(),
@@ -60,7 +62,7 @@ export default function VitalSignsDialog({ children, patient }) {
         const promise = async () => {
             try {
                 setIsSubmitting(true)
-                const payload = { ...data, patientId: patient?.patient_id }
+                const payload = { ...data, patientId: patient_id }
                 setOpen(false)
                 await createVitalSign(payload)
                 reset()
@@ -80,15 +82,19 @@ export default function VitalSignsDialog({ children, patient }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                {children}
+            <Button className="bg-[#106041] hover:bg-[#0d4e34] ml-auto flex items-center">
+                    <Activity className="mr-2 h-4 w-4" />
+                    Add Vital Signs
+                </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-2">
+            <DialogContent className="!max-w-[60vw] !w-[100vw] max-h-[80vh] overflow-y-auto p-2">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
                         <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
                             <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                                 <Activity size={20} />
-                                Vital Signs for {patient?.surname} {patient?.first_name}
+                                Vital Signs 
+                                {/* for {patient?.surname} {patient?.first_name} */}
                             </CardTitle>
                             <Button
                                 className="mt-6"

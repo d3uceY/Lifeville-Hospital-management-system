@@ -45,6 +45,11 @@ export const createVitalSign = async (vitalSignData) => {
   return response;
 };
 
+export const getVitalSignsByPatientId = async (patientId) => {
+  const response = await api.get("/vital-signs/patient/" + patientId);
+  return response.data;
+};
+
 /* ============================
    API Helper function here for DOCTORS
    ============================ */

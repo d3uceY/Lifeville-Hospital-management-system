@@ -116,7 +116,7 @@ export default function LabTests() {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                              className="action-edit-btn"
                             >
                               <FilePenLine className="h-4 w-4" />
                             </Button>
@@ -125,7 +125,7 @@ export default function LabTests() {
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                              className="action-edit-btn"
                             >
                               <SquareArrowOutUpRight className="h-4 w-4" />
                             </Button>
@@ -133,7 +133,7 @@ export default function LabTests() {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                            className="action-edit-btn"
                           >
                             <Download className="h-4 w-4" />
                           </Button>

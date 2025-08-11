@@ -9,6 +9,8 @@ import { AuthProvider } from './providers/AuthContext';
 import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
 
+
+
 // Lazy-loaded components
 const Page = lazy(() => import('./app/dashboard/page'));
 const PatientProfileSidebar = lazy(() => import('./app/dashboard/patient-profile-sidebar'));
@@ -34,6 +36,7 @@ const LabTests = lazy(() => import('./pages/lab-tests/LabTests'));
 const LabTestTypes = lazy(() => import('./pages/lab-tests/LabTestTypes'));
 const LabTestAnalysis = lazy(() => import('./pages/lab-tests/LabTestAnalysis'));
 const Complaints = lazy(() => import('./pages/complaints/Complaints'));
+const VitalSigns = lazy(() => import('./pages/vital-signs/VitalSigns'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -59,6 +62,7 @@ function App() {
                           <Route path="edit" element={<EditPatientProfile />} />
                           <Route path="analysis" element={<LabTestAnalysis />} />
                           <Route path="complaints" element={<Complaints />} />
+                          <Route path="vital-signs" element={<VitalSigns />} />
                         </Route>
                       </Route>
                       {/* Birth and Death */}
@@ -82,12 +86,12 @@ function App() {
 
                       {/* Billing */}
                       <Route path="add-bill" element={<AddBill />} />
-                      <Route path="bills" element={<Bills />} />  
+                      <Route path="bills" element={<Bills />} />
 
                       {/* Lab Tests */}
                       <Route path="lab-tests" element={<LabTests />} />
                       <Route path="lab-test-types" element={<LabTestTypes />} />
-                      
+
                     </Route>
                   </Route>
                 </Routes>

@@ -187,7 +187,7 @@ button{
 }
 
 .action-edit-btn {
-  @apply px-4 py-2  font-medium transition-all duration-200 ease-in-out
+  @apply px-2 py-2  font-medium transition-all duration-200 ease-in-out
          text-gray-700 hover:text-gray-900 
          bg-emerald-50 hover:bg-emerald-100 
          border border-emerald-100 hover:border-emerald-200
@@ -197,7 +197,7 @@ button{
 }
 
 .action-delete-btn {
-  @apply px-4 py-2  font-medium transition-all duration-200 ease-in-out
+  @apply px-2 py-2  font-medium transition-all duration-200 ease-in-out
          text-red-600 hover:text-red-700 
          bg-red-50 hover:bg-red-100 
          border border-red-100 hover:border-red-200
