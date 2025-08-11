@@ -452,3 +452,32 @@ export const deleteLabTest = async (labTestId) => {
   const response = await api.delete(`/lab-tests/${labTestId}`);
   return response.data;
 };
+
+
+
+/* ============================
+API Helper function here for COMPLAINTS
+============================ */
+
+export const getComplaintsByPatientId = async (patientId) => {
+  const response = await api.get(`/complaints/${patientId}`);
+  return response.data;
+};
+
+export const createComplaint = async (complaintData) => {
+  const response = await api.post(`/complaints`, complaintData);
+  return response.data;
+};
+
+export const updateComplaint = async (complaintId, complaintData) => {
+  const response = await api.put(
+    `/complaints/${complaintId}`,
+    complaintData
+  );
+  return response.data;
+};
+
+export const deleteComplaint = async (complaintId) => {
+  const response = await api.delete(`/complaints/${complaintId}`);
+  return response.data;
+};

@@ -7,62 +7,19 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge";
-import { getLabTestsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
-import {LabTestResultDialog} from "./LabTestResultDialog";
+import { ComplaintDetailsDialog } from "./ComplaintDetailsDialog";
+import { getComplaintsByPatientId } from "../../../providers/ApiProviders";
 
 
 
 
 const columns = [
-    {
-        accessorKey: "id",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:"
-            >
-                Test ID
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">TST-{row.getValue("id")}</div>,
-    },
-    {
-        accessorKey: "test_type",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:"
-            >
-                Test Type
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{row.getValue("test_type")}</div>,
-    },
-    {
-        accessorKey: "prescribed_by",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                className="font-medium text-gray-700 hover:"
-            >
-                Prescribed By
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{row.getValue("prescribed_by")}</div>,
-    },
     {
         accessorKey: "created_at",
         header: ({ column }) => (
@@ -71,38 +28,48 @@ const columns = [
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:"
             >
-                Prescribed at
+                Created at
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{formatDate(row.getValue("created_at"))}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700">{formatDate(row.getValue("created_at"))}</div>,
     },
     {
-        accessorKey: "status",
+        accessorKey: "complaint",
         header: ({ column }) => (
             <Button
                 variant="ghost"
                 onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 className="font-medium text-gray-700 hover:"
             >
-                Status
+                Complaint
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => (
-            <div className="font-medium text-gray-700">
-                {getLabTestStatusBadge(row.getValue("status"))}
-            </div>
+        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{row.getValue("complaint")}</div>,
+    },
+    {
+        accessorKey: "recorded_by",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium text-gray-700 hover:"
+            >
+                Recorded By
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
         ),
+        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{row.getValue("recorded_by")}</div>,
     },
     {
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => {
-            const labTest = row.original;
+            const complaint = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <LabTestResultDialog testResult={labTest}>
+                    <ComplaintDetailsDialog complaint={complaint}>
                         <Button
                             variant="outline"
                             size="sm"
@@ -110,19 +77,19 @@ const columns = [
                         >
                             <Eye className="h-4 w-4" />
                         </Button>
-                    </LabTestResultDialog>
+                    </ComplaintDetailsDialog>
                 </div>
             );
         },
     },
 ];
 
-export default function LabTestAnalysisTable({ patientId }) {
+export default function ComplaintsTable({ patientId }) {
 
-    const { data: patientLabTests, isLoading: loadingPatientLabTests } = useQuery(
+    const { data: patientComplaints, isLoading: loadingPatientComplaints } = useQuery(
         {
-            queryKey: ['patientLabTests', patientId],
-            queryFn: () => getLabTestsByPatientId(patientId)
+            queryKey: ['patientComplaints', patientId],
+            queryFn: () => getComplaintsByPatientId(patientId)
         }
     );
 
@@ -133,7 +100,7 @@ export default function LabTestAnalysisTable({ patientId }) {
     const [rowSelection, setRowSelection] = React.useState({});
 
     const table = useReactTable({
-        data: patientLabTests,
+        data: patientComplaints,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
@@ -146,20 +113,20 @@ export default function LabTestAnalysisTable({ patientId }) {
         state: { sorting, columnFilters, columnVisibility, rowSelection },
         initialState: {
             pagination: {
-                pageSize: 5, 
+                pageSize: 5,
             },
         },
     });
 
-    if (loadingPatientLabTests) return <div>Loading...</div>;
+    if (loadingPatientComplaints) return <div>Loading...</div>;
 
     return (
         <div className="">
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <TestTube className="h-5 w-5" />
-                        Lab Test Analysis
+                        <MessageSquare className="h-5 w-5" />
+                        Complaints
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="md:p-6">

@@ -97,11 +97,11 @@ export default function LabTestAnalysis() {
                     <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
                         <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                             <FileText size={20} />
-                            Prescribe Analysis
+                            Prescribe Test
                         </CardTitle>
 
                         <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                            {isSubmitting ? "Submitting..." : "Add Analysis"}
+                            {isSubmitting ? "Submitting..." : "Add Test"}
                         </Button>
                     </CardHeader>
                     <CardContent>

@@ -6,7 +6,8 @@ import {
   Pill,
   Stethoscope,
   FileArchiveIcon,
-  TestTube
+  TestTube,
+  MessageSquare
 } from "lucide-react"
 
 import { Link, useLocation, useNavigate } from "react-router-dom"
@@ -34,7 +35,8 @@ export default function PatientProfileSidebar() {
       { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/full-profile/` },
       // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history/` },
       { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs/` },
-      { name: "analysis", icon: TestTube, href: `/patient-profile/${patient_id}/analysis/` },
+      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis/` },
+      { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints/` },
       { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions/` },
       { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services/` },
       // { name: "invoices", icon: FileArchiveIcon, href: `/patient-profile/${patient_id}/invoices/` },
