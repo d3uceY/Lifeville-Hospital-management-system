@@ -1,5 +1,3 @@
-"use client"
-
 import { useQuery } from "@tanstack/react-query"
 import { getBills } from "../../providers/ApiProviders"
 import { useState } from "react"

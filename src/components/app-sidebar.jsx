@@ -146,7 +146,7 @@ const data = {
       items: [
         {
           title: "Laboratory",
-          url: "/laboratory",
+          url: "/lab-tests",
         }
       ],
     },

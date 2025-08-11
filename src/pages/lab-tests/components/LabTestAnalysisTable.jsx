@@ -126,7 +126,6 @@ export default function LabTestAnalysisTable({ patientId }) {
         }
     );
 
-    console.log(patientLabTests)
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);

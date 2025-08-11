@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL + '/api',
+  baseURL: import.meta.env.VITE_API_URL + '/api',
 });
 
 
@@ -417,6 +417,11 @@ API Helper function here for LAB TEST ANALYSIS
 
 export const getLabTests = async () => {
   const response = await api.get(`/lab-tests`);
+  return response.data;
+};
+
+export const getPaginatedLabTests = async (page = 1, pageSize = 20, searchTerm = "") => {
+  const response = await api.get(`/lab-tests/laboratory/paginated?page=${page}&pageSize=${pageSize}&searchTerm=${searchTerm}`);
   return response.data;
 };
 

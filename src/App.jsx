@@ -30,6 +30,7 @@ const BedGroup = lazy(() => import('./pages/beds/BedGroup'));
 const BedType = lazy(() => import('./pages/beds/BedType'));
 const AddBill = lazy(() => import('./pages/bills/AddBill'));
 const Bills = lazy(() => import('./pages/bills/Bills'));
+const LabTests = lazy(() => import('./pages/lab-tests/LabTests'));
 const LabTestTypes = lazy(() => import('./pages/lab-tests/LabTestTypes'));
 const LabTestAnalysis = lazy(() => import('./pages/lab-tests/LabTestAnalysis'));
 
@@ -58,18 +59,33 @@ function App() {
                           <Route path="analysis" element={<LabTestAnalysis />} />
                         </Route>
                       </Route>
+                      {/* Birth and Death */}
                       <Route path="births" element={<Births />} />
                       <Route path="deaths" element={<Deaths />} />
+
+                      {/* Appointments */}
                       <Route path="appointments" element={<UpcomingAppointments />} />
+
+                      {/* Settings */}
                       <Route path="settings" element={<Settings />} />
+
+                      {/* Symptoms */}
                       <Route path="symptom-types" element={<SymptomTypes />} />
                       <Route path="symptom-heads" element={<SymptomHeads />} />
+
+                      {/* Bed Management */}
                       <Route path="beds" element={<Beds />} />
                       <Route path="bed-group" element={<BedGroup />} />
                       <Route path="bed-type" element={<BedType />} />
+
+                      {/* Billing */}
                       <Route path="add-bill" element={<AddBill />} />
-                      <Route path="bills" element={<Bills />} />
+                      <Route path="bills" element={<Bills />} />  
+
+                      {/* Lab Tests */}
+                      <Route path="lab-tests" element={<LabTests />} />
                       <Route path="lab-test-types" element={<LabTestTypes />} />
+                      
                     </Route>
                   </Route>
                 </Routes>

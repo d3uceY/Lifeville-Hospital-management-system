@@ -140,7 +140,6 @@ export default function EditPatientProfile() {
     getValues,
   } = methods
 
-console.log(getValues())
   const onSubmit = async (values) => {
     const promise = async () => {
       try {

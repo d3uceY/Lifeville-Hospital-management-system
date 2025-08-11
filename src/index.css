@@ -170,6 +170,10 @@
   }
 }
 
+button{
+  @apply cursor-pointer;
+}
+
 .green-button {
   @apply bg-[#268A63] hover:bg-[#268a64e3] disabled:text-muted disabled:bg-accent-foreground cursor-pointer flex items-center;
 }
