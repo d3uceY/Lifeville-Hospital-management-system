@@ -92,7 +92,7 @@ export function EditLabTestResultDialog({ testResult, children }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
                         <TestTube className="h-5 w-5" />

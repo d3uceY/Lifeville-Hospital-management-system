@@ -4,11 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Receipt, FilePenLine, Download } from "lucide-react"
+import { Search, Filter, Receipt, FilePenLine, Download, SquareArrowOutUpRight } from "lucide-react"
 import { formatDate } from "../../helpers/formatDate"
 import { getPaginatedLabTests } from "../../providers/ApiProviders"
 import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
 import { EditLabTestResultDialog } from "./components/EditLabTestResultDialog"
+import { Link } from "react-router-dom"
 
 
 
@@ -120,6 +121,15 @@ export default function LabTests() {
                               <FilePenLine className="h-4 w-4" />
                             </Button>
                           </EditLabTestResultDialog>
+                          <Link to={`/patient-profile/${test.patient_id}/analysis/`}>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                            >
+                              <SquareArrowOutUpRight className="h-4 w-4" />
+                            </Button>
+                          </Link>
                           <Button
                             variant="outline"
                             size="sm"
