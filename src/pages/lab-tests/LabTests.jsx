@@ -8,6 +8,9 @@ import { Search, Filter, Receipt, FilePenLine, Download } from "lucide-react"
 import { formatDate } from "../../helpers/formatDate"
 import { getPaginatedLabTests } from "../../providers/ApiProviders"
 import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
+import { EditLabTestResultDialog } from "./components/EditLabTestResultDialog"
+
+
 
 export default function LabTests() {
   const [page, setPage] = useState(1)
@@ -24,9 +27,9 @@ export default function LabTests() {
 
   const handleSearchTermChange = (value) => {
     setTerm(value)
-     setTimeout(() => {
+    setTimeout(() => {
       setSearchTerm(value)
-     }, 1000)
+    }, 1000)
   }
 
 
@@ -108,13 +111,15 @@ export default function LabTests() {
                       <TableCell>{formatDate(test.created_at)}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
-                          >
-                            <FilePenLine className="h-4 w-4" />
-                          </Button>
+                          <EditLabTestResultDialog testResult={test}>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                            >
+                              <FilePenLine className="h-4 w-4" />
+                            </Button>
+                          </EditLabTestResultDialog>
                           <Button
                             variant="outline"
                             size="sm"
