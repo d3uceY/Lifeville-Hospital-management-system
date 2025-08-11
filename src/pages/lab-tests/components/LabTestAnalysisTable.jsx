@@ -7,7 +7,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, User2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -159,7 +159,7 @@ export default function LabTestAnalysisTable({ patientId }) {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <User2 className="h-5 w-5" />
+                        <TestTube className="h-5 w-5" />
                         Lab Test Analysis
                     </CardTitle>
                 </CardHeader>
