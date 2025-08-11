@@ -7,7 +7,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +15,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge";
 import { getLabTestsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
+import {LabTestResultDialog} from "./LabTestResultDialog";
+
+
+
+
 const columns = [
     {
         accessorKey: "id",
@@ -97,8 +102,15 @@ const columns = [
             const labTest = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    {/* <EditBedDialog bed={bedData}></EditBedDialog>
-                    <DeleteBedDialog deletedBedRecordInfo={bedData}></DeleteBedDialog> */}
+                    <LabTestResultDialog testResult={labTest}>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
+                        >
+                            <Eye className="h-4 w-4" />
+                        </Button>
+                    </LabTestResultDialog>
                 </div>
             );
         },
@@ -106,13 +118,15 @@ const columns = [
 ];
 
 export default function LabTestAnalysisTable({ patientId }) {
-    console.log(patientId)
+
     const { data: patientLabTests, isLoading: loadingPatientLabTests } = useQuery(
         {
             queryKey: ['patientLabTests', patientId],
             queryFn: () => getLabTestsByPatientId(patientId)
         }
     );
+
+    console.log(patientLabTests)
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);
