@@ -420,6 +420,11 @@ export const getLabTests = async () => {
   return response.data;
 };
 
+export const getLabTestsByPatientId = async (patientId) => {
+  const response = await api.get(`/lab-tests/patient/${patientId}`);
+  return response.data;
+};
+
 export const getLabTest = async (labTestId) => {
   const response = await api.get(`/lab-tests/${labTestId}`);
   return response.data;

@@ -23,6 +23,8 @@ import { useAuth } from "../../providers/AuthContext"
 import { useLabTests } from '../../providers/ApiContextProvider'
 import { useParams } from 'react-router-dom'
 import { createLabTest } from '../../providers/ApiProviders'
+import LabTestAnalysisTable from './components/LabTestAnalysisTable'
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function LabTestAnalysis() {
     const { user } = useAuth()
@@ -56,9 +58,12 @@ export default function LabTestAnalysis() {
         getValues,
         control,
         watch,
+        reset,
         setValue,
     } = methods
 
+
+    const queryClient = useQueryClient()
     const onSubmit = async (data) => {
         setIsSubmitting(true)
         const promise = async () => {
@@ -79,6 +84,10 @@ export default function LabTestAnalysis() {
             success: `Lab test created successfully`,
             error: (err) => err.response?.data?.message || err?.message || 'An error occurred'
         });
+        reset();
+        queryClient.invalidateQueries({
+            queryKey: ['patientLabTests', patient_id],
+        })
     }
 
     return (
@@ -139,6 +148,7 @@ export default function LabTestAnalysis() {
                 </Card>
 
             </form>
+            <LabTestAnalysisTable patientId={patient_id} />
         </div>
     )
 }
