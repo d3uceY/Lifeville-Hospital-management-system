@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { getBills } from "../../providers/ApiProviders"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
@@ -23,36 +23,48 @@ import { ViewBillDialog } from "./components/ViewBillDialog"
 export default function Bills() {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(10)
+    const [term, setTerm] = useState({
+        billNumberTerm: "",
+        statusTerm: "",
+        issuedByTerm: "",
+        patientIdTerm: ""
+    })
+    const [debouncedTerm, setDebouncedTerm] = useState(term)
 
-    // Filter states
-    const [billNumberFilter, setBillNumberFilter] = useState("")
-    const [statusFilter, setStatusFilter] = useState("")
-    const [issuedByFilter, setIssuedByFilter] = useState("")
-    const [patientIdFilter, setPatientIdFilter] = useState("")
+    // Debounce effect
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedTerm(term)
+        }, 500) // 500ms debounce
+        return () => clearTimeout(timer)
+    }, [term])
+
+    const handleSearchTermChange = (key, value) => {
+        setTerm(prev => ({ ...prev, [key]: value }))
+    }
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ["bills", page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter],
-        queryFn: () => getBills(page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter),
+        queryKey: [
+            "bills",
+            page,
+            pageSize,
+            debouncedTerm.billNumberTerm,
+            debouncedTerm.statusTerm,
+            debouncedTerm.issuedByTerm,
+            debouncedTerm.patientIdTerm
+        ],
+        queryFn: () =>
+            getBills(
+                page,
+                pageSize,
+                debouncedTerm.billNumberTerm,
+                debouncedTerm.statusTerm,
+                debouncedTerm.issuedByTerm,
+                debouncedTerm.patientIdTerm
+            ),
     })
 
-
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
-
-
-
-    const handlePreviousPage = () => {
-        if (page > 1) {
-            setPage(page - 1)
-        }
-    }
-
-    const handleNextPage = () => {
-        if (page < data?.totalPages) {
-            setPage(page + 1)
-        }
-    }
-
-    // Filter the data based on current filters
 
     return (
         <div className="lg:p-6">
@@ -70,122 +82,111 @@ export default function Bills() {
                             Filter Bills
                         </h3>
                         <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
+                            {/* Bill Number */}
                             <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Bill Number</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input
                                         placeholder="Filter bill number..."
-                                        value={billNumberFilter}
-                                        onChange={(event) => setBillNumberFilter(event.target.value)}
-                                        className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
+                                        value={term.billNumberTerm}
+                                        onChange={(e) => handleSearchTermChange("billNumberTerm", e.target.value)}
+                                        className="pl-9 border-[#268a6461] rounded-md"
                                     />
                                 </div>
                             </div>
 
+                            {/* Status */}
                             <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Status</label>
-                                <Select onValueChange={setStatusFilter} value={statusFilter}>
-                                    <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
+                                <Select
+                                    value={term.statusTerm}
+                                    onValueChange={(value) => handleSearchTermChange("statusTerm", value)}
+                                >
+                                    <SelectTrigger className="border-[#268a6461] rounded-md">
                                         <SelectValue placeholder="Filter by status" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>Select Status</SelectLabel>
-                                            <SelectItem className="hover:bg-[#e6f2ed]">
-                                                All
-                                            </SelectItem>
-                                            <SelectItem value="paid" className="hover:bg-[#e6f2ed]">
-                                                Paid
-                                            </SelectItem>
-                                            <SelectItem value="overdue" className="hover:bg-[#e6f2ed]">
-                                                Overdue
-                                            </SelectItem>
-                                            <SelectItem value="unpaid" className="hover:bg-[#e6f2ed]">
-                                                Unpaid
-                                            </SelectItem>
-                                            <SelectItem value="cancelled" className="hover:bg-[#e6f2ed]">
-                                                Cancelled
-                                            </SelectItem>
+                                            <SelectItem value={undefined}>All</SelectItem>
+                                            <SelectItem value="paid">Paid</SelectItem>
+                                            <SelectItem value="overdue">Overdue</SelectItem>
+                                            <SelectItem value="unpaid">Unpaid</SelectItem>
+                                            <SelectItem value="cancelled">Cancelled</SelectItem>
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
                             </div>
 
-
+                            {/* Issued By */}
                             <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Issued By</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input
                                         placeholder="Filter issued by..."
-                                        value={issuedByFilter}
-                                        onChange={(event) => setIssuedByFilter(event.target.value)}
-                                        className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
+                                        value={term.issuedByTerm}
+                                        onChange={(e) => handleSearchTermChange("issuedByTerm", e.target.value)}
+                                        className="pl-9 border-[#268a6461] rounded-md"
                                     />
                                 </div>
                             </div>
 
+                            {/* Patient ID */}
                             <div className="space-y-2">
                                 <label className="text-xs font-medium text-gray-500">Patient ID</label>
                                 <div className="relative">
                                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                                     <Input
                                         placeholder="Filter patient ID..."
-                                        value={patientIdFilter}
-                                        onChange={(event) => setPatientIdFilter(event.target.value)}
-                                        className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
+                                        value={term.patientIdTerm}
+                                        onChange={(e) => handleSearchTermChange("patientIdTerm", e.target.value)}
+                                        className="pl-9 border-[#268a6461] rounded-md"
                                     />
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    {/* Table */}
                     <div className="rounded-md border overflow-hidden shadow-sm">
                         <Table>
                             <TableHeader className="bg-[#f0f8f4]">
                                 <TableRow>
-                                    <TableHead className="font-medium">Bill Number</TableHead>
-                                    <TableHead className="font-medium">Patient Name</TableHead>
-                                    <TableHead className="font-medium">Hospital Number</TableHead>
-                                    <TableHead className="font-medium">Patient ID</TableHead>
-                                    <TableHead className="font-medium">Bill Date</TableHead>
-                                    <TableHead className="font-medium">Total Amount</TableHead>
-                                    <TableHead className="font-medium">Status</TableHead>
-                                    <TableHead className="font-medium">Payment Method</TableHead>
-                                    <TableHead className="font-medium">Issued By</TableHead>
-                                    <TableHead className="font-medium">Actions</TableHead>
+                                    <TableHead>Bill Number</TableHead>
+                                    <TableHead>Patient Name</TableHead>
+                                    <TableHead>Hospital Number</TableHead>
+                                    <TableHead>Patient ID</TableHead>
+                                    <TableHead>Bill Date</TableHead>
+                                    <TableHead>Total Amount</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead>Payment Method</TableHead>
+                                    <TableHead>Issued By</TableHead>
+                                    <TableHead>Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {data?.data?.length ? (
-                                    data?.data?.map((bill) => (
+                                    data.data.map((bill) => (
                                         <TableRow key={bill.id}>
-                                            <TableCell className="font-medium">{bill.billNumber}</TableCell>
+                                            <TableCell>{bill.billNumber}</TableCell>
                                             <TableCell>{bill.patientName}</TableCell>
                                             <TableCell>{bill.hospitalNumber}</TableCell>
                                             <TableCell>{bill.patientId}</TableCell>
                                             <TableCell>{formatToShortDate(bill.billDate)}</TableCell>
-                                            <TableCell className="font-semibold">{formatToNaira(bill.totalAmount)}</TableCell>
+                                            <TableCell>{formatToNaira(bill.totalAmount)}</TableCell>
                                             <TableCell>{getBillStatusBadge(bill.status)}</TableCell>
-                                            <TableCell className="capitalize">{bill.paymentMethod.replace("_", " ")}</TableCell>
+                                            <TableCell>{bill.paymentMethod.replace("_", " ")}</TableCell>
                                             <TableCell>{bill.issuedBy}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
                                                     <ViewBillDialog bill={bill}>
-                                                        <Button
-                                                            variant="outline"
-                                                            size="sm"
-                                                            className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
-                                                        >
+                                                        <Button size="sm" variant="outline">
                                                             <Eye className="h-4 w-4" />
                                                         </Button>
                                                     </ViewBillDialog>
-                                                    <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        className="h-8 w-8 p-0 border-[#268a6461] hover:bg-[#e6f2ed] bg-transparent"
-                                                    >
+                                                    <Button size="sm" variant="outline">
                                                         <Download className="h-4 w-4" />
                                                     </Button>
                                                 </div>
@@ -194,40 +195,22 @@ export default function Bills() {
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={8} className="text-center py-10 text-gray-500">
+                                        <TableCell colSpan={10} className="text-center py-10">
                                             No bills found
                                         </TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>
                         </Table>
-                        <div className="flex items-center justify-between space-x-2 py-4 px-6 border-t">
-                            <div className="flex-1 text-sm text-gray-500">
-                                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems}{" "}
-                                bill(s)
+
+                        {/* Pagination */}
+                        <div className="flex items-center justify-between py-4 px-6 border-t">
+                            <div className="text-sm text-gray-500">
+                                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems} bill(s)
                             </div>
                             <div className="flex items-center space-x-2">
-                                <div className="text-sm text-gray-500">
-                                    Page {page} of {data?.totalPages}
-                                </div>
-                                <div className="space-x-2 flex">
-                                    <Button
-                                        className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
-                                        size="sm"
-                                        onClick={handlePreviousPage}
-                                        disabled={page <= 1}
-                                    >
-                                        Previous
-                                    </Button>
-                                    <Button
-                                        className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
-                                        size="sm"
-                                        onClick={handleNextPage}
-                                        disabled={page >= data?.totalPages}
-                                    >
-                                        Next
-                                    </Button>
-                                </div>
+                                <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</Button>
+                                <Button onClick={() => setPage(page + 1)} disabled={page >= data?.totalPages}>Next</Button>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,6 @@ import { Search, Filter, Receipt, FilePenLine, Download } from "lucide-react"
 import { formatDate } from "../../helpers/formatDate"
 import { getPaginatedLabTests } from "../../providers/ApiProviders"
 import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
-import { useEffect } from "react"
 
 export default function LabTests() {
   const [page, setPage] = useState(1)
@@ -23,11 +22,12 @@ export default function LabTests() {
     queryFn: () => getPaginatedLabTests(page, pageSize, searchTerm),
   })
 
-  useEffect(() => {
+  const handleSearchTermChange = (value) => {
+    setTerm(value)
      setTimeout(() => {
-      setSearchTerm(term)
+      setSearchTerm(value)
      }, 1000)
-  }, [term])
+  }
 
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
@@ -70,7 +70,7 @@ export default function LabTests() {
                   <Input
                     placeholder="Filter lab test"
                     value={term}
-                    onChange={(event) => setTerm(event.target.value)}
+                    onChange={(event) => handleSearchTermChange(event.target.value)}
                     className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                   />
                 </div>
@@ -84,7 +84,7 @@ export default function LabTests() {
                 <TableRow>
                   <TableHead className="font-medium">Test ID</TableHead>
                   <TableHead className="font-medium">Patient Name</TableHead>
-                  <TableHead className="font-medium">Patient ID</TableHead>
+                  <TableHead className="font-medium">Hospital No</TableHead>
                   <TableHead className="font-medium">Test Name</TableHead>
                   <TableHead className="font-medium">Status</TableHead>
                   <TableHead className="font-medium">Result</TableHead>
@@ -100,7 +100,7 @@ export default function LabTests() {
                     <TableRow key={test.test_id}>
                       <TableCell className="font-medium">TST-{test.lab_test_id}</TableCell>
                       <TableCell>{`${test.surname} ${test.first_name}`}</TableCell>
-                      <TableCell>{test.patient_id}</TableCell>
+                      <TableCell>{test.hospital_number}</TableCell>
                       <TableCell>{test.test_type}</TableCell>
                       <TableCell>{getLabTestStatusBadge(test.status)}</TableCell>
                       <TableCell>{test.result || "Pending"}</TableCell>
