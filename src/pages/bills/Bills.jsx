@@ -37,7 +37,6 @@ export default function Bills() {
         queryFn: () => getBills(page, pageSize, billNumberFilter, statusFilter, issuedByFilter, patientIdFilter),
     })
 
-    console.log(data)
 
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 

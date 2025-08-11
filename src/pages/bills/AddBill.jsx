@@ -23,12 +23,14 @@ import { useAuth } from "../../providers/AuthContext"
 import { createBill } from "../../providers/ApiProviders"
 import { formatToNaira } from "../../helpers/formatToNaira"
 import { useNavigate } from "react-router-dom"
+import { usePatientData } from "../../providers/ApiContextProvider"
 
 
 export default function AddBill() {
     const navigate = useNavigate()
     const { user } = useAuth()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const { patientData } = usePatientData()
 
     // Form validation schema for hospital bills
     const schema = z.object({
@@ -221,9 +223,11 @@ export default function AddBill() {
                                             <SelectContent>
                                                 <SelectGroup>
                                                     <SelectLabel>Patients</SelectLabel>
-                                                    <SelectItem value="1">John Doe - HOSP001</SelectItem>
-                                                    <SelectItem value="2">Jane Smith - HOSP002</SelectItem>
-                                                    <SelectItem value="3">Mike Johnson - HOSP003</SelectItem>
+                                                    {patientData.map((patient) => (
+                                                        <SelectItem key={`${patient.patient_id}`} value={`${patient.patient_id}`}>
+                                                            {patient.surname} {patient.first_name} - {patient.hospital_number}
+                                                        </SelectItem>
+                                                    ))}
                                                 </SelectGroup>
                                             </SelectContent>
                                         </Select>
