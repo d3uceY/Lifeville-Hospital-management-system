@@ -32,8 +32,20 @@ export default function ProfilePhysicalExaminationForm() {
         neurological: z.string().optional(),
         skin: z.string().optional(),
         findings: z.string().optional(),
-    })
-
+    }).refine(
+        (data) => {
+            // Get all keys except recorded_by
+            const otherFields = { ...data };
+            delete otherFields.recorded_by;
+    
+            // Check if at least one is truthy & not an empty string
+            return Object.values(otherFields).some(val => val && val.trim() !== "");
+        },
+        {
+            message: "At least one examination field must be filled in",
+            path: ["general_appearance"], // you can attach the error to a generic field
+        }
+    );
     const {
         register,
         formState: { errors, isValid },
