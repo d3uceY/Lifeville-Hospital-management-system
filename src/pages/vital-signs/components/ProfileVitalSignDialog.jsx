@@ -1,11 +1,3 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,16 +6,15 @@ import { Separator } from "@/components/ui/separator"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Activity, Thermometer } from "lucide-react" // Example icon
+import { Activity } from "lucide-react"
 import { createVitalSign } from "../../../providers/ApiProviders"
 import { useState } from "react"
 import { toast } from "sonner"
 import { useAuth } from "../../../providers/AuthContext"
 import { useParams } from "react-router-dom"
 
-export default function ProfileVitalSignDialog() {
+export default function ProfileVitalSignForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [open, setOpen] = useState(false)
     const { user } = useAuth()
     const { patient_id } = useParams()
 
@@ -63,7 +54,6 @@ export default function ProfileVitalSignDialog() {
             try {
                 setIsSubmitting(true)
                 const payload = { ...data, patientId: patient_id }
-                setOpen(false)
                 await createVitalSign(payload)
                 reset()
             } catch (error) {
@@ -80,153 +70,143 @@ export default function ProfileVitalSignDialog() {
     }
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-            <Button className="bg-[#106041] hover:bg-[#0d4e34] ml-auto flex items-center">
-                    <Activity className="mr-2 h-4 w-4" />
-                    Add Vital Signs
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="!max-w-[60vw] !w-[100vw] max-h-[80vh] overflow-y-auto p-2">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-                        <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
-                            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
-                                <Activity size={20} />
-                                Vital Signs 
-                                {/* for {patient?.surname} {patient?.first_name} */}
-                            </CardTitle>
-                            <Button
-                                className="mt-6"
-                                type="submit"
-                                disabled={!isValid || isSubmitting}
-                            >
-                                {isSubmitting ? "Saving..." : "Save"}
-                            </Button>
-                        </CardHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+                <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
+                    <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
+                        <Activity size={20} />
+                        Vital Signs
+                    </CardTitle>
+                    <Button
+                        className="mt-6"
+                        type="submit"
+                        disabled={!isValid || isSubmitting}
+                    >
+                        {isSubmitting ? "Saving..." : "Save"}
+                    </Button>
+                </CardHeader>
 
-                        <CardContent>
-                            {/* Temperature */}
-                            <div className="mb-4">
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="temperature">
-                                    Temperature (°C)
-                                </Label>
-                                <Input
-                                    className="bg-gray-50"
-                                    id="temperature"
-                                    type="number"
-                                    step="0.1"
-                                    placeholder="°C"
-                                    {...register("temperature", { valueAsNumber: true })}
-                                />
-                                {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
-                            </div>
+                <CardContent>
+                    {/* Temperature */}
+                    <div className="mb-4">
+                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="temperature">
+                            Temperature (°C)
+                        </Label>
+                        <Input
+                            className="bg-gray-50"
+                            id="temperature"
+                            type="number"
+                            step="0.1"
+                            placeholder="°C"
+                            {...register("temperature", { valueAsNumber: true })}
+                        />
+                        {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
+                    </div>
 
-                            <Separator />
+                    <Separator />
 
-                            {/* Blood Pressure */}
-                            <div className="mb-4">
-                                <Label className="text-sm font-medium mb-2 block text-gray-700">
-                                    Blood Pressure (mmHg)
-                                </Label>
-                                <div className="flex items-center gap-2">
-                                    <Input
-                                        className="bg-gray-50"
-                                        type="number"
-                                        placeholder="120"
-                                        {...register("systolicBloodPressure", { valueAsNumber: true })}
-                                    />
-                                    <span className="text-lg font-medium">/</span>
-                                    <Input
-                                        className="bg-gray-50"
-                                        type="number"
-                                        placeholder="80"
-                                        {...register("diastolicBloodPressure", { valueAsNumber: true })}
-                                    />
-                                </div>
-                                {errors.systolicBloodPressure && <p className="text-red-500 text-sm">{errors.systolicBloodPressure.message}</p>}
-                                {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
-                            </div>
+                    {/* Blood Pressure */}
+                    <div className="mb-4">
+                        <Label className="text-sm font-medium mb-2 block text-gray-700">
+                            Blood Pressure (mmHg)
+                        </Label>
+                        <div className="flex items-center gap-2">
+                            <Input
+                                className="bg-gray-50"
+                                type="number"
+                                placeholder="120"
+                                {...register("systolicBloodPressure", { valueAsNumber: true })}
+                            />
+                            <span className="text-lg font-medium">/</span>
+                            <Input
+                                className="bg-gray-50"
+                                type="number"
+                                placeholder="80"
+                                {...register("diastolicBloodPressure", { valueAsNumber: true })}
+                            />
+                        </div>
+                        {errors.systolicBloodPressure && <p className="text-red-500 text-sm">{errors.systolicBloodPressure.message}</p>}
+                        {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
+                    </div>
 
-                            <Separator />
+                    <Separator />
 
-                            {/* Weight */}
-                            <div className="mb-4">
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="weight">
-                                    Weight (kg)
-                                </Label>
-                                <Input
-                                    className="bg-gray-50"
-                                    id="weight"
-                                    type="number"
-                                    step="0.1"
-                                    placeholder="70"
-                                    {...register("weight", { valueAsNumber: true })}
-                                />
-                                {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
-                            </div>
+                    {/* Weight */}
+                    <div className="mb-4">
+                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="weight">
+                            Weight (kg)
+                        </Label>
+                        <Input
+                            className="bg-gray-50"
+                            id="weight"
+                            type="number"
+                            step="0.1"
+                            placeholder="70"
+                            {...register("weight", { valueAsNumber: true })}
+                        />
+                        {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
+                    </div>
 
-                            <Separator />
+                    <Separator />
 
-                            {/* Heart Rate */}
-                            <div className="mb-4">
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="heartRate">
-                                    Pulse Rate (bpm)
-                                </Label>
-                                <Input
-                                    className="bg-gray-50"
-                                    id="heartRate"
-                                    type="number"
-                                    placeholder="75"
-                                    {...register("heartRate", { valueAsNumber: true })}
-                                />
-                                {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
-                            </div>
+                    {/* Heart Rate */}
+                    <div className="mb-4">
+                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="heartRate">
+                            Pulse Rate (bpm)
+                        </Label>
+                        <Input
+                            className="bg-gray-50"
+                            id="heartRate"
+                            type="number"
+                            placeholder="75"
+                            {...register("heartRate", { valueAsNumber: true })}
+                        />
+                        {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
+                    </div>
 
-                            <Separator />
+                    <Separator />
 
-                            {/* SpO₂ */}
-                            <div className="mb-4">
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="spo2">
-                                    SpO₂ (%)
-                                </Label>
-                                <Input
-                                    className="bg-gray-50"
-                                    id="spo2"
-                                    type="number"
-                                    step="1"
-                                    placeholder="98"
-                                    {...register("spo2", { valueAsNumber: true })}
-                                />
-                                {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
-                            </div>
+                    {/* SpO₂ */}
+                    <div className="mb-4">
+                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="spo2">
+                            SpO₂ (%)
+                        </Label>
+                        <Input
+                            className="bg-gray-50"
+                            id="spo2"
+                            type="number"
+                            step="1"
+                            placeholder="98"
+                            {...register("spo2", { valueAsNumber: true })}
+                        />
+                        {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
+                    </div>
 
-                            <Separator />
+                    <Separator />
 
-                            {/* Date */}
-                            <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
-                                    Date
-                                </Label>
-                                <Input
-                                    className="bg-gray-50"
-                                    id="date"
-                                    type="date"
-                                    {...register("date")}
-                                />
-                                {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
-                            </div>
-                            <Button
-                                className="mt-6 ml-auto block"
-                                type="submit"
-                                disabled={!isValid || isSubmitting}
-                            >
-                                {isSubmitting ? "Saving..." : "Save"}
-                            </Button>
-                        </CardContent>
-                    </Card>
-                </form>
-            </DialogContent>
-        </Dialog>
+                    {/* Date */}
+                    <div>
+                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
+                            Date
+                        </Label>
+                        <Input
+                            className="bg-gray-50"
+                            id="date"
+                            type="date"
+                            {...register("date")}
+                        />
+                        {errors.date && <p className="text-red-500 text-sm">{errors.date.message}</p>}
+                    </div>
+
+                    <Button
+                        className="mt-6 ml-auto block"
+                        type="submit"
+                        disabled={!isValid || isSubmitting}
+                    >
+                        {isSubmitting ? "Saving..." : "Save"}
+                    </Button>
+                </CardContent>
+            </Card>
+        </form>
     )
 }
