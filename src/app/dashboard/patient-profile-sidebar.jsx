@@ -1,17 +1,16 @@
 import {
   FileText,
   IdCard,
-  History,
   Activity,
   Pill,
   Stethoscope,
-  FileArchiveIcon,
+  Brain,
   ClipboardList,
   TestTube,
   MessageSquare
 } from "lucide-react"
 
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import {
   Sidebar,
   SidebarContent,
@@ -32,16 +31,16 @@ export default function PatientProfileSidebar() {
   
   const data = {
     nav: [
-      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/summary/` },
-      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/full-profile/` },
-      // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history/` },
-      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs/` },
-      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis/` },
-      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations/` },
-      { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints/` },
-      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions/` },
-      { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services/` },
-      // { name: "invoices", icon: FileArchiveIcon, href: `/patient-profile/${patient_id}/invoices/` },
+      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/summary` },
+      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/full-profile` },
+      // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history` },
+      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs` },
+      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis` },
+      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations` },
+      { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints` },
+      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions` },
+      { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services` },
+      { name: "diagnosis", icon: Brain, href: `/patient-profile/${patient_id}/diagnosis` },
     ],
   }
 
