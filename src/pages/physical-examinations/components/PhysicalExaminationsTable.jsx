@@ -78,7 +78,6 @@ export default function PhysicalExaminationsTable() {
     queryFn: () => getPhysicalExaminationsByPatientId(patient_id),
   });
 
-  console.log(physicalExaminations)
 
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
