@@ -6,6 +6,7 @@ import {
   Pill,
   Stethoscope,
   FileArchiveIcon,
+  ClipboardList,
   TestTube,
   MessageSquare
 } from "lucide-react"
@@ -36,6 +37,7 @@ export default function PatientProfileSidebar() {
       // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history/` },
       { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs/` },
       { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis/` },
+      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations/` },
       { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints/` },
       { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions/` },
       { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services/` },

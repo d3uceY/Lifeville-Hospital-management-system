@@ -12,11 +12,13 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { useAuth } from "../../../providers/AuthContext"
 import { useParams } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function ProfileVitalSignForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { user } = useAuth()
     const { patient_id } = useParams()
+    const queryClient = useQueryClient()
 
     const schema = z.object({
         temperature: z.number().min(0).max(45).optional(),
@@ -55,6 +57,7 @@ export default function ProfileVitalSignForm() {
                 setIsSubmitting(true)
                 const payload = { ...data, patientId: patient_id }
                 await createVitalSign(payload)
+                queryClient.invalidateQueries({ queryKey: ['vitalSigns', patient_id] })
                 reset()
             } catch (error) {
                 console.error(error)
@@ -103,7 +106,7 @@ export default function ProfileVitalSignForm() {
                         {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                     </div>
 
-                    <Separator />
+                    
 
                     {/* Blood Pressure */}
                     <div className="mb-4">
@@ -129,7 +132,7 @@ export default function ProfileVitalSignForm() {
                         {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
                     </div>
 
-                    <Separator />
+                    
 
                     {/* Weight */}
                     <div className="mb-4">
@@ -147,7 +150,7 @@ export default function ProfileVitalSignForm() {
                         {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
                     </div>
 
-                    <Separator />
+                    
 
                     {/* Heart Rate */}
                     <div className="mb-4">
@@ -164,7 +167,7 @@ export default function ProfileVitalSignForm() {
                         {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
                     </div>
 
-                    <Separator />
+                    
 
                     {/* SpO₂ */}
                     <div className="mb-4">
@@ -182,7 +185,7 @@ export default function ProfileVitalSignForm() {
                         {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
                     </div>
 
-                    <Separator />
+                    
 
                     {/* Date */}
                     <div>

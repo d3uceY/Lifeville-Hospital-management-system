@@ -486,3 +486,18 @@ export const deleteComplaint = async (complaintId) => {
   const response = await api.delete(`/complaints/${complaintId}`);
   return response.data;
 };
+
+
+/* ============================
+API Helper function here for PHYSICAL EXAMINATION
+============================ */
+
+export const createPhysicalExamination = async (physicalExaminationData) => {
+  const response = await api.post(`/physical-examinations`, physicalExaminationData);
+  return response.data;
+};
+
+export const getPhysicalExaminationsByPatientId = async (patientId) => {
+  const response = await api.get(`/physical-examinations/patient/${patientId}`);
+  return response.data;
+};
