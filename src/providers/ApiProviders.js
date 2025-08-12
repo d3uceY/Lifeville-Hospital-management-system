@@ -501,3 +501,29 @@ export const getPhysicalExaminationsByPatientId = async (patientId) => {
   const response = await api.get(`/physical-examinations/patient/${patientId}`);
   return response.data;
 };
+
+
+
+/* ============================
+API Helper function here for CONDITIONS
+============================ */
+
+export const createCondition = async (conditionData) => {
+  const response = await api.post(`/conditions`, conditionData);
+  return response.data;
+}
+
+export const getConditions = async () => {
+  const response = await api.get(`/conditions`);
+  return response.data;
+}
+
+export const deleteCondition = async (conditionId) => {
+  const response = await api.delete(`/conditions/${conditionId}`);
+  return response.data;
+}
+
+export const updateCondition = async (conditionId, conditionData) => {
+  const response = await api.put(`/conditions/${conditionId}`, conditionData);
+  return response.data;
+}

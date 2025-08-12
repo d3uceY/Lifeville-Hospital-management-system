@@ -38,6 +38,7 @@ const LabTestAnalysis = lazy(() => import('./pages/lab-tests/LabTestAnalysis'));
 const Complaints = lazy(() => import('./pages/complaints/Complaints'));
 const VitalSigns = lazy(() => import('./pages/vital-signs/VitalSigns'));
 const PhysicalExaminations = lazy(() => import('./pages/physical-examinations/PhysicalExaminations'));
+const Conditions = lazy(() => import('./pages/conditions/Conditions'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -93,6 +94,9 @@ function App() {
                       {/* Lab Tests */}
                       <Route path="lab-tests" element={<LabTests />} />
                       <Route path="lab-test-types" element={<LabTestTypes />} />
+
+                      {/* Conditions */}
+                      <Route path="conditions" element={<Conditions />} />
 
                     </Route>
                   </Route>

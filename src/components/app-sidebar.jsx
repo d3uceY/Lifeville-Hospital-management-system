@@ -215,6 +215,17 @@ const data = {
       ],
     },
     {
+      title: "Conditions (🛠️)",
+      url: "#",
+      icon: AlertTriangle,
+      items: [
+        {
+          title: "Conditions",
+          url: "/conditions",
+        }
+      ],
+    },
+    {
       title: "Beds (🛠️)",
       url: "#",
       icon: Bed,
@@ -243,7 +254,7 @@ const data = {
           url: "/lab-test-types",
         }
       ],
-    }
+    },
   ]
 }
 
