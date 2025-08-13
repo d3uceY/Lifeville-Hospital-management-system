@@ -93,8 +93,6 @@ export default function DiagnosesTable() {
     queryFn: () => getDiagnosesByPatientId(patient_id),
   });
 
-  console.log(diagnoses)
-
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [columnVisibility, setColumnVisibility] = React.useState({});

@@ -541,3 +541,17 @@ export const getDiagnosesByPatientId = async (patientId) => {
   const response = await api.get(`/diagnoses/${patientId}`);
   return response.data;
 }
+
+/* ============================
+API Helper function here for PRESCRIPTIONS
+============================ */
+
+export const createPrescription = async (prescriptionData) => {
+  const response = await api.post(`/prescriptions`, prescriptionData);
+  return response.data;
+}
+
+export const getPrescriptionsByPatientId = async (patientId) => {
+  const response = await api.get(`/prescriptions/${patientId}`);
+  return response.data;
+}
