@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FileText, Edit2, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

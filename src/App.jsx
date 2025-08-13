@@ -39,6 +39,7 @@ const Complaints = lazy(() => import('./pages/complaints/Complaints'));
 const VitalSigns = lazy(() => import('./pages/vital-signs/VitalSigns'));
 const PhysicalExaminations = lazy(() => import('./pages/physical-examinations/PhysicalExaminations'));
 const Conditions = lazy(() => import('./pages/conditions/Conditions'));
+const Diagnoses = lazy(() => import('./pages/diagnoses/Diagnoses'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -66,6 +67,7 @@ function App() {
                           <Route path="complaints" element={<Complaints />} />
                           <Route path="vital-signs" element={<VitalSigns />} />
                           <Route path="physical-examinations" element={<PhysicalExaminations />} />
+                          <Route path="diagnoses" element={<Diagnoses />} />
                         </Route>
                       </Route>
                       {/* Birth and Death */}

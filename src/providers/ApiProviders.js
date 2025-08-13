@@ -527,3 +527,17 @@ export const updateCondition = async (conditionId, conditionData) => {
   const response = await api.put(`/conditions/${conditionId}`, conditionData);
   return response.data;
 }
+
+/* ============================
+API Helper function here for DIAGNOSES
+============================ */
+
+export const createDiagnoses = async (diagnosesData) => {
+  const response = await api.post(`/diagnoses`, diagnosesData);
+  return response.data;
+}
+
+export const getDiagnosesByPatientId = async (patientId) => {
+  const response = await api.get(`/diagnoses/${patientId}`);
+  return response.data;
+}
