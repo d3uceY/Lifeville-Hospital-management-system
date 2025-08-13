@@ -22,6 +22,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { updateAppointment } from "../../../providers/ApiProviders"
+import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
 
 
 export default function EditAppointmentDialog({ children, appointment }) {
@@ -29,7 +30,7 @@ export default function EditAppointmentDialog({ children, appointment }) {
     // context hooks
     const { refreshAppointments } = useAppointmentsData();
     // destructured prop
-    const { appointment_id, doctor_id, patient_id, status, notes } = appointment;
+    const { appointment_id, doctor_id, patient_id, status, notes, appointment_date } = appointment;
 
     // form validation schema
     const schema = z.object({
@@ -52,12 +53,11 @@ export default function EditAppointmentDialog({ children, appointment }) {
         defaultValues: {
             patientId: `${patient_id}`,
             doctorId: `${doctor_id}`,
-            appointmentDate: "",
+            appointmentDate: formatDateForDateTimeLocal(appointment_date),
             notes: notes,
             status: status
         }
     });
-
 
     // form submission
     const onSubmit = async (values) => {
