@@ -93,23 +93,9 @@ export default function DiagnosesForm() {
                 </CardHeader>
 
                 <CardContent>
-                    {/* Recorded By */}
-                    <div className="mb-4">
-                        <Label htmlFor="recorded_by">Recorded By</Label>
-                        <Input
-                            className="bg-gray-50"
-                            id="recorded_by"
-                            type="text"
-                            {...register("recorded_by")}
-                        />
-                        {errors.recorded_by && (
-                            <p className="text-red-500 text-sm">{errors.recorded_by.message}</p>
-                        )}
-                    </div>
-
                     {/* Condition Dropdown */}
                     <div className="mb-4">
-                        <Label htmlFor="condition">Condition</Label>
+                        <Label className="mb-3" htmlFor="condition">Condition</Label>
                         <select
                             id="condition"
                             className="bg-gray-50 border border-gray-300 rounded-md p-2 w-full"
@@ -129,7 +115,7 @@ export default function DiagnosesForm() {
 
                     {/* Notes */}
                     <div className="mb-4">
-                        <Label htmlFor="notes">Notes</Label>
+                        <Label className="mb-3" htmlFor="notes">Notes</Label>
                         <textarea
                             className="bg-gray-50 border border-gray-300 rounded-md p-2 w-full resize-y"
                             id="notes"

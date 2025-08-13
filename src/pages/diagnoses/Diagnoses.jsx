@@ -4,8 +4,8 @@ import DiagnosesForm from "./components/DiagnosesForm";
 export default function Diagnoses() {
     return (
         <div>
-            <DiagnosesTable />
             <DiagnosesForm />
+            <DiagnosesTable />
         </div>
     );
 }

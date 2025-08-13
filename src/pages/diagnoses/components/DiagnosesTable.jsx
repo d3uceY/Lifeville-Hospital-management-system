@@ -22,8 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiagnosesByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
-// Optional: Create a ViewDiagnosisDialog like you did for Physical Examination
-// import { ViewDiagnosisDialog } from "./ViewDiagnosisDialog";
+import { ViewDiagnosisDialog } from "./ViewDiagnosisDialog";
 
 const columns = [
   {
@@ -75,11 +74,11 @@ const columns = [
       return (
         <div className="flex items-center gap-2">
           {/* Uncomment if you create a view dialog */}
-          {/* <ViewDiagnosisDialog diagnosis={diagnosis}>
+          <ViewDiagnosisDialog diagnosis={diagnosis}>
             <Button variant="outline" size="sm" className="action-edit-btn">
               <Eye className="h-4 w-4" />
             </Button>
-          </ViewDiagnosisDialog> */}
+          </ViewDiagnosisDialog>
         </div>
       );
     },
@@ -93,6 +92,8 @@ export default function DiagnosesTable() {
     queryKey: ["diagnoses", patient_id],
     queryFn: () => getDiagnosesByPatientId(patient_id),
   });
+
+  console.log(diagnoses)
 
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);

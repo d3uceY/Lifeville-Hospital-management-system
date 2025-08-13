@@ -37,7 +37,7 @@ export default function PatientProfileSidebar() {
       { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs` },
       { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis` },
       { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations` },
-      { name: "diagnosis", icon: Brain, href: `/patient-profile/${patient_id}/diagnosis` },
+      { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/diagnoses` },
       { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints` },
       { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions` },
       { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services` },
