@@ -40,6 +40,7 @@ const PhysicalExaminations = lazy(() => import('./pages/physical-examinations/Ph
 const Conditions = lazy(() => import('./pages/conditions/Conditions'));
 const Diagnoses = lazy(() => import('./pages/diagnoses/Diagnoses'));
 const Prescriptions = lazy(() => import('./pages/prescriptions/Prescriptions'));
+const Procedures = lazy(() => import('./pages/procedures/Procedures'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -69,6 +70,7 @@ function App() {
                           <Route path="physical-examinations" element={<PhysicalExaminations />} />
                           <Route path="diagnoses" element={<Diagnoses />} />
                           <Route path="prescriptions" element={<Prescriptions />} />
+                          <Route path="procedures" element={<Procedures />} />
                         </Route>
                       </Route>
                       {/* Birth and Death */}

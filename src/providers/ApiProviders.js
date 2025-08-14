@@ -555,3 +555,18 @@ export const getPrescriptionsByPatientId = async (patientId) => {
   const response = await api.get(`/prescriptions/${patientId}`);
   return response.data;
 }
+
+
+/* ============================
+API Helper function here for procedures
+============================ */
+
+export const createProcedure = async (procedureData) => {
+  const response = await api.post(`/procedures`, procedureData);
+  return response.data;
+}
+
+export const getProceduresByPatientId = async (patientId) => {
+  const response = await api.get(`/procedures/${patientId}`);
+  return response.data;
+}

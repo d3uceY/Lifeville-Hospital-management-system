@@ -5,9 +5,9 @@ import {
   Pill,
   Stethoscope,
   Brain,
-  ClipboardList,
   TestTube,
-  MessageSquare
+  MessageSquare,
+  ClipboardList,
 } from "lucide-react"
 
 import { Link, useLocation } from "react-router-dom"
@@ -28,7 +28,7 @@ import { useParams } from "react-router-dom"
 export default function PatientProfileSidebar() {
   const { patient_id } = useParams();
   const location = useLocation();
-  
+
   const data = {
     nav: [
       { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/summary` },
@@ -40,7 +40,7 @@ export default function PatientProfileSidebar() {
       { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/diagnoses` },
       { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints` },
       { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions` },
-      { name: "services", icon: Stethoscope, href: `/patient-profile/${patient_id}/services` },
+      { name: "procedures", icon: Stethoscope, href: `/patient-profile/${patient_id}/procedures` },
     ],
   }
 
