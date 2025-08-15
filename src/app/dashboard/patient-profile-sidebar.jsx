@@ -8,6 +8,7 @@ import {
   TestTube,
   MessageSquare,
   ClipboardList,
+  Receipt
 } from "lucide-react"
 
 import { Link, useLocation } from "react-router-dom"
@@ -38,9 +39,10 @@ export default function PatientProfileSidebar() {
       { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis` },
       { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations` },
       { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/diagnoses` },
-      { name: "complaints", icon: MessageSquare , href: `/patient-profile/${patient_id}/complaints` },
+      { name: "complaints", icon: MessageSquare, href: `/patient-profile/${patient_id}/complaints` },
       { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions` },
       { name: "procedures", icon: Stethoscope, href: `/patient-profile/${patient_id}/procedures` },
+      { name: "bills", icon: Receipt, href: `/patient-profile/${patient_id}/profile-bill` },
     ],
   }
 

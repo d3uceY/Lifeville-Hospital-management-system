@@ -66,6 +66,7 @@ export default function Bills() {
 
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
+    console.log(data)
     return (
         <div className="lg:p-6">
             <Card className="shadow-sm py-0 overflow-hidden">

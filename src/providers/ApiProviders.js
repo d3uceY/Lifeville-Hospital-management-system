@@ -359,6 +359,11 @@ export const getBills = async (page = 1, pageSize = 20, billNumberFilter, status
   return response.data;
 };
 
+export const getBillByPatientId = async (patientId) => {
+  const response = await api.get(`/patient-bills/${patientId}`);
+  return response.data;
+}
+
 export const getBill = async (billId) => {
   const response = await api.get(`/bills/${billId}`);
   return response.data;
