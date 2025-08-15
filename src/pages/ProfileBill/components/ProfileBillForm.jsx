@@ -23,6 +23,7 @@ import { useAuth } from "../../../providers/AuthContext"
 import { createBill } from "../../../providers/ApiProviders"
 import { formatToNaira } from "../../../helpers/formatToNaira"
 import { useParams } from "react-router-dom"
+import ProfileFormHeader from "../../../components/profile-form-header"
 
 export default function ProfileBillForm() {
     const { user } = useAuth();
@@ -165,20 +166,9 @@ export default function ProfileBillForm() {
     return (
         <div className="container mx-auto py-8  max-w-5xl">
             {/* Header */}
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-md shadow-sm">
-                <div className="flex items-center">
-                    <Receipt className="text-blue-500 mr-3" size={24} />
-                    <div>
-                        <h2 className="text-blue-800 font-medium text-lg">Create New Bill</h2>
-                        <p className="text-blue-700 text-sm">Generate a new hospital bill for patient services</p>
-                    </div>
-                </div>
-            </div>
 
-            <div className="mb-8 border-l-4 border-l-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-                <h1 className="text-3xl font-bold">Create Bill</h1>
-                <p className="text-muted-foreground mt-2">Fill in the details to generate a new bill</p>
-            </div>
+
+            <ProfileFormHeader title="Create Bill" description="Fill in the details to generate a new bill" />
 
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Bill Information */}

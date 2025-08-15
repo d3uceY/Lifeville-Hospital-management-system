@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom'
 import { createComplaint } from '../../providers/ApiProviders'
 import ComplaintsTable from './components/ComplaintsTable'
 import { useQueryClient } from '@tanstack/react-query'
+import ProfileFormHeader from '../../components/profile-form-header'
 
 export default function Complaints() {
     const { user } = useAuth()
@@ -74,6 +75,7 @@ export default function Complaints() {
 
     return (
         <div>
+            <ProfileFormHeader title="Record Complaint" description={`Fill in the details to record a complaint for patient #${patient_id}`} />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
                     <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">

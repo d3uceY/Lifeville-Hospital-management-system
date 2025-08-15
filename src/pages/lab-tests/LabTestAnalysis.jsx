@@ -25,6 +25,7 @@ import { useParams } from 'react-router-dom'
 import { createLabTest } from '../../providers/ApiProviders'
 import LabTestAnalysisTable from './components/LabTestAnalysisTable'
 import { useQueryClient } from '@tanstack/react-query'
+import ProfileFormHeader from '../../components/profile-form-header'
 
 export default function LabTestAnalysis() {
     const { user } = useAuth()
@@ -92,6 +93,7 @@ export default function LabTestAnalysis() {
 
     return (
         <div>
+            <ProfileFormHeader title="Lab Test Analysis / investigations" description={`Fill in the details to create a lab test analysis for patient #${patient_id}`} />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
                     <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">

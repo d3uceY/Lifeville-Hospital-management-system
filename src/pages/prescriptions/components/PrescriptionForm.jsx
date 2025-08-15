@@ -23,6 +23,7 @@ import {
   SelectLabel,
   SelectItem,
 } from "@/components/ui/select";
+import ProfileFormHeader from "../../../components/profile-form-header";
 
 import { ClipboardList, FileText, Plus, Trash2, Save, X, Pill } from "lucide-react";
 
@@ -135,12 +136,7 @@ export default function PrescriptionForm() {
         </div>
       </div> */}
 
-      <div className="mb-8 border-l-4 border-l-[#106041] pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-        <h1 className="text-3xl font-bold">Prescription</h1>
-        <p className="text-muted-foreground mt-2">
-          Fill in the details to create a prescription for patient #{patient_id}
-        </p>
-      </div>
+      <ProfileFormHeader title="Prescription" description={`Fill in the details to create a prescription for patient #${patient_id}`} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="relative">
         {/* Prescription Info */}
