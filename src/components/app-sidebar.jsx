@@ -11,7 +11,8 @@ import {
   UserCog,
   BookOpen,
   AlertTriangle,
-  Bed
+  Bed,
+  User
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -252,6 +253,17 @@ const data = {
         {
           title: "Lab Test Types",
           url: "/lab-test-types",
+        }
+      ],
+    },
+    {
+      title: "Users / Roles (🛠️)",
+      url: "#",
+      icon: User,
+      items: [
+        {
+          title: "Users",
+          url: "/users",
         }
       ],
     },

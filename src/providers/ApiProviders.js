@@ -1,9 +1,59 @@
 import axios from "axios";
+import { useAuth } from "./AuthContext";
+
+
 
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL + '/api',
 });
+
+/* ============================
+API Helper function here for USERS
+============================ */
+export const registerUser = async (userData) => {
+  const { accessToken } = useAuth();
+  const response = await api.post("/users", userData, {
+    headers: {
+      withCredentials: true,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
+export const getUsers = async () => {
+  const { accessToken } = useAuth();
+  const response = await api.get("/users", {
+    headers: {
+      withCredentials: true,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
+export const viewUser = async (userId) => {
+  const { accessToken } = useAuth();
+  const response = await api.get("/users/" + userId, {
+    headers: {
+      withCredentials: true,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
+export const updateUser = async (userData) => {
+  const { accessToken } = useAuth();
+  const response = await api.put("/users/", userData, {
+    headers: {
+      withCredentials: true,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
 
 
 /* ============================
