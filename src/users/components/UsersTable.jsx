@@ -20,10 +20,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { CreateUserDialog } from "./CreateUserDialog";
 import { UpdateUserDialog } from "./UpdateUserDialog";
 import { useAuth } from "../../providers/AuthContext";
+import { getRoleBadge } from "../../helpers/getRoleBadge";
 
 
 const columns = [
@@ -68,10 +68,9 @@ const columns = [
             </Button>
         ),
         cell: ({ row }) => (
-            <Badge variant="outline" className="capitalize">
-                {row.getValue("role")}
-            </Badge>
-        ),
+
+            <div>{getRoleBadge(row.getValue("role"))}</div>
+        )
     },
     {
         accessorKey: "created_by_name",
@@ -123,7 +122,7 @@ export default function UsersTable() {
     const { accessToken } = useAuth();
     const { data: users = [], isLoading } = useQuery({
         queryKey: ["users"],
-        queryFn: () => listUsers({accessToken}),
+        queryFn: () => listUsers({ accessToken }),
     });
 
     console.log(users)

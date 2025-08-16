@@ -126,6 +126,8 @@ export function UpdateUserDialog({ user }) {
                                             <SelectItem value="doctor">Doctor</SelectItem>
                                             <SelectItem value="nurse">Nurse</SelectItem>
                                             <SelectItem value="receptionist">Receptionist</SelectItem>
+                                            <SelectItem value="lab">Lab Technician</SelectItem>
+                                            <SelectItem value="accountant">Accountant</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 )}
