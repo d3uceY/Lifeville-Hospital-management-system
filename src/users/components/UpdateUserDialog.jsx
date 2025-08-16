@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import spinnerLight from "/spinner-light.svg";
-import { User, Mail, Shield } from "lucide-react";
+import { User, Mail, Shield, Lock } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../../providers/AuthContext";
 
@@ -81,7 +81,7 @@ export function UpdateUserDialog({ user }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className="action-edit-btn">
                     <Shield className="mr-2 h-4 w-4" />
                     Update User
                 </Button>
@@ -106,21 +106,6 @@ export function UpdateUserDialog({ user }) {
                                 className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
                             />
                             {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                        </div>
-
-                        {/* Email */}
-                        <div className="grid gap-2">
-                            <Label htmlFor="email" className="flex items-center gap-1">
-                                <Mail className="h-3.5 w-3.5" /> Email
-                            </Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="Enter email..."
-                                {...register("email")}
-                                className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
-                            />
-                            {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                         </div>
 
                         {/* Role */}
@@ -149,7 +134,35 @@ export function UpdateUserDialog({ user }) {
                         </div>
                     </div>
 
-                    <DialogFooter className="flex gap-2">
+                    {/* Email */}
+                    <div className="grid gap-2">
+                        <Label htmlFor="email" className="flex items-center gap-1">
+                            <Mail className="h-3.5 w-3.5" /> Email
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            placeholder="Enter email..."
+                            {...register("email")}
+                            className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
+                        />
+                        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                    </div>
+
+                    {/* <div className="grid gap-2 mt-4">
+                        <Label htmlFor="password" className="flex items-center gap-1">
+                            <Lock className="h-3.5 w-3.5" /> Password
+                        </Label>
+                        <Input
+                            id="password"
+                            type="password"
+                            {...register("password")}
+                            className="border-[#268a6461] focus:ring-[#268a6429] focus:border-[#268a64]"
+                        />
+                        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                    </div> */}
+
+                    <DialogFooter className="flex gap-2 mt-4">
                         <Button type="button" variant="outline" onClick={() => setOpen(false)}>
                             Cancel
                         </Button>
