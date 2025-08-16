@@ -4,7 +4,7 @@ import ProfileFormHeader from "../../components/profile-form-header";
 export default function Procedures() {
     return (
         <div>
-            <ProfileFormHeader title="Procedures" description="Manage procedures for the patient" />
+            <ProfileFormHeader title="Procedures" description="Manage procedures" />
             <ProfileProcedureForm />
             <ProceduresTable />
         </div>

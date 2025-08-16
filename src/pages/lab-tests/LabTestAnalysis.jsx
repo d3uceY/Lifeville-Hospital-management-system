@@ -93,7 +93,7 @@ export default function LabTestAnalysis() {
 
     return (
         <div>
-            <ProfileFormHeader title="Lab Test Analysis / investigations" description={`Fill in the details to create a lab test analysis for patient #${patient_id}`} />
+            <ProfileFormHeader title="Lab Test Analysis / investigations" description="Fill in the details to create a lab test analysis" />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
                     <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">

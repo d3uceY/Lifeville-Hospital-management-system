@@ -27,22 +27,22 @@ import { useParams } from "react-router-dom"
 
 
 export default function PatientProfileSidebar() {
-  const { patient_id } = useParams();
+  const { patient_id, surname, first_name } = useParams();
   const location = useLocation();
 
   const data = {
     nav: [
-      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/summary` },
-      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/full-profile` },
+      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary` },
+      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile` },
       // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history` },
-      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/vital-signs` },
-      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/analysis` },
-      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/physical-examinations` },
-      { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/diagnoses` },
-      { name: "complaints", icon: MessageSquare, href: `/patient-profile/${patient_id}/complaints` },
-      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/prescriptions` },
-      { name: "procedures", icon: Stethoscope, href: `/patient-profile/${patient_id}/procedures` },
-      { name: "bills", icon: Receipt, href: `/patient-profile/${patient_id}/profile-bill` },
+      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs` },
+      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/${surname}/${first_name}/analysis` },
+      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/${surname}/${first_name}/physical-examinations` },
+      { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/${surname}/${first_name}/diagnoses` },
+      { name: "complaints", icon: MessageSquare, href: `/patient-profile/${patient_id}/${surname}/${first_name}/complaints` },
+      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/${surname}/${first_name}/prescriptions` },
+      { name: "procedures", icon: Stethoscope, href: `/patient-profile/${patient_id}/${surname}/${first_name}/procedures` },
+      { name: "bills", icon: Receipt, href: `/patient-profile/${patient_id}/${surname}/${first_name}/profile-bill` },
     ],
   }
 

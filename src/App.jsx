@@ -61,7 +61,7 @@ function App() {
                       <Route path="patients" element={<Patients />} />
                       <Route path="inpatients" element={<Inpatients />} />
                       <Route path="add-inpatient" element={<AddInpatient />} />
-                      <Route path="patient-profile/:patient_id">
+                      <Route path="patient-profile/:patient_id/:surname/:first_name">
                         <Route element={<PatientProfileSidebar />}>
                           <Route path="full-profile" element={<PatientProfile />} />
                           <Route path="edit" element={<EditPatientProfile />} />
