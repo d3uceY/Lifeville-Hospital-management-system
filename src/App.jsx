@@ -42,6 +42,7 @@ const Diagnoses = lazy(() => import('./pages/diagnoses/Diagnoses'));
 const Prescriptions = lazy(() => import('./pages/prescriptions/Prescriptions'));
 const Procedures = lazy(() => import('./pages/procedures/Procedures'));
 const ProfileBill = lazy(() => import('./pages/ProfileBill/ProfileBill'));
+const Users = lazy(() => import('./users/Users'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -105,6 +106,8 @@ function App() {
                       {/* Conditions */}
                       <Route path="conditions" element={<Conditions />} />
 
+                      {/* Users */}
+                      <Route path="users" element={<Users />} />
                     </Route>
                   </Route>
                 </Routes>

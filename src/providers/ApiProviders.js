@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuth } from "./AuthContext";
 
 
 
@@ -11,44 +10,28 @@ const api = axios.create({
 /* ============================
 API Helper function here for USERS
 ============================ */
-export const registerUser = async (userData) => {
-  const { accessToken } = useAuth();
-  const response = await api.post("/users", userData, {
+export const registerUser = async ({ accessToken, payload }) => {
+  const response = await api.post("/users", payload, {
     headers: {
-      withCredentials: true,
       Authorization: `Bearer ${accessToken}`,
     },
   });
   return response.data;
 };
 
-export const getUsers = async () => {
-  const { accessToken } = useAuth();
+export const listUsers = async ({ accessToken }) => {
   const response = await api.get("/users", {
     headers: {
-      withCredentials: true,
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  return response.data;
-};
 
-export const viewUser = async (userId) => {
-  const { accessToken } = useAuth();
-  const response = await api.get("/users/" + userId, {
-    headers: {
-      withCredentials: true,
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
   return response.data;
-};
+}
 
-export const updateUser = async (userData) => {
-  const { accessToken } = useAuth();
-  const response = await api.put("/users/", userData, {
+export const updateUser = async (accessToken, userData, userId) => {
+  const response = await api.put("/users/" + userId, userData, {
     headers: {
-      withCredentials: true,
       Authorization: `Bearer ${accessToken}`,
     },
   });
