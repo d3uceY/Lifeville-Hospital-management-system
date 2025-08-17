@@ -10,13 +10,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useParams } from 'react-router-dom';
 //skeleton loader
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
-
+import { hasPermission } from '../../helpers/hasPermission';
 
 export default function PatientProfile() {
     const [patient, setPatient] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const location = useLocation();
-    const { patient_id: id } = useParams();
+    const { patient_id: id, surname, first_name } = useParams();
 
     useEffect(() => {
         const fetchPatient = async () => {
@@ -55,11 +55,15 @@ export default function PatientProfile() {
                         <p className="text-muted-foreground">Hospital Number: {patient?.hospital_number || "N/A"}</p>
                     </div>
                 </div>
-                <div>
-                    <Link to={`/patient-profile/${id}/edit`} state={patient}>
-                        <Button className="bg-[#106041] text-white hover:bg-[#106041]/80">Update</Button>
-                    </Link>
-                </div>
+                {
+                    hasPermission(["superadmin"]) && (
+                        <div>
+                            <Link to={`/patient-profile/${id}/${surname}/${first_name}/edit`} state={patient}>
+                                <Button className="bg-[#106041] text-white hover:bg-[#106041]/80">Update</Button>
+                            </Link>
+                        </div>
+                    )
+                }
             </div>
 
             {/* Basic Information Section */}

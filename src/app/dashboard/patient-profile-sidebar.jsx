@@ -37,13 +37,13 @@ export default function PatientProfileSidebar() {
         name: "summary",
         icon: FileText,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary`,
-        roles: ["superadmin", "doctor", "nurse"], 
+        roles: ["superadmin", "doctor", "nurse", "lab"], 
       },
       {
         name: "full info",
         icon: IdCard,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile`,
-        roles: ["superadmin", "doctor"], 
+        roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"], 
       },
       {
         name: "vital signs",
@@ -55,7 +55,7 @@ export default function PatientProfileSidebar() {
       //   name: "history",
       //   icon: History,
       //   href: `/patient-profile/${patient_id}/history`,
-      //   roles: ["superadmin", "doctor"],
+      //   roles: ["superadmin", "doctor", "nurse", "lab"],
       // },
       {
         name: "complaints",
