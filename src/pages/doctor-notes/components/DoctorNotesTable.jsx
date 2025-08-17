@@ -121,7 +121,7 @@ export default function DoctorNotesTable() {
     const { patient_id } = useParams();
 
     const { data: doctorNotes, isLoading } = useQuery({
-        queryKey: ["doctorNotes", patient_id],
+        queryKey: ["doctorsNotes", patient_id],
         queryFn: () => getDoctorsNotesByPatientId(patient_id),
     });
 
