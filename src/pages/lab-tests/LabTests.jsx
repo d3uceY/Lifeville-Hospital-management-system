@@ -121,7 +121,7 @@ export default function LabTests() {
                               <FilePenLine className="h-4 w-4" />
                             </Button>
                           </EditLabTestResultDialog>
-                          <Link to={`/patient-profile/${test.patient_id}/analysis/`}>
+                          <Link to={`/patient-profile/${test.patient_id}/${test.surname}/${test.first_name}/analysis`}>
                             <Button
                               variant="outline"
                               size="sm"

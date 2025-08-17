@@ -26,6 +26,7 @@ export default function ProfileVitalSignForm() {
         systolicBloodPressure: z.number().min(0).max(250).optional(),
         heartRate: z.number().min(0).max(220).optional(),
         weight: z.number().min(0).max(300).optional(),
+        height: z.number().min(0).max(300).optional(),
         spo2: z.number().min(0).max(100).optional(),
         recordedBy: z.string().nonempty({ message: "Recorded by is required" }),
         date: z.string().nonempty({ message: "Date is required" }),
@@ -45,6 +46,7 @@ export default function ProfileVitalSignForm() {
             systolicBloodPressure: 0,
             heartRate: 0,
             weight: 0,
+            height: 0,
             spo2: 0,
             date: new Date().toISOString().split("T")[0],
             recordedBy: user?.name,
@@ -106,7 +108,7 @@ export default function ProfileVitalSignForm() {
                         {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                     </div>
 
-                    
+
 
                     {/* Blood Pressure */}
                     <div className="mb-4">
@@ -132,25 +134,43 @@ export default function ProfileVitalSignForm() {
                         {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
                     </div>
 
-                    
 
-                    {/* Weight */}
-                    <div className="mb-4">
-                        <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="weight">
-                            Weight (kg)
-                        </Label>
-                        <Input
-                            className="bg-gray-50"
-                            id="weight"
-                            type="number"
-                            step="0.1"
-                            placeholder="70"
-                            {...register("weight", { valueAsNumber: true })}
-                        />
-                        {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
+                    <div className="grid grid-cols-2 gap-4">
+
+                        {/* Weight */}
+                        <div className="mb-4">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="weight">
+                                Weight (kg)
+                            </Label>
+                            <Input
+                                className="bg-gray-50"
+                                id="weight"
+                                type="number"
+                                step="0.1"
+                                placeholder="70"
+                                {...register("weight", { valueAsNumber: true })}
+                            />
+                            {errors.weight && <p className="text-red-500 text-sm">{errors.weight.message}</p>}
+                        </div>
+
+                        {/* height */}
+                        <div className="mb-4">
+                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="height">
+                                Height (m)
+                            </Label>
+                            <Input
+                                className="bg-gray-50"
+                                id="height"
+                                type="number"
+                                step="0.1"
+                                placeholder="1.75"
+                                {...register("height", { valueAsNumber: true })}
+                            />
+                            {errors.height && <p className="text-red-500 text-sm">{errors.height.message}</p>}
+                        </div>
                     </div>
 
-                    
+
 
                     {/* Heart Rate */}
                     <div className="mb-4">
@@ -167,7 +187,7 @@ export default function ProfileVitalSignForm() {
                         {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
                     </div>
 
-                    
+
 
                     {/* SpO₂ */}
                     <div className="mb-4">
@@ -185,7 +205,7 @@ export default function ProfileVitalSignForm() {
                         {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
                     </div>
 
-                    
+
 
                     {/* Date */}
                     <div>
