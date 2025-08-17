@@ -65,7 +65,7 @@ export default function DoctorsNotesForm() {
         })
         reset()
         queryClient.invalidateQueries({
-            queryKey: ["doctorsNotes", patient_id],
+            queryKey: ["doctorNotes", patient_id],
         })
     }
 
