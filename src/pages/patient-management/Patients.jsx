@@ -44,7 +44,7 @@ import {
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-
+import { hasPermission } from "../../helpers/hasPermission";
 import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 import DeleteAlertDialog from "./components/deleteAlertDialog";
 
@@ -141,9 +141,8 @@ const columns = [
       )
     },
 
-    // Custom filter function that uses strict equality
     filterFn: (row, columnId, filterValue) => {
-      if (!filterValue) return true // If no filter is set, show all rows
+      if (!filterValue) return true
       return row.getValue(columnId) === filterValue
     },
   },
@@ -160,21 +159,9 @@ const columns = [
       </Button>
     ),
     cell: ({ row }) => {
-      // Retrieve the date_of_birth value (e.g., "1990-05-14T23:00:00.000Z") because that is how the date is returned from the db
       const dob = new Date(row.getValue("date_of_birth"))
-
-      // Calculate the difference in milliseconds between now and the date of birth.
-      // Date.now() returns the current time in milliseconds.
       const diffMs = Date.now() - dob.getTime()
-
-      // Create a new Date object from the time difference.
-      // The Date object is based on Unix time, which starts at January 1, 1970.
-      // This means that when we create a Date from diffMs, its year represents (1970 + number of years passed).
-      const ageDate = new Date(diffMs) // miliseconds from epoch
-
-      // Get the year portion from the ageDate.
-      // Since the Date object counts years starting at 1970, subtracting 1970 gives the number of years elapsed,
-      // which is the person's age.
+      const ageDate = new Date(diffMs)
       const age = Math.abs(ageDate.getUTCFullYear() - 1970)
       return <div className="font-medium text-center">{age}</div>
     },
@@ -201,11 +188,15 @@ const columns = [
       const currentpatientData = row.original
       return (
         <div className="flex gap-2 items-center">
-          <VitalSignsDialog patient={currentpatientData}>
+          {
+            hasPermission(["superadmin", "doctor", "nurse"]) && (
+              <VitalSignsDialog patient={currentpatientData}>
                 <Button className="action-edit-btn">
-                    <Activity className=" h-4 w-4" />
+                  <Activity className=" h-4 w-4" />
                 </Button>
-          </VitalSignsDialog>
+              </VitalSignsDialog>
+            )
+          }
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -224,17 +215,27 @@ const columns = [
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">
-                <Link
-                  className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                  to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/full-profile`}
-                >
-                  <User2 className="h-4 w-4" /> View Patient Profile
-                </Link>
+                {
+                  hasPermission(["superadmin", "doctor", "nurse", "receptionist"]) && (
+                    <Link
+                      className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
+                      to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/full-profile`}
+                    >
+                      <User2 className="h-4 w-4" /> View Patient Profile
+                    </Link>
+                  )
+                }
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
-                Delete Patient Record
-              </DeleteAlertDialog>
+              {
+                hasPermission(["superadmin"]) && (
+                  <>
+                  <DropdownMenuSeparator />
+                  <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
+                    Delete Patient Record
+                  </DeleteAlertDialog>
+                  </>
+                )
+              }
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

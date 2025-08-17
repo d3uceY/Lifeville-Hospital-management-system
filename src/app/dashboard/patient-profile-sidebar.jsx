@@ -25,6 +25,7 @@ import {
 import { Outlet } from "react-router-dom"
 import { useParams } from "react-router-dom"
 
+import { filterMenuItems } from "../../helpers/filterMenuItems"
 
 export default function PatientProfileSidebar() {
   const { patient_id, surname, first_name } = useParams();
@@ -32,20 +33,75 @@ export default function PatientProfileSidebar() {
 
   const data = {
     nav: [
-      { name: "summary", icon: FileText, href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary` },
-      { name: "full info", icon: IdCard, href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile` },
-      { name: "vital signs", icon: Activity, href: `/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs` },
-      // { name: "history", icon: History, href: `/patient-profile/${patient_id}/history` },
-      { name: "complaints", icon: MessageSquare, href: `/patient-profile/${patient_id}/${surname}/${first_name}/complaints` },
-      { name: "physical examinations", icon: ClipboardList, href: `/patient-profile/${patient_id}/${surname}/${first_name}/physical-examinations` },
-      { name: "investigations", icon: TestTube, href: `/patient-profile/${patient_id}/${surname}/${first_name}/analysis` },
-      { name: "diagnoses", icon: Brain, href: `/patient-profile/${patient_id}/${surname}/${first_name}/diagnoses` },
-      { name: "prescriptions", icon: Pill, href: `/patient-profile/${patient_id}/${surname}/${first_name}/prescriptions` },
-      { name: "procedures", icon: Stethoscope, href: `/patient-profile/${patient_id}/${surname}/${first_name}/procedures` },
-      { name: "bills", icon: Receipt, href: `/patient-profile/${patient_id}/${surname}/${first_name}/profile-bill` },
+      {
+        name: "summary",
+        icon: FileText,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary`,
+        roles: ["superadmin", "doctor", "nurse"], 
+      },
+      {
+        name: "full info",
+        icon: IdCard,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile`,
+        roles: ["superadmin", "doctor"], 
+      },
+      {
+        name: "vital signs",
+        icon: Activity,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`,
+        roles: ["superadmin", "doctor", "nurse"],
+      },
+      // {
+      //   name: "history",
+      //   icon: History,
+      //   href: `/patient-profile/${patient_id}/history`,
+      //   roles: ["superadmin", "doctor"],
+      // },
+      {
+        name: "complaints",
+        icon: MessageSquare,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/complaints`,
+        roles: ["superadmin", "doctor", "nurse"],
+      },
+      {
+        name: "physical examinations",
+        icon: ClipboardList,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/physical-examinations`,
+        roles: ["superadmin", "doctor"],
+      },
+      {
+        name: "investigations",
+        icon: TestTube,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/analysis`,
+        roles: ["superadmin", "doctor", "lab"], 
+      },
+      {
+        name: "diagnoses",
+        icon: Brain,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/diagnoses`,
+        roles: ["superadmin", "doctor"],
+      },
+      {
+        name: "prescriptions",
+        icon: Pill,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/prescriptions`,
+        roles: ["superadmin", "doctor", "nurse", "pharmacist"], 
+      },
+      {
+        name: "procedures",
+        icon: Stethoscope,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/procedures`,
+        roles: ["superadmin", "doctor"],
+      },
+      {
+        name: "bills",
+        icon: Receipt,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/profile-bill`,
+        roles: ["superadmin", "accountant", "receptionist"], 
+      },
     ],
   }
-
+  
   return (
     <div className="flex h-screen bg-gray-50">
       <SidebarProvider className="flex-1">
@@ -54,7 +110,7 @@ export default function PatientProfileSidebar() {
             <SidebarGroup>
               <SidebarGroupContent>
                 <SidebarMenu className="space-y-2">
-                  {data.nav.map((item) => (
+                  {filterMenuItems(data.nav).map((item) => (
                     <SidebarMenuItem key={item.name}>
                       <SidebarMenuButton
                         asChild
