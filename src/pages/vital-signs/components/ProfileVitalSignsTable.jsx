@@ -14,6 +14,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { getVitalSignsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
+import { hasPermission } from "../../../helpers/hasPermission";
+import EditProfileVitalSignsDialog from "./EditProfileVitalSignsDialog";
+import { calculateBMI } from "../../../helpers/calculateBMI";
 
 const columns = [
     {
@@ -80,10 +83,38 @@ const columns = [
         cell: ({ row }) => <div className="text-gray-700">{row.getValue("weight")} kg</div>,
     },
     {
+        accessorKey: "height",
+        header: "Height (m)",
+        cell: ({ row }) => <div className="text-gray-700">{row.getValue("height")} m</div>,
+    },
+    {
         accessorKey: "recorded_by",
         header: "Recorded By",
         cell: ({ row }) => <div className="capitalize">{row.getValue("recorded_by")}</div>,
     },
+    {
+        header: "BMI",
+        cell: ({ row }) => <div className="text-gray-700">{calculateBMI(row.getValue("weight"), row.getValue("height"))}</div>,
+    },
+    {
+        header: "Actions",
+        cell: ({ row }) => {
+            const currentVitalSign = row.original
+            return (
+                <div className="flex gap-2 items-center">
+                    {
+                        hasPermission(["superadmin", "doctor", "nurse"]) && (
+                            <EditProfileVitalSignsDialog vitalSign={currentVitalSign}>
+                                <Button className="action-edit-btn">
+                                    <Activity className=" h-4 w-4" />
+                                </Button>
+                            </EditProfileVitalSignsDialog>
+                        )
+                    }
+                </div>
+            )
+        }
+    }
 ];
 
 export default function ProfileVitalSignsTable({ patientId }) {

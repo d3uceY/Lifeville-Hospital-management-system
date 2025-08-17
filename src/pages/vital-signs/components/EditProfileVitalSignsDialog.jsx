@@ -10,22 +10,24 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Activity, Thermometer } from "lucide-react" // Example icon
-import { createVitalSign } from "../../providers/ApiProviders"
+import { Activity } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
-import { useAuth } from "../../providers/AuthContext"
+import { useAuth } from "../../../providers/AuthContext"
 import { useParams } from "react-router-dom"
+import { updateVitalSign } from "../../../providers/ApiProviders"
+import { useQueryClient } from "@tanstack/react-query"
+
 
 export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [open, setOpen] = useState(false)
     const { user } = useAuth()
     const { patient_id, surname, first_name } = useParams()
+    const queryClient = useQueryClient()
 
     const schema = z.object({
         temperature: z.number().min(0).max(45).optional(),
@@ -55,8 +57,9 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
             weight: vitalSign?.weight,
             height: vitalSign?.height,
             spo2: vitalSign?.spo2,
-            date: vitalSign?.date,
-            recordedBy: user?.name,
+            date: new Date().toISOString().split("T")[0],
+            recordedBy: vitalSign?.recorded_by,
+            updatedBy: user?.name,
         }
     })
 
@@ -66,7 +69,8 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                 setIsSubmitting(true)
                 const payload = { ...data, patientId: patient_id }
                 setOpen(false)
-                await createVitalSign(payload)
+                await updateVitalSign(vitalSign?.id, payload)
+                queryClient.invalidateQueries({ queryKey: ['vitalSigns', patient_id] })
                 reset()
             } catch (error) {
                 console.error(error)
@@ -120,7 +124,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                             </div>
 
-                            <Separator />
+                          
 
                             {/* Blood Pressure */}
                             <div className="mb-4">
@@ -146,7 +150,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
                             </div>
 
-                            <Separator />
+                          
                             <div className="grid grid-cols-2 gap-4">
 
                                 {/* Weight */}
@@ -182,7 +186,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 </div>
                             </div>
 
-                            <Separator />
+                          
 
                             {/* Heart Rate */}
                             <div className="mb-4">
@@ -199,7 +203,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
                             </div>
 
-                            <Separator />
+                          
 
                             {/* SpO₂ */}
                             <div className="mb-4">
@@ -217,7 +221,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
                             </div>
 
-                            <Separator />
+                          
 
                             {/* Date */}
                             <div>
