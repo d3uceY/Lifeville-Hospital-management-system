@@ -117,6 +117,7 @@ export function ViewPhysicalExaminationDialog({ examination, children }) {
                             {renderField("Neurological", examination.neurological)}
                             {renderField("Skin", examination.skin)}
                             {renderField("Findings", examination.findings)}
+                            {renderField("Genitourinary", examination.genitourinary)}
                         </CardContent>
                     </Card>
 

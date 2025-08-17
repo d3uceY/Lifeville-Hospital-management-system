@@ -31,13 +31,14 @@ export default function ProfilePhysicalExaminationForm() {
         musculoskeletal: z.string().optional(),
         neurological: z.string().optional(),
         skin: z.string().optional(),
+        genitourinary: z.string().optional(),
         findings: z.string().optional(),
     }).refine(
         (data) => {
             // Get all keys except recorded_by
             const otherFields = { ...data };
             delete otherFields.recorded_by;
-    
+            
             // Check if at least one is truthy & not an empty string
             return Object.values(otherFields).some(val => val && val.trim() !== "");
         },
@@ -65,6 +66,7 @@ export default function ProfilePhysicalExaminationForm() {
             musculoskeletal: "",
             neurological: "",
             skin: "",
+            genitourinary: "",
             findings: "",
         }
     })
@@ -135,25 +137,27 @@ export default function ProfilePhysicalExaminationForm() {
                 </CardHeader>
 
                 <CardContent>
-                  
+
                     {renderField("general_appearance", "General Appearance")}
-                  
+
                     {renderField("heent", "HEENT")}
-                  
+
                     {renderField("cardiovascular", "Cardiovascular")}
-                  
+
                     {renderField("respiration", "Respiration")}
-                  
+
                     {renderField("gastrointestinal", "Gastrointestinal")}
-                  
+
+                    {renderField("genitourinary", "Genitourinary")}
+
                     {renderField("gynecology_obstetrics", "Gynecology / Obstetrics")}
-                  
+
                     {renderField("musculoskeletal", "Musculoskeletal")}
-                  
+
                     {renderField("neurological", "Neurological")}
-                  
+
                     {renderField("skin", "Skin")}
-                  
+
                     {renderField("findings", "Findings/Provisional Diagnosis")}
 
                     <Button
