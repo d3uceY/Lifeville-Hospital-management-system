@@ -94,7 +94,7 @@ export const getVitalSignsByPatientId = async (patientId) => {
 
 export const updateVitalSign = async (vitalSignId, vitalSignData) => {
   const response = await api.put(
-    "/vital-signs/" + vitalSignId, 
+    "/vital-signs/" + vitalSignId,
     vitalSignData
   );
   return response.data;
@@ -623,5 +623,53 @@ export const createProcedure = async (procedureData) => {
 
 export const getProceduresByPatientId = async (patientId) => {
   const response = await api.get(`/procedures/${patientId}`);
+  return response.data;
+}
+
+/* ============================
+API Helper function here for DOCTOR's NOTES
+============================ */
+
+export const createDoctorsNote = async (doctorsNoteData) => {
+  const response = await api.post(`/doctor-notes`, doctorsNoteData);
+  return response.data;
+}
+
+export const getDoctorsNotesByPatientId = async (patientId) => {
+  const response = await api.get(`/doctor-notes/patient/${patientId}`);
+  return response.data;
+}
+
+export const deleteDoctorsNote = async (doctorsNoteId) => {
+  const response = await api.delete(`/doctor-notes/${doctorsNoteId}`);
+  return response.data;
+}
+
+export const updateDoctorsNote = async (doctorsNoteId, doctorsNoteData) => {
+  const response = await api.put(`/doctor-notes/${doctorsNoteId}`, doctorsNoteData);
+  return response.data;
+}
+
+/* ============================
+API Helper function here for NURSES NOTES
+============================ */
+
+export const createNursesNote = async (nursesNoteData) => {
+  const response = await api.post(`/nurse-notes`, nursesNoteData);
+  return response.data;
+}
+
+export const getNursesNotesByPatientId = async (patientId) => {
+  const response = await api.get(`/nurse-notes/patient/${patientId}`);
+  return response.data;
+}
+
+export const deleteNursesNote = async (nursesNoteId) => {
+  const response = await api.delete(`/nurse-notes/${nursesNoteId}`);
+  return response.data;
+}
+
+export const updateNursesNote = async (nursesNoteId, nursesNoteData) => {
+  const response = await api.put(`/nurse-notes/${nursesNoteId}`, nursesNoteData);
   return response.data;
 }

@@ -8,7 +8,8 @@ import {
   TestTube,
   MessageSquare,
   ClipboardList,
-  Receipt
+  Receipt,
+  NotebookPen,
 } from "lucide-react"
 
 import { Link, useLocation } from "react-router-dom"
@@ -37,19 +38,25 @@ export default function PatientProfileSidebar() {
         name: "summary",
         icon: FileText,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary`,
-        roles: ["superadmin", "doctor", "nurse", "lab"], 
+        roles: ["superadmin", "doctor", "nurse", "lab"],
       },
       {
         name: "full info",
         icon: IdCard,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile`,
-        roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"], 
+        roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"],
       },
       {
         name: "vital signs",
         icon: Activity,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`,
         roles: ["superadmin", "doctor", "nurse"],
+      },
+      {
+        name: "Doctor's Notes",
+        icon: Stethoscope,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/doctor-notes`,
+        roles: ["superadmin", "doctor"],
       },
       // {
       //   name: "history",
@@ -73,7 +80,7 @@ export default function PatientProfileSidebar() {
         name: "investigations",
         icon: TestTube,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/analysis`,
-        roles: ["superadmin", "doctor", "lab"], 
+        roles: ["superadmin", "doctor", "lab"],
       },
       {
         name: "diagnoses",
@@ -85,7 +92,7 @@ export default function PatientProfileSidebar() {
         name: "prescriptions",
         icon: Pill,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/prescriptions`,
-        roles: ["superadmin", "doctor", "nurse", "pharmacist"], 
+        roles: ["superadmin", "doctor", "nurse", "pharmacist"],
       },
       {
         name: "procedures",
@@ -94,14 +101,20 @@ export default function PatientProfileSidebar() {
         roles: ["superadmin", "doctor"],
       },
       {
+        name: "Nurse's Notes",
+        icon: NotebookPen,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/nurse-notes`,
+        roles: ["superadmin", "nurse", "doctor"],
+      },
+      {
         name: "bills",
         icon: Receipt,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/profile-bill`,
-        roles: ["superadmin", "accountant", "receptionist"], 
+        roles: ["superadmin", "accountant", "receptionist"],
       },
     ],
   }
-  
+
   return (
     <div className="flex h-screen bg-gray-50">
       <SidebarProvider className="flex-1">

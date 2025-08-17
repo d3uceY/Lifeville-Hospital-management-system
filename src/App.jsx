@@ -43,6 +43,7 @@ const Prescriptions = lazy(() => import('./pages/prescriptions/Prescriptions'));
 const Procedures = lazy(() => import('./pages/procedures/Procedures'));
 const ProfileBill = lazy(() => import('./pages/ProfileBill/ProfileBill'));
 const Users = lazy(() => import('./users/Users'));
+const DoctorNotes = lazy(() => import('./pages/doctor-notes/DoctorNotes'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -74,6 +75,7 @@ function App() {
                           <Route path="prescriptions" element={<Prescriptions />} />
                           <Route path="procedures" element={<Procedures />} />
                           <Route path="profile-bill" element={<ProfileBill />} />
+                          <Route path="doctor-notes" element={<DoctorNotes />} />
                         </Route>
                       </Route>
                       {/* Birth and Death */}
