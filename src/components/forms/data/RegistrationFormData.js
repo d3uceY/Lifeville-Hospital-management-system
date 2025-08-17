@@ -1,48 +1,4 @@
 //registration form data
-import * as allTheForms from "../registrationForm"
-import { RegistrationFormList } from "../registrationForm";
-
-const [
-  RegistrationForm,
-  ContactInformationForm,
-  DemographicForm,
-  NextOfKinForm,
-  MedicalHistoryForm,
-  Allergies,
-] = RegistrationFormList;
-
-export const formTabData = [
-  {
-    component: RegistrationForm,
-    title: "Basic Information",
-    cardDescription:
-      "Enter basic registration details such as date, hospital number, and full name.",
-  },
-  {
-    component: [ContactInformationForm, DemographicForm],
-    title: "Contact & Demographic Details",
-    cardDescription:
-      "Provide gender, marital status, date of birth, phone number, address, occupation, and workplace address.",
-  },
-  {
-    component: NextOfKinForm,
-    title: "Next of Kin / Emergency Contact",
-    cardDescription:
-      "Enter details for your emergency contact including name, relationship, address, and phone number.",
-  },
-  {
-    component: MedicalHistoryForm,
-    title: "Medical History",
-    cardDescription:
-      "Record your past medical, surgical, family, social, and drug history.",
-  },
-  {
-    component: Allergies,
-    title: "Allergies & Dietary Restrictions",
-    cardDescription:
-      "Specify any allergies and dietary restrictions, including details on drug or food allergies.",
-  },
-];
 
 //table header data
 export const tabList = [

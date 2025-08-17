@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Asterisk } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
     Select,
@@ -21,7 +22,7 @@ import { registerPatient } from "../../providers/ApiProviders"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
 
-export default function RegisterPatient() {
+export default function Register() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const queryClient = useQueryClient()
 
@@ -31,24 +32,24 @@ export default function RegisterPatient() {
         hospitalNumber: z.string().nonempty({ message: "Hospital number is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
         firstName: z.string().nonempty({ message: "First name is required" }),
-        otherNames: z.string().nonempty({ message: "Other names are required" }),
         sex: z.string().nonempty({ message: "Sex is required" }),
         dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
         phoneNumber: z
-            .string()
-            .nonempty({ message: "Phone number is required" })
-            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+        .string()
+        .nonempty({ message: "Phone number is required" })
+        .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         address: z.string().nonempty({ message: "Address is required" }),
         nationality: z.string().nonempty({ message: "Nationality is required" }),
         nextOfKin: z.string().nonempty({ message: "Next of kin is required" }),
         relationship: z.string().nonempty({ message: "Relationship is required" }),
         nextOfKinPhoneNumber: z
-            .string()
-            .nonempty({ message: "Next of kin phone number is required" })
-            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+        .string()
+        .nonempty({ message: "Next of kin phone number is required" })
+        .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
-
+        
         // Optional Fields
+        otherNames: z.string().optional(),
         maritalStatus: z.string().optional(),
         occupation: z.string().optional(),
         placeOfWorkAddress: z.string().optional(),
@@ -166,8 +167,8 @@ export default function RegisterPatient() {
                     <CardContent>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
-                                    Date
+                                <Label className="text-sm font-medium mb-2 text-gray-700 gap-2" htmlFor="date">
+                                    <span className="text-red-500">*</span>Date
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -178,8 +179,8 @@ export default function RegisterPatient() {
                                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="hospital_number">
-                                    Hospital Number
+                                <Label className="text-sm font-medium mb-2 text-gray-700 flex items-center gap-2" htmlFor="hospital_number">
+                                     <span className="text-red-500">*</span>Hospital Number
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -192,8 +193,8 @@ export default function RegisterPatient() {
                         </div>
                         <div className="grid md:grid-cols-3 gap-6 mt-6">
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">
-                                    Surname
+                                <Label className="text-sm font-medium mb-2 text-gray-700 flex items-center gap-2" htmlFor="surname">
+                                    <span className="text-red-500">*</span>Surname
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -203,8 +204,8 @@ export default function RegisterPatient() {
                                 {errors.surname && <p className="text-red-500 text-sm mt-1">{errors.surname.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="first_name">
-                                    First Name
+                                <Label className="text-sm font-medium mb-2 block text-gray-700 flex items-center gap-2" htmlFor="first_name">
+                                    <span className="text-red-500">*</span>First Name
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -256,8 +257,8 @@ export default function RegisterPatient() {
                     <CardContent>
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="sex">
-                                    Sex
+                                <Label className="text-sm font-medium mb-2 block text-gray-700 flex items-center gap-2" htmlFor="sex">
+                                  <span className="text-red-500">*</span>  Sex
                                 </Label>
                                 <Controller
                                     name="sex"
@@ -307,8 +308,8 @@ export default function RegisterPatient() {
                                 {errors.maritalStatus && <p className="text-red-500 text-sm mt-1">{errors.maritalStatus.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date_of_birth">
-                                    Date of Birth
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="date_of_birth">
+                                 <span className="text-red-500">*</span>   Date of Birth
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -319,8 +320,8 @@ export default function RegisterPatient() {
                                 {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="phone_number">
-                                    Phone Number
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="phone_number">
+                                    <span className="text-red-500">*</span>Phone Number
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -331,8 +332,8 @@ export default function RegisterPatient() {
                             </div>
                         </div>
                         <div className="mt-6">
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="address">
-                                Address
+                            <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="address">
+                               <span className="text-red-500">*</span> Address
                             </Label>
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
@@ -421,8 +422,8 @@ export default function RegisterPatient() {
                                 {errors.religion && <p className="text-red-500 text-sm mt-1">{errors.religion.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nationality">
-                                    Nationality
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="nationality">
+                                   <span className="text-red-500">*</span> Nationality
                                 </Label>
                                 <Controller
                                     name="nationality"
@@ -477,8 +478,8 @@ export default function RegisterPatient() {
                     <CardContent>
                         <div className="grid md:grid-cols-3 gap-6">
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin">
-                                    Next of Kin
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin">
+                                   <span className="text-red-500">*</span> Next of Kin
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -488,8 +489,8 @@ export default function RegisterPatient() {
                                 {errors.nextOfKin && <p className="text-red-500 text-sm mt-1">{errors.nextOfKin.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="relationship">
-                                    Relationship
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="relationship">
+                                   <span className="text-red-500">*</span> Relationship
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -499,8 +500,8 @@ export default function RegisterPatient() {
                                 {errors.relationship && <p className="text-red-500 text-sm mt-1">{errors.relationship.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_phone">
-                                    Phone Number
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin_phone">
+                                   <span className="text-red-500">*</span> Phone Number
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -513,8 +514,8 @@ export default function RegisterPatient() {
                             </div>
                         </div>
                         <div className="mt-6">
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_address">
-                                Address of Next of Kin
+                            <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin_address">
+                               <span className="text-red-500">*</span> Address of Next of Kin
                             </Label>
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
