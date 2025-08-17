@@ -88,32 +88,32 @@ export function ViewPrescriptionDialog({ prescription, children }) {
                     </div>
 
                     {/* Timeline */}
-                   {/* Timeline */}
-<Card className="border-[#268a6461] pt-0">
-    <CardHeader className="pb-3 pt-6 bg-[#f0f8f4]">
-        <CardTitle className="flex items-center gap-2 text-lg">
-            <Calendar className="h-4 w-4" />
-            Timeline
-        </CardTitle>
-    </CardHeader>
-    <CardContent className="pt-4">
-        <div className="space-y-4">
-            <TimelineItem
-                title="Prescription Created"
-                date={prescription.prescription_date}
-                subtitle={`Prescribed by ${prescription.prescribed_by}`}
-            />
+                    {/* Timeline */}
+                    <Card className="border-[#268a6461] pt-0">
+                        <CardHeader className="pb-3 pt-6 bg-[#f0f8f4]">
+                            <CardTitle className="flex items-center gap-2 text-lg">
+                                <Calendar className="h-4 w-4" />
+                                Timeline
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-4">
+                            <div className="space-y-4">
+                                <TimelineItem
+                                    title="Prescription Created"
+                                    date={prescription.prescription_date}
+                                    subtitle={`Prescribed by ${prescription.prescribed_by}`}
+                                />
 
-            {prescription.updated_at && prescription.updated_by && (
-                <TimelineItem
-                    title="Prescription Updated"
-                    date={prescription.updated_at}
-                    subtitle={`Updated by ${prescription.updated_by}`}
-                />
-            )}
-        </div>
-    </CardContent>
-</Card>
+                                {prescription.updated_at && prescription.updated_by && (
+                                    <TimelineItem
+                                        title="Prescription Updated"
+                                        date={prescription.updated_at}
+                                        subtitle={`Updated by ${prescription.updated_by}`}
+                                    />
+                                )}
+                            </div>
+                        </CardContent>
+                    </Card>
 
 
                     {/* Quick Actions */}
