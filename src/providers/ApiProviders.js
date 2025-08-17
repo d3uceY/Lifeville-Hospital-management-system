@@ -611,6 +611,15 @@ export const getPrescriptionsByPatientId = async (patientId) => {
   return response.data;
 }
 
+export const changePrescriptionStatus = async (prescriptionId, StatusData) => {
+  const response = await api.put(`/prescriptions/${prescriptionId}`, StatusData);
+  return response.data;
+}
+
+export const deletePrescription = async (prescriptionId) => {
+  const response = await api.delete(`/prescriptions/${prescriptionId}`);
+  return response.data;
+}
 
 /* ============================
 API Helper function here for procedures

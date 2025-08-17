@@ -16,7 +16,8 @@ import { getPrescriptionsByPatientId } from "../../../providers/ApiProviders";
 import { useParams } from "react-router-dom";
 import { formatDate } from "../../../helpers/formatDate";
 import { ViewPrescriptionDialog } from "./ViewPrescriptionDialog";
-import { getFrequencyLabel } from "../../../helpers/getFrequencyLabel";
+import PrescriptionStatusDropdown from "./PrescriptionStatusDropdown";
+import { getPrescriptionStatusBadge } from "../../../helpers/getPrescriptionStatusBadge";
 
 const columns = [
     {
@@ -46,6 +47,20 @@ const columns = [
             </Button>
         ),
         cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{row.getValue("prescribed_by")}</div>,
+    },
+    {
+        accessorKey: "status",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                className="font-medium text-gray-700"
+            >
+                Prescribed Status
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="font-medium text-gray-700 capitalize">{getPrescriptionStatusBadge(row.getValue("status"))}</div>,
     },
     {
         accessorKey: "prescription_date",
@@ -86,6 +101,7 @@ const columns = [
                             <Eye className="h-4 w-4" />
                         </Button>
                     </ViewPrescriptionDialog>
+                    <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
                 </div>
             );
         },
