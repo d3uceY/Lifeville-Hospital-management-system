@@ -38,6 +38,15 @@ export const updateUser = async (accessToken, userData, userId) => {
   return response.data;
 };
 
+export const deleteUser = async (accessToken, userId) => {
+  const response = await api.delete("/users/" + userId, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
 
 /* ============================
 API Helper function here for PATIENTS

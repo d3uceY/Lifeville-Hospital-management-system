@@ -154,7 +154,7 @@ export default function ProfilePhysicalExaminationForm() {
                   
                     {renderField("skin", "Skin")}
                   
-                    {renderField("findings", "Findings")}
+                    {renderField("findings", "Findings/Provisional Diagnosis")}
 
                     <Button
                         className="mt-6 ml-auto block"

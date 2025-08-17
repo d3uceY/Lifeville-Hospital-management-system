@@ -9,7 +9,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, Users } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, Users, Delete } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -24,6 +24,7 @@ import { CreateUserDialog } from "./CreateUserDialog";
 import { UpdateUserDialog } from "./UpdateUserDialog";
 import { useAuth } from "../../providers/AuthContext";
 import { getRoleBadge } from "../../helpers/getRoleBadge";
+import DeleteUserDialog from './DeleteUserDialog'
 
 
 const columns = [
@@ -111,7 +112,7 @@ const columns = [
             return (
                 <div className="flex items-center gap-2">
                     <UpdateUserDialog user={user} />
-                    {/* <DeleteUserDialog user={user} /> */}
+                    <DeleteUserDialog deletedUserRecordInfo={user} />
                 </div>
             );
         },
