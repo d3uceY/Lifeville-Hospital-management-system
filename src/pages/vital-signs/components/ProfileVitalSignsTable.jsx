@@ -88,13 +88,23 @@ const columns = [
         cell: ({ row }) => <div className="text-gray-700">{row.getValue("height")} m</div>,
     },
     {
+        header: "BMI",
+        cell: ({ row }) => <div className="text-gray-700">{calculateBMI(row.getValue("weight"), row.getValue("height"))}</div>,
+    },
+    {
         accessorKey: "recorded_by",
         header: "Recorded By",
         cell: ({ row }) => <div className="capitalize">{row.getValue("recorded_by")}</div>,
     },
     {
-        header: "BMI",
-        cell: ({ row }) => <div className="text-gray-700">{calculateBMI(row.getValue("weight"), row.getValue("height"))}</div>,
+        accessorKey: "updated_by",
+        header: "Updated By",
+        cell: ({ row }) => <div className="text-gray-700">{row.getValue("updated_by") || "—"}</div>,
+    },
+    {
+        accessorKey: "updated_at",
+        header: "Updated At",
+        cell: ({ row }) => <div className="text-gray-700">{formatDate(row.getValue("updated_at")) || "—"}</div>,
     },
     {
         header: "Actions",

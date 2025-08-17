@@ -39,6 +39,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
         spo2: z.number().min(0).max(100).optional(),
         recordedBy: z.string().nonempty({ message: "Recorded by is required" }),
         date: z.string().nonempty({ message: "Date is required" }),
+        updatedBy: z.string().nonempty({ message: "Updated by is required" }),
     })
 
     const {
