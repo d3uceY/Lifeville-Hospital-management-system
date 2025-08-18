@@ -107,7 +107,6 @@ export default function ProfileBillsTable() {
     queryFn: () => getBillByPatientId(patient_id),
   });
 
-  console.log(bills)
 
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);

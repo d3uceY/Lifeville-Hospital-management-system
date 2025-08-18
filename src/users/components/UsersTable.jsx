@@ -126,7 +126,6 @@ export default function UsersTable() {
         queryFn: () => listUsers({ accessToken }),
     });
 
-    console.log(users)
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);
     const [columnVisibility, setColumnVisibility] = React.useState({});

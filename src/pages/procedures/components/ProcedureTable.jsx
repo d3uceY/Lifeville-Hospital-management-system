@@ -74,10 +74,9 @@ const columns = [
               variant="outline"
               size="sm"
               className="action-edit-btn"
-              onClick={() => console.log("View procedure:", procedure)}
-          >
-            <Eye className="h-4 w-4" />
-          </Button>
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
           </ViewProcedureDialog>
         </div>
       );

@@ -41,6 +41,7 @@ export default function ScheduleAppointmentDialog() {
         register,
         formState: { errors, isValid },
         handleSubmit,
+        reset,
         control
     } = useForm({
         mode: "onChange",
@@ -64,6 +65,7 @@ export default function ScheduleAppointmentDialog() {
                 }
                 setIsSubmitting(true);
                 const response = await createAppointment(payload);
+                reset();
                 // Close the dialog after successful creation
                 setIsOpen(false);
                 // Refresh appointments after successful creation
@@ -88,7 +90,6 @@ export default function ScheduleAppointmentDialog() {
     const { patientData, loading, refreshPatients } = usePatientData();
     const { doctors, loadingDoctors, refreshDoctors } = useDoctorData();
 
-    console.log(doctors)
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
