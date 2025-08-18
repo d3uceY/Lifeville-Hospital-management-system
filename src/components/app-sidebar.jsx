@@ -201,11 +201,6 @@ const data = {
       roles: ["superadmin", "accountant"],
       items: [
         {
-          title: "Create Bill",
-          url: "/add-bill",
-          roles: ["superadmin", "accountant"],
-        },
-        {
           title: "Bills",
           url: "/bills",
           roles: ["superadmin", "accountant"],

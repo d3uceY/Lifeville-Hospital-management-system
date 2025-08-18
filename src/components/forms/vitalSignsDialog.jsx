@@ -118,8 +118,6 @@ export default function VitalSignsDialog({ children, patient }) {
                                 {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                             </div>
 
-                            <Separator />
-
                             {/* Blood Pressure */}
                             <div className="mb-4">
                                 <Label className="text-sm font-medium mb-2 block text-gray-700">
@@ -144,7 +142,7 @@ export default function VitalSignsDialog({ children, patient }) {
                                 {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
                             </div>
 
-                            <Separator />
+                        
 
                             <div className="grid grid-cols-2 gap-4">
 
@@ -182,7 +180,7 @@ export default function VitalSignsDialog({ children, patient }) {
                             </div>
 
 
-                            <Separator />
+                        
 
                             {/* Heart Rate */}
                             <div className="mb-4">
@@ -199,7 +197,7 @@ export default function VitalSignsDialog({ children, patient }) {
                                 {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
                             </div>
 
-                            <Separator />
+                        
 
                             {/* SpO₂ */}
                             <div className="mb-4">
@@ -217,7 +215,7 @@ export default function VitalSignsDialog({ children, patient }) {
                                 {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
                             </div>
 
-                            <Separator />
+                        
 
                             {/* Date */}
                             <div>
