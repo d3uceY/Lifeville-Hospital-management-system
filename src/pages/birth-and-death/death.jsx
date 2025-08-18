@@ -52,32 +52,6 @@ import EditDeathDialog from "./components/editDeathDialog"
 
 const columns = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-                className="checkbox"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-                className="checkbox"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    // {
-    //   accessorKey: "status",
-    //   header: "Status",
-    //   cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
-    // },
-    {
         accessorKey: "id",
         header: ({ column }) => (
             <Button
@@ -89,7 +63,7 @@ const columns = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">DREF-{row.getValue("id")}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700 ml-3">DREF-{row.getValue("id")}</div>,
     },
     {
         accessorKey: "hospital_number",

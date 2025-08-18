@@ -52,32 +52,6 @@ import DeleteBirthRecordDialog from "./components/deleteBirthRecord"
 
 const columns = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")}
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-                className="checkbox"
-            />
-        ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-                className="checkbox"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
-    },
-    // {
-    //   accessorKey: "status",
-    //   header: "Status",
-    //   cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
-    // },
-    {
         accessorKey: "birth_id",
         header: ({ column }) => (
             <Button
@@ -89,7 +63,7 @@ const columns = [
                 <ArrowUpDown className="ml-2 h-4 w-4" />
             </Button>
         ),
-        cell: ({ row }) => <div className="font-medium text-gray-700">BREF-{row.getValue("birth_id")}</div>,
+        cell: ({ row }) => <div className="font-medium text-gray-700 ml-3">BREF-{row.getValue("birth_id")}</div>,
     },
     {
         accessorKey: "child_name",
@@ -347,7 +321,7 @@ export default function Births() {
                     </div>
 
                     <div className="rounded-md border overflow-x-scroll shadow-sm">
-                        <Table className="w-full">
+                        <Table className="block max-w-[600px]">
                             <TableHeader className="bg-[#f0f8f4]">
                                 {table.getHeaderGroups().map((headerGroup) => (
                                     <TableRow key={headerGroup.id} className="">
