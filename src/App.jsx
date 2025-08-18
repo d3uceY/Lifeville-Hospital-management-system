@@ -20,7 +20,6 @@ const AddInpatient = lazy(() => import('./pages/patient-management/AddInpatient'
 const Overview = lazy(() => import('./pages/dashboard/Overview'));
 const PatientProfile = lazy(() => import('./pages/patient-management/patientProfile'));
 const UpcomingAppointments = lazy(() => import('./pages/appointments/Appointments'));
-const Settings = lazy(() => import('./pages/settings/settings'));
 const EditPatientProfile = lazy(() => import('./pages/patient-management/EditPatientProfile'));
 const Deaths = lazy(() => import('./pages/birth-and-death/death'));
 const Births = lazy(() => import('./pages/birth-and-death/birth'));
@@ -86,9 +85,6 @@ function App() {
 
                       {/* Appointments */}
                       <Route path="appointments" element={<UpcomingAppointments />} />
-
-                      {/* Settings */}
-                      <Route path="settings" element={<Settings />} />
 
                       {/* Symptoms */}
                       <Route path="symptom-types" element={<SymptomTypes />} />

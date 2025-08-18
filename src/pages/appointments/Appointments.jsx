@@ -183,7 +183,7 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div className="font-medium text-gray-700">{row.original.doctor_last_name} {row.original.doctor_first_name}</div>,
+    cell: ({ row }) => <div className="font-medium text-gray-700">{row.original.doctor_name}</div>,
   },
 
   {

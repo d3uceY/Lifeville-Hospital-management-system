@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button"
 import { registerPatient } from "../../providers/ApiProviders"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
+import { FormHeader } from "../../components/form-header"
 
 export default function Register() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -35,19 +36,19 @@ export default function Register() {
         sex: z.string().nonempty({ message: "Sex is required" }),
         dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
         phoneNumber: z
-        .string()
-        .nonempty({ message: "Phone number is required" })
-        .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+            .string()
+            .nonempty({ message: "Phone number is required" })
+            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         address: z.string().nonempty({ message: "Address is required" }),
         nationality: z.string().nonempty({ message: "Nationality is required" }),
         nextOfKin: z.string().nonempty({ message: "Next of kin is required" }),
         relationship: z.string().nonempty({ message: "Relationship is required" }),
         nextOfKinPhoneNumber: z
-        .string()
-        .nonempty({ message: "Next of kin phone number is required" })
-        .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
+            .string()
+            .nonempty({ message: "Next of kin phone number is required" })
+            .regex(/^\+?\d{7,15}$/, { message: "Enter a valid phone number (7-15 digits, optional +)" }),
         addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
-        
+
         // Optional Fields
         otherNames: z.string().optional(),
         maritalStatus: z.string().optional(),
@@ -128,7 +129,7 @@ export default function Register() {
         }
 
         toast.promise(promise(), {
-            loading: 'Registering patient...', 
+            loading: 'Registering patient...',
             success: "Patient registered successfully",
             error: (err) => `An error occurred (${err?.response?.data?.message}, ${err?.message})`
         });
@@ -136,6 +137,7 @@ export default function Register() {
 
     return (
         <div className="container mx-auto py-8 px-4 max-w-5xl">
+            <FormHeader title="Register Patient" description="Fill in the details to register a new patient" />
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Floating Edit Indicator */}
                 <div className="absolute -right-4 top-0 bg-amber-400 text-white px-3 py-1.5 rounded-l-md shadow-md transform rotate-90 origin-right translate-y-16 font-medium">
@@ -180,7 +182,7 @@ export default function Register() {
                             </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2 text-gray-700 flex items-center gap-2" htmlFor="hospital_number">
-                                     <span className="text-red-500">*</span>Hospital Number
+                                    <span className="text-red-500">*</span>Hospital Number
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -258,7 +260,7 @@ export default function Register() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div>
                                 <Label className="text-sm font-medium mb-2 block text-gray-700 flex items-center gap-2" htmlFor="sex">
-                                  <span className="text-red-500">*</span>  Sex
+                                    <span className="text-red-500">*</span>  Sex
                                 </Label>
                                 <Controller
                                     name="sex"
@@ -309,7 +311,7 @@ export default function Register() {
                             </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="date_of_birth">
-                                 <span className="text-red-500">*</span>   Date of Birth
+                                    <span className="text-red-500">*</span>   Date of Birth
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -333,7 +335,7 @@ export default function Register() {
                         </div>
                         <div className="mt-6">
                             <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="address">
-                               <span className="text-red-500">*</span> Address
+                                <span className="text-red-500">*</span> Address
                             </Label>
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
@@ -423,7 +425,7 @@ export default function Register() {
                             </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="nationality">
-                                   <span className="text-red-500">*</span> Nationality
+                                    <span className="text-red-500">*</span> Nationality
                                 </Label>
                                 <Controller
                                     name="nationality"
@@ -479,7 +481,7 @@ export default function Register() {
                         <div className="grid md:grid-cols-3 gap-6">
                             <div>
                                 <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin">
-                                   <span className="text-red-500">*</span> Next of Kin
+                                    <span className="text-red-500">*</span> Next of Kin
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -490,7 +492,7 @@ export default function Register() {
                             </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="relationship">
-                                   <span className="text-red-500">*</span> Relationship
+                                    <span className="text-red-500">*</span> Relationship
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -501,7 +503,7 @@ export default function Register() {
                             </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin_phone">
-                                   <span className="text-red-500">*</span> Phone Number
+                                    <span className="text-red-500">*</span> Phone Number
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -515,7 +517,7 @@ export default function Register() {
                         </div>
                         <div className="mt-6">
                             <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="next_of_kin_address">
-                               <span className="text-red-500">*</span> Address of Next of Kin
+                                <span className="text-red-500">*</span> Address of Next of Kin
                             </Label>
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"

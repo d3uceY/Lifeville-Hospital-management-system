@@ -88,6 +88,8 @@ export default function ScheduleAppointmentDialog() {
     const { patientData, loading, refreshPatients } = usePatientData();
     const { doctors, loadingDoctors, refreshDoctors } = useDoctorData();
 
+    console.log(doctors)
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
@@ -191,9 +193,8 @@ export default function ScheduleAppointmentDialog() {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {doctors.map((doctor) => (
-                                                    <SelectItem key={doctor.doctor_id} value={`${doctor.doctor_id}`}>
-                                                        {doctor.first_name} {doctor.last_name} {" "}
-                                                        ({doctor.specialty})
+                                                    <SelectItem key={doctor.id} value={`${doctor.id}`}>
+                                                        {doctor?.name}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
