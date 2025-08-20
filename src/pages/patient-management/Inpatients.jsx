@@ -19,7 +19,6 @@ import {
 import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Activity, Search, Filter, FileText, History, BedIcon, FilePlus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -117,7 +116,7 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div className="capitalize font-medium">{row.original.consultant_doctor_first_name} {row.original.consultant_doctor_last_name}</div>,
+    cell: ({ row }) => <div className="capitalize font-medium">{row.original.consultant_doctor_name}</div>,
   },
   {
     accessorKey: "bed",
@@ -266,6 +265,9 @@ export default function Patients() {
   const [columnFilters, setColumnFilters] = React.useState([])
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
+
+  console.log(inpatientAdmissions)
+
 
   const table = useReactTable({
     data: inpatientAdmissions,

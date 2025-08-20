@@ -376,6 +376,11 @@ export const getInpatients = async () => {
   return response.data;
 };
 
+export const getInpatientByPatientId = async (patientId) => {
+  const response = await api.get(`/inpatients/${patientId}/admissions`);
+  return response.data;
+}
+
 export const getInpatient = async (inpatientId) => {
   const response = await api.get(`/inpatients/${inpatientId}`);
   return response.data;

@@ -18,26 +18,24 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
-import { usePatientData, useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../providers/ApiContextProvider"
-import { createInpatient } from "../../providers/ApiProviders"
-import { useNavigate } from "react-router-dom"
-import { useInpatientAdmissions } from "../../providers/ApiContextProvider"
+import { useDoctorData, useBeds, useSymptomTypes, useSymptomHeads } from "../../../providers/ApiContextProvider"
+import { createInpatient } from "../../../providers/ApiProviders"
+import { useNavigate, useParams } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
+import { formatForDateInput } from "../../../helpers/formatForDateInput"
 
-// Format date from this 2023-09-30T23:00:00.000Z to this 2023-09-30
-import { formatForDateInput } from "../../helpers/formatForDateInput"
-
-export default function AddInpatient() {
+export default function AddAdmissionForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [selectedSymptomTypes, setSelectedSymptomTypes] = useState([]);
     const [selectedSymptomHeads, setSelectedSymptomHeads] = useState([]);
     const [symptomsDescription, setSymptomsDescription] = useState("");
-    const { patientData } = usePatientData()
     const { doctors } = useDoctorData()
     const { beds } = useBeds()
     const { symptomTypes } = useSymptomTypes()
     const { symptomHeads } = useSymptomHeads()
     const navigate = useNavigate();
-    const { refreshInpatientAdmissions } = useInpatientAdmissions()
+    const { patient_id } = useParams()
+    const queryClient = useQueryClient()
 
     // Form validation schema
     const schema = z.object({
@@ -55,13 +53,11 @@ export default function AddInpatient() {
 
 
 
-    //form methods that are going to be parsed throughout the form tree
     const methods = useForm({
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            // Basic Information
-            patientId: "",
+            patientId: patient_id,
             consultantDoctorId: "",
             admissionDate: formatForDateInput(new Date()),
             note: "",
@@ -73,21 +69,19 @@ export default function AddInpatient() {
         },
     })
 
-    //this is destructured from the methods variable
     const {
         handleSubmit,
         formState: { isValid, errors },
         register,
+        reset,
         control,
         setValue,
         watch,
     } = methods
 
 
-    // Watch symptom description to keep our state in sync
     const watchedSymptomsDescription = watch("symptomsDescription");
 
-    // Update the form's symptom description whenever our state changes
     useEffect(() => {
 
         setValue("symptomsDescription", symptomsDescription);
@@ -176,8 +170,11 @@ export default function AddInpatient() {
             try {
                 setIsSubmitting(true)
                 const response = await createInpatient(payload)
-                navigate('/inpatients')
-                refreshInpatientAdmissions()
+                // navigate('/inpatients')
+                queryClient.invalidateQueries({
+                    queryKey: ['admissions', patient_id],
+                })
+                reset()
                 return response;
             } catch (err) {
                 console.error(err)
@@ -188,21 +185,14 @@ export default function AddInpatient() {
         }
 
         toast.promise(promise(), {
-            loading: 'Adding inpatient...',
+            loading: 'Adding inpatient admission...',
             success: (data) => `${data.message}`,
             error: (err) => `An error occurred (${err?.response?.data?.message}, ${err?.message})`
         });
     }
 
     return (
-        <div className="container mx-auto py-8 px-4 max-w-5xl">
-            <title>Lifeville HMS - Add Inpatient</title>
-            <div className="mb-8 border-l-4  pl-4 bg-[#f0f8f4] p-4 rounded-r-md shadow-sm">
-                <h1 className="text-3xl font-bold ">
-                    Add Inpatient
-                </h1>
-            </div>
-
+        <div className="container mx-auto pb-8 max-w-6xl">
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Inpatient Information */}
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
@@ -213,33 +203,6 @@ export default function AddInpatient() {
                     </CardHeader>
                     <CardContent>
                         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="patientId">
-                                    Patient
-                                </Label>
-                                <Controller
-                                    name="patientId"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger className="w-full border-[#268a6477] bg-gray-50">
-                                                <SelectValue placeholder="Select patient" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>Patients</SelectLabel>
-                                                    {patientData?.map((patient) => (
-                                                        <SelectItem key={patient.patient_id} value={`${patient.patient_id}`}>
-                                                            {patient.first_name} {patient.surname} ({patient.hospital_number})
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
-                                    )}
-                                />
-                                {errors.patientId && <p className="text-red-500 text-sm mt-1">{errors.patientId.message}</p>}
-                            </div>
                             <div>
                                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="admission_date">
                                     Admission Date
@@ -333,7 +296,7 @@ export default function AddInpatient() {
                                 </div>
                             </div>
                             {errors.symptomTypes && <p className="text-red-500 text-sm mt-1">{errors.symptomTypes.message}</p>}
-                            {/* keep RHF aware of your array */}
+                            {/* keep RHF aware of the array */}
                             <input type="hidden" {...register("symptomTypes")} />
                         </div>
 
@@ -432,7 +395,7 @@ export default function AddInpatient() {
                         disabled={!isValid || isSubmitting}
                         className="px-6 py-2 bg-[#106041] text-white rounded-md hover:bg-[#106041]/80 flex items-center gap-2"
                     >
-                        Add Inpatient
+                        Add Inpatient admission
                     </Button>
                 </div>
             </form>

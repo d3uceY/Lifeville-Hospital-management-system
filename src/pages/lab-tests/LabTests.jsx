@@ -49,6 +49,7 @@ export default function LabTests() {
     }
   }
 
+
   // Filter the data based on current filters
 
   return (
@@ -101,7 +102,7 @@ export default function LabTests() {
               <TableBody>
                 {data?.data?.length ? (
                   data?.data.map((test) => (
-                    <TableRow key={test.test_id}>
+                    <TableRow key={test.lab_test_id}>
                       <TableCell className="font-medium">TST-{test.lab_test_id}</TableCell>
                       <TableCell>{`${test.surname} ${test.first_name}`}</TableCell>
                       <TableCell>{test.hospital_number}</TableCell>
