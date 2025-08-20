@@ -47,6 +47,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { hasPermission } from "../../helpers/hasPermission";
 import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 import DeleteAlertDialog from "./components/deleteAlertDialog";
+import { getAge } from "../../helpers/getAge";
 
 const columns = [
   {
@@ -133,10 +134,8 @@ const columns = [
       </Button>
     ),
     cell: ({ row }) => {
-      const dob = new Date(row.getValue("date_of_birth"))
-      const diffMs = Date.now() - dob.getTime()
-      const ageDate = new Date(diffMs)
-      const age = Math.abs(ageDate.getUTCFullYear() - 1970)
+      const dob = row.getValue("date_of_birth")
+      const age = getAge(dob)
       return <div className="font-medium text-center">{age}</div>
     },
   },
@@ -203,10 +202,10 @@ const columns = [
               {
                 hasPermission(["superadmin"]) && (
                   <>
-                  <DropdownMenuSeparator />
-                  <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
-                    Delete Patient Record
-                  </DeleteAlertDialog>
+                    <DropdownMenuSeparator />
+                    <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
+                      Delete Patient Record
+                    </DeleteAlertDialog>
                   </>
                 )
               }

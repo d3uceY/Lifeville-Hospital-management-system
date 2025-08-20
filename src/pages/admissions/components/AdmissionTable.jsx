@@ -7,17 +7,17 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube, Hospital, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
-import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge";
 import { getInpatientByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
-// import { LabTestResultDialog } from "./LabTestResultDialog";
-
+import { ViewAdmissionDialog } from "./ViewAdmissionDialog";
+import { DeleteAdmissionDialog } from "./DeleteAdmissionDialog";
+import { hasPermission } from "../../../helpers/hasPermission";
 
 
 
@@ -89,14 +89,28 @@ const columns = [
             const admission = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="action-edit-btn"
-                        onClick={() => console.log("View admission details", admission)}
-                    >
-                        <Eye className="h-4 w-4" />
-                    </Button>
+                    <ViewAdmissionDialog admission={admission}>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            className="action-edit-btn"
+                        >
+                            <Eye className="h-4 w-4" />
+                        </Button>
+                    </ViewAdmissionDialog>
+                    {
+                        hasPermission(["superadmin", "doctor"]) && (
+                            <DeleteAdmissionDialog admission={admission}>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="action-delete-btn"
+                                >
+                                    <Trash2 className="h-4 w-4" />
+                                </Button>
+                            </DeleteAdmissionDialog>
+                        )
+                    }
                 </div>
             );
         },
@@ -145,8 +159,8 @@ export default function AdmissionTable() {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <TestTube className="h-5 w-5" />
-                        Lab Test Analysis
+                        <Hospital className="h-5 w-5" />
+                        Admissions
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="md:p-6">
@@ -175,7 +189,7 @@ export default function AdmissionTable() {
                                 ) : (
                                     <TableRow>
                                         <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
-                                            No Lab Tests Available
+                                            No Admissions Available
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -183,7 +197,7 @@ export default function AdmissionTable() {
                         </Table>
                         <div className="flex items-center justify-end space-x-2 py-4 px-6  border-t ">
                             <div className="flex-1 text-sm text-gray-500">
-                                {table.getFilteredRowModel().rows.length} lab test(s)
+                                {table.getFilteredRowModel().rows.length} admissions(s)
                             </div>
                             <div className="space-x-2 flex">
                                 <Button size="sm" className="bg-[#106041] text-white" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
