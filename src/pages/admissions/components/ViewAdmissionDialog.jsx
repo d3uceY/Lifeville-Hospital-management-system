@@ -21,6 +21,7 @@ import {
     Download
 } from "lucide-react";
 import { formatDate } from "../../../helpers/formatDate";
+import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
 
 export function ViewAdmissionDialog({ admission, children }) {
     return (
@@ -64,9 +65,9 @@ export function ViewAdmissionDialog({ admission, children }) {
                             <CardContent className="pt-4 space-y-3">
                                 <InfoField label="Admission Date" value={formatDate(admission.admission_date)} />
                                 <InfoField label="Consultant Doctor" value={admission.consultant_doctor_name} />
-                                <InfoField label="Discharge Condition" value={admission.discharge_condition} />
                                 <InfoField label="Bed Number" value={admission.bed_number} />
                                 <InfoField label="Bed Group" value={admission.bed_group || "Not assigned"} />
+                                <InfoField label="Discharge Condition" value={getDischargeConditionBadge(admission.discharge_condition)} />
                             </CardContent>
                         </Card>
                     </div>

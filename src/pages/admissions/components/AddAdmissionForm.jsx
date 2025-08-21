@@ -23,6 +23,7 @@ import { createInpatient } from "../../../providers/ApiProviders"
 import { useNavigate, useParams } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query"
 import { formatForDateInput } from "../../../helpers/formatForDateInput"
+import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
 
 export default function AddAdmissionForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -59,7 +60,7 @@ export default function AddAdmissionForm() {
         defaultValues: {
             patientId: patient_id,
             consultantDoctorId: "",
-            admissionDate: formatForDateInput(new Date()),
+            admissionDate: formatDateForDateTimeLocal(new Date()),
             note: "",
             previousMedicalIssue: "",
             symptomsDescription: "",
@@ -187,7 +188,7 @@ export default function AddAdmissionForm() {
         toast.promise(promise(), {
             loading: 'Adding inpatient admission...',
             success: (data) => `${data.message}`,
-            error: (err) => `An error occurred (${err?.response?.data?.message}, ${err?.message})`
+            error: (err) => `${err?.response?.data?.message}, ${err?.message})`
         });
     }
 
@@ -210,7 +211,7 @@ export default function AddAdmissionForm() {
                                 <Input
                                     className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                     id="admission_date"
-                                    type="date"
+                                    type="datetime-local"
                                     {...register("admissionDate")}
                                 />
                                 {errors.admissionDate && <p className="text-red-500 text-sm mt-1">{errors.admissionDate.message}</p>}
@@ -384,12 +385,6 @@ export default function AddAdmissionForm() {
                 </Card>
 
                 <div className="text-right mt-8 flex items-center justify-end gap-4">
-                    <button
-                        type="button"
-                        className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-                    >
-                        Cancel
-                    </button>
                     <Button
                         type="submit"
                         disabled={!isValid || isSubmitting}

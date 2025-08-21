@@ -404,6 +404,12 @@ export const deleteInpatient = async (inpatientId) => {
   return response.data;
 };
 
+export const dischargeInpatient = async (dischargeData) => {
+  const { admission_id } = dischargeData;
+  const response = await api.post(`/inpatients/${admission_id}/discharge`, dischargeData);
+  return response.data;
+};
+
 
 /* ============================
 API Helper function here for BILLS

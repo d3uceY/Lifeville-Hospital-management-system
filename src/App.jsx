@@ -44,7 +44,7 @@ const ProfileBill = lazy(() => import('./pages/ProfileBill/ProfileBill'));
 const Users = lazy(() => import('./users/Users'));
 const DoctorNotes = lazy(() => import('./pages/doctor-notes/DoctorNotes'));
 const NurseNotes = lazy(() => import('./pages/nurse-notes/NurseNotes'));
-const Admissions = lazy(() => import('./pages/admissions/Admissions'));
+const Admissions = lazy(() => import('./pages/admissions/admissions'));
 
 function App() {
   const queryClient = new QueryClient()

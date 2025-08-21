@@ -7,7 +7,7 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Eye, Filter, TestTube, Hospital, Trash2 } from "lucide-react";
+import { ArrowUpDown, Eye, Hospital, Trash2, DoorOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,8 +18,8 @@ import { useParams } from "react-router-dom";
 import { ViewAdmissionDialog } from "./ViewAdmissionDialog";
 import { DeleteAdmissionDialog } from "./DeleteAdmissionDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
-
-
+import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
+import DischargeDialog from "./AdmissionDischargeDialog";
 
 const columns = [
     {
@@ -49,19 +49,14 @@ const columns = [
         cell: ({ row }) => <div className="capitalize">{row.getValue("patient_name")}</div>,
     },
     {
-        accessorKey: "sex",
-        header: "Sex",
-        cell: ({ row }) => <div className="capitalize">{row.getValue("sex")}</div>,
-    },
-    {
-        accessorKey: "date_of_birth",
-        header: "Date of Birth",
-        cell: ({ row }) => <div>{formatDate(row.getValue("date_of_birth"))}</div>,
-    },
-    {
         accessorKey: "admission_date",
         header: "Admission Date",
         cell: ({ row }) => <div>{formatDate(row.getValue("admission_date"))}</div>,
+    },
+    {
+        accessorKey: "end_date",
+        header: "End Date",
+        cell: ({ row }) => <div>{formatDate(row.getValue("end_date"))}</div>,
     },
     {
         accessorKey: "consultant_doctor_name",
@@ -78,9 +73,9 @@ const columns = [
         ),
     },
     {
-        accessorKey: "symptom_types",
-        header: "Symptoms",
-        cell: ({ row }) => <div className="truncate max-w-[150px]">{row.getValue("symptom_types")}</div>,
+        accessorKey: "discharge_condition",
+        header: "Discharge Condition",
+        cell: ({ row }) => <div className="truncate max-w-[150px]">{getDischargeConditionBadge(row.getValue("discharge_condition"))}</div>,
     },
     {
         id: "actions",
@@ -111,6 +106,19 @@ const columns = [
                             </DeleteAdmissionDialog>
                         )
                     }
+                    {
+                        (hasPermission(["superadmin", "doctor"]) && admission.discharge_conditon == "on admission") && (
+                            <DischargeDialog admissionId={admission.id}>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="action-edit-btn"
+                                >
+                                    <DoorOpen className="h-4 w-4" />
+                                </Button>
+                            </DischargeDialog>
+                        )
+                    }
                 </div>
             );
         },
@@ -120,13 +128,14 @@ const columns = [
 export default function AdmissionTable() {
     const { patient_id } = useParams();
 
-
     const { data: admissions, isLoading: loadingAdmissions } = useQuery(
         {
             queryKey: ['admissions', patient_id],
             queryFn: () => getInpatientByPatientId(patient_id)
         }
     );
+
+    console.log(admissions)
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);
