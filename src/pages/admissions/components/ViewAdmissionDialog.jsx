@@ -18,12 +18,23 @@ import {
     ClipboardList,
     Stethoscope,
     Bed,
-    Download
+    Download,
+    UserX,
+    FileText,
+    Activity
 } from "lucide-react";
 import { formatDate } from "../../../helpers/formatDate";
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
+import { getDischarSummaryByAdmissionId } from "../../../providers/ApiProviders";
+import { useQuery } from "@tanstack/react-query";
 
 export function ViewAdmissionDialog({ admission, children }) {
+    const { data: dischargeSummary } = useQuery({
+        queryKey: ["discharge-summary", admission.id],
+        queryFn: () => getDischarSummaryByAdmissionId(admission.id),
+    })
+    
+   
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
@@ -65,12 +76,110 @@ export function ViewAdmissionDialog({ admission, children }) {
                             <CardContent className="pt-4 space-y-3">
                                 <InfoField label="Admission Date" value={formatDate(admission.admission_date)} />
                                 <InfoField label="Consultant Doctor" value={admission.consultant_doctor_name} />
-                                <InfoField label="Bed Number" value={admission.bed_number} />
-                                <InfoField label="Bed Group" value={admission.bed_group || "Not assigned"} />
+                                <InfoField label="Bed" value={admission.bed_number} />
                                 <InfoField label="Discharge Condition" value={getDischargeConditionBadge(admission.discharge_condition)} />
                             </CardContent>
                         </Card>
                     </div>
+
+                    {/* Discharge Summary Section */}
+                    {dischargeSummary && dischargeSummary.length > 0 && (
+                        <Card className="border-red-200 pt-0">
+                            <CardHeader className="pb-3 pt-6 bg-red-50 border-b">
+                                <CardTitle className="flex items-center gap-2 text-lg">
+                                    <UserX className="h-4 w-4" />
+                                    Discharge Summary
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-4">
+                                {dischargeSummary.map((discharge, index) => (
+                                    <div key={discharge.id || index} className="space-y-6">
+                                        {/* Discharge Overview */}
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <div className="space-y-3">
+                                                <InfoField 
+                                                    label="Discharge Date & Time" 
+                                                    value={formatDate(discharge.discharge_date_time)} 
+                                                />
+                                                <InfoField 
+                                                    label="Condition at Discharge" 
+                                                    value={getDischargeConditionBadge(discharge.condition)} 
+                                                />
+                                                <InfoField 
+                                                    label="Discharging Doctor" 
+                                                    value={discharge.doctor_name} 
+                                                />
+                                                <InfoField 
+                                                    label="Recorded By" 
+                                                    value={discharge.recorded_by} 
+                                                />
+                                            </div>
+                                            <div className="space-y-3">
+                                                <InfoField 
+                                                    label="Final Diagnosis" 
+                                                    value={discharge.final_diagnosis} 
+                                                />
+                                                <InfoField 
+                                                    label="Outcome" 
+                                                    value={discharge.outcome} 
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Detailed Information */}
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <Card className="border-gray-200 pt-0">
+                                                <CardHeader className="pb-3 pt-4 bg-gray-50">
+                                                    <CardTitle className="flex items-center gap-2 text-base">
+                                                        <FileText className="h-4 w-4" />
+                                                        Clinical Details
+                                                    </CardTitle>
+                                                </CardHeader>
+                                                <CardContent className="pt-4 space-y-3">
+                                                    <InfoField 
+                                                        label="Diagnosis Details" 
+                                                        value={discharge.diagnosis_details} 
+                                                    />
+                                                    <InfoField 
+                                                        label="Treatment Given" 
+                                                        value={discharge.treatment_given} 
+                                                    />
+                                                </CardContent>
+                                            </Card>
+
+                                            <Card className="border-gray-200 pt-0">
+                                                <CardHeader className="pb-3 pt-4 bg-gray-50">
+                                                    <CardTitle className="flex items-center gap-2 text-base">
+                                                        <Activity className="h-4 w-4" />
+                                                        Follow-up Care
+                                                    </CardTitle>
+                                                </CardHeader>
+                                                <CardContent className="pt-4 space-y-3">
+                                                    <InfoField 
+                                                        label="Follow-up Instructions" 
+                                                        value={discharge.follow_up} 
+                                                    />
+                                                    <InfoField 
+                                                        label="Discharge Summary Created" 
+                                                        value={formatDate(discharge.created_at)} 
+                                                    />
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+
+                                        {/* Add separator if there are multiple discharge records */}
+                                        {dischargeSummary.length > 1 && index < dischargeSummary.length - 1 && (
+                                            <div className="border-t pt-4 mt-6">
+                                                <p className="text-sm text-gray-500 text-center">
+                                                    Previous Discharge Record
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
+                    )}
 
                     {/* Medical Info */}
                     <div className="grid md:grid-cols-2 gap-6">
@@ -124,6 +233,14 @@ export function ViewAdmissionDialog({ admission, children }) {
                                     subtitle={`Consulted by Dr. ${admission.consultant_doctor_name}`}
                                 />
 
+                                {dischargeSummary && dischargeSummary.length > 0 && (
+                                    <TimelineItem
+                                        title="Patient Discharged"
+                                        date={dischargeSummary[0].discharge_date_time}
+                                        subtitle={`Discharged by Dr. ${dischargeSummary[0].doctor_name} - Condition: ${dischargeSummary[0].condition}`}
+                                    />
+                                )}
+
                                 {admission.updated_at && (
                                     <TimelineItem
                                         title="Last Updated"
@@ -144,6 +261,15 @@ export function ViewAdmissionDialog({ admission, children }) {
                             <Download className="h-4 w-4 mr-2" />
                             Download Admission Record
                         </Button>
+                        {dischargeSummary && dischargeSummary.length > 0 && (
+                            <Button
+                                variant="outline"
+                                className="border-red-200 hover:bg-red-50 text-red-600 bg-transparent"
+                            >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download Discharge Summary
+                            </Button>
+                        )}
                     </div>
                 </div>
             </DialogContent>

@@ -84,9 +84,9 @@ export default function VitalSignsDialog({ children, patient }) {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-2">
+            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-0">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+                    <Card className="pt-0 mb-0 shadow-sm border-t-4 border-t-[#106041]">
                         <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
                             <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                                 <Activity size={20} />

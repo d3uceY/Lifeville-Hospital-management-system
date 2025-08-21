@@ -410,6 +410,10 @@ export const dischargeInpatient = async (dischargeData) => {
   return response.data;
 };
 
+export const getDischarSummaryByAdmissionId = async (admissionId) => {
+  const response = await api.get(`/inpatients/${admissionId}/discharge-summary`);
+  return response.data;
+}
 
 /* ============================
 API Helper function here for BILLS

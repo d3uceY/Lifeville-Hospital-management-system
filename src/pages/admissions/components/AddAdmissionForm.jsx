@@ -203,7 +203,7 @@ export default function AddAdmissionForm() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-6">
                             <div>
                                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="admission_date">
                                     Admission Date

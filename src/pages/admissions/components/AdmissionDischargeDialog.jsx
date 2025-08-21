@@ -93,6 +93,9 @@ export default function DischargeDialog({ admissionId, children, patient }) {
                 queryClient.invalidateQueries({
                     queryKey: ["admissions", patient_id],
                 })
+                queryClient.invalidateQueries({
+                    queryKey: ["discharge-summary", admissionId],
+                })
                 setOpen(false)
                 reset()
                 return response
@@ -127,7 +130,7 @@ export default function DischargeDialog({ admissionId, children, patient }) {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[700px] max-h-[80vh] overflow-y-auto !p-0">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-red-600">
+                    <Card className="pt-0 shadow-sm border-t-4 border-t-red-600">
                         <CardHeader className="bg-red-50 border-b flex items-center justify-between">
                             <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                                 <UserX size={20} />

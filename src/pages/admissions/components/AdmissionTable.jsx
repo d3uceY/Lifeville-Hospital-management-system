@@ -107,7 +107,7 @@ const columns = [
                         )
                     }
                     {
-                        (hasPermission(["superadmin", "doctor"]) && admission.discharge_conditon == "on admission") && (
+                        (hasPermission(["superadmin", "doctor"]) && admission.discharge_condition == "on admission") && (
                             <DischargeDialog admissionId={admission.id}>
                                 <Button
                                     variant="outline"
