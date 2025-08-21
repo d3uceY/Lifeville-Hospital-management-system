@@ -135,7 +135,6 @@ export default function AdmissionTable() {
         }
     );
 
-    console.log(admissions)
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);

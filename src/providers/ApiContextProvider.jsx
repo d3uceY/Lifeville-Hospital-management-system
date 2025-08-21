@@ -53,7 +53,6 @@ export function AppDataProvider({ children }) {
   const bedTypesQ = useQuery({ queryKey: ['bedTypes'], queryFn: getBedTypes });
   const labTestTypesQ = useQuery({ queryKey: ['labTestTypes'], queryFn: getLabTestTypes });
 
-  console.log(patientsQ.data)
   
   return (
     <AppointmentsContext.Provider value={{

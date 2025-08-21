@@ -266,7 +266,6 @@ export default function Patients() {
   const [columnVisibility, setColumnVisibility] = React.useState({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  console.log(inpatientAdmissions)
 
 
   const table = useReactTable({

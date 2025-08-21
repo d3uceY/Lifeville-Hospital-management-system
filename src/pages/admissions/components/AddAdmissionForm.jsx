@@ -193,7 +193,7 @@ export default function AddAdmissionForm() {
     }
 
     return (
-        <div className="container mx-auto pb-8 max-w-6xl">
+        <div className="container mx-auto pb-8">
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Inpatient Information */}
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
