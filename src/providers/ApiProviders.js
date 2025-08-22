@@ -612,6 +612,16 @@ export const getDiagnosesByPatientId = async (patientId) => {
   return response.data;
 }
 
+export const updateDiagnoses = async (diagnosesId, diagnosesData) => {
+  const response = await api.put(`/diagnoses/${diagnosesId}`, diagnosesData);
+  return response.data;
+}
+
+export const deleteDiagnoses = async (diagnosesId) => {
+  const response = await api.delete(`/diagnoses/${diagnosesId}`);
+  return response.data;
+}
+
 /* ============================
 API Helper function here for PRESCRIPTIONS
 ============================ */

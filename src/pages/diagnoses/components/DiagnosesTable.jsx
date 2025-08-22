@@ -23,6 +23,7 @@ import { getDiagnosesByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
 import { ViewDiagnosisDialog } from "./ViewDiagnosisDialog";
+import DeleteDiagnosisDialog from "./DeleteDiagnosisDialog";
 
 const columns = [
   {
@@ -79,6 +80,7 @@ const columns = [
               <Eye className="h-4 w-4" />
             </Button>
           </ViewDiagnosisDialog>
+          <DeleteDiagnosisDialog deletedDiagnosisRecordInfo={diagnosis} />
         </div>
       );
     },
@@ -92,6 +94,8 @@ export default function DiagnosesTable() {
     queryKey: ["diagnoses", patient_id],
     queryFn: () => getDiagnosesByPatientId(patient_id),
   });
+
+  console.log(diagnoses)
 
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);
