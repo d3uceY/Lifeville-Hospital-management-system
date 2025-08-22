@@ -1,18 +1,16 @@
 import React from "react"
+import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 import { formatDate } from "../../helpers/formatDate"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { User2, Filter, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, ChevronDown } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import AppointmentDropdownOptions from "./components/AppointmentDropdownOptions"
@@ -20,15 +18,7 @@ import AppointmentDropdownOptions from "./components/AppointmentDropdownOptions"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { getAppointmentStatusColor } from "../../helpers/getAppointmentStatusColor"
-
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+import { getAppointments } from "../../providers/ApiProviders"
 
 import {
   Select,
@@ -40,174 +30,49 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
-import { useAppointmentsData } from "../../providers/ApiContextProvider"
-
-import { filterAppointmentByWhen } from "../../helpers/filterAppointmentByWhen"
-
-
-
-const columns = [
-
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => <div className="capitalize">{row.getValue("status")}</div>,
-  // },
-  {
-    accessorKey: "appointment_id",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Appointment ID
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="font-medium text-gray-700 ml-2">APD-{row.getValue("appointment_id")}</div>,
-  },
-  {
-    accessorKey: "patient_first_name",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        First name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="capitalize font-medium">{row.original.patient_first_name}</div>,
-  },
-
-  {
-    accessorKey: "patient_surname",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Last name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("patient_surname")}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Status
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => {
-      const statusColor = getAppointmentStatusColor(row.original.status)
-      return (
-        <Badge className={`mt-1 ${statusColor} capitalize`}>{row.original.status}</Badge>
-      )
-    }
-  },
-
-  {
-    accessorKey: "appointment_date",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Scheduled Date
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    filterFn: (row, _, filterValue) => {
-      const appointmentDateStr = row.getValue("appointment_date")
-      if (!filterValue) return true // If no filter is set, show all rows
-      return filterAppointmentByWhen(appointmentDateStr, filterValue)
-    },
-    cell: ({ row }) => <div className="capitalize font-medium">{formatDate(row.getValue("appointment_date"))}</div>,
-  },
-  {
-    accessorKey: "patient_phone_number",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Phone no.
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="font-medium text-gray-700">{row.getValue("patient_phone_number")}</div>,
-  },
-  {
-    accessorKey: "doctor's name",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="font-medium text-gray-700 hover:"
-      >
-        Doctor Name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="font-medium text-gray-700">{row.original.doctor_name}</div>,
-  },
-
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const appointmentData = row.original
-      return (
-        <div>
-          <AppointmentDropdownOptions appointment={appointmentData} />
-        </div>
-      )
-    },
-  },
-]
-
-
 
 export default function DoctorAppointmentsUI() {
-  const { appointments } = useAppointmentsData();
-  const [sorting, setSorting] = React.useState([])
-  const [columnFilters, setColumnFilters] = React.useState([])
-  const [columnVisibility, setColumnVisibility] = React.useState({})
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
 
-  const table = useReactTable({
-    data: appointments,
-    columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: { sorting, columnFilters, columnVisibility, rowSelection },
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState("")
+  const [term, setTerm] = useState("")
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["appointments", page, pageSize, searchTerm],
+    queryFn: () => getAppointments(page, pageSize, searchTerm),
   })
 
-  return (
+  const handleSearchTermChange = (value) => {
+    setTerm(value)
+    setTimeout(() => {
+      setSearchTerm(value)
+      setPage(1) // Reset to first page when searching
+    }, 1500)
+  }
 
+  if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1)
+    }
+  }
+
+  const handleNextPage = () => {
+    if (page < data?.totalPages) {
+      setPage(page + 1)
+    }
+  }
+
+  // Filter the data based on current filters
+
+  return (
     <div>
       <div className="lg:p-6">
-        <Card className=" shadow-sm py-0 overflow-hidden">
+        <Card className="shadow-sm py-0 overflow-hidden">
           <CardHeader className="pb-3 border-b flex items-center justify-between bg-[#f0f8f4] pt-6">
             <CardTitle className="flex items-center gap-2">
               <User2 className="h-5 w-5" />
@@ -216,198 +81,116 @@ export default function DoctorAppointmentsUI() {
             <ScheduleAppointmentDialog />
           </CardHeader>
           <CardContent className="md:p-6">
-            <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
+            <div className="mb-6 bg-white rounded-lg border p-4 shadow-sm">
               <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                 <Filter className="h-4 w-4" />
                 Filter Appointments
               </h3>
               <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">Surname</label>
+                  <label className="text-xs font-medium text-gray-500">Patient Name</label>
                   <div className="relative">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                     <Input
-                      placeholder="Filter patient surname..."
-                      value={table.getColumn("patient_surname")?.getFilterValue() || ""}
-                      onChange={(event) => table.getColumn("patient_surname")?.setFilterValue(event.target.value)}
+                      placeholder="Filter appointment"
+                      value={term}
+                      onChange={(event) => handleSearchTermChange(event.target.value)}
                       className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">First Name</label>
-                  <div className="relative">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-                    <Input
-                      placeholder="Filter patient first name..."
-                      value={table.getColumn("patient_first_name")?.getFilterValue() || ""}
-                      onChange={(event) => table.getColumn("patient_first_name")?.setFilterValue(event.target.value)}
-                      className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">Sex</label>
-                  <Select
-                    onValueChange={(value) => table.getColumn("status")?.setFilterValue(value)}
-                    value={table.getColumn("status")?.getFilterValue() || ""}
-                  >
-                    <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
-                      <SelectValue placeholder="Filter by status" />
-                    </SelectTrigger>
-                    <SelectContent className="">
-                      <SelectGroup>
-                        <SelectLabel>Select</SelectLabel>
-                        <SelectItem className="hover:bg-[#e6f2ed] hover:">
-                          All
-                        </SelectItem>
-                        <SelectItem value="scheduled" className="hover:bg-[#e6f2ed] hover:">
-                          scheduled
-                        </SelectItem>
-                        <SelectItem value="confirmed" className="hover:bg-[#e6f2ed] hover:">
-                          confirmed
-                        </SelectItem>
-                        <SelectItem value="pending" className="hover:bg-[#e6f2ed] hover:">
-                          pending
-                        </SelectItem>
-                        <SelectItem value="completed" className="hover:bg-[#e6f2ed] hover:">
-                          completed
-                        </SelectItem>
-                        <SelectItem value="canceled" className="hover:bg-[#e6f2ed] hover:">
-                          canceled
-                        </SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-gray-500">When</label>
-                  <Select
-                    onValueChange={(value) => table.getColumn("appointment_date")?.setFilterValue(value)}
-                    value={table.getColumn("appointment_date")?.getFilterValue() || ""}
-                  >
-                    <SelectTrigger className="border-[#268a6461] rounded-md focus:ring-[#268a6429] focus:border-[#268a64]">
-                      <SelectValue placeholder="Filter by when" />
-                    </SelectTrigger>
-                    <SelectContent className="">
-                      <SelectGroup>
-                        <SelectLabel>Select</SelectLabel>
-                        <SelectItem className="hover:bg-[#e6f2ed] hover:">
-                          All
-                        </SelectItem>
-                        <SelectItem value="upcoming" className="hover:bg-[#e6f2ed] hover:">
-                          Upcoming
-                        </SelectItem>
-                        <SelectItem value="past" className="hover:bg-[#e6f2ed] hover:">
-                          Past
-                        </SelectItem>
-                        <SelectItem value="today" className="hover:bg-[#e6f2ed] hover:">
-                          Today
-                        </SelectItem>
-                        <SelectItem value="futureOrToday" className="hover:bg-[#e6f2ed] hover:">
-                          Future or Today
-                        </SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-              </div>
-              <div className="flex justify-end mt-4">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="border-[#268a6461] hover:bg-[#e6f2ed] hover:"
-                    >
-                      <ChevronDown className="mr-2 h-4 w-4" />
-                      Columns
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="">
-                    {table
-                      .getAllColumns()
-                      .filter((column) => column.getCanHide())
-                      .map((column) => (
-                        <DropdownMenuCheckboxItem
-                          key={column.id}
-                          className="capitalize hover:bg-[#e6f2ed]"
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                        >
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
               </div>
             </div>
 
-            <div className="rounded-md border  overflow-hidden shadow-sm">
-              <Table className="block max-w-[600px]">
+            <div className="rounded-md border overflow-hidden shadow-sm">
+              <Table>
                 <TableHeader className="bg-[#f0f8f4]">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id} className="">
-                      {headerGroup.headers.map((header) => (
-                        <TableHead key={header.id} className="font-medium">
-                          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                        </TableHead>
-                      ))}
-                    </TableRow>
-                  ))}
+                  <TableRow>
+                    <TableHead className="font-medium">Appointment ID</TableHead>
+                    <TableHead className="font-medium">First Name</TableHead>
+                    <TableHead className="font-medium">Surname</TableHead>
+                    <TableHead className="font-medium">Status</TableHead>
+                    <TableHead className="font-medium">Scheduled Date</TableHead>
+                    <TableHead className="font-medium">Phone No.</TableHead>
+                    <TableHead className="font-medium">Doctor Name</TableHead>
+                    <TableHead className="font-medium">Actions</TableHead>
+                  </TableRow>
                 </TableHeader>
+
                 <TableBody>
-                  {table.getRowModel().rows.length ? (
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow
-                        className=""
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
-                      >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                        ))}
+                  {data?.data?.length ? (
+                    data?.data.map((appointment) => (
+                      <TableRow key={appointment.appointment_id}>
+                        <TableCell className="font-medium text-gray-700">
+                          APD-{appointment.appointment_id}
+                        </TableCell>
+                        <TableCell className="capitalize font-medium">
+                          {appointment.patient_first_name}
+                        </TableCell>
+                        <TableCell className="capitalize font-medium">
+                          {appointment.patient_surname}
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={`mt-1 ${getAppointmentStatusColor(appointment.status)} capitalize`}>
+                            {appointment.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="capitalize font-medium">
+                          {formatDate(appointment.appointment_date)}
+                        </TableCell>
+                        <TableCell className="font-medium text-gray-700">
+                          {appointment.patient_phone_number}
+                        </TableCell>
+                        <TableCell className="font-medium text-gray-700">
+                          {appointment.doctor_name}
+                        </TableCell>
+                        <TableCell>
+                          <AppointmentDropdownOptions appointment={appointment} />
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={columns.length} className="text-center py-10 text-gray-500">
-                        No patients found
+                      <TableCell colSpan={8} className="text-center py-10 text-gray-500">
+                        {isLoading ? "Loading appointments..." : "No appointments found"}
                       </TableCell>
                     </TableRow>
                   )}
                 </TableBody>
               </Table>
-              <div className="flex items-center justify-end space-x-2 py-4 px-6  border-t ">
+              <div className="flex items-center justify-between space-x-2 py-4 px-6 border-t">
                 <div className="flex-1 text-sm text-gray-500">
-                  {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length}{" "}
-                  patient(s) selected
+                  Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems || 0)} of {data?.totalItems || 0}{" "}
+                  appointment(s)
                 </div>
-                <div className="space-x-2 flex">
-                  <Button
-                    className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                  >
-                    Previous
-                  </Button>
-                  <Button
-                    className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                  >
-                    Next
-                  </Button>
+                <div className="flex items-center space-x-2">
+                  <div className="text-sm text-gray-500">
+                    Page {page} of {data?.totalPages || 1}
+                  </div>
+                  <div className="space-x-2 flex">
+                    <Button
+                      className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
+                      size="sm"
+                      onClick={handlePreviousPage}
+                      disabled={page <= 1 || isLoading}
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      className="bg-[#106041] text-white hover:bg-[#0d4e34] focus:ring-[#268a6429]"
+                      size="sm"
+                      onClick={handleNextPage}
+                      disabled={page >= (data?.totalPages || 1) || isLoading}
+                    >
+                      Next
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
-
     </div>
   )
 }
-

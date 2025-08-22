@@ -131,8 +131,8 @@ export const updateDoctor = async (doctorData) => {
 /* ============================
    API Helper function here for Appointments
    ============================ */
-export const getAppointments = async () => {
-  const response = await api.get("/appointments");
+export const getAppointments = async (page = 1, pageSize = 20, searchTerm = "") => {
+  const response = await api.get(`/appointments?page=${page}&pageSize=${pageSize}&searchTerm=${searchTerm}`);
   return response.data;
 };
 
