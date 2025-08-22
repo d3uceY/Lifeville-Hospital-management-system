@@ -7,7 +7,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ClipboardList, ArrowUpDown, Eye } from "lucide-react";
+import { ClipboardList, ArrowUpDown, Eye, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -24,6 +24,9 @@ import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
 import { ViewDiagnosisDialog } from "./ViewDiagnosisDialog";
 import DeleteDiagnosisDialog from "./DeleteDiagnosisDialog";
+import { hasPermission } from "../../../helpers/hasPermission";
+import { useAuth } from "../../../providers/AuthContext";
+import EditDiagnosisDialog from "./EditDiagnosisDialog";
 
 const columns = [
   {
@@ -80,7 +83,17 @@ const columns = [
               <Eye className="h-4 w-4" />
             </Button>
           </ViewDiagnosisDialog>
-          <DeleteDiagnosisDialog deletedDiagnosisRecordInfo={diagnosis} />
+          {(hasPermission(["superadmin"]) || (useAuth().user?.name == row.getValue("recorded_by"))) && (
+            <DeleteDiagnosisDialog deletedDiagnosisRecordInfo={diagnosis} />
+          )}
+
+          {(hasPermission(["superadmin"]) || (useAuth().user?.name == row.getValue("recorded_by"))) && (
+            <EditDiagnosisDialog diagnosis={diagnosis}>
+              <Button variant="outline" size="sm" className="action-edit-btn">
+                <Edit className="h-4 w-4" />
+              </Button>
+            </EditDiagnosisDialog>
+          )}
         </div>
       );
     },
@@ -140,9 +153,9 @@ export default function DiagnosesTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   ))}
                 </TableRow>

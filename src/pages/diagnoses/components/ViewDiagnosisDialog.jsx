@@ -89,6 +89,15 @@ export function ViewDiagnosisDialog({ diagnosis, children }) {
                                     subtitle={`Recorded by ${diagnosis.recorded_by}`}
                                 />
                             </div>
+                            {
+                                (diagnosis.updated_at && diagnosis.updated_by) && (
+                                    <TimelineItem
+                                        title="Diagnosis Updated"
+                                        date={diagnosis.updated_at}
+                                        subtitle={`Updated by ${diagnosis.updated_by}`}
+                                    />
+                                )
+                            }
                         </CardContent>
                     </Card>
 
@@ -125,7 +134,7 @@ function InfoField({ label, value }) {
 // Timeline item
 function TimelineItem({ title, date, subtitle }) {
     return (
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-4 mt-2">
             <div className="w-2 h-2 bg-[#268a64] rounded-full mt-2"></div>
             <div className="flex-1">
                 <div className="flex items-center justify-between">
