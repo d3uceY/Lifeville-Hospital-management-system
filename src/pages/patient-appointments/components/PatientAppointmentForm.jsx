@@ -90,9 +90,6 @@ export default function PatientAppointmentForm() {
                         <CalendarDays size={20} />
                         Schedule Appointment
                     </CardTitle>
-                    <Button type="submit" disabled={!isValid || isSubmitting}>
-                        {isSubmitting ? "Scheduling..." : "Schedule"}
-                    </Button>
                 </CardHeader>
 
                 <CardContent className="space-y-6">

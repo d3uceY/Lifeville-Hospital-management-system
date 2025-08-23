@@ -82,13 +82,6 @@ export default function ProfileVitalSignForm() {
                         <Activity size={20} />
                         Vital Signs
                     </CardTitle>
-                    <Button
-                        className="mt-6"
-                        type="submit"
-                        disabled={!isValid || isSubmitting}
-                    >
-                        {isSubmitting ? "Saving..." : "Save"}
-                    </Button>
                 </CardHeader>
 
                 <CardContent>

@@ -105,9 +105,6 @@ export default function LabTestAnalysis() {
                                     Prescribe Test
                                 </CardTitle>
 
-                                <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                                    {isSubmitting ? "Submitting..." : "Add Test"}
-                                </Button>
                             </CardHeader>
                             <CardContent>
                                 <div className="mb-4">
@@ -149,6 +146,10 @@ export default function LabTestAnalysis() {
                                         {...register("comments")}
                                     />
                                 </div>
+                                <Button className="mt-6 ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
+                                    {isSubmitting ? "Submitting..." : "Add Test"}
+                                </Button>
+
                             </CardContent>
                         </Card>
 

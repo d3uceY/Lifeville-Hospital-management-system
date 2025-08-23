@@ -92,13 +92,6 @@ export default function VitalSignsDialog({ children, patient }) {
                                 <Activity size={20} />
                                 Vital Signs for {patient?.surname} {patient?.first_name}
                             </CardTitle>
-                            <Button
-                                className="mt-6"
-                                type="submit"
-                                disabled={!isValid || isSubmitting}
-                            >
-                                {isSubmitting ? "Saving..." : "Save"}
-                            </Button>
                         </CardHeader>
 
                         <CardContent>

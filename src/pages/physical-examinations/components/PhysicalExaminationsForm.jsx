@@ -127,13 +127,6 @@ export default function ProfilePhysicalExaminationForm() {
                         <ClipboardList size={20} />
                         Physical Examination
                     </CardTitle>
-                    <Button
-                        className="mt-6"
-                        type="submit"
-                        disabled={!isValid || isSubmitting}
-                    >
-                        {isSubmitting ? "Saving..." : "Save"}
-                    </Button>
                 </CardHeader>
 
                 <CardContent>

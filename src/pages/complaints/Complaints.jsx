@@ -83,10 +83,6 @@ export default function Complaints() {
                             <FileText size={20} />
                             Record Complaint
                         </CardTitle>
-
-                        <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                            {isSubmitting ? "Submitting..." : "Add Complaint"}
-                        </Button>
                     </CardHeader>
                     <CardContent>
                         <div className="mb-4">
@@ -101,6 +97,10 @@ export default function Complaints() {
                             />
                         </div>
                         <p className="text-red-500">{errors.complaint?.message}</p>
+                    <Button className="mt-6 ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
+                        {isSubmitting ? "Submitting..." : "Add Complaint"}
+                    </Button>
+
                     </CardContent>
                 </Card>
 

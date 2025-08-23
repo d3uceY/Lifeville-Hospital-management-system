@@ -83,13 +83,6 @@ export default function DiagnosesForm() {
                         <ClipboardList size={20} />
                         Add Diagnosis
                     </CardTitle>
-                    <Button
-                        className="mt-6"
-                        type="submit"
-                        disabled={!isValid || isSubmitting}
-                    >
-                        {isSubmitting ? "Saving..." : "Save"}
-                    </Button>
                 </CardHeader>
 
                 <CardContent>

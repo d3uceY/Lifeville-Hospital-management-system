@@ -98,9 +98,6 @@ export default function ProfileProcedureForm() {
             <ClipboardList size={20} />
             Procedure
           </CardTitle>
-          <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save"}
-          </Button>
         </CardHeader>
 
         <CardContent>

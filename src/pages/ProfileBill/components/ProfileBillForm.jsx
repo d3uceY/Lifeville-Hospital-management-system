@@ -509,14 +509,6 @@ export default function ProfileBillForm() {
                 {/* Form Actions */}
                 <div className="text-right mt-8 flex items-center justify-end gap-4">
                     <Button
-                        type="button"
-                        variant="outline"
-                        className="px-6 py-2"
-                    >
-                        <X size={16} className="mr-2" />
-                        Cancel
-                    </Button>
-                    <Button
                         type="submit"
                         disabled={!isValid || isSubmitting}
                         className="px-6 py-2 bg-[#106041] text-white hover:bg-[#106041]/80"

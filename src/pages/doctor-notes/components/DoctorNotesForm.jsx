@@ -71,9 +71,9 @@ export default function DoctorsNotesForm() {
 
     return (
         <div>
-            <ProfileFormHeader 
-                title="Add Doctor's Note" 
-                description={`Fill in the details to record a doctor's note for patient #${patient_id}`} 
+            <ProfileFormHeader
+                title="Add Doctor's Note"
+                description={`Fill in the details to record a doctor's note for patient #${patient_id}`}
             />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
@@ -82,15 +82,11 @@ export default function DoctorsNotesForm() {
                             <NotebookPen size={20} />
                             Doctor's Note
                         </CardTitle>
-
-                        <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                            {isSubmitting ? "Saving..." : "Add Note"}
-                        </Button>
                     </CardHeader>
                     <CardContent>
                         <div className="mb-4">
-                            <Label 
-                                className="text-sm font-medium mb-2 block text-gray-700" 
+                            <Label
+                                className="text-sm font-medium mb-2 block text-gray-700"
                                 htmlFor="note"
                             >
                                 Note
@@ -103,6 +99,9 @@ export default function DoctorsNotesForm() {
                             />
                         </div>
                         <p className="text-red-500">{errors.note?.message}</p>
+                        <Button className="ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
+                            {isSubmitting ? "Saving..." : "Add Note"}
+                        </Button>
                     </CardContent>
                 </Card>
             </form>

@@ -82,10 +82,6 @@ export default function NursesNotesForm() {
                             <NotebookPen size={20} />
                             Nurse's Note
                         </CardTitle>
-
-                        <Button className="mt-6" type="submit" disabled={!isValid || isSubmitting}>
-                            {isSubmitting ? "Saving..." : "Add Note"}
-                        </Button>
                     </CardHeader>
                     <CardContent>
                         <div className="mb-4">
@@ -103,6 +99,10 @@ export default function NursesNotesForm() {
                             />
                         </div>
                         <p className="text-red-500">{errors.note?.message}</p>
+                        <Button className="mt-6 ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
+                            {isSubmitting ? "Saving..." : "Add Note"}
+                        </Button>
+
                     </CardContent>
                 </Card>
             </form>
