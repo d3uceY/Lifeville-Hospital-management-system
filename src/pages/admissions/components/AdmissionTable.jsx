@@ -20,6 +20,8 @@ import { DeleteAdmissionDialog } from "./DeleteAdmissionDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
 import DischargeDialog from "./AdmissionDischargeDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
+
 
 const columns = [
     {
@@ -84,39 +86,45 @@ const columns = [
             const admission = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <ViewAdmissionDialog admission={admission}>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="action-edit-btn"
-                        >
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </ViewAdmissionDialog>
+                    <CustomTooltip content="View Admission">
+                        <ViewAdmissionDialog admission={admission}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="action-view-btn"
+                            >
+                                <Eye className="h-4 w-4" />
+                            </Button>
+                        </ViewAdmissionDialog>
+                    </CustomTooltip>
                     {
                         hasPermission(["superadmin", "doctor"]) && (
-                            <DeleteAdmissionDialog admission={admission}>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="action-delete-btn"
-                                >
-                                    <Trash2 className="h-4 w-4" />
-                                </Button>
-                            </DeleteAdmissionDialog>
+                            <CustomTooltip content="Delete Admission">
+                                <DeleteAdmissionDialog admission={admission}>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="action-delete-btn"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                </DeleteAdmissionDialog>
+                            </CustomTooltip>
                         )
                     }
                     {
                         (hasPermission(["superadmin", "doctor"]) && admission.discharge_condition == "on admission") && (
-                            <DischargeDialog admissionId={admission.id}>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="action-edit-btn"
-                                >
-                                    <DoorOpen className="h-4 w-4" />
-                                </Button>
-                            </DischargeDialog>
+                            <CustomTooltip content="Discharge Admission">
+                                <DischargeDialog admissionId={admission.id}>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="action-edit-btn"
+                                    >
+                                        <DoorOpen className="h-4 w-4" />
+                                    </Button>
+                                </DischargeDialog>
+                            </CustomTooltip>
                         )
                     }
                 </div>

@@ -28,13 +28,16 @@ import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditi
 import { getDischarSummaryByAdmissionId } from "../../../providers/ApiProviders";
 import { useQuery } from "@tanstack/react-query";
 
+
+
+
 export function ViewAdmissionDialog({ admission, children }) {
     const { data: dischargeSummary } = useQuery({
         queryKey: ["discharge-summary", admission.id],
         queryFn: () => getDischarSummaryByAdmissionId(admission.id),
     })
-    
-   
+
+
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
@@ -97,31 +100,31 @@ export function ViewAdmissionDialog({ admission, children }) {
                                         {/* Discharge Overview */}
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-3">
-                                                <InfoField 
-                                                    label="Discharge Date & Time" 
-                                                    value={formatDate(discharge.discharge_date_time)} 
+                                                <InfoField
+                                                    label="Discharge Date & Time"
+                                                    value={formatDate(discharge.discharge_date_time)}
                                                 />
-                                                <InfoField 
-                                                    label="Condition at Discharge" 
-                                                    value={getDischargeConditionBadge(discharge.condition)} 
+                                                <InfoField
+                                                    label="Condition at Discharge"
+                                                    value={getDischargeConditionBadge(discharge.condition)}
                                                 />
-                                                <InfoField 
-                                                    label="Discharging Doctor" 
-                                                    value={discharge.doctor_name} 
+                                                <InfoField
+                                                    label="Discharging Doctor"
+                                                    value={discharge.doctor_name}
                                                 />
-                                                <InfoField 
-                                                    label="Recorded By" 
-                                                    value={discharge.recorded_by} 
+                                                <InfoField
+                                                    label="Recorded By"
+                                                    value={discharge.recorded_by}
                                                 />
                                             </div>
                                             <div className="space-y-3">
-                                                <InfoField 
-                                                    label="Final Diagnosis" 
-                                                    value={discharge.final_diagnosis} 
+                                                <InfoField
+                                                    label="Final Diagnosis"
+                                                    value={discharge.final_diagnosis}
                                                 />
-                                                <InfoField 
-                                                    label="Outcome" 
-                                                    value={discharge.outcome} 
+                                                <InfoField
+                                                    label="Outcome"
+                                                    value={discharge.outcome}
                                                 />
                                             </div>
                                         </div>
@@ -136,13 +139,13 @@ export function ViewAdmissionDialog({ admission, children }) {
                                                     </CardTitle>
                                                 </CardHeader>
                                                 <CardContent className="pt-4 space-y-3">
-                                                    <InfoField 
-                                                        label="Diagnosis Details" 
-                                                        value={discharge.diagnosis_details} 
+                                                    <InfoField
+                                                        label="Diagnosis Details"
+                                                        value={discharge.diagnosis_details}
                                                     />
-                                                    <InfoField 
-                                                        label="Treatment Given" 
-                                                        value={discharge.treatment_given} 
+                                                    <InfoField
+                                                        label="Treatment Given"
+                                                        value={discharge.treatment_given}
                                                     />
                                                 </CardContent>
                                             </Card>
@@ -155,13 +158,13 @@ export function ViewAdmissionDialog({ admission, children }) {
                                                     </CardTitle>
                                                 </CardHeader>
                                                 <CardContent className="pt-4 space-y-3">
-                                                    <InfoField 
-                                                        label="Follow-up Instructions" 
-                                                        value={discharge.follow_up} 
+                                                    <InfoField
+                                                        label="Follow-up Instructions"
+                                                        value={discharge.follow_up}
                                                     />
-                                                    <InfoField 
-                                                        label="Discharge Summary Created" 
-                                                        value={formatDate(discharge.created_at)} 
+                                                    <InfoField
+                                                        label="Discharge Summary Created"
+                                                        value={formatDate(discharge.created_at)}
                                                     />
                                                 </CardContent>
                                             </Card>
