@@ -123,7 +123,7 @@ export default function PrescriptionForm() {
   };
 
   return (
-    <div className="container mx-auto py-8  max-w-5xl">
+    <div className="container mx-auto pb-8">
       {/* Header */}
       {/* <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded-r-md shadow-sm">
         <div className="flex items-center">
