@@ -1,4 +1,4 @@
-import React from "react"
+import React, { use } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { formatDate } from "../../helpers/formatDate"
@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useDebounce } from "../../hooks/use-debounce"
 
 import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
 
@@ -36,21 +37,16 @@ export default function DoctorAppointmentsUI() {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
-  // Filter states
-  const [searchTerm, setSearchTerm] = useState("")
   const [term, setTerm] = useState("")
+  const debouncedSearchTerm = useDebounce(term, 1000)
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["appointments", page, pageSize, searchTerm],
-    queryFn: () => getAppointments(page, pageSize, searchTerm),
+    queryKey: ["appointments", page, pageSize, debouncedSearchTerm],
+    queryFn: () => getAppointments(page, pageSize, debouncedSearchTerm),
   })
 
-  const handleSearchTermChange = (value) => {
+  const handleSearchTermChange = async (value) => {
     setTerm(value)
-    setTimeout(() => {
-      setSearchTerm(value)
-      setPage(1) // Reset to first page when searching
-    }, 1500)
   }
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>

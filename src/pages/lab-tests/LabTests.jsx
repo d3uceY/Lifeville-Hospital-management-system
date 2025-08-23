@@ -10,7 +10,7 @@ import { getPaginatedLabTests } from "../../providers/ApiProviders"
 import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
 import { EditLabTestResultDialog } from "./components/EditLabTestResultDialog"
 import { Link } from "react-router-dom"
-
+import { useDebounce } from "../../hooks/use-debounce"
 
 
 export default function LabTests() {
@@ -18,19 +18,16 @@ export default function LabTests() {
   const [pageSize, setPageSize] = useState(10)
 
   // Filter states
-  const [searchTerm, setSearchTerm] = useState("")
   const [term, setTerm] = useState("")
+  const debouncedSearchTerm = useDebounce(term, 1000)
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["lab-tests", page, pageSize, searchTerm],
-    queryFn: () => getPaginatedLabTests(page, pageSize, searchTerm),
+    queryKey: ["lab-tests", page, pageSize, debouncedSearchTerm],
+    queryFn: () => getPaginatedLabTests(page, pageSize, debouncedSearchTerm),
   })
 
   const handleSearchTermChange = (value) => {
     setTerm(value)
-    setTimeout(() => {
-      setSearchTerm(value)
-    }, 1000)
   }
 
 
