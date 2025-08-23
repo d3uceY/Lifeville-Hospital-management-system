@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDate } from "../../../helpers/formatDate";
 import { ComplaintDetailsDialog } from "./ComplaintDetailsDialog";
 import { getComplaintsByPatientId } from "../../../providers/ApiProviders";
-
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 
 
@@ -69,15 +69,17 @@ const columns = [
             const complaint = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <ComplaintDetailsDialog complaint={complaint}>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="action-edit-btn"
-                        >
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </ComplaintDetailsDialog>
+                    <CustomTooltip content="View Complaint">
+                        <ComplaintDetailsDialog complaint={complaint}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="action-view-btn"
+                            >
+                                <Eye className="h-4 w-4" />
+                            </Button>
+                        </ComplaintDetailsDialog>
+                    </CustomTooltip>
                 </div>
             );
         },

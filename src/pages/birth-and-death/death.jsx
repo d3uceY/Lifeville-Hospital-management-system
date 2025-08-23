@@ -49,6 +49,8 @@ import DeathSkeleton from "./components/deathSkeleton"
 import DeleteDeathRecordDialog from "./components/deleteDeathRecordDialog"
 import ViewDeathRecordDialog from "./components/viewDeathRecord"
 import EditDeathDialog from "./components/editDeathDialog"
+import { CustomTooltip } from "../../helpers/customTooltip"
+import { hasPermission } from "../../helpers/hasPermission"
 
 const columns = [
     {
@@ -188,9 +190,24 @@ const columns = [
             const currentpatientData = row.original
             return (
                 <div className="flex items-center gap-2">
-                    <EditDeathDialog deathRecord={currentpatientData} />
-                    <ViewDeathRecordDialog deathRecord={currentpatientData} />
-                    <DeleteDeathRecordDialog deletedDeathRecordInfo={currentpatientData} />
+                    {
+                        hasPermission(['superadmin']) && (
+                            <CustomTooltip content="Edit Death Record">
+                                <EditDeathDialog deathRecord={currentpatientData} />
+                            </CustomTooltip>
+                        )
+                    }
+                    <CustomTooltip content="View Death Record">
+                        <ViewDeathRecordDialog deathRecord={currentpatientData} />
+                    </CustomTooltip>
+
+                    {
+                        hasPermission(['superadmin']) && (
+                            <CustomTooltip content="Delete Death Record">
+                                <DeleteDeathRecordDialog deletedDeathRecordInfo={currentpatientData} />
+                            </CustomTooltip>
+                        )
+                    }
                 </div>
             )
         },

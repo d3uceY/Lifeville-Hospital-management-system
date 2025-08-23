@@ -24,6 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditLabTestTypesDialog } from "./components/EditLabTestTypesDialog";
 import DeleteLabTestTypeDialog from "./components/DeleteLabTestTypeDialog";
 import { CreateLabTestTypesDialog } from "./components/AddLabTestTypesDialog";
+import { CustomTooltip } from "../../helpers/customTooltip";
 
 const columns = [
 
@@ -63,8 +64,12 @@ const columns = [
       const labTestTypeData = row.original;
       return (
         <div className="flex items-center gap-2">
-          <EditLabTestTypesDialog labTestType={labTestTypeData} />
-          <DeleteLabTestTypeDialog deletedLabTestTypeRecordInfo={labTestTypeData} />
+          <CustomTooltip content="Edit Lab Test Type">
+            <EditLabTestTypesDialog labTestType={labTestTypeData} />
+          </CustomTooltip>
+          <CustomTooltip content="Delete Lab Test Type">
+            <DeleteLabTestTypeDialog deletedLabTestTypeRecordInfo={labTestTypeData} />
+          </CustomTooltip>
         </div>
       );
     },

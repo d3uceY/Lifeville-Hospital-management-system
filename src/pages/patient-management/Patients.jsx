@@ -48,6 +48,7 @@ import { hasPermission } from "../../helpers/hasPermission";
 import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 import DeleteAlertDialog from "./components/deleteAlertDialog";
 import { getAge } from "../../helpers/getAge";
+import { CustomTooltip } from "../../helpers/customTooltip";
 
 const columns = [
   {
@@ -163,54 +164,57 @@ const columns = [
         <div className="flex gap-2 items-center">
           {
             hasPermission(["superadmin", "doctor", "nurse"]) && (
-              <VitalSignsDialog patient={currentpatientData}>
-                <Button className="action-edit-btn">
-                  <Activity className=" h-4 w-4" />
-                </Button>
-              </VitalSignsDialog>
+              <CustomTooltip content="Record Vital Sign">
+                <VitalSignsDialog patient={currentpatientData}>
+                  <Button className="action-edit-btn">
+                    <Activity className=" h-4 w-4" />
+                  </Button>
+                </VitalSignsDialog>
+              </CustomTooltip>
             )
           }
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0 rounded-full hover:bg-[#e6f2ed]">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-5 w-5 " />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 ">
-              <DropdownMenuLabel className="">Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(currentpatientData.hospital_number)}
-                className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:"
-              >
-                <FileText className="h-4 w-4" /> Copy Hospital Number
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="p-0">
+          <CustomTooltip content="More Options">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0 rounded-full hover:bg-[#e6f2ed]">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-5 w-5 " />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 ">
+                <DropdownMenuLabel className="">Actions</DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() => navigator.clipboard.writeText(currentpatientData.hospital_number)}
+                  className="flex items-center gap-2 cursor-pointer hover:bg-[#e6f2ed] hover:"
+                >
+                  <FileText className="h-4 w-4" /> Copy Hospital Number
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="p-0">
+                  {
+                    hasPermission(["superadmin", "doctor", "nurse", "receptionist"]) && (
+                      <Link
+                        className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
+                        to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/full-profile`}
+                      >
+                        <User2 className="h-4 w-4" /> View Patient Profile
+                      </Link>
+                    )
+                  }
+                </DropdownMenuItem>
                 {
-                  hasPermission(["superadmin", "doctor", "nurse", "receptionist"]) && (
-                    <Link
-                      className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                      to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/full-profile`}
-                    >
-                      <User2 className="h-4 w-4" /> View Patient Profile
-                    </Link>
+                  hasPermission(["superadmin"]) && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
+                        Delete Patient Record
+                      </DeleteAlertDialog>
+                    </>
                   )
                 }
-              </DropdownMenuItem>
-              {
-                hasPermission(["superadmin"]) && (
-                  <>
-                    <DropdownMenuSeparator />
-                    <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
-                      Delete Patient Record
-                    </DeleteAlertDialog>
-                  </>
-                )
-              }
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </CustomTooltip>
         </div>
       )
     },

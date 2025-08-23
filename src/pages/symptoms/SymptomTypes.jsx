@@ -35,6 +35,7 @@ import { EditSymptomTypeDialog } from "./components/editSymptomTypeDialog"
 import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
+import { CustomTooltip } from "../../helpers/customTooltip"
 
 const columns = [
 
@@ -59,8 +60,12 @@ const columns = [
             const symptomTypeData = row.original
             return (
                 <div className="flex items-center gap-2">
-                    <EditSymptomTypeDialog symptom={symptomTypeData} />
-                    <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                    <CustomTooltip content="Edit Symptom Type">
+                        <EditSymptomTypeDialog symptom={symptomTypeData} />
+                    </CustomTooltip>
+                    <CustomTooltip content="Delete Symptom Type">
+                        <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                    </CustomTooltip>
                 </div>
             )
         },

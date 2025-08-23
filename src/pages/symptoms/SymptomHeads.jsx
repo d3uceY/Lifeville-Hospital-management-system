@@ -35,6 +35,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import DeleteSymptomHeadDialog from "./components/deleteSymptomHeadDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
+import { CustomTooltip } from "../../helpers/customTooltip"
 
 const columns = [
   {
@@ -86,8 +87,12 @@ const columns = [
       const symptomHeadData = row.original
       return (
         <div className="flex items-center gap-2">
-          <EditSymptomHeadDialog symptomHead={symptomHeadData} />
-          <DeleteSymptomHeadDialog deletedSymptomHeadRecordInfo={symptomHeadData}/>
+          <CustomTooltip content="Edit Symptom Head">
+            <EditSymptomHeadDialog symptomHead={symptomHeadData} />
+          </CustomTooltip>
+          <CustomTooltip content="Delete Symptom Head">
+            <DeleteSymptomHeadDialog deletedSymptomHeadRecordInfo={symptomHeadData} />
+          </CustomTooltip>
         </div>
       )
     },

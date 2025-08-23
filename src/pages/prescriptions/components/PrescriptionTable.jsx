@@ -20,7 +20,7 @@ import PrescriptionStatusDropdown from "./PrescriptionStatusDropdown";
 import { getPrescriptionStatusBadge } from "../../../helpers/getPrescriptionStatusBadge";
 import DeletePrescriptionDialog from "./DeletePrescriptionDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
-
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
     {
@@ -99,17 +99,23 @@ const columns = [
             const prescription = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <ViewPrescriptionDialog prescription={prescription}>
-                        <Button variant="outline" size="sm" className="action-view-btn">
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </ViewPrescriptionDialog>
+                    <CustomTooltip content="View Prescription">
+                        <ViewPrescriptionDialog prescription={prescription}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
+                                <Eye className="h-4 w-4" />
+                            </Button>
+                        </ViewPrescriptionDialog>
+                    </CustomTooltip>
                     {
                         hasPermission(['doctor', 'superadmin']) && (
-                            <DeletePrescriptionDialog deletedPrescriptionRecordInfo={prescription} />
+                            <CustomTooltip content="Delete Prescription">
+                                <DeletePrescriptionDialog deletedPrescriptionRecordInfo={prescription} />
+                            </CustomTooltip>
                         )
                     }
-                    <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
+                    <CustomTooltip content="Change Prescription Status">
+                        <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
+                    </CustomTooltip>
                 </div>
             );
         },

@@ -17,6 +17,7 @@ import { formatDate } from "../../../helpers/formatDate";
 import { hasPermission } from "../../../helpers/hasPermission";
 import EditProfileVitalSignsDialog from "./EditProfileVitalSignsDialog";
 import { calculateBMI } from "../../../helpers/calculateBMI";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
     {
@@ -114,11 +115,13 @@ const columns = [
                 <div className="flex gap-2 items-center">
                     {
                         hasPermission(["superadmin", "doctor", "nurse"]) && (
-                            <EditProfileVitalSignsDialog vitalSign={currentVitalSign}>
-                                <Button className="action-edit-btn">
-                                    <Activity className=" h-4 w-4" />
-                                </Button>
-                            </EditProfileVitalSignsDialog>
+                            <CustomTooltip content="Edit Vital Sign">
+                                <EditProfileVitalSignsDialog vitalSign={currentVitalSign}>
+                                    <Button className="action-edit-btn">
+                                        <Activity className=" h-4 w-4" />
+                                    </Button>
+                                </EditProfileVitalSignsDialog>
+                            </CustomTooltip>
                         )
                     }
                 </div>

@@ -49,6 +49,8 @@ import DeathSkeleton from "./components/deathSkeleton"
 import { EditBirthDialog } from "./components/editBirthDialog"
 import ViewBirthRecordDialog from "./components/viewBirthDialog"
 import DeleteBirthRecordDialog from "./components/deleteBirthRecord"
+import { CustomTooltip } from "../../helpers/customTooltip"
+import { hasPermission } from "../../helpers/hasPermission"
 
 const columns = [
     {
@@ -174,9 +176,21 @@ const columns = [
             const currentbirthData = row.original
             return (
                 <div className="flex items-center gap-2">
-                    <EditBirthDialog birthRecord={currentbirthData} />
-                    <ViewBirthRecordDialog birthRecord={currentbirthData} />
-                    <DeleteBirthRecordDialog deletedBirthRecordInfo={currentbirthData} />
+                    {hasPermission(['superadmin', 'doctor']) && (
+                        <CustomTooltip content="Edit Birth Record">
+                            <EditBirthDialog birthRecord={currentbirthData} />
+                        </CustomTooltip>
+                    )}
+                    {hasPermission(['superadmin', 'doctor', 'nurse']) && (
+                        <CustomTooltip content="View Birth Record">
+                            <ViewBirthRecordDialog birthRecord={currentbirthData} />
+                        </CustomTooltip>
+                    )}
+                    {hasPermission(['superadmin']) && (
+                        <CustomTooltip content="Delete Birth Record">
+                            <DeleteBirthRecordDialog deletedBirthRecordInfo={currentbirthData} />
+                        </CustomTooltip>
+                    )}
                 </div>
             )
         },

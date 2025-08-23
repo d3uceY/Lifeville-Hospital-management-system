@@ -23,11 +23,13 @@ import { useAuth } from "../../../providers/AuthContext"
 import { createBill } from "../../../providers/ApiProviders"
 import { formatToNaira } from "../../../helpers/formatToNaira"
 import { useParams } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
 
 export default function ProfileBillForm() {
     const { user } = useAuth();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { patient_id } = useParams();
+    const queryClient = useQueryClient();
 
     // Form validation schema for hospital bills
     const schema = z.object({
@@ -146,6 +148,7 @@ export default function ProfileBillForm() {
             try {
                 setIsSubmitting(true)
                 const response = await createBill(payload)
+                queryClient.invalidateQueries({ queryKey: ["bills"] })
                 return response.data
             } catch (err) {
                 console.error(err)

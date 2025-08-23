@@ -225,32 +225,11 @@ const columns = [
             <DropdownMenuItem className="p-0">
               <Link
                 className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/full-profile`}
+                to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/admissions`}
               >
-                <User2 className="h-4 w-4" /> View Patient Profile
+                <User2 className="h-4 w-4" /> View Admissions
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="p-0">
-              <Link
-                className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:"
-                to={`/patient-profile/${currentpatientData.patient_id}/${currentpatientData.surname}/${currentpatientData.first_name}/history`}
-              >
-                <History className="h-4 w-4" /> View Patient History
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-
-            <VitalSignsDialog patient={currentpatientData}>
-              <div className="flex gap-2 items-center px-2 py-1.5 w-full hover:bg-[#e6f2ed] hover:cursor-pointer">
-                <Activity className="h-4 w-4" />
-                Check Vital Signs
-              </div>
-            </VitalSignsDialog>
-            <DropdownMenuSeparator />
-            <DeleteAlertDialog deletedPatientInfo={currentpatientData}>
-              Delete Patient Record
-            </DeleteAlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       )

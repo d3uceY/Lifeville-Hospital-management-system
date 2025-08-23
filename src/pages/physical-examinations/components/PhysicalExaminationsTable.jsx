@@ -16,6 +16,7 @@ import { getPhysicalExaminationsByPatientId } from "../../../providers/ApiProvid
 import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
 import { ViewPhysicalExaminationDialog } from "./ViewPhysicalExaminationDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
   {
@@ -55,15 +56,17 @@ const columns = [
       const physicalExamination = row.original;
       return (
         <div className="flex items-center gap-2">
-          <ViewPhysicalExaminationDialog examination={physicalExamination}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="action-edit-btn"
-            >
-              <Eye className="h-4 w-4" />
-            </Button>
-          </ViewPhysicalExaminationDialog>
+          <CustomTooltip content="View Physical Examination">
+            <ViewPhysicalExaminationDialog examination={physicalExamination}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="action-view-btn"
+              >
+                <Eye className="h-4 w-4" />
+              </Button>
+            </ViewPhysicalExaminationDialog>
+          </CustomTooltip>
         </div>
       );
     },

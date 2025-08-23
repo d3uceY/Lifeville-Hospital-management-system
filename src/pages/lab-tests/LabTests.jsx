@@ -11,6 +11,8 @@ import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
 import { EditLabTestResultDialog } from "./components/EditLabTestResultDialog"
 import { Link } from "react-router-dom"
 import { useDebounce } from "../../hooks/use-debounce"
+import { CustomTooltip } from "../../helpers/customTooltip"
+import { hasPermission } from "../../helpers/hasPermission"
 
 
 export default function LabTests() {
@@ -110,31 +112,46 @@ export default function LabTests() {
                       <TableCell>{formatDate(test.created_at)}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <EditLabTestResultDialog testResult={test}>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="action-edit-btn"
-                            >
-                              <FilePenLine className="h-4 w-4" />
-                            </Button>
-                          </EditLabTestResultDialog>
-                          <Link to={`/patient-profile/${test.patient_id}/${test.surname}/${test.first_name}/analysis`}>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="action-edit-btn"
-                            >
-                              <SquareArrowOutUpRight className="h-4 w-4" />
-                            </Button>
-                          </Link>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="action-edit-btn"
-                          >
-                            <Download className="h-4 w-4" />
-                          </Button>
+                          {
+                            hasPermission(['superadmin', 'doctor', 'lab']) && (
+                              <CustomTooltip content="Edit Lab Test">
+                                <EditLabTestResultDialog testResult={test}>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="action-edit-btn"
+                                  >
+                                    <FilePenLine className="h-4 w-4" />
+                                  </Button>
+                                </EditLabTestResultDialog>
+                              </CustomTooltip>
+                            )
+                          }
+
+                          <CustomTooltip content="View Patient Analysis">
+                            <Link to={`/patient-profile/${test.patient_id}/${test.surname}/${test.first_name}/analysis`}>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="action-view-btn"
+                              >
+                                <SquareArrowOutUpRight className="h-4 w-4" />
+                              </Button>
+                            </Link>
+                          </CustomTooltip>
+                          {
+                            hasPermission(['superadmin', 'doctor', 'lab']) && (
+                              <CustomTooltip content="Download Lab Test">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="action-download-btn"
+                                >
+                                  <Download className="h-4 w-4" />
+                                </Button>
+                              </CustomTooltip>
+                            )
+                          }
                         </div>
                       </TableCell>
                     </TableRow>

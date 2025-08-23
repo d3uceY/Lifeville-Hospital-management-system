@@ -16,6 +16,7 @@ import { getProceduresByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
 import { ViewProcedureDialog } from "./ViewProcedureDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
   {
@@ -69,15 +70,17 @@ const columns = [
       const procedure = row.original;
       return (
         <div className="flex items-center gap-2">
-          <ViewProcedureDialog procedure={procedure}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="action-edit-btn"
-            >
-              <Eye className="h-4 w-4" />
-            </Button>
-          </ViewProcedureDialog>
+          <CustomTooltip content="View Procedure">
+            <ViewProcedureDialog procedure={procedure}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="action-view-btn"
+              >
+                <Eye className="h-4 w-4" />
+              </Button>
+            </ViewProcedureDialog>
+          </CustomTooltip>
         </div>
       );
     },

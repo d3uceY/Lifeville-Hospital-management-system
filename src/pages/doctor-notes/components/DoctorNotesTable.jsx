@@ -18,6 +18,7 @@ import { getDoctorsNotesByPatientId } from "../../../providers/ApiProviders";
 import { ViewDoctorNoteDialog } from "./ViewDoctorNotesDialog";
 import EditDoctorNoteDialog from "./EditDoctorNoteDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
     {
@@ -98,18 +99,21 @@ const columns = [
             const note = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    {/* Replace with your details/edit dialog if needed */}
-                    <ViewDoctorNoteDialog note={note}>
-                        <Button variant="outline" size="sm" className="action-edit-btn">
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </ViewDoctorNoteDialog>
-                    {hasPermission(["doctor", "superadmin"]) && (
-                        <EditDoctorNoteDialog note={note}>
-                            <Button variant="outline" size="sm" className="action-edit-btn">
-                                <Edit className="h-4 w-4" />
+                    <CustomTooltip content="View Note">
+                        <ViewDoctorNoteDialog note={note}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
+                                <Eye className="h-4 w-4" />
                             </Button>
-                        </EditDoctorNoteDialog>
+                        </ViewDoctorNoteDialog>
+                    </CustomTooltip>
+                    {hasPermission(["doctor", "superadmin"]) && (
+                        <CustomTooltip content="Edit Note">
+                            <EditDoctorNoteDialog note={note}>
+                                <Button variant="outline" size="sm" className="action-edit-btn">
+                                    <Edit className="h-4 w-4" />
+                                </Button>
+                            </EditDoctorNoteDialog>
+                        </CustomTooltip>
                     )}
                 </div>
             );

@@ -27,6 +27,7 @@ import DeleteDiagnosisDialog from "./DeleteDiagnosisDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
 import { useAuth } from "../../../providers/AuthContext";
 import EditDiagnosisDialog from "./EditDiagnosisDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 const columns = [
   {
@@ -77,22 +78,27 @@ const columns = [
       const diagnosis = row.original;
       return (
         <div className="flex items-center gap-2">
-          {/* Uncomment if you create a view dialog */}
-          <ViewDiagnosisDialog diagnosis={diagnosis}>
-            <Button variant="outline" size="sm" className="action-edit-btn">
-              <Eye className="h-4 w-4" />
-            </Button>
-          </ViewDiagnosisDialog>
+          <CustomTooltip content="View Diagnosis">
+            <ViewDiagnosisDialog diagnosis={diagnosis}>
+              <Button variant="outline" size="sm" className="action-view-btn">
+                <Eye className="h-4 w-4" />
+              </Button>
+            </ViewDiagnosisDialog>
+          </CustomTooltip>
           {(hasPermission(["superadmin"]) || (useAuth().user?.name == row.getValue("recorded_by"))) && (
-            <DeleteDiagnosisDialog deletedDiagnosisRecordInfo={diagnosis} />
+            <CustomTooltip content="Delete Diagnosis">
+              <DeleteDiagnosisDialog deletedDiagnosisRecordInfo={diagnosis} />
+            </CustomTooltip>
           )}
 
           {(hasPermission(["superadmin"]) || (useAuth().user?.name == row.getValue("recorded_by"))) && (
-            <EditDiagnosisDialog diagnosis={diagnosis}>
-              <Button variant="outline" size="sm" className="action-edit-btn">
-                <Edit className="h-4 w-4" />
-              </Button>
-            </EditDiagnosisDialog>
+            <CustomTooltip content="Edit Diagnosis">
+              <EditDiagnosisDialog diagnosis={diagnosis}>
+                <Button variant="outline" size="sm" className="action-edit-btn">
+                  <Edit className="h-4 w-4" />
+                </Button>
+              </EditDiagnosisDialog>
+            </CustomTooltip>
           )}
         </div>
       );
@@ -108,7 +114,6 @@ export default function DiagnosesTable() {
     queryFn: () => getDiagnosesByPatientId(patient_id),
   });
 
-  console.log(diagnoses)
 
   const [sorting, setSorting] = React.useState([]);
   const [columnFilters, setColumnFilters] = React.useState([]);

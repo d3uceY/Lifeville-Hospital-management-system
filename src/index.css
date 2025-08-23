@@ -216,6 +216,17 @@ button{
          flex items-center space-x-2 cursor-pointer;
 }
 
+.action-download-btn {
+  @apply px-2 py-2  font-medium transition-all duration-200 ease-in-out
+         text-gray-700 hover:text-gray-900 
+         bg-gray-50 hover:bg-gray-100 
+         border border-gray-100 hover:border-gray-200
+         shadow-sm hover:shadow-md
+         focus:outline-none focus:ring-2 focus:ring-gray-500 
+         flex items-center space-x-2 cursor-pointer;
+}
+
+
 /* Loader */
 .loader {
   --c1:#0D4E34;

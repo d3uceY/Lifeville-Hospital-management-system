@@ -36,6 +36,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EditConditionDialog from "./EditConditionDialog";
 import DeleteConditionDialog from "./DeleteConditionsDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 export default function ConditionsTable() {
     // Fetch conditions using react-query
@@ -77,8 +78,12 @@ export default function ConditionsTable() {
                 const conditionData = row.original;
                 return (
                     <div className="flex gap-2 items-center">
-                        <EditConditionDialog condition={conditionData} />
-                        <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                        <CustomTooltip content="Edit Condition">
+                            <EditConditionDialog condition={conditionData} />
+                        </CustomTooltip>
+                        <CustomTooltip content="Delete Condition">
+                            <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                        </CustomTooltip>
                     </div>
                 );
             },

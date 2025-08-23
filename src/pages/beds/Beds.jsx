@@ -25,6 +25,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedDialog } from "./components/editBedDialog";
 import DeleteBedDialog from "./components/deleteBedDialog";
+import { CustomTooltip } from "../../helpers/customTooltip";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -100,8 +101,12 @@ const columns = [
       const bedData = row.original;
       return (
         <div className="flex items-center gap-2">
-          <EditBedDialog bed={bedData}></EditBedDialog>
-          <DeleteBedDialog deletedBedRecordInfo={bedData}></DeleteBedDialog>
+          <CustomTooltip content="Edit Bed">
+            <EditBedDialog bed={bedData}></EditBedDialog>
+          </CustomTooltip>
+          <CustomTooltip content="Delete Bed">
+            <DeleteBedDialog deletedBedRecordInfo={bedData}></DeleteBedDialog>
+          </CustomTooltip>
         </div>
       );
     },

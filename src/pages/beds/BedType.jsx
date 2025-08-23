@@ -24,6 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedTypesDialog } from "./components/editBedTypesDialog";
 import DeleteBedTypeDialog from "./components/deletBedTypesDialog";
 import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
+import { CustomTooltip } from "../../helpers/customTooltip";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -49,8 +50,12 @@ const columns = [
       const bedTypeData = row.original;
       return (
         <div className="flex items-center gap-2">
-          <EditBedTypesDialog bedType={bedTypeData} />
-          <DeleteBedTypeDialog deletedBedTypeRecordInfo={bedTypeData} />
+          <CustomTooltip content="Edit Bed Type">
+            <EditBedTypesDialog bedType={bedTypeData} />
+          </CustomTooltip>
+          <CustomTooltip content="Delete Bed Type">
+            <DeleteBedTypeDialog deletedBedTypeRecordInfo={bedTypeData} />
+          </CustomTooltip>
         </div>
       );
     },

@@ -25,6 +25,8 @@ import { UpdateUserDialog } from "./UpdateUserDialog";
 import { useAuth } from "../../providers/AuthContext";
 import { getRoleBadge } from "../../helpers/getRoleBadge";
 import DeleteUserDialog from './DeleteUserDialog'
+import { CustomTooltip } from "../../helpers/customTooltip";
+import { hasPermission } from "../../helpers/hasPermission";
 
 
 const columns = [
@@ -110,10 +112,20 @@ const columns = [
         cell: ({ row }) => {
             const user = row.original;
             return (
-                <div className="flex items-center gap-2">
-                    <UpdateUserDialog user={user} />
-                    <DeleteUserDialog deletedUserRecordInfo={user} />
-                </div>
+                <>
+                    {
+                        hasPermission(['superadmin']) && (
+                            <div className="flex items-center gap-2">
+                                <CustomTooltip content="Edit User">
+                                    <UpdateUserDialog user={user} />
+                                </CustomTooltip>
+                                <CustomTooltip content="Delete User">
+                                    <DeleteUserDialog deletedUserRecordInfo={user} />
+                                </CustomTooltip>
+                            </div>
+                        )
+                    }
+                </>
             );
         },
     },

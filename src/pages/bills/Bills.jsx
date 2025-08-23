@@ -19,6 +19,7 @@ import { getBillStatusBadge } from "../../helpers/getBillStatusBadge"
 import { formatToShortDate } from "../../helpers/formatToShortDate"
 import { formatToNaira } from "../../helpers/formatToNaira"
 import { ViewBillDialog } from "./components/ViewBillDialog"
+import { CustomTooltip } from "../../helpers/customTooltip"
 
 export default function Bills() {
     const [page, setPage] = useState(1)
@@ -181,14 +182,18 @@ export default function Bills() {
                                             <TableCell>{bill.issuedBy}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
-                                                    <ViewBillDialog bill={bill}>
-                                                        <Button size="sm" variant="outline">
-                                                            <Eye className="h-4 w-4" />
+                                                    <CustomTooltip content="View Bill">
+                                                        <ViewBillDialog bill={bill}>
+                                                            <Button size="sm" variant="outline" className="action-view-btn">
+                                                                <Eye className="h-4 w-4" />
+                                                            </Button>
+                                                        </ViewBillDialog>
+                                                    </CustomTooltip>
+                                                    <CustomTooltip content="Download Bill">
+                                                        <Button size="sm" variant="outline" className="action-download-btn">
+                                                            <Download className="h-4 w-4" />
                                                         </Button>
-                                                    </ViewBillDialog>
-                                                    <Button size="sm" variant="outline">
-                                                        <Download className="h-4 w-4" />
-                                                    </Button>
+                                                    </CustomTooltip>
                                                 </div>
                                             </TableCell>
                                         </TableRow>

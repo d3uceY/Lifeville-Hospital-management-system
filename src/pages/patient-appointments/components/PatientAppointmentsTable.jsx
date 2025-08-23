@@ -19,6 +19,7 @@ import { useParams } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import PatientAppointmentDropdownOptions from "./PatientAppointmentDropdownOptions";
 import EditPatientAppointmentDialog from "./EditPatientAppointmentDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 
 const columns = [
@@ -98,15 +99,17 @@ const columns = [
             return (
                 <div className="flex items-center gap-2">
                     <PatientAppointmentDropdownOptions appointment={appointment} />
-                    <EditPatientAppointmentDialog appointment={appointment}>
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="action-edit-btn"
-                        >
-                            <PenSquare className="h-4 w-4" />
-                        </Button>
-                    </EditPatientAppointmentDialog>
+                    <CustomTooltip content="Edit Appointment">
+                        <EditPatientAppointmentDialog appointment={appointment}>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="action-edit-btn"
+                            >
+                                <PenSquare className="h-4 w-4" />
+                            </Button>
+                        </EditPatientAppointmentDialog>
+                    </CustomTooltip>
                 </div>
             );
         },

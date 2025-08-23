@@ -25,6 +25,7 @@ import { useParams } from "react-router-dom";
 import { getBillStatusBadge } from "../../../helpers/getBillStatusBadge";
 import { formatToNaira } from "../../../helpers/formatToNaira";
 import { ProfileViewBillDialog } from "./ProfileBillViewDialog";
+import { CustomTooltip } from "../../../helpers/customTooltip"
 
 
 const columns = [
@@ -85,15 +86,17 @@ const columns = [
     header: "Actions",
     cell: ({ row }) => (
       <div className="text-gray-700">
-        <ProfileViewBillDialog bill={row.original}>
-          <Button
-            variant="outline"
-            size="sm"
-            className="edit-btn"
-          >
-            <Eye className="h-4 w-4" />
-          </Button>
-        </ProfileViewBillDialog>
+        <CustomTooltip content="View Bill">
+          <ProfileViewBillDialog bill={row.original}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="action-view-btn"
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+          </ProfileViewBillDialog>
+        </CustomTooltip>
       </div>
     ),
   }

@@ -16,7 +16,7 @@ import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge";
 import { getLabTestsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import {LabTestResultDialog} from "./LabTestResultDialog";
-
+import { CustomTooltip } from "../../../helpers/customTooltip";
 
 
 
@@ -102,15 +102,17 @@ const columns = [
             const labTest = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <LabTestResultDialog testResult={labTest}>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="action-edit-btn"
+                    <CustomTooltip content="View Lab Test Result">
+                        <LabTestResultDialog testResult={labTest}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="action-view-btn"
                         >
                             <Eye className="h-4 w-4" />
                         </Button>
                     </LabTestResultDialog>
+                    </CustomTooltip>
                 </div>
             );
         },
