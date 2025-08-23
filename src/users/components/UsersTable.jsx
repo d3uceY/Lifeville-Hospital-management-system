@@ -115,7 +115,7 @@ const columns = [
                 <>
                     {
                         hasPermission(['superadmin']) && (
-                            <div className="flex items-center gap-2">
+                             <div className="flex items-center gap-2">
                                 <CustomTooltip content="Edit User">
                                     <UpdateUserDialog user={user} />
                                 </CustomTooltip>
