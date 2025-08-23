@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { usePatientData, useDoctorData, useAppointmentsData } from "../../../providers/ApiContextProvider"
+import { usePatientData, useDoctorData } from "../../../providers/ApiContextProvider"
 import spinnerLight from '/spinner-light.svg'
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,13 +23,14 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { updateAppointment } from "../../../providers/ApiProviders"
 import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTimeLocal"
+import { useQueryClient } from "@tanstack/react-query"
 
 
 export default function EditPatientAppointmentDialog({ children, appointment }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     // context hooks
-    const { refreshAppointments } = useAppointmentsData();
     // destructured prop
+    const queryClient = useQueryClient();
     const { appointment_id, doctor_id, patient_id, status, notes, appointment_date } = appointment;
 
     // form validation schema
@@ -70,7 +71,7 @@ export default function EditPatientAppointmentDialog({ children, appointment }) 
                     doctorId: Number(values.doctorId)
                 }
                 const response = await updateAppointment(payload, appointment_id);
-                refreshAppointments();
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response;
             } catch (error) {
                 console.error(error)
@@ -189,9 +190,8 @@ export default function EditPatientAppointmentDialog({ children, appointment }) 
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {doctors.map((doctor) => (
-                                                    <SelectItem key={doctor.doctor_id} value={`${doctor.doctor_id}`}>
-                                                        {doctor.first_name} {doctor.last_name} {" "}
-                                                        ({doctor.specialty})
+                                                    <SelectItem key={doctor.id} value={`${doctor.id}`}>
+                                                        {doctor.name}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>

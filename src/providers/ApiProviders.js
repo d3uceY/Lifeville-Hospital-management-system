@@ -136,6 +136,11 @@ export const getAppointments = async (page = 1, pageSize = 20, searchTerm = "") 
   return response.data;
 };
 
+export const getAppointmentsByPatientId = async (patientId) => {
+  const response = await api.get(`/appointments/${patientId}/patient`);
+  return response.data;
+}
+
 export const viewAppointment = async (appointmentId) => {
   const response = await api.get(
     "/appointments/" + appointmentId

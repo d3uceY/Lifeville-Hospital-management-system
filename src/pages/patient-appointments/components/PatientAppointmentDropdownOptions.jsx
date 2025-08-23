@@ -18,30 +18,24 @@ import {
 } from "@/components/ui/dropdown-menu"
 //api provider
 import { deleteAppointment, updateAppointmentStatus } from "../../../providers/ApiProviders"
-//api context provider
-import { useAppointmentsData } from "../../../providers/ApiContextProvider"
 
 import { toast } from "sonner"
-
+import { useQueryClient } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import EditAppointmentDialog from "./EditAppointmentDialog"
 
 export default function PatientAppointmentDropdownOptions({ appointment }) {
-
-    const { refreshAppointments } = useAppointmentsData()
 
     const {
         appointment_id,
         patient_phone_number,
     } = appointment;
-
-    // Parse the ISO date string
+    const queryClient = useQueryClient()
     const handleUpdateStatus = (newStatus) => {
         const promise = async () => {
             try {
                 const response = await updateAppointmentStatus(appointment_id, newStatus)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 console.error(err)
@@ -61,7 +55,7 @@ export default function PatientAppointmentDropdownOptions({ appointment }) {
         const promise = async () => {
             try {
                 const response = await deleteAppointment(appointment_id)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 throw err;
@@ -91,24 +85,6 @@ export default function PatientAppointmentDropdownOptions({ appointment }) {
                     </TooltipTrigger>
                     <TooltipContent>
                         <p>Call Patient</p>
-                    </TooltipContent>
-                </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-                <Tooltip>
-                    <EditAppointmentDialog appointment={appointment}>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8 text-gray-500 hover:hover:bg-[#e6f2ed]"
-                            >
-                                <PenSquare className="h-4 w-4" />
-                            </Button>
-                        </TooltipTrigger>
-                    </EditAppointmentDialog>
-                    <TooltipContent>
-                        <p>Edit Appointment</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>

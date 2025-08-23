@@ -19,7 +19,7 @@ import {
 //api provider
 import { deleteAppointment, updateAppointmentStatus } from "../../../providers/ApiProviders"
 //api context provider
-import { useAppointmentsData } from "../../../providers/ApiContextProvider"
+import { useQueryClient } from "@tanstack/react-query"
 
 import { toast } from "sonner"
 
@@ -29,8 +29,7 @@ import EditAppointmentDialog from "./EditAppointmentDialog"
 
 export default function AppointmentDropdownOptions({ appointment }) {
 
-    const { refreshAppointments } = useAppointmentsData()
-
+    const queryClient = useQueryClient();
     const {
         appointment_id,
         patient_phone_number,
@@ -41,7 +40,7 @@ export default function AppointmentDropdownOptions({ appointment }) {
         const promise = async () => {
             try {
                 const response = await updateAppointmentStatus(appointment_id, newStatus)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 console.error(err)
@@ -61,7 +60,7 @@ export default function AppointmentDropdownOptions({ appointment }) {
         const promise = async () => {
             try {
                 const response = await deleteAppointment(appointment_id)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 throw err;

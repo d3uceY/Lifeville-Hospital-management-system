@@ -4,7 +4,6 @@ import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-quer
 import {
   getRegisteredPatients,
   getDoctors,
-  getAppointments,
   getDeaths,
   getBirths,
   getSymptomTypes,
@@ -19,7 +18,6 @@ import {
 // Context definitions
 const PatientContext = createContext(null);
 const DoctorContext = createContext(null);
-const AppointmentsContext = createContext(null);
 const BirthAndDeaths = createContext(null);
 const SymptomTypes = createContext(null);
 const SymptomHeads = createContext(null);
@@ -30,7 +28,6 @@ const LabTests = createContext(null);
 // Exported hooks
 export const usePatientData = () => useContext(PatientContext);
 export const useDoctorData = () => useContext(DoctorContext);
-export const useAppointmentsData = () => useContext(AppointmentsContext);
 export const useBirthAndDeaths = () => useContext(BirthAndDeaths);
 export const useSymptomTypes = () => useContext(SymptomTypes);
 export const useSymptomHeads = () => useContext(SymptomHeads);
@@ -42,7 +39,6 @@ export const useLabTests = () => useContext(LabTests);
 export function AppDataProvider({ children }) {
   const patientsQ = useQuery({ queryKey: ['patients'], queryFn: getRegisteredPatients });
   const doctorsQ = useQuery({ queryKey: ['doctors'], queryFn: getDoctors });
-  const appointmentsQ = useQuery({ queryKey: ['appointments'], queryFn: getAppointments });
   const deathsQ = useQuery({ queryKey: ['deaths'], queryFn: getDeaths });
   const birthsQ = useQuery({ queryKey: ['births'], queryFn: getBirths });
   const symptomTypesQ = useQuery({ queryKey: ['symptomTypes'], queryFn: getSymptomTypes });
@@ -55,11 +51,6 @@ export function AppDataProvider({ children }) {
 
   
   return (
-    <AppointmentsContext.Provider value={{
-      appointments: appointmentsQ.data ?? [],
-      loadingAppointments: appointmentsQ.isLoading,
-      refreshAppointments: appointmentsQ.refetch,
-    }}>
       <DoctorContext.Provider value={{
         doctors: doctorsQ.data ?? [],
         loadingDoctors: doctorsQ.isLoading,
@@ -118,7 +109,6 @@ export function AppDataProvider({ children }) {
           </PatientContext.Provider>
         </BirthAndDeaths.Provider>
       </DoctorContext.Provider>
-    </AppointmentsContext.Provider>
   );
 }
 

@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-import { usePatientData, useDoctorData, useAppointmentsData } from "../../../providers/ApiContextProvider"
+import { useDoctorData } from "../../../providers/ApiContextProvider"
 import { createAppointment } from "../../../providers/ApiProviders"
 import spinnerLight from "/spinner-light.svg"
 import { useQueryClient } from "@tanstack/react-query"

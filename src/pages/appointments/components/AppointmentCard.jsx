@@ -20,7 +20,7 @@ import {
 //api provider
 import { deleteAppointment, updateAppointmentStatus } from "../../../providers/ApiProviders"
 //api context provider
-import { useAppointmentsData } from "../../../providers/ApiContextProvider"
+
 
 import { toast } from "sonner"
 
@@ -28,6 +28,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import EditAppointmentDialog from "./EditAppointmentDialog"
+import { useQueryClient } from "@tanstack/react-query"
 
 // Helper function to get status badge color
 const getStatusColor = (status) => {
@@ -48,8 +49,6 @@ const getStatusColor = (status) => {
 }
 
 export default function AppointmentCard({ appointment }) {
-
-    const { refreshAppointments } = useAppointmentsData()
 
     const {
         patient_first_name,
@@ -89,7 +88,7 @@ export default function AppointmentCard({ appointment }) {
         const promise = async () => {
             try {
                 const response = await updateAppointmentStatus(appointment_id, newStatus)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 console.error(err)
@@ -109,7 +108,7 @@ export default function AppointmentCard({ appointment }) {
         const promise = async () => {
             try {
                 const response = await deleteAppointment(appointment_id)
-                refreshAppointments()
+                queryClient.invalidateQueries({ queryKey: ['appointments'] })
                 return response
             } catch (err) {
                 throw err;
