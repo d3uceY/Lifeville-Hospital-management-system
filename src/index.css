@@ -207,7 +207,7 @@ button{
 }
 
 .action-view-btn {
-  @apply px-4 py-2  font-medium transition-all duration-200 ease-in-out
+  @apply px-2 py-2  font-medium transition-all duration-200 ease-in-out
          text-blue-600 hover:text-blue-800 
          bg-blue-50 hover:bg-blue-100 
          border border-blue-100 hover:border-blue-200

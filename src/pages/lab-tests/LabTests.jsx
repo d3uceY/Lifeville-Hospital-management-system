@@ -66,11 +66,11 @@ export default function LabTests() {
             </h3>
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-xs font-medium text-gray-500">Lab Test ID</label>
+                <label className="text-xs font-medium text-gray-500">Lab Test </label>
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
                   <Input
-                    placeholder="Filter lab test"
+                    placeholder="Search lab test"
                     value={term}
                     onChange={(event) => handleSearchTermChange(event.target.value)}
                     className="pl-9 border-[#268a6461] rounded-md focus-visible:ring-[#268a6429] focus-visible:border-[#268a64]"

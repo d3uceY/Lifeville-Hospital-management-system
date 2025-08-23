@@ -18,6 +18,9 @@ import { formatDate } from "../../../helpers/formatDate";
 import { ViewPrescriptionDialog } from "./ViewPrescriptionDialog";
 import PrescriptionStatusDropdown from "./PrescriptionStatusDropdown";
 import { getPrescriptionStatusBadge } from "../../../helpers/getPrescriptionStatusBadge";
+import DeletePrescriptionDialog from "./DeletePrescriptionDialog";
+import { hasPermission } from "../../../helpers/hasPermission";
+
 
 const columns = [
     {
@@ -97,10 +100,15 @@ const columns = [
             return (
                 <div className="flex items-center gap-2">
                     <ViewPrescriptionDialog prescription={prescription}>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="action-view-btn">
                             <Eye className="h-4 w-4" />
                         </Button>
                     </ViewPrescriptionDialog>
+                    {
+                        hasPermission(['doctor', 'superadmin']) && (
+                            <DeletePrescriptionDialog deletedPrescriptionRecordInfo={prescription} />
+                        )
+                    }
                     <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
                 </div>
             );
@@ -114,6 +122,8 @@ export default function PrescriptionTable() {
         queryKey: ["patientPrescriptions", patient_id],
         queryFn: () => getPrescriptionsByPatientId(patient_id),
     });
+
+    console.log(prescriptions)
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);
