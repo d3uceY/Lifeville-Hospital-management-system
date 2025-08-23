@@ -31,7 +31,6 @@ import {
 } from "@/components/ui/select"
 import { useDebounce } from "../../hooks/use-debounce"
 
-import ScheduleAppointmentDialog from "./components/ScheduleAppointmentDialog"
 
 export default function DoctorAppointmentsUI() {
   const [page, setPage] = useState(1)
@@ -74,7 +73,6 @@ export default function DoctorAppointmentsUI() {
               <User2 className="h-5 w-5" />
               Appointments
             </CardTitle>
-            <ScheduleAppointmentDialog />
           </CardHeader>
           <CardContent className="md:p-6">
             <div className="mb-6 bg-white rounded-lg border p-4 shadow-sm">
