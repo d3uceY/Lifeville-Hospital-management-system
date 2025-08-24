@@ -6,6 +6,7 @@ import { VitalSignSummaryTable } from "./components/VitalSignSummaryTable"
 import {
     Activity, ClipboardList, TestTube, Hospital,
 } from "lucide-react";
+import { Link } from "react-router-dom"
 
 export default function PatientSummaryPage() {
     return (
@@ -20,6 +21,9 @@ export default function PatientSummaryPage() {
                             <Activity className="h-5 w-5" />
                             Recent Vital Signs
                         </CardTitle>
+
+                        <Link to="">
+                        </Link>
                     </CardHeader>
                     <CardContent>
                         <VitalSignSummaryTable />

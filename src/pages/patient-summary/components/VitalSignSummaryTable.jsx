@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useParams } from "react-router-dom"
 import { formatTemperature, formatBloodPressure, formatPulse, formatSpO2, formatBMI } from "../../../helpers/vitalSignFormatters"
 import { calculateBMI } from "../../../helpers/calculateBMI"
+import { formatDate } from "../../../helpers/formatDate"
 
 export function VitalSignSummaryTable() {
     const { patient_id } = useParams()
@@ -47,7 +48,7 @@ export function VitalSignSummaryTable() {
                 {vitalSigns.map((vital) => (
                     <TableRow key={vital.id}>
                         {/* Date */}
-                        <TableCell>{new Date(vital.vital_sign_date).toLocaleString()}</TableCell>
+                        <TableCell>{formatDate(vital.recorded_at)}</TableCell>
 
                         {/* Temperature */}
                         <TableCell>
