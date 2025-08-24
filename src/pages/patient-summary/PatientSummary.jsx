@@ -27,11 +27,11 @@ export default function PatientSummaryPage() {
                             <Activity className="h-5 w-5" />
                             Recent Vital Signs
                         </CardTitle>
-                        <Button variant="outline" size="sm" className="action-view-btn">
-                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
                         <VitalSignSummaryTable />
@@ -45,11 +45,11 @@ export default function PatientSummaryPage() {
                             <Hospital className="h-5 w-5" />
                             Recent Admissions
                         </CardTitle>
-                        <Button variant="outline" size="sm" className="action-view-btn">
-                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/admissions`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/admissions`}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
                         <AdmissionSummaryTable />
@@ -63,11 +63,11 @@ export default function PatientSummaryPage() {
                             <ClipboardList className="h-5 w-5" />
                             Recent Diagnosis
                         </CardTitle>
-                        <Button variant="outline" size="sm" className="action-view-btn">
-                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnosis`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnosis`}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
                         <DiagnosisSummaryTable />
@@ -81,11 +81,11 @@ export default function PatientSummaryPage() {
                             <TestTube className="h-5 w-5" />
                             Recent Analysis/Tests
                         </CardTitle>
-                        <Button variant="outline" size="sm" className="action-view-btn">
-                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/lab-tests`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/lab-tests`}>
+                            <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
                         <LabTestSummaryTable />
