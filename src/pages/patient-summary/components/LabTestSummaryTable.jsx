@@ -39,7 +39,7 @@ export function LabTestSummaryTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {labTests.map((test, index) => (
+                {labTests?.map((test, index) => (
                     <TableRow key={index}>
                         <TableCell>{new Date(test.test_date).toLocaleDateString()}</TableCell>
                         <TableCell>{test.consultant_doctor_name}</TableCell>

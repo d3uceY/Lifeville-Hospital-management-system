@@ -39,7 +39,7 @@ export function DiagnosisSummaryTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {diagnoses.map((diagnosis, index) => (
+                {diagnoses?.map((diagnosis, index) => (
                     <TableRow key={index}>
                         <TableCell>{new Date(diagnosis.diagnosis_date).toLocaleDateString()}</TableCell>
                         <TableCell>{diagnosis.consultant_doctor_name}</TableCell>

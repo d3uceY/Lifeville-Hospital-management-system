@@ -45,7 +45,7 @@ export function VitalSignSummaryTable() {
             </TableHeader>
 
             <TableBody>
-                {vitalSigns.map((vital) => (
+                {vitalSigns?.map((vital) => (
                     <TableRow key={vital.id}>
                         {/* Date */}
                         <TableCell>{formatDate(vital.recorded_at)}</TableCell>

@@ -40,7 +40,7 @@ export function AdmissionSummaryTable() {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {admissions.map((admission, index) => (
+                {admissions?.map((admission, index) => (
                     <TableRow key={index}>
                         <TableCell>{new Date(admission.admission_date).toLocaleDateString()}</TableCell>
                         <TableCell>{getDischargeConditionBadge(admission.discharge_condition)}</TableCell>

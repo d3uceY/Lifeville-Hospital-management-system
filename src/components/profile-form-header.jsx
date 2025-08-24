@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-export default function ProfileFormHeader({ title, description }) {
+export default function ProfileFormHeader({ title, description, noID }) {
     const { patient_id, surname, first_name } = useParams();
 
     return (
@@ -17,7 +17,7 @@ export default function ProfileFormHeader({ title, description }) {
                 </h2>
 
                 {/* Optional patient ID below the name for context */}
-                {patient_id && (
+                {!noID && patient_id && (
                     <p className="text-sm text-gray-500 font-medium">
                         Patient ID: <span className="text-gray-700">{patient_id}</span>
                     </p>

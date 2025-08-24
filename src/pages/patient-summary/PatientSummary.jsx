@@ -10,16 +10,18 @@ import {
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { useParams } from "react-router-dom"
+import ProfileFormHeader from "../../components/profile-form-header"
 
 export default function PatientSummaryPage() {
     const { patient_id, surname, first_name } = useParams()
     return (
         <div className="container mx-auto p-6 space-y-6">
             <div className="space-y-4">
-                <h1 className="text-3xl font-bold">Patient Summary Dashboard</h1>
+                <ProfileFormHeader title="Patient Summary Dashboard" description="" noID />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-                <Card className="w-full col-span-7 pt-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-6">
+                {/* Vital Signs - full width always */}
+                <Card className="w-full col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <Activity className="h-5 w-5" />
@@ -35,7 +37,9 @@ export default function PatientSummaryPage() {
                         <VitalSignSummaryTable />
                     </CardContent>
                 </Card>
-                <Card className="w-full col-span-4 pt-0">
+
+                {/* Admissions - grows to half width on sm, 4/6 on md, 4/7 on lg */}
+                <Card className="w-full col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-4 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <Hospital className="h-5 w-5" />
@@ -52,7 +56,8 @@ export default function PatientSummaryPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="w-full col-span-3 pt-0">
+                {/* Diagnosis - sits next to Admissions */}
+                <Card className="w-full col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <ClipboardList className="h-5 w-5" />
@@ -69,7 +74,8 @@ export default function PatientSummaryPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="w-full col-span-7 pt-0">
+                {/* Lab Tests - full width again */}
+                <Card className="w-full col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <TestTube className="h-5 w-5" />
@@ -85,7 +91,6 @@ export default function PatientSummaryPage() {
                         <LabTestSummaryTable />
                     </CardContent>
                 </Card>
-
             </div>
         </div>
     )
