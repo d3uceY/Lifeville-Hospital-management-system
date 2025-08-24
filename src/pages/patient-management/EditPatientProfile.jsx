@@ -49,7 +49,6 @@ export default function EditPatientProfile() {
   const schema = z.object({
     // Required Fields
     date: z.string().nonempty({ message: "Date is required" }),
-    hospitalNumber: z.string().nonempty({ message: "Hospital number is required" }),
     surname: z.string().nonempty({ message: "Surname is required" }),
     firstName: z.string().nonempty({ message: "First name is required" }),
     otherNames: z.string().nonempty({ message: "Other names are required" }),
@@ -93,7 +92,6 @@ export default function EditPatientProfile() {
     defaultValues: {
       // Basic Information
       date: formatForDateInput(patient?.date || ""),
-      hospitalNumber: patient?.hospital_number || "",
       surname: patient?.surname || "",
       firstName: patient?.first_name || "",
       otherNames: patient?.other_names || "",
@@ -204,7 +202,7 @@ export default function EditPatientProfile() {
         <div className="absolute -right-4 top-0 bg-amber-400 text-white px-3 py-1.5 rounded-l-md shadow-md transform rotate-90 origin-right translate-y-16 font-medium">
           EDITING
         </div>
-    
+
         {/* Basic Information */}
         <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
           <CardHeader className="bg-[#f0f8f4] border-b ">
@@ -228,7 +226,7 @@ export default function EditPatientProfile() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-4 gap-6 mt-6">
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
                   Date
@@ -241,20 +239,6 @@ export default function EditPatientProfile() {
                 />
                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
               </div>
-              <div>
-                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="hospital_number">
-                  Hospital Number
-                </Label>
-                <Input
-                  className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
-                  id="hospital_number"
-                  type="text"
-                  {...register("hospitalNumber")}
-                />
-                {errors.hospitalNumber && <p className="text-red-500 text-sm mt-1">{errors.hospitalNumber.message}</p>}
-              </div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6 mt-6">
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">
                   Surname
