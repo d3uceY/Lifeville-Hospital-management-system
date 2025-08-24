@@ -25,7 +25,7 @@ export function NavSetup({
   const location = useLocation();
   return (
     (<SidebarGroup>
-      <SidebarGroupLabel>Setup</SidebarGroupLabel>
+      <SidebarGroupLabel>{items.length > 0 ? "Setup" : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible

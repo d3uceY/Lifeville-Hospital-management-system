@@ -25,7 +25,7 @@ export function NavClinical({
   const location = useLocation();
   return (
     (<SidebarGroup>
-      <SidebarGroupLabel>Clinical Operations</SidebarGroupLabel>
+      <SidebarGroupLabel>{items.length > 0 ? "Clinical Operations" : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible

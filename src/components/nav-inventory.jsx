@@ -26,7 +26,7 @@ export function NavInventory({
   const location = useLocation();
   return (
     (<SidebarGroup>
-      <SidebarGroupLabel>Financial Management</SidebarGroupLabel>
+      <SidebarGroupLabel>{items.length > 0 ? "Financial Management" : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible

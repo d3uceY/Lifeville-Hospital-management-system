@@ -25,7 +25,7 @@ export function NavMain({
   const location = useLocation();
   return (
     (<SidebarGroup>
-      <SidebarGroupLabel>Administration & Reporting</SidebarGroupLabel>
+      <SidebarGroupLabel>{items.length > 0 ? "Administration & Reporting" : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
