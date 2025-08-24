@@ -14,7 +14,7 @@ export default function PatientSummaryPage() {
                 <h1 className="text-3xl font-bold">Patient Summary Dashboard</h1>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
-                <Card className="w-full col-span-7">
+                <Card className="w-full col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <Activity className="h-5 w-5" />
@@ -25,7 +25,7 @@ export default function PatientSummaryPage() {
                         <VitalSignSummaryTable />
                     </CardContent>
                 </Card>
-                <Card className="w-full col-span-4">
+                <Card className="w-full col-span-4 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <Hospital className="h-5 w-5" />
@@ -37,7 +37,7 @@ export default function PatientSummaryPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="w-full col-span-3">
+                <Card className="w-full col-span-3 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <ClipboardList className="h-5 w-5" />
@@ -49,7 +49,7 @@ export default function PatientSummaryPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="w-full col-span-7">
+                <Card className="w-full col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
                             <TestTube className="h-5 w-5" />

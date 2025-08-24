@@ -18,6 +18,7 @@ import { hasPermission } from "../../../helpers/hasPermission";
 import EditProfileVitalSignsDialog from "./EditProfileVitalSignsDialog";
 import { calculateBMI } from "../../../helpers/calculateBMI";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import { formatTemperature, formatBMI, formatBloodPressure, formatPulse, formatSpO2 } from "../../../helpers/vitalSignFormatters";
 
 const columns = [
     {
@@ -38,44 +39,35 @@ const columns = [
         accessorKey: "temperature",
         header: "Temp (°C)",
         cell: ({ row }) => {
-            const temp = row.getValue("temperature");
-            const color =
-                temp < 36.1 || temp > 37.2 ? "text-red-600 font-semibold" : "text-green-600 font-semibold";
-            return <div className={color}>{temp}°C</div>;
+            const { value, color } = formatTemperature(row.getValue("temperature"));
+            return <div className={color}>{value}</div>;
         },
     },
     {
         accessorKey: "blood_pressure_systolic",
         header: "BP (Systolic/Diastolic)",
         cell: ({ row }) => {
-            const sys = row.getValue("blood_pressure_systolic");
-            const dia = row.original.blood_pressure_diastolic;
-            const color =
-                sys < 90 || sys > 120 || dia < 60 || dia > 80
-                    ? "text-red-600 font-semibold"
-                    : "text-green-600 font-semibold";
-            return <div className={color}>{sys}/{dia} mmHg</div>;
+            const { value, color } = formatBloodPressure(
+                row.getValue("blood_pressure_systolic"),
+                row.original.blood_pressure_diastolic
+            );
+            return <div className={color}>{value}</div>;
         },
     },
     {
         accessorKey: "pulse_rate",
         header: "Pulse (bpm)",
         cell: ({ row }) => {
-            const pulse = row.getValue("pulse_rate");
-            const color =
-                pulse < 60 || pulse > 100 ? "text-red-600 font-semibold" : "text-green-600 font-semibold";
-            return <div className={color}>{pulse}</div>;
+            const { value, color } = formatPulse(row.getValue("pulse_rate"));
+            return <div className={color}>{value}</div>;
         },
     },
     {
         accessorKey: "spo2",
         header: "SpO₂ (%)",
         cell: ({ row }) => {
-            const spo2 = row.getValue("spo2");
-            let color = "text-green-600 font-semibold";
-            if (spo2 < 90) color = "text-red-600 font-semibold";
-            else if (spo2 < 95) color = "text-orange-500 font-semibold";
-            return <div className={color}>{spo2}%</div>;
+            const { value, color } = formatSpO2(row.getValue("spo2"));
+            return <div className={color}>{value}</div>;
         },
     },
     {
