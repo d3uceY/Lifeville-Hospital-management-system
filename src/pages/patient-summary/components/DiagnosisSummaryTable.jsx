@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom"
 export function DiagnosisSummaryTable() {
     const { patient_id } = useParams()
     const {
-        data: diagnoses,
+        data: diagnoses = [],
         isLoading,
         error,
     } = useQuery({

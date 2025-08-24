@@ -5,10 +5,14 @@ import { LabTestSummaryTable } from "./components/LabTestSummaryTable"
 import { VitalSignSummaryTable } from "./components/VitalSignSummaryTable"
 import {
     Activity, ClipboardList, TestTube, Hospital,
+    SquareArrowOutUpRight,
 } from "lucide-react";
+import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 export default function PatientSummaryPage() {
+    const { patient_id, surname, first_name } = useParams()
     return (
         <div className="container mx-auto p-6 space-y-6">
             <div className="space-y-4">
@@ -21,9 +25,11 @@ export default function PatientSummaryPage() {
                             <Activity className="h-5 w-5" />
                             Recent Vital Signs
                         </CardTitle>
-
-                        <Link to="">
-                        </Link>
+                        <Button variant="outline" size="sm" className="action-view-btn">
+                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`}>
+                                <SquareArrowOutUpRight className="h-4 w-4" />
+                            </Link>
+                        </Button>
                     </CardHeader>
                     <CardContent>
                         <VitalSignSummaryTable />
@@ -35,6 +41,11 @@ export default function PatientSummaryPage() {
                             <Hospital className="h-5 w-5" />
                             Recent Admissions
                         </CardTitle>
+                        <Button variant="outline" size="sm" className="action-view-btn">
+                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/admissions`}>
+                                <SquareArrowOutUpRight className="h-4 w-4" />
+                            </Link>
+                        </Button>
                     </CardHeader>
                     <CardContent>
                         <AdmissionSummaryTable />
@@ -47,6 +58,11 @@ export default function PatientSummaryPage() {
                             <ClipboardList className="h-5 w-5" />
                             Recent Diagnosis
                         </CardTitle>
+                        <Button variant="outline" size="sm" className="action-view-btn">
+                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnosis`}>
+                                <SquareArrowOutUpRight className="h-4 w-4" />
+                            </Link>
+                        </Button>
                     </CardHeader>
                     <CardContent>
                         <DiagnosisSummaryTable />
@@ -59,6 +75,11 @@ export default function PatientSummaryPage() {
                             <TestTube className="h-5 w-5" />
                             Recent Analysis/Tests
                         </CardTitle>
+                        <Button variant="outline" size="sm" className="action-view-btn">
+                            <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/lab-tests`}>
+                                <SquareArrowOutUpRight className="h-4 w-4" />
+                            </Link>
+                        </Button>
                     </CardHeader>
                     <CardContent>
                         <LabTestSummaryTable />

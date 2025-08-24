@@ -9,7 +9,7 @@ import { formatDate } from "../../../helpers/formatDate"
 export function VitalSignSummaryTable() {
     const { patient_id } = useParams()
     const {
-        data: vitalSigns,
+        data: vitalSigns = [],
         isLoading,
         error,
     } = useQuery({
