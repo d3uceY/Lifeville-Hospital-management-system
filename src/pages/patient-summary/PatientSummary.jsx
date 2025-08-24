@@ -63,7 +63,7 @@ export default function PatientSummaryPage() {
                             <ClipboardList className="h-5 w-5" />
                             Recent Diagnosis
                         </CardTitle>
-                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnosis`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnoses`}>
                             <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
                             </Button>
@@ -81,7 +81,7 @@ export default function PatientSummaryPage() {
                             <TestTube className="h-5 w-5" />
                             Recent Analysis/Tests
                         </CardTitle>
-                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/lab-tests`}>
+                        <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/analysis`}>
                             <Button variant="outline" size="sm" className="action-view-btn">
                                 <SquareArrowOutUpRight className="h-4 w-4" />
                             </Button>
