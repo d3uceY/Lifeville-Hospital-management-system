@@ -4,7 +4,7 @@ export const getLabTestStatusBadge = (status) => {
     const statusConfig = {
         "to do": { 
             variant: "secondary", 
-            className: "bg-gray-100 text-gray-800 hover:bg-gray-100" 
+            className: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100" 
         },
         "in progress": { 
             variant: "default", 

@@ -197,7 +197,7 @@ export function ViewAdmissionDialog({ admission, children }) {
                                 <div>
                                     <label className="text-sm font-medium text-gray-500">Symptom Types</label>
                                     <ul className="mt-2 list-disc list-inside space-y-1">
-                                        {admission.symptom_types.map((symptom, idx) => (
+                                        {admission.symptom_types?.map((symptom, idx) => (
                                             <li key={idx} className="text-sm">{symptom}</li>
                                         ))}
                                     </ul>
