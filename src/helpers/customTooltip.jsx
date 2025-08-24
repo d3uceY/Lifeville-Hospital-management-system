@@ -9,7 +9,7 @@ import React from 'react'
 export function CustomTooltip({ children, content }) {
     return (
         <Tooltip>
-            <TooltipTrigger asChild>{children}</TooltipTrigger>
+            <TooltipTrigger>{children}</TooltipTrigger>
             <TooltipContent>
                 <p>{content}</p>
             </TooltipContent>

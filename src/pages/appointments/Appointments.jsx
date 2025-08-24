@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { formatDate } from "../../helpers/formatDate"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { User2, Filter, Search } from "lucide-react"
+import { CalendarDays, Filter, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
@@ -70,7 +70,7 @@ export default function DoctorAppointmentsUI() {
         <Card className="shadow-sm py-0 overflow-hidden">
           <CardHeader className="pb-3 border-b flex items-center justify-between bg-[#f0f8f4] pt-6">
             <CardTitle className="flex items-center gap-2">
-              <User2 className="h-5 w-5" />
+              <CalendarDays className="h-5 w-5" />
               Appointments
             </CardTitle>
           </CardHeader>

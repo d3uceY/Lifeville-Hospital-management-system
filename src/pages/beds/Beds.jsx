@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Bed, Search, Filter, User2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -141,7 +141,7 @@ export default function Beds() {
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <User2 className="h-5 w-5" />
+            <Bed className="h-5 w-5" />
             Beds
           </CardTitle>
           <CreateBedDialog />
