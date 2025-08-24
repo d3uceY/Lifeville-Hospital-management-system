@@ -33,7 +33,7 @@ export function LabTestSummaryTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead>Test Date</TableHead>
-                    <TableHead>Doctor</TableHead>
+                    <TableHead>Recorded By</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Test Type</TableHead>
                 </TableRow>

@@ -32,7 +32,7 @@ export function VitalSignSummaryTable() {
             <TableHeader>
                 <TableRow>
                     <TableHead>Date</TableHead>
-                    <TableHead>Doctor</TableHead>
+                    <TableHead>Recorded By</TableHead>
                     <TableHead>Vital Signs</TableHead>
                 </TableRow>
             </TableHeader>
