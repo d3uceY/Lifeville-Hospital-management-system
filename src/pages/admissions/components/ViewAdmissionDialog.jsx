@@ -35,6 +35,7 @@ export function ViewAdmissionDialog({ admission, children }) {
     const { data: dischargeSummary } = useQuery({
         queryKey: ["discharge-summary", admission.id],
         queryFn: () => getDischarSummaryByAdmissionId(admission.id),
+        enabled: admission.discharge_condition !== "on admission"
     })
 
 
