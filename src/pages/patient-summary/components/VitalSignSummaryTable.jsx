@@ -9,7 +9,7 @@ import { formatDate } from "../../../helpers/formatDate"
 export function VitalSignSummaryTable() {
     const { patient_id } = useParams()
     const {
-        data: vitalSigns = [],
+        data,
         isLoading,
         error,
     } = useQuery({
@@ -17,6 +17,9 @@ export function VitalSignSummaryTable() {
         queryFn: () => getVitalSignSummaryByPatientId(patient_id),
         enabled: !!patient_id,
     })
+
+
+    const vitalSigns = Array.isArray(data) ? data : []
 
     if (isLoading) {
         return <div className="text-center py-4">Loading vital signs...</div>
