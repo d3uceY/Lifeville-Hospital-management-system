@@ -18,10 +18,12 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import { Link } from "react-router-dom"
+import { useLocation } from "react-router-dom";
 
 export function NavInventory({
   items
 }) {
+  const location = useLocation();
   return (
     (<SidebarGroup>
       <SidebarGroupLabel>Financial Management</SidebarGroupLabel>
@@ -45,7 +47,7 @@ export function NavInventory({
                 <SidebarMenuSub className="border-l-[#b2d2c6]" >
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild className="">
+                      <SidebarMenuSubButton isActive={location.pathname === subItem.url} asChild className="">
                         <Link to={subItem.url}>
                           <span>{subItem.title}</span>
                         </Link>
