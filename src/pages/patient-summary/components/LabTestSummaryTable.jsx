@@ -7,7 +7,7 @@ import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge"
 export function LabTestSummaryTable() {
     const { patient_id } = useParams()
     const {
-        data: labTests,
+        data: labTests = [],
         isLoading,
         error,
     } = useQuery({
