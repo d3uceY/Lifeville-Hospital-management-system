@@ -3,6 +3,7 @@ import { getLabTestSummaryByPatientId } from "../../../providers/ApiProviders"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useParams } from "react-router-dom"
 import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge"
+import Loader from "../../../components/loader"
 
 export function LabTestSummaryTable() {
     const { patient_id } = useParams()
@@ -17,7 +18,7 @@ export function LabTestSummaryTable() {
     })
 
     if (isLoading) {
-        return <div className="text-center py-4">Loading lab tests...</div>
+        return <Loader />
     }
 
     if (error) {

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getDiagnosisSummaryByPatientId } from "../../../providers/ApiProviders"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useParams } from "react-router-dom"
+import Loader from "../../../components/loader"
 
 
 
@@ -18,7 +19,7 @@ export function DiagnosisSummaryTable() {
     })
 
     if (isLoading) {
-        return <div className="text-center py-4">Loading diagnoses...</div>
+        return <Loader />
     }
 
     if (error) {

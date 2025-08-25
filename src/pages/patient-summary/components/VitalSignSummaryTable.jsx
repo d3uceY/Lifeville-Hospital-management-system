@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import { formatTemperature, formatBloodPressure, formatPulse, formatSpO2, formatBMI } from "../../../helpers/vitalSignFormatters"
 import { calculateBMI } from "../../../helpers/calculateBMI"
 import { formatDate } from "../../../helpers/formatDate"
+import Loader from "../../../components/loader"
 
 export function VitalSignSummaryTable() {
     const { patient_id } = useParams()
@@ -22,7 +23,7 @@ export function VitalSignSummaryTable() {
     const vitalSigns = Array.isArray(data) ? data : []
 
     if (isLoading) {
-        return <div className="text-center py-4">Loading vital signs...</div>
+        return <Loader />
     }
 
     if (error) {

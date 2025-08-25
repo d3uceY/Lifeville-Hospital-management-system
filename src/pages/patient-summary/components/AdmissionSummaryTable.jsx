@@ -3,6 +3,7 @@ import { getAdmissionSummaryByPatientId } from "../../../providers/ApiProviders"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge"
 import { useParams } from "react-router-dom"
+import Loader from "../../../components/loader"
 
 export function AdmissionSummaryTable() {
     const { patient_id } = useParams()
@@ -19,7 +20,7 @@ export function AdmissionSummaryTable() {
     // console.log(admissions)
 
     if (isLoading) {
-        return <div className="text-center py-4">Loading admissions...</div>
+        return <Loader />
     }
 
     if (error) {
