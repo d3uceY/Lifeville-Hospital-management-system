@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import PatientAppointmentDropdownOptions from "./PatientAppointmentDropdownOptions";
 import EditPatientAppointmentDialog from "./EditPatientAppointmentDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import TableSkeleton from "../../../components/table-skeleton";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 const columns = [

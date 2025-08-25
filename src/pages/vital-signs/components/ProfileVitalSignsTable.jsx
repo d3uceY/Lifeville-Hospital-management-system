@@ -171,7 +171,7 @@ export default function ProfileVitalSignsTable({ patientId }) {
             </CardHeader>
             <CardContent className="md:p-6">
                 <div className="rounded-md border overflow-hidden shadow-sm">
-                    <Table>
+                    <Table className="">
                         <TableHeader className="bg-[#f0f8f4]">
                             {table.getHeaderGroups().map((hg) => (
                                 <TableRow key={hg.id}>

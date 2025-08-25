@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import { cn } from "@/lib/utils"
 
 function Table({
@@ -7,10 +6,10 @@ function Table({
   ...props
 }) {
   return (
-    (<div data-slot="table-container" className="relative w-full overflow-x-auto">
+    (<div data-slot="table-container" className="relative w-full overflow-x-auto overflow-y-hidden rounded-md border">
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        className={cn("w-full min-w-full caption-bottom text-sm", className)}
         {...props} />
     </div>)
   );
@@ -75,7 +74,7 @@ function TableHead({
     (<th
       data-slot="table-head"
       className={cn(
-        "text-muted-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "text-muted-foreground h-10 px-2 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props} />)
@@ -90,7 +89,7 @@ function TableCell({
     (<td
       data-slot="table-cell"
       className={cn(
-        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "p-2 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props} />)

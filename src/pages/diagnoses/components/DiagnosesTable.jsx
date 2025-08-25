@@ -28,7 +28,7 @@ import { hasPermission } from "../../../helpers/hasPermission";
 import { useAuth } from "../../../providers/AuthContext";
 import EditDiagnosisDialog from "./EditDiagnosisDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import TableSkeleton from "../../../components/table-skeleton";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 const columns = [
   {

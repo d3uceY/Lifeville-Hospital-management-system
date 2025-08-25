@@ -19,7 +19,7 @@ import { ViewNurseNoteDialog } from "./ViewNurseNotesDialog";
 import EditNurseNoteDialog from "./EditNurseNotesDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import TableSkeleton from "../../../components/table-skeleton";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 const columns = [

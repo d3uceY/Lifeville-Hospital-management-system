@@ -21,7 +21,8 @@ import { hasPermission } from "../../../helpers/hasPermission";
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
 import DischargeDialog from "./AdmissionDischargeDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import TableSkeleton from "../../../components/table-skeleton";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
+
 
 
 const columns = [

@@ -17,7 +17,7 @@ import { formatDate } from "../../../helpers/formatDate";
 import { useParams } from "react-router-dom";
 import { ViewPhysicalExaminationDialog } from "./ViewPhysicalExaminationDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import TableSkeleton from "../../../components/table-skeleton";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 const columns = [
   {
