@@ -19,6 +19,7 @@ import EditProfileVitalSignsDialog from "./EditProfileVitalSignsDialog";
 import { calculateBMI } from "../../../helpers/calculateBMI";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import { formatTemperature, formatBMI, formatBloodPressure, formatPulse, formatSpO2 } from "../../../helpers/vitalSignFormatters";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 const columns = [
     {
@@ -151,7 +152,14 @@ export default function ProfileVitalSignsTable({ patientId }) {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Vital Signs"
+            icon={<Activity className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <Card className="shadow-sm py-0 overflow-hidden mt-8">

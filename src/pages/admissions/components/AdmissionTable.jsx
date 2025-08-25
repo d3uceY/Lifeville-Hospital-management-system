@@ -21,6 +21,7 @@ import { hasPermission } from "../../../helpers/hasPermission";
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
 import DischargeDialog from "./AdmissionDischargeDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/table-skeleton";
 
 
 const columns = [
@@ -168,7 +169,14 @@ export default function AdmissionTable() {
         },
     });
 
-    if (loadingAdmissions) return <div>Loading...</div>;
+    if (loadingAdmissions) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Admissions"
+            icon={<Hospital className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <div className="">

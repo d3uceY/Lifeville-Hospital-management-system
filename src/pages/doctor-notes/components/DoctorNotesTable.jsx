@@ -151,7 +151,14 @@ export default function DoctorNotesTable() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Doctor Notes"
+            icon={<NotebookPen className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <div>

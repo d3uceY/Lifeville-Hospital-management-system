@@ -26,6 +26,7 @@ import { getBillStatusBadge } from "../../../helpers/getBillStatusBadge";
 import { formatToNaira } from "../../../helpers/formatToNaira";
 import { ProfileViewBillDialog } from "./ProfileBillViewDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip"
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 const columns = [
@@ -133,7 +134,15 @@ export default function ProfileBillsTable() {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return (
+    <TableSkeleton
+        headerCount={columns.length}
+        rowCount={5}
+        title="Bills"
+        icon={<ClipboardList className="h-5 w-5" />}
+        showPagination
+    />);
+
 
   return (
     <Card className="shadow-sm py-0 overflow-hidden mt-8">

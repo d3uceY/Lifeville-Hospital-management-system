@@ -21,6 +21,7 @@ import { getPrescriptionStatusBadge } from "../../../helpers/getPrescriptionStat
 import DeletePrescriptionDialog from "./DeletePrescriptionDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/table-skeleton";
 
 const columns = [
     {
@@ -86,7 +87,7 @@ const columns = [
             <ul className="list-disc pl-4 text-gray-700 text-sm">
                 {row.getValue("items")?.map((item, index) => (
                     <li key={index}>
-                        <strong>{item.drug_name}</strong> 
+                        <strong>{item.drug_name}</strong>
                     </li>
                 ))}
             </ul>
@@ -153,7 +154,15 @@ export default function PrescriptionTable() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Prescriptions"
+            icon={<Pill className="h-5 w-5" />}
+            showPagination
+        />);
+    ;
 
     return (
         <Card className="shadow-sm py-0 overflow-hidden">

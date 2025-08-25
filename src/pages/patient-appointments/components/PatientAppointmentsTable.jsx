@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import PatientAppointmentDropdownOptions from "./PatientAppointmentDropdownOptions";
 import EditPatientAppointmentDialog from "./EditPatientAppointmentDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/table-skeleton";
 
 
 const columns = [
@@ -147,7 +148,14 @@ export default function PatientAppointmentsTable() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Appointments"
+            icon={<CalendarDays className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <div>

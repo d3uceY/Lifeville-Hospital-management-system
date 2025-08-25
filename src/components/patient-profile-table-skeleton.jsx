@@ -18,7 +18,7 @@ export function TableSkeleton({
         <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             {icon && <div className="h-5 w-5">{icon}</div>}
-            <Skeleton className="h-6 w-32" />
+            {title && <Skeleton className="h-6 w-32" />}
           </CardTitle>
         </CardHeader>
         <CardContent className="md:p-6">
