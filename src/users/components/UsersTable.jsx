@@ -27,6 +27,7 @@ import { getRoleBadge } from "../../helpers/getRoleBadge";
 import DeleteUserDialog from './DeleteUserDialog'
 import { CustomTooltip } from "../../helpers/customTooltip";
 import { hasPermission } from "../../helpers/hasPermission";
+import TableSkeleton from "../../components/table-skeleton";
 
 
 const columns = [
@@ -158,7 +159,7 @@ export default function UsersTable() {
     });
 
 
-    if (isLoading) return <div>Loading users...</div>;
+    if (isLoading) return <TableSkeleton title="Users" icon={<Users className="h-5 w-5" />} />;
 
     return (
         <div className="lg:p-6">

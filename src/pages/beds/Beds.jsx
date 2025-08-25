@@ -26,6 +26,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedDialog } from "./components/editBedDialog";
 import DeleteBedDialog from "./components/deleteBedDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import TableSkeleton from "../../components/table-skeleton";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -134,7 +135,7 @@ export default function Beds() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingBeds) return <div>Loading...</div>;
+  if (loadingBeds) return <TableSkeleton title="Beds" icon={<Bed className="h-5 w-5" />} />;
 
   return (
     <div className="lg:p-6">

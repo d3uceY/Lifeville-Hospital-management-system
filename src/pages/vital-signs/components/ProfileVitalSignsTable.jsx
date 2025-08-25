@@ -18,7 +18,7 @@ import { hasPermission } from "../../../helpers/hasPermission";
 import EditProfileVitalSignsDialog from "./EditProfileVitalSignsDialog";
 import { calculateBMI } from "../../../helpers/calculateBMI";
 import { CustomTooltip } from "../../../helpers/customTooltip";
-import { formatTemperature, formatBMI, formatBloodPressure, formatPulse, formatSpO2 } from "../../../helpers/vitalSignFormatters";
+import { formatTemperature, formatBloodPressure, formatPulse, formatSpO2 } from "../../../helpers/vitalSignFormatters";
 import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 const columns = [
@@ -90,16 +90,16 @@ const columns = [
         header: "Recorded By",
         cell: ({ row }) => <div className="capitalize">{row.getValue("recorded_by")}</div>,
     },
-    {
-        accessorKey: "updated_by",
-        header: "Updated By",
-        cell: ({ row }) => <div className="text-gray-700">{row.getValue("updated_by") || "—"}</div>,
-    },
-    {
-        accessorKey: "updated_at",
-        header: "Updated At",
-        cell: ({ row }) => <div className="text-gray-700">{formatDate(row.getValue("updated_at")) || "—"}</div>,
-    },
+    // {
+    //     accessorKey: "updated_by",
+    //     header: "Updated By",
+    //     cell: ({ row }) => <div className="text-gray-700">{row.getValue("updated_by") || "—"}</div>,
+    // },
+    // { 
+    //     accessorKey: "updated_at",
+    //     header: "Updated At",
+    //     cell: ({ row }) => <div className="text-gray-700">{formatDate(row.getValue("updated_at")) || "—"}</div>,
+    // },
     {
         header: "Actions",
         cell: ({ row }) => {

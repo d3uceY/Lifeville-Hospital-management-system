@@ -25,6 +25,7 @@ import { EditLabTestTypesDialog } from "./components/EditLabTestTypesDialog";
 import DeleteLabTestTypeDialog from "./components/DeleteLabTestTypeDialog";
 import { CreateLabTestTypesDialog } from "./components/AddLabTestTypesDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import TableSkeleton from "../../components/table-skeleton";
 
 const columns = [
 
@@ -97,7 +98,7 @@ export default function LabTestTypes() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingLabTestTypes) return <div>Loading...</div>;
+  if (loadingLabTestTypes) return <TableSkeleton title="Lab Test Types" icon={<FlaskConical className="h-5 w-5" />} />;
 
   return (
     <div className="lg:p-6">

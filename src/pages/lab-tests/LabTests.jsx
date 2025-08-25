@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 import { useDebounce } from "../../hooks/use-debounce"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import { hasPermission } from "../../helpers/hasPermission"
+import TableSkeleton from "../../components/table-skeleton"
 
 
 export default function LabTests() {
@@ -31,6 +32,8 @@ export default function LabTests() {
   const handleSearchTermChange = (value) => {
     setTerm(value)
   }
+
+  if (isLoading) return <TableSkeleton title="Lab Tests" icon={<TestTube className="h-5 w-5" />} />
 
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>

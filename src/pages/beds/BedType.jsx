@@ -25,6 +25,7 @@ import { EditBedTypesDialog } from "./components/editBedTypesDialog";
 import DeleteBedTypeDialog from "./components/deletBedTypesDialog";
 import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import TableSkeleton from "../../components/table-skeleton";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -83,7 +84,7 @@ export default function BedGroup() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingBedTypes) return <div>Loading...</div>;
+  if (loadingBedTypes) return <TableSkeleton title="Bed Types" icon={<BedSingleIcon className="h-5 w-5" />} />;
 
   return (
     <div className="lg:p-6">

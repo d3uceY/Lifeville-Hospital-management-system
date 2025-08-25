@@ -91,9 +91,9 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-2">
+            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto p-0">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+                    <Card className="pt-0 mb-0 shadow-sm border-t-4 border-t-[#106041]">
                         <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
                             <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                                 <Activity size={20} />
@@ -125,7 +125,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.temperature && <p className="text-red-500 text-sm">{errors.temperature.message}</p>}
                             </div>
 
-                          
+
 
                             {/* Blood Pressure */}
                             <div className="mb-4">
@@ -151,7 +151,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.diastolicBloodPressure && <p className="text-red-500 text-sm">{errors.diastolicBloodPressure.message}</p>}
                             </div>
 
-                          
+
                             <div className="grid grid-cols-2 gap-4">
 
                                 {/* Weight */}
@@ -187,7 +187,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 </div>
                             </div>
 
-                          
+
 
                             {/* Heart Rate */}
                             <div className="mb-4">
@@ -204,7 +204,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.heartRate && <p className="text-red-500 text-sm">{errors.heartRate.message}</p>}
                             </div>
 
-                          
+
 
                             {/* SpO₂ */}
                             <div className="mb-4">
@@ -222,7 +222,7 @@ export default function EditProfileVitalSignsDialog({ children, vitalSign }) {
                                 {errors.spo2 && <p className="text-red-500 text-sm">{errors.spo2.message}</p>}
                             </div>
 
-                          
+
 
                             {/* Date */}
                             <div>

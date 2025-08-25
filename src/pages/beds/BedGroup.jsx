@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedGroupDialog } from "./components/editBedGroupDialog";
 import DeleteBedGroupDialog from "./components/deleteBedGroupDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import TableSkeleton from "../../components/table-skeleton";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -84,7 +85,7 @@ export default function BedGroup() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingBedGroups) return <div>Loading...</div>;
+  if (loadingBedGroups) return <TableSkeleton title="Bed Groups" icon={<BedDouble className="h-5 w-5" />} />;
 
   return (
     <div className="lg:p-6">

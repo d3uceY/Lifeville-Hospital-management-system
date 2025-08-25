@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { formatDate } from "../../helpers/formatDate"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarDays, Filter, Search } from "lucide-react"
+import { CalendarDays, Filter, Loader, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ChevronDown } from "lucide-react"
@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useDebounce } from "../../hooks/use-debounce"
+import TableSkeleton from "../../components/table-skeleton"
 
 
 export default function DoctorAppointmentsUI() {
@@ -47,6 +48,8 @@ export default function DoctorAppointmentsUI() {
   const handleSearchTermChange = async (value) => {
     setTerm(value)
   }
+
+  if (isLoading) return <TableSkeleton title="Appointments" icon={<CalendarDays className="h-5 w-5" />} />
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
@@ -146,7 +149,7 @@ export default function DoctorAppointmentsUI() {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={8} className="text-center py-10 text-gray-500">
-                        {isLoading ? "Loading appointments..." : "No appointments found"}
+                        {isLoading ? <Loader className="w-8 h-8 animate-spin mx-auto"/> : "No appointments found"}
                       </TableCell>
                     </TableRow>
                   )}
