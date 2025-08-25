@@ -1,6 +1,7 @@
 
 
 export const getStatusColor = (status) => {
+    if (!status) return "text-gray-600"
     const colors = {
         to_do: "text-yellow-600",
         in_progress: "text-blue-600",

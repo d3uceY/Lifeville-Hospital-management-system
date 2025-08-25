@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 
 export const getLabTestStatusBadge = (status) => {
+    if (!status) return null
     const statusConfig = {
         "to do": { 
             variant: "secondary", 
