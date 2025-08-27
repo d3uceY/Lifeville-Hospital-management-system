@@ -32,283 +32,228 @@ import {
 import { filterMenuItems } from "../helpers/filterMenuItems"
 
 // This is sample data.
-export const data = {
-  teams: [
-    {
-      name: "Lifeville Hospital Management System",
-      logo: lifeVilleLogo,
-      plan: "Enterprise",
-    }
-  ],
+export const data = {  
+  teams: [    
+    {      
+      name: "Lifeville Hospital Management System",      
+      logo: lifeVilleLogo,      
+      plan: "Enterprise",    
+    }  
+  ],  
 
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "#",
-      icon: PieChart,
-      isActive: true,
-      roles: ["superadmin", "doctor", "nurse", "receptionist", "lab", "accountant"],
-      items: [
-        {
-          title: "Overview",
-          url: "/",
-          roles: ["superadmin", "doctor", "nurse", "receptionist", "lab", "accountant"],
-        }
-      ],
-    },
+  navMain: [    
+    {      
+      title: "Dashboard",      
+      url: "#",      
+      icon: PieChart,      
+      isActive: true,      
+      roles: ["superadmin", "doctor", "nurse", "receptionist", "lab", "accountant"],      
+      tags: ["dashboard", "overview", "home"],      
+      items: [        
+        {          
+          title: "Overview",          
+          url: "/",          
+          roles: ["superadmin", "doctor", "nurse", "receptionist", "lab", "accountant"],          
+          tags: ["dashboard", "overview", "summary"],        
+        }      
+      ],    
+    },  
+  ],  
 
-    // {
-    //   title: "Reports & Analytics",
-    //   url: "#",
-    //   icon: BarChart,
-    //   roles: ["superadmin", "accountant"],
-    //   items: [
-    //     {
-    //       title: "Daily Activity Reports",
-    //       url: "#",
-    //       roles: ["superadmin", "accountant"],
-    //     },
-    //     {
-    //       title: "Revenue & Financial Tracking",
-    //       url: "#",
-    //       roles: ["superadmin", "accountant"],
-    //     },
-    //     {
-    //       title: "Appointment Statistics",
-    //       url: "#",
-    //       roles: ["superadmin", "doctor"],
-    //     }
-    //   ],
-    // },
-    // {
-    //   title: "User & System Settings",
-    //   url: "#",
-    //   icon: UserCog,
-    //   roles: ["superadmin"],
-    //   items: [
-    //     {
-    //       title: "Manage User Roles",
-    //       url: "#",
-    //       roles: ["superadmin"],
-    //     },
-    //     {
-    //       title: "System Configuration & Security",
-    //       url: "#",
-    //       roles: ["superadmin"],
-    //     }
-    //   ],
-    // },
-  ],
+  clinical: [    
+    {      
+      title: "Patient Management",      
+      url: "#",      
+      icon: Users,      
+      roles: ["superadmin", "doctor", "nurse", "receptionist"],      
+      tags: ["patients", "registration", "inpatients", "records"],      
+      items: [        
+        {          
+          title: "Registration",          
+          url: "/register",          
+          tags: ["register patient", "new patient", "patient intake"],          
+          roles: ["superadmin", "receptionist", "nurse"],        
+        },        
+        {          
+          title: "Patients",          
+          url: "/patients",          
+          tags: ["all patients", "patient list", "outpatients"],          
+          roles: ["superadmin", "doctor", "nurse", "receptionist"],        
+        },        
+        {          
+          title: "Inpatients",          
+          url: "/inpatients",          
+          tags: ["inpatients", "admitted patients", "hospitalized"],          
+          roles: ["superadmin", "doctor", "nurse"],        
+        },      
+      ],    
+    },    
+    {      
+      title: "Appointments",      
+      url: "#",      
+      icon: Calendar,      
+      roles: ["superadmin", "doctor", "nurse", "receptionist"],      
+      tags: ["appointments", "scheduling", "calendar"],      
+      items: [        
+        {          
+          title: "Appointments",          
+          url: "/appointments",          
+          tags: ["appointments", "schedule", "booking"],          
+          roles: ["superadmin", "doctor", "nurse", "receptionist"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Lab Tests",      
+      url: "#",      
+      icon: FlaskConical,      
+      roles: ["superadmin", "lab", "doctor"],      
+      tags: ["lab", "tests", "diagnostics"],      
+      items: [        
+        {          
+          title: "Laboratory",          
+          url: "/lab-tests",          
+          tags: ["lab tests", "pathology", "laboratory"],          
+          roles: ["superadmin", "lab", "doctor"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Birth & Death Records",      
+      url: "#",      
+      icon: BookOpen,      
+      roles: ["superadmin", "doctor", "nurse"],      
+      tags: ["birth records", "death records", "civil registry"],      
+      items: [        
+        {          
+          title: "Birth Records",          
+          url: "/births",          
+          tags: ["birth records", "newborn", "delivery"],          
+          roles: ["superadmin", "doctor", "nurse"],        
+        },        
+        {          
+          title: "Death Records",          
+          url: "/deaths",          
+          tags: ["death records", "mortality", "deceased"],          
+          roles: ["superadmin", "doctor"],        
+        }      
+      ],    
+    },  
+  ],  
 
-  clinical: [
-    {
-      title: "Patient Management",
-      url: "#",
-      icon: Users,
-      roles: ["superadmin", "doctor", "nurse", "receptionist"],
-      items: [
-        {
-          title: "Registration",
-          url: "/register",
-          roles: ["superadmin", "receptionist", "nurse"],
-        },
-        {
-          title: "Patients",
-          url: "/patients",
-          roles: ["superadmin", "doctor", "nurse", "receptionist"],
-        },
-        {
-          title: "Inpatients",
-          url: "/inpatients",
-          roles: ["superadmin", "doctor", "nurse"],
-        },
-        // {
-        //   title: "Patient History",
-        //   url: "/history",
-        //   roles: ["superadmin", "doctor"],
-        // },
-      ],
-    },
-    {
-      title: "Appointments",
-      url: "#",
-      icon: Calendar,
-      roles: ["superadmin", "doctor", "nurse", "receptionist"],
-      items: [
-        {
-          title: "Appointments",
-          url: "/appointments",
-          roles: ["superadmin", "doctor", "nurse", "receptionist"],
-        }
-      ],
-    },
-    // {
-    //   title: "Electronic Medical Records",
-    //   url: "#",
-    //   icon: FileText,
-    //   roles: ["superadmin", "doctor"],
-    //   items: [
-    //     // {
-    //     //   title: "Patient Records",
-    //     //   url: "#",
-    //     //   roles: ["superadmin", "doctor"],
-    //     // },
-    //     {
-    //       title: "Diagnostics and Prescriptions",
-    //       url: "#",
-    //       roles: ["superadmin", "doctor"],
-    //     }
-    //   ],
-    // },
-    {
-      title: "Lab Tests",
-      url: "#",
-      icon: FlaskConical,
-      roles: ["superadmin", "lab", "doctor"],
-      items: [
-        {
-          title: "Laboratory",
-          url: "/lab-tests",
-          roles: ["superadmin", "lab", "doctor"],
-        }
-      ],
-    },
-    {
-      title: "Birth & Death Records",
-      url: "#",
-      icon: BookOpen,
-      roles: ["superadmin", "doctor", "nurse"],
-      items: [
-        {
-          title: "Birth Records",
-          url: "/births",
-          roles: ["superadmin", "doctor", "nurse"],
-        },
-        {
-          title: "Death Records",
-          url: "/deaths",
-          roles: ["superadmin", "doctor"],
-        }
-      ],
-    },
-  ],
+  inventory: [    
+    {      
+      title: "Bills & Payments",      
+      url: "#",      
+      icon: CreditCard,      
+      roles: ["superadmin", "accountant"],      
+      tags: ["billing", "payments", "finance"],      
+      items: [        
+        {          
+          title: "Bills",          
+          url: "/bills",          
+          tags: ["bills", "invoices", "transactions"],          
+          roles: ["superadmin", "accountant"],        
+        }      
+      ],    
+    },  
+  ],  
 
-  inventory: [
-    {
-      title: "Bills & Payments",
-      url: "#",
-      icon: CreditCard,
-      roles: ["superadmin", "accountant"],
-      items: [
-        {
-          title: "Bills",
-          url: "/bills",
-          roles: ["superadmin", "accountant"],
-        }
-      ],
-    },
-    // {
-    //   title: "Pharmacy & Inventory",
-    //   url: "#",
-    //   icon: Box,
-    //   roles: ["superadmin", "accountant", "nurse"],
-    //   items: [
-    //     {
-    //       title: "Issue Medicines",
-    //       url: "#",
-    //       roles: ["superadmin", "nurse"],
-    //     },
-    //     {
-    //       title: "Inventory Levels & Stock Alerts",
-    //       url: "#",
-    //       roles: ["superadmin", "accountant"],
-    //     }
-    //   ],
-    // },
-  ],
-
-  setup: [
-    {
-      title: "Symptoms (🛠️)",
-      url: "#",
-      icon: AlertTriangle,
-      roles: ["superadmin", "doctor"],
-      items: [
-        {
-          title: "Symptom Types",
-          url: "/symptom-types",
-          roles: ["superadmin", "doctor"],
-        },
-        {
-          title: "Symptom heads",
-          url: "/symptom-heads",
-          roles: ["superadmin", "doctor"],
-        }
-      ],
-    },
-    {
-      title: "Conditions (🛠️)",
-      url: "#",
-      icon: AlertTriangle,
-      roles: ["superadmin", "doctor"],
-      items: [
-        {
-          title: "Conditions",
-          url: "/conditions",
-          roles: ["superadmin", "doctor"],
-        }
-      ],
-    },
-    {
-      title: "Beds (🛠️)",
-      url: "#",
-      icon: Bed,
-      roles: ["superadmin", "nurse"],
-      items: [
-        {
-          title: "Beds",
-          url: "/beds",
-          roles: ["superadmin", "nurse"],
-        },
-        {
-          title: "Bed groups",
-          url: "/bed-group",
-          roles: ["superadmin", "nurse"],
-        },
-        {
-          title: "Bed types",
-          url: "/bed-type",
-          roles: ["superadmin", "nurse"],
-        }
-      ],
-    },
-    {
-      title: "Lab test (🛠️)",
-      url: "#",
-      icon: FlaskConical,
-      roles: ["superadmin", "lab"],
-      items: [
-        {
-          title: "Lab Test Types",
-          url: "/lab-test-types",
-          roles: ["superadmin", "lab"],
-        }
-      ],
-    },
-    {
-      title: "Users / Roles (🛠️)",
-      url: "#",
-      icon: User,
-      roles: ["superadmin"],
-      items: [
-        {
-          title: "Users",
-          url: "/users",
-          roles: ["superadmin"],
-        }
-      ],
-    },
-  ]
+  setup: [    
+    {      
+      title: "Symptoms (🛠️)",      
+      url: "#",      
+      icon: AlertTriangle,      
+      roles: ["superadmin", "doctor"],      
+      tags: ["symptoms", "diagnosis", "medical signs"],      
+      items: [        
+        {          
+          title: "Symptom Types",          
+          url: "/symptom-types",          
+          tags: ["symptom types", "categories", "classification"],          
+          roles: ["superadmin", "doctor"],        
+        },        
+        {          
+          title: "Symptom heads",          
+          url: "/symptom-heads",          
+          tags: ["symptom heads", "groups", "symptom structure"],          
+          roles: ["superadmin", "doctor"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Conditions (🛠️)",      
+      url: "#",      
+      icon: AlertTriangle,      
+      roles: ["superadmin", "doctor"],      
+      tags: ["conditions", "diagnosis", "diseases"],      
+      items: [        
+        {          
+          title: "Conditions",          
+          url: "/conditions",          
+          tags: ["conditions", "medical conditions", "disorders"],          
+          roles: ["superadmin", "doctor"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Beds (🛠️)",      
+      url: "#",      
+      icon: Bed,      
+      roles: ["superadmin", "nurse"],      
+      tags: ["beds", "bed groups", "bed types", "wards"],      
+      items: [        
+        {          
+          title: "Beds",          
+          url: "/beds",          
+          tags: ["beds", "hospital beds", "admission beds"],          
+          roles: ["superadmin", "nurse"],        
+        },        
+        {          
+          title: "Bed groups",          
+          url: "/bed-group",          
+          tags: ["bed groups", "wards", "sections"],          
+          roles: ["superadmin", "nurse"],        
+        },        
+        {          
+          title: "Bed types",          
+          url: "/bed-type",          
+          tags: ["bed types", "categories", "beds"],          
+          roles: ["superadmin", "nurse"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Lab test (🛠️)",      
+      url: "#",      
+      icon: FlaskConical,      
+      roles: ["superadmin", "lab"],      
+      tags: ["lab test setup", "lab configuration", "test types"],      
+      items: [        
+        {          
+          title: "Lab Test Types",          
+          url: "/lab-test-types",          
+          tags: ["lab test types", "setup", "categories"],          
+          roles: ["superadmin", "lab"],        
+        }      
+      ],    
+    },    
+    {      
+      title: "Users / Roles (🛠️)",      
+      url: "#",      
+      icon: User,      
+      roles: ["superadmin"],      
+      tags: ["users", "roles", "permissions", "administration"],      
+      items: [        
+        {          
+          title: "Users",          
+          url: "/users",          
+          tags: ["users", "staff", "accounts", "administrators"],          
+          roles: ["superadmin"],        
+        }      
+      ],    
+    },  
+  ] 
 }
 
 
