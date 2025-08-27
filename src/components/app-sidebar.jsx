@@ -32,7 +32,7 @@ import {
 import { filterMenuItems } from "../helpers/filterMenuItems"
 
 // This is sample data.
-const data = {
+export const data = {
   teams: [
     {
       name: "Lifeville Hospital Management System",
