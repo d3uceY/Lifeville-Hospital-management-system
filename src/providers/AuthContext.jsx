@@ -12,6 +12,10 @@ const AuthContext = createContext({
     loading: true,
 });
 
+export function useAuth() {
+    return useContext(AuthContext);
+}
+
 export function AuthProvider({ children }) {
     const navigate = useNavigate();
     const [accessToken, setAccessToken] = useState(null);
@@ -57,6 +61,3 @@ export function AuthProvider({ children }) {
     );
 }
 
-export function useAuth() {
-    return useContext(AuthContext);
-}

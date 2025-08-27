@@ -8,6 +8,7 @@ import {
   BookOpen,
   AlertTriangle,
   Bed,
+  User
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -25,8 +26,9 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { filterMenuItems } from "../helpers/filterMenuItems"
+import { SearchDialog } from "./search-dialog"
 
-const SearchDialog = lazy(() => import("./search-dialog"))
+// const SearchDialog = lazy(() => import("./search-dialog"))
 
 // This is sample data.
 export const data = {
