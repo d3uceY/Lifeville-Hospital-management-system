@@ -12,13 +12,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { filterMenuItems } from "../helpers/filterMenuItems"
 import { useSidebar } from "./ui/sidebar"
-
+import { filterMenuSearchItems } from "../helpers/filterMenuSearchItems"
+import { useAuth } from "../providers/AuthContext"
 
 export function SearchDialog({ data }) {
     const [open, setOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
     const navigate = useNavigate()
     const { state } = useSidebar();
+    const { user } = useAuth();
 
     useEffect(() => {
         const down = (e) => {
@@ -32,10 +34,12 @@ export function SearchDialog({ data }) {
     }, [])
 
     const allMenuItems = useMemo(() => {
-        const filteredNavMain = filterMenuItems(data.navMain)
-        const filteredClinical = filterMenuItems(data.clinical)
-        const filteredInventory = filterMenuItems(data.inventory)
-        const filteredSetup = filterMenuItems(data.setup)
+        if (!user) return []
+
+        const filteredNavMain = filterMenuSearchItems(data.navMain, user)
+        const filteredClinical = filterMenuSearchItems(data.clinical, user)
+        const filteredInventory = filterMenuSearchItems(data.inventory, user)
+        const filteredSetup = filterMenuSearchItems(data.setup, user)
 
         const results = []
 
