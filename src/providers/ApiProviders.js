@@ -713,3 +713,27 @@ export const updateNursesNote = async (nursesNoteId, nursesNoteData) => {
   const response = await api.put(`/nurse-notes/${nursesNoteId}`, nursesNoteData);
   return response.data;
 }
+
+/* ============================
+   API Helper function here for SUMMARIES
+   ============================ */
+
+export const getAdmissionSummaryByPatientId = async (patientId) => {
+  const response = await api.get(`/admissions-summary/${patientId}`);
+  return response.data;
+}
+
+export const getDiagnosisSummaryByPatientId = async (patientId) => {
+  const response = await api.get(`/diagnosis-summary/${patientId}`);
+  return response.data;
+}
+
+export const getLabTestSummaryByPatientId = async (patientId) => {
+  const response = await api.get(`/lab-test-summary/${patientId}`);
+  return response.data;
+}
+
+export const getVitalSignSummaryByPatientId = async (patientId) => {
+  const response = await api.get(`/vital-sign-summary/${patientId}`);
+  return response.data;
+}

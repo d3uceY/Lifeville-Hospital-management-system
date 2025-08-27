@@ -20,6 +20,7 @@ import { formatToShortDate } from "../../helpers/formatToShortDate"
 import { formatToNaira } from "../../helpers/formatToNaira"
 import { ViewBillDialog } from "./components/ViewBillDialog"
 import { CustomTooltip } from "../../helpers/customTooltip"
+import TableSkeleton from "../../components/table-skeleton"
 
 export default function Bills() {
     const [page, setPage] = useState(1)
@@ -64,6 +65,8 @@ export default function Bills() {
                 debouncedTerm.patientIdTerm
             ),
     })
+
+    if (isLoading) return <TableSkeleton title="Bills" icon={<Receipt className="h-5 w-5" />} />
 
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 

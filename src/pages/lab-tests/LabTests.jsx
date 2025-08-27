@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Receipt, FilePenLine, Download, SquareArrowOutUpRight } from "lucide-react"
+import { Search, Filter, FilePenLine, Download, SquareArrowOutUpRight, TestTube } from "lucide-react"
 import { formatDate } from "../../helpers/formatDate"
 import { getPaginatedLabTests } from "../../providers/ApiProviders"
 import { getLabTestStatusBadge } from "../../helpers/getLabTestStatusBadge"
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 import { useDebounce } from "../../hooks/use-debounce"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import { hasPermission } from "../../helpers/hasPermission"
+import TableSkeleton from "../../components/table-skeleton"
 
 
 export default function LabTests() {
@@ -31,6 +32,8 @@ export default function LabTests() {
   const handleSearchTermChange = (value) => {
     setTerm(value)
   }
+
+  if (isLoading) return <TableSkeleton title="Lab Tests" icon={<TestTube className="h-5 w-5" />} />
 
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
@@ -56,7 +59,7 @@ export default function LabTests() {
       <Card className="shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6">
           <CardTitle className="flex items-center gap-2">
-            <Receipt className="h-5 w-5" />
+            <TestTube className="h-5 w-5" />
             Lab Tests
           </CardTitle>
         </CardHeader>

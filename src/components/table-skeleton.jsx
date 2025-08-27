@@ -1,14 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { User2 } from "lucide-react"
 
-export default function PatientSkeleton() {
+export default function TableSkeleton({ title, icon }) {
     return (
         <div className="p-6 border">
             <Card className=" shadow-sm p-0">
                 <CardHeader className=" p-4 pt-6 border-b  bg-[#f0f8f4]">
                     <CardTitle className="flex items-center gap-2">
-                        <User2 className="h-5 w-5" />
-                        Patients
+                        {icon}
+                        {title}
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-6">

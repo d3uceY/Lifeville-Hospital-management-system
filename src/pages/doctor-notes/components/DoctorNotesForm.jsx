@@ -52,6 +52,9 @@ export default function DoctorsNotesForm() {
                     patientId: parseInt(patient_id),
                 })
                 setIsSubmitting(false)
+                queryClient.invalidateQueries({
+                    queryKey: ["doctorNotes", patient_id],
+                })
                 return response
             } catch (error) {
                 setIsSubmitting(false)
@@ -64,9 +67,6 @@ export default function DoctorsNotesForm() {
             error: (err) => err.response?.data?.message || err?.message || "An error occurred"
         })
         reset()
-        queryClient.invalidateQueries({
-            queryKey: ["doctorNotes", patient_id],
-        })
     }
 
     return (

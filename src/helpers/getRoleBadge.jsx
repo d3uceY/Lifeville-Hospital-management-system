@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 
-export const getRoleBadge = (role) => {
+export const getRoleBadge = (role, classes = "") => {
   const roleConfig = {
     superadmin: {
       variant: "default",
@@ -41,7 +41,7 @@ export const getRoleBadge = (role) => {
   }
 
   return (
-    <Badge variant={config.variant} className={config.className}>
+    <Badge variant={config.variant} className={`${classes} ${config.className}`}>
       {config.label}
     </Badge>
   )

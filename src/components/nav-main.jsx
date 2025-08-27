@@ -17,13 +17,15 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { Link, useLocation } from "react-router-dom";
 
 export function NavMain({
   items
 }) {
+  const location = useLocation();
   return (
     (<SidebarGroup>
-      <SidebarGroupLabel>Administration & Reporting</SidebarGroupLabel>
+      <SidebarGroupLabel>{items.length > 0 ? "Administration & Reporting" : ""}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -44,10 +46,10 @@ export function NavMain({
                 <SidebarMenuSub className="border-l-[#b2d2c6]" >
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild className="">
-                        <a href={subItem.url}>
+                      <SidebarMenuSubButton isActive={location.pathname === subItem.url} asChild className="">
+                        <Link to={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

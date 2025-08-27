@@ -30,7 +30,6 @@ export default function Register() {
     const schema = z.object({
         // Required Fields
         date: z.string().nonempty({ message: "Date is required" }),
-        hospitalNumber: z.string().nonempty({ message: "Hospital number is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
         firstName: z.string().nonempty({ message: "First name is required" }),
         sex: z.string().nonempty({ message: "Sex is required" }),
@@ -71,7 +70,6 @@ export default function Register() {
         resolver: zodResolver(schema),
         defaultValues: {
             date: "",
-            hospitalNumber: "",
             surname: "",
             firstName: "",
             otherNames: "",
@@ -167,7 +165,7 @@ export default function Register() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid md:grid-cols-2 gap-6">
+                        <div className="grid md:grid-cols-4 gap-6 mt-6">
                             <div>
                                 <Label className="text-sm font-medium mb-2 text-gray-700 gap-2" htmlFor="date">
                                     <span className="text-red-500">*</span>Date
@@ -181,20 +179,6 @@ export default function Register() {
                                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 text-gray-700 flex items-center gap-2" htmlFor="hospital_number">
-                                    <span className="text-red-500">*</span>Hospital Number
-                                </Label>
-                                <Input
-                                    className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
-                                    id="hospital_number"
-                                    type="text"
-                                    {...register("hospitalNumber")}
-                                />
-                                {errors.hospitalNumber && <p className="text-red-500 text-sm mt-1">{errors.hospitalNumber.message}</p>}
-                            </div>
-                        </div>
-                        <div className="grid md:grid-cols-3 gap-6 mt-6">
-                            <div>
                                 <Label className="text-sm font-medium mb-2 text-gray-700 flex items-center gap-2" htmlFor="surname">
                                     <span className="text-red-500">*</span>Surname
                                 </Label>
@@ -206,7 +190,7 @@ export default function Register() {
                                 {errors.surname && <p className="text-red-500 text-sm mt-1">{errors.surname.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700 flex items-center gap-2" htmlFor="first_name">
+                                <Label className="text-sm font-medium mb-2  text-gray-700 flex items-center gap-2" htmlFor="first_name">
                                     <span className="text-red-500">*</span>First Name
                                 </Label>
                                 <Input

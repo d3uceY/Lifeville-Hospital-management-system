@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table"
 
 //lucide react icons
-import { ArrowUpDown, ChevronDown, MoreHorizontal, User2, Search, Filter, FilePenLine, History, Eye } from "lucide-react"
+import { ArrowUpDown, ChevronDown, Skull, User2, Search, Filter, FilePenLine, History, Eye } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -247,7 +247,7 @@ export default function Deaths() {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <User2 className="h-5 w-5" />
+                        <Skull className="h-5 w-5" />
                         Death Records
                     </CardTitle>
                     <DeathRecordDialog />

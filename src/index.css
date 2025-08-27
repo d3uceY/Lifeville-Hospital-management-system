@@ -40,7 +40,7 @@
   --font-sans: Oxanium, sans-serif;
   --font-serif: Lora, serif;
   --font-mono: IBM Plex Mono, monospace;
-  --radius: 0rem;
+  --radius: 0.5rem;
   --shadow-2xs: 2px 3px 5px 0px hsl(150 13.73% 20% / 0.06);
   --shadow-xs: 2px 3px 5px 0px hsl(150 13.73% 20% / 0.06);
   --shadow-sm: 2px 3px 5px 0px hsl(150 13.73% 20% / 0.12),

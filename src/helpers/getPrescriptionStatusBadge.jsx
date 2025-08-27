@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 
 export const getPrescriptionStatusBadge = (status) => {
+    if (!status) return null
     const statusConfig = {
         active: { variant: "default", className: "bg-green-100 text-green-800 hover:bg-green-100" },
         "on hold": { variant: "secondary", className: "bg-yellow-100 text-yellow-800 hover:bg-yellow-100" },

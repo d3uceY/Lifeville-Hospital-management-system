@@ -56,6 +56,9 @@ export default function Complaints() {
                     patientId: parseInt(patient_id),
                 })
                 setIsSubmitting(false)
+                queryClient.invalidateQueries({
+                    queryKey: ['patientComplaints'],
+                })
                 return response;
             } catch (error) {
                 setIsSubmitting(false)
@@ -68,9 +71,6 @@ export default function Complaints() {
             error: (err) => err.response?.data?.message || err?.message || 'An error occurred'
         });
         reset();
-        queryClient.invalidateQueries({
-            queryKey: ['patientComplaints'],
-        })
     }
 
     return (

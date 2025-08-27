@@ -17,6 +17,7 @@ import { getLabTestsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
 import {LabTestResultDialog} from "./LabTestResultDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 
@@ -129,6 +130,7 @@ export default function LabTestAnalysisTable({ patientId }) {
     );
 
 
+
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);
     const [columnVisibility, setColumnVisibility] = React.useState({});
@@ -153,7 +155,15 @@ export default function LabTestAnalysisTable({ patientId }) {
         },
     });
 
-    if (loadingPatientLabTests) return <div>Loading...</div>;
+    if (loadingPatientLabTests) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Lab Tests"
+            icon={<TestTube className="h-5 w-5" />}
+            showPagination
+        />);
+
 
     return (
         <div className="">

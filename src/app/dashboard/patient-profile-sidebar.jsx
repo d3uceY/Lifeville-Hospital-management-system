@@ -30,7 +30,7 @@ export default function PatientProfileSidebar() {
       {
         name: "summary",
         icon: FileText,
-        href: `/patient-profile/${patient_id}/${surname}/${first_name}/summary`,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/patient-summary`,
         roles: ["superadmin", "doctor", "nurse", "lab"],
       },
       {

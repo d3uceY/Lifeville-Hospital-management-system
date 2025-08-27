@@ -32,6 +32,7 @@ import {
 import { useAuth } from "../providers/AuthContext"
 import { getInitials } from "../helpers/getinitials"
 import { Link } from "react-router-dom"
+import { getRoleBadge } from "../helpers/getRoleBadge"
 
 export function NavUser() {
   const { isMobile } = useSidebar()
@@ -49,7 +50,10 @@ export function NavUser() {
                 <AvatarFallback className="rounded-lg">{getInitials(user?.name)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user?.name}</span>
+                <div className="flex items-center gap-2">
+                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate">{getRoleBadge(user?.role, "text-[8px]")}</span>
+                </div>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />

@@ -19,6 +19,7 @@ import { ViewNurseNoteDialog } from "./ViewNurseNotesDialog";
 import EditNurseNoteDialog from "./EditNurseNotesDialog";
 import { hasPermission } from "../../../helpers/hasPermission";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 const columns = [
@@ -152,7 +153,15 @@ export default function NurseNotesTable() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Nurse Notes"
+            icon={<NotebookPen className="h-5 w-5" />}
+            showPagination
+        />);
+
 
     return (
         <div>

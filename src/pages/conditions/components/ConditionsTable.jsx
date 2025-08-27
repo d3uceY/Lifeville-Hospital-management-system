@@ -37,6 +37,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EditConditionDialog from "./EditConditionDialog";
 import DeleteConditionDialog from "./DeleteConditionsDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/table-skeleton";
 
 export default function ConditionsTable() {
     // Fetch conditions using react-query
@@ -104,7 +105,7 @@ export default function ConditionsTable() {
         state: { sorting, columnFilters, columnVisibility, rowSelection },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <TableSkeleton title="Conditions" icon={<FileText className="h-5 w-5" />} />;
 
     return (
         <div className="lg:p-6">

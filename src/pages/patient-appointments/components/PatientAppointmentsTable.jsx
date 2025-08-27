@@ -20,6 +20,8 @@ import { Badge } from "@/components/ui/badge";
 import PatientAppointmentDropdownOptions from "./PatientAppointmentDropdownOptions";
 import EditPatientAppointmentDialog from "./EditPatientAppointmentDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
+import { hasPermission } from "../../../helpers/hasPermission";
 
 
 const columns = [
@@ -98,18 +100,26 @@ const columns = [
             const appointment = row.original;
             return (
                 <div className="flex items-center gap-2">
-                    <PatientAppointmentDropdownOptions appointment={appointment} />
-                    <CustomTooltip content="Edit Appointment">
-                        <EditPatientAppointmentDialog appointment={appointment}>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="action-edit-btn"
-                            >
-                                <PenSquare className="h-4 w-4" />
-                            </Button>
-                        </EditPatientAppointmentDialog>
-                    </CustomTooltip>
+                    {
+                        hasPermission(["superadmin", "doctor", "nurse"]) && (
+                            <PatientAppointmentDropdownOptions appointment={appointment} />
+                        )
+                    }
+                    {
+                        hasPermission(["superadmin", "doctor"]) && (
+                            <CustomTooltip content="Edit Appointment">
+                                <EditPatientAppointmentDialog appointment={appointment}>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="action-edit-btn"
+                                    >
+                                        <PenSquare className="h-4 w-4" />
+                                    </Button>
+                                </EditPatientAppointmentDialog>
+                            </CustomTooltip>
+                        )
+                    }
                 </div>
             );
         },
@@ -147,7 +157,14 @@ export default function PatientAppointmentsTable() {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Appointments"
+            icon={<CalendarDays className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <div>

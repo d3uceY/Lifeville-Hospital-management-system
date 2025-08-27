@@ -17,6 +17,8 @@ import { createAppointment } from "../../../providers/ApiProviders"
 import spinnerLight from "/spinner-light.svg"
 import { useQueryClient } from "@tanstack/react-query"
 import { useParams } from "react-router-dom"
+import { hasPermission } from "../../../helpers/hasPermission"
+
 
 export default function PatientAppointmentForm() {
     const queryClient = useQueryClient()
@@ -94,7 +96,7 @@ export default function PatientAppointmentForm() {
 
                 <CardContent className="space-y-6">
                     {/* Appointment Date */}
-                    <div className = "grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                         <div>
                             <Label htmlFor="appointment_date" className="text-sm font-medium mb-2 block text-gray-700">
                                 Appointment Date & Time <span className="text-red-500">*</span>
@@ -158,19 +160,22 @@ export default function PatientAppointmentForm() {
                             {...register("notes")}
                         />
                     </div>
-
-                    <Button
-                        className="mt-6 ml-auto flex items-center"
-                        type="submit"
-                        disabled={!isValid || isSubmitting}
-                    >
-                        {isSubmitting ? (
-                            <img src={spinnerLight} alt="" className="h-6 w-6" />
-                        ) : (
-                            <CheckCircle className="mr-2 h-4 w-4" />
-                        )}
-                        Schedule Appointment
-                    </Button>
+                    {
+                        hasPermission(["superadmin", "doctor"]) && (
+                            <Button
+                                className="mt-6 ml-auto flex items-center"
+                                type="submit"
+                                disabled={!isValid || isSubmitting}
+                            >
+                                {isSubmitting ? (
+                                    <img src={spinnerLight} alt="" className="h-6 w-6" />
+                                ) : (
+                                    <CheckCircle className="mr-2 h-4 w-4" />
+                                )}
+                                Schedule Appointment
+                            </Button>
+                        )
+                    }
                 </CardContent>
             </Card>
         </form>

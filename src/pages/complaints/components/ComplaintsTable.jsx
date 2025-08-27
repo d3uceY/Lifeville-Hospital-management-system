@@ -16,6 +16,7 @@ import { formatDate } from "../../../helpers/formatDate";
 import { ComplaintDetailsDialog } from "./ComplaintDetailsDialog";
 import { getComplaintsByPatientId } from "../../../providers/ApiProviders";
 import { CustomTooltip } from "../../../helpers/customTooltip";
+import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 
 
 
@@ -120,7 +121,14 @@ export default function ComplaintsTable({ patientId }) {
         },
     });
 
-    if (loadingPatientComplaints) return <div>Loading...</div>;
+    if (loadingPatientComplaints) return (
+        <TableSkeleton
+            headerCount={columns.length}
+            rowCount={5}
+            title="Complaints"
+            icon={<MessageSquare className="h-5 w-5" />}
+            showPagination
+        />);
 
     return (
         <div className="">

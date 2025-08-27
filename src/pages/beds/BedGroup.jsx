@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2 } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Search, Filter, User2, BedDouble } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EditBedGroupDialog } from "./components/editBedGroupDialog";
 import DeleteBedGroupDialog from "./components/deleteBedGroupDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import TableSkeleton from "../../components/table-skeleton";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -84,14 +85,14 @@ export default function BedGroup() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingBedGroups) return <div>Loading...</div>;
+  if (loadingBedGroups) return <TableSkeleton title="Bed Groups" icon={<BedDouble className="h-5 w-5" />} />;
 
   return (
     <div className="lg:p-6">
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <User2 className="h-5 w-5" />
+            <BedDouble className="h-5 w-5" />
             Bed Groups
           </CardTitle>
           <CreateBedGroupDialog />
