@@ -1,18 +1,13 @@
-import * as React from "react"
+import { lazy } from "react"
 import {
   PieChart,
   Users,
   Calendar,
-  FileText,
   FlaskConical,
   CreditCard,
-  Box,
-  BarChart,
-  UserCog,
   BookOpen,
   AlertTriangle,
   Bed,
-  User
 } from "lucide-react"
 import lifeVilleLogo from '/lifeville-logo.svg'
 
@@ -30,6 +25,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { filterMenuItems } from "../helpers/filterMenuItems"
+
+const SearchDialog = lazy(() => import("./search-dialog"))
 
 // This is sample data.
 export const data = {
@@ -263,6 +260,7 @@ export function AppSidebar({ ...props }) {
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
+      <SearchDialog data={data} />
       <SidebarContent>
         <NavMain items={filterMenuItems(data.navMain)} />
         <NavClinical items={filterMenuItems(data.clinical)} />
