@@ -17,7 +17,6 @@ export function AdmissionSummaryTable() {
         enabled: !!patient_id,
     })
 
-    // console.log(admissions)
 
     if (isLoading) {
         return <Loader />

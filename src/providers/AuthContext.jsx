@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -40,17 +41,20 @@ export function AuthProvider({ children }) {
 
     const logout = async () => {
         try {
+            toast.loading("Logging out...")
             await axios.post(`${apiUrl}/api/auth/logout`,
                 {},
                 {
                     withCredentials: true,
                     headers: { Authorization: `Bearer ${accessToken}` }
                 });
+            toast.success("Logged out successfully")
             setAccessToken(null);
             setUser(null);
             navigate('/login');
         } catch (error) {
             console.error(error)
+            toast.error(error.response?.data?.message || "An error occurred")
         }
     };
 
