@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea";
