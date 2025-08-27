@@ -10,6 +10,7 @@ import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
 
 
+
 // Lazy-loaded components
 const Page = lazy(() => import('./app/dashboard/page'));
 const PatientProfileSidebar = lazy(() => import('./app/dashboard/patient-profile-sidebar'));
