@@ -55,7 +55,7 @@ export const registerPatient = async (patientData) => {
   return response;
 };
 
-export const getRegisteredPatients = async ({ accessToken }) => {
+export const getRegisteredPatients = async (accessToken) => {
   const response = await api.get("/patients", {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -111,8 +111,12 @@ export const registerDoctor = async (doctorData) => {
   return response;
 };
 
-export const getDoctors = async () => {
-  const response = await api.get("/doctors");
+export const getDoctors = async (accessToken) => {
+  const response = await api.get("/doctors", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
@@ -186,8 +190,12 @@ export const deleteAppointment = async (appointmentId) => {
    API Helper function here for DEATHS
    ============================ */
 
-export const getDeaths = async () => {
-  const response = await api.get("/deaths");
+export const getDeaths = async (accessToken) => {
+  const response = await api.get("/deaths", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
@@ -213,8 +221,12 @@ export const updateDeathRecord = async (deathId, deathData) => {
    API Helper function here for BIRTHS
    ============================ */
 
-export const getBirths = async () => {
-  const response = await api.get("/births");
+export const getBirths = async (accessToken) => {
+  const response = await api.get("/births", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
@@ -379,8 +391,12 @@ export const deleteBed = async (bedId) => {
    API Helper function here for inpatient admissions
    ============================ */
 
-export const getInpatients = async () => {
-  const response = await api.get(`/inpatients`);
+export const getInpatients = async (accessToken) => {
+  const response = await api.get(`/inpatients`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 

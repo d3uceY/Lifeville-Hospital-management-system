@@ -40,18 +40,72 @@ export const useLabTests = () => useContext(LabTests);
 export function AppDataProvider({ children }) {
   const { accessToken } = useAuth();
 
-  const patientsQ = useQuery({ queryKey: ['patients'], queryFn: getRegisteredPatients, enabled: !!accessToken });
-  const doctorsQ = useQuery({ queryKey: ['doctors'], queryFn: getDoctors, enabled: !!accessToken });
-  const deathsQ = useQuery({ queryKey: ['deaths'], queryFn: getDeaths, enabled: !!accessToken });
-  const birthsQ = useQuery({ queryKey: ['births'], queryFn: getBirths, enabled: !!accessToken });
-  const symptomTypesQ = useQuery({ queryKey: ['symptomTypes'], queryFn: getSymptomTypes, enabled: !!accessToken });
-  const symptomHeadsQ = useQuery({ queryKey: ['symptomHeads'], queryFn: getSymptomHeads, enabled: !!accessToken });
-  const inpatientsQ = useQuery({ queryKey: ['inpatients'], queryFn: getInpatients, enabled: !!accessToken });
-  const bedsQ = useQuery({ queryKey: ['beds'], queryFn: getBeds, enabled: !!accessToken });
-  const bedGroupsQ = useQuery({ queryKey: ['bedGroups'], queryFn: getBedGroups, enabled: !!accessToken });
-  const bedTypesQ = useQuery({ queryKey: ['bedTypes'], queryFn: getBedTypes, enabled: !!accessToken });
-  const labTestTypesQ = useQuery({ queryKey: ['labTestTypes'], queryFn: getLabTestTypes, enabled: !!accessToken });
-
+  const patientsQ = useQuery({
+    queryKey: ['patients'],
+    queryFn: () => getRegisteredPatients(accessToken),
+    enabled: !!accessToken,
+  });
+  
+  const doctorsQ = useQuery({
+    queryKey: ['doctors'],
+    queryFn: () => getDoctors(accessToken),
+    enabled: !!accessToken,
+  });
+  
+  const deathsQ = useQuery({
+    queryKey: ['deaths'],
+    queryFn: () => getDeaths(accessToken),
+    enabled: !!accessToken,
+  });
+  
+  const birthsQ = useQuery({
+    queryKey: ['births'],
+    queryFn: () => getBirths(accessToken),
+    enabled: !!accessToken,
+  });
+  
+  const symptomTypesQ = useQuery({
+    queryKey: ['symptomTypes'],
+    queryFn: getSymptomTypes,
+    enabled: !!accessToken,
+  });
+  
+  const symptomHeadsQ = useQuery({
+    queryKey: ['symptomHeads'],
+    queryFn: getSymptomHeads,
+    enabled: !!accessToken,
+  });
+  
+  const inpatientsQ = useQuery({
+    queryKey: ['inpatients'],
+    queryFn: () => getInpatients(accessToken),
+    enabled: !!accessToken,
+  });
+  
+  const bedsQ = useQuery({
+    queryKey: ['beds'],
+    queryFn: getBeds,
+    enabled: !!accessToken,
+  });
+  
+  const bedGroupsQ = useQuery({
+    queryKey: ['bedGroups'],
+    queryFn: getBedGroups,
+    enabled: !!accessToken,
+  });
+  
+  const bedTypesQ = useQuery({
+    queryKey: ['bedTypes'],
+    queryFn: getBedTypes,
+    enabled: !!accessToken,
+  });
+  
+  const labTestTypesQ = useQuery({
+    queryKey: ['labTestTypes'],
+    queryFn: getLabTestTypes,
+    enabled: !!accessToken,
+  });
+  
 
   return (
     <DoctorContext.Provider value={{
