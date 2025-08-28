@@ -55,8 +55,12 @@ export const registerPatient = async (patientData) => {
   return response;
 };
 
-export const getRegisteredPatients = async () => {
-  const response = await api.get("/patients");
+export const getRegisteredPatients = async ({ accessToken }) => {
+  const response = await api.get("/patients", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
   return response.data;
 };
 
