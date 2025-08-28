@@ -59,9 +59,9 @@ const genderPopulationChartConfig = {
 }
 
 export default function DemographicCharts() {
-  const { patientData, loading } = usePatientData()
+  const patientData = usePatientData()
 
-  if (loading) {
+  if (patientData?.loading) {
     return (
       <div className="grid grid-cols-1  lg:grid-cols-2 gap-4">
         {
@@ -75,7 +75,7 @@ export default function DemographicCharts() {
     )
   }
 
-  if (patientData.length === 0) {
+  if (patientData?.patientData.length === 0) {
     return (
       <div>No Demographic data Available</div>
     )
@@ -99,7 +99,7 @@ export default function DemographicCharts() {
   const now = new Date()
 
   // Process each patient.
-  patientData.forEach((patient) => {
+  patientData?.patientData.forEach((patient) => {
     // Calculate age from date_of_birth.
     const dob = new Date(patient.date_of_birth)
     let age = now.getFullYear() - dob.getFullYear()

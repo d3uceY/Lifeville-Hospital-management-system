@@ -51,12 +51,6 @@ export default function PatientProfileSidebar() {
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`,
         roles: ["superadmin", "doctor", "nurse"],
       },
-      {
-        name: "Doctor's Notes",
-        icon: Stethoscope,
-        href: `/patient-profile/${patient_id}/${surname}/${first_name}/doctor-notes`,
-        roles: ["superadmin", "doctor"],
-      },
       // {
       //   name: "history",
       //   icon: History,
@@ -68,6 +62,12 @@ export default function PatientProfileSidebar() {
         icon: MessageSquare,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/complaints`,
         roles: ["superadmin", "doctor", "nurse"],
+      },
+      {
+        name: "Doctor's Notes",
+        icon: Stethoscope,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/doctor-notes`,
+        roles: ["superadmin", "doctor"],
       },
       {
         name: "physical examinations",
