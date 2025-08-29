@@ -1,10 +1,11 @@
 import lifeVilleLogo from '/lifeville-logo.svg'
 
 import LoginForm from '../../components/login-form'
+import AppVersion from '../../components/app-version'
 
 export default function Login() {
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
+    <div className="grid min-h-svh lg:grid-cols-2 relative">
       <div className="flex flex-col gap-4 p-6 md:p-10 bg-white">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
@@ -26,6 +27,9 @@ export default function Login() {
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
+      </div>
+      <div className="absolute bottom-4 left-2">
+        <AppVersion />
       </div>
     </div>
   )
