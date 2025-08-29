@@ -72,16 +72,6 @@ export function ViewProcedureDialog({ procedure, children }) {
                                 <ClipboardList className="h-4 w-4" />
                                 Comments
                             </CardTitle>
-                            <div className="flex gap-2">
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                                >
-                                    <Download className="h-4 w-4 mr-2" />
-                                    Download
-                                </Button>
-                            </div>
                         </CardHeader>
                         <CardContent className="pt-4">
                             {procedure.comments ? (
@@ -121,16 +111,6 @@ export function ViewProcedureDialog({ procedure, children }) {
                             </div>
                         </CardContent>
                     </Card>
-
-                    {/* Quick Actions */}
-                    <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button
-                            variant="outline"
-                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                        >
-                            Print Report
-                        </Button>
-                    </div>
                 </div>
             </DialogContent>
         </Dialog>
