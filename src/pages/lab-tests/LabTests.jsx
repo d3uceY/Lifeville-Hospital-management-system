@@ -14,6 +14,8 @@ import { useDebounce } from "../../hooks/use-debounce"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import { hasPermission } from "../../helpers/hasPermission"
 import TableSkeleton from "../../components/table-skeleton"
+import PrintWrapper from "../../components/print/print-wrapper"
+import LabTestResultPrint from "../../components/print/prints/lab-test-result-print"
 
 
 export default function LabTests() {
@@ -145,13 +147,9 @@ export default function LabTests() {
                           {
                             hasPermission(['superadmin', 'doctor', 'lab']) && (
                               <CustomTooltip content="Download Lab Test">
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="action-download-btn"
-                                >
-                                  <Download className="h-4 w-4" />
-                                </Button>
+                                <PrintWrapper triggerLabel="">
+                                  <LabTestResultPrint testResult={test}/>
+                                </PrintWrapper>
                               </CustomTooltip>
                             )
                           }
