@@ -21,13 +21,15 @@ import {
     Download,
     UserX,
     FileText,
-    Activity
+    Activity,
+    Printer
 } from "lucide-react";
 import { formatDate } from "../../../helpers/formatDate";
 import { getDischargeConditionBadge } from "../../../helpers/getDischargeConditionBadge";
 import { getDischarSummaryByAdmissionId } from "../../../providers/ApiProviders";
 import { useQuery } from "@tanstack/react-query";
-
+import PrintWrapper from "../../../components/print/print-wrapper";
+import AdmissionRecordPrint from "../../../components/print/prints/admission-record-print";
 
 
 
@@ -258,22 +260,12 @@ export function ViewAdmissionDialog({ admission, children }) {
 
                     {/* Quick Actions */}
                     <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button
-                            variant="outline"
-                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
+                        <PrintWrapper
+                            triggerLabel="Print Admission Record"
+                            documentTitle={`Admission_Record_${admission.id}`}
                         >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download Admission Record
-                        </Button>
-                        {dischargeSummary && dischargeSummary.length > 0 && (
-                            <Button
-                                variant="outline"
-                                className="border-red-200 hover:bg-red-50 text-red-600 bg-transparent"
-                            >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download Discharge Summary
-                            </Button>
-                        )}
+                            <AdmissionRecordPrint admission={admission} dischargeSummary={dischargeSummary} />
+                        </PrintWrapper>
                     </div>
                 </div>
             </DialogContent>
