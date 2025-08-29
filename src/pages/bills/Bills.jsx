@@ -21,6 +21,8 @@ import { formatToNaira } from "../../helpers/formatToNaira"
 import { ViewBillDialog } from "./components/ViewBillDialog"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import TableSkeleton from "../../components/table-skeleton"
+import PrintWrapper from "../../components/print/print-wrapper"
+import BillPrint from "../../components/print/prints/bill-print"
 
 export default function Bills() {
     const [page, setPage] = useState(1)
@@ -192,10 +194,10 @@ export default function Bills() {
                                                             </Button>
                                                         </ViewBillDialog>
                                                     </CustomTooltip>
-                                                    <CustomTooltip content="Download Bill">
-                                                        <Button size="sm" variant="outline" className="action-download-btn">
-                                                            <Download className="h-4 w-4" />
-                                                        </Button>
+                                                    <CustomTooltip content="Print Bill">
+                                                       <PrintWrapper triggerLabel="" bill={bill}>
+                                                               <BillPrint bill={bill}/>
+                                                       </PrintWrapper>
                                                     </CustomTooltip>
                                                 </div>
                                             </TableCell>

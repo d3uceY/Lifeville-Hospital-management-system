@@ -110,10 +110,10 @@ export default function PrintWrapper({
     <>
       <Button
         variant="outline"
-        className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
+        className="action-download-btn"
         onClick={handlePrint}
       >
-        <Printer className="h-4 w-4 mr-2" />
+        <Printer className="h-4 w-4" />
         {triggerLabel}
       </Button>
 
