@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import { formatDate } from "../../../helpers/formatDate";
 import { getFrequencyLabel } from "../../../helpers/getFrequencyLabel";
+import PrescriptionPrint from "../../../components/print/prints/prescription-print";
+import PrintWrapper from "../../../components/print/print-wrapper";
 
 export function ViewPrescriptionDialog({ prescription, children }) {
     return (
@@ -46,6 +48,7 @@ export function ViewPrescriptionDialog({ prescription, children }) {
                             </CardHeader>
                             <CardContent className="pt-4 space-y-3">
                                 <InfoField label="Patient ID" value={prescription.patient_id} />
+                                <InfoField label="Hospital Number" value={prescription.hospital_number} />
                                 <InfoField label="Prescribed By" value={prescription.prescribed_by} />
                                 <InfoField label="Notes" value={prescription.notes} />
                             </CardContent>
@@ -117,15 +120,9 @@ export function ViewPrescriptionDialog({ prescription, children }) {
 
 
                     {/* Quick Actions */}
-                    <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button
-                            variant="outline"
-                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                        >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download Prescription
-                        </Button>
-                    </div>
+                    <PrintWrapper triggerLabel="Print Prescription">
+                        <PrescriptionPrint prescription={prescription} />
+                    </PrintWrapper>
                 </div>
             </DialogContent>
         </Dialog>
