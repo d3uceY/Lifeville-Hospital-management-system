@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { TestTube, User, Calendar, FileText, Stethoscope, ClipboardList, Edit, Download } from "lucide-react"
 import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge"
 import { formatDate } from "../../../helpers/formatDate"
+import PrintWrapper from "../../../components/print/print-wrapper"
+import LabTestResultPrint from "../../../components/print/prints/lab-test-result-print"
 
 export function LabTestResultDialog({ testResult, children }) {
 
@@ -41,6 +43,10 @@ export function LabTestResultDialog({ testResult, children }) {
                                 <div>
                                     <label className="text-sm font-medium text-gray-500">Patient ID</label>
                                     <p className="text-sm font-medium">{testResult.patient_id}</p>
+                                </div>
+                                <div>
+                                    <label className="text-sm font-medium text-gray-500">Hospital Number</label>
+                                    <p className="text-sm font-medium">{testResult.hospital_number}</p>
                                 </div>
                             </CardContent>
                         </Card>
@@ -179,9 +185,10 @@ export function LabTestResultDialog({ testResult, children }) {
 
                     {/* Quick Actions */}
                     <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button variant="outline" className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent">
-                            Print Report
-                        </Button>
+                        <PrintWrapper triggerLabel="Print Lab Test">
+                            <LabTestResultPrint testResult={testResult} />
+                        </PrintWrapper>
+
                         {/* <Button variant="outline" className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent">
                             Share Results
                         </Button>

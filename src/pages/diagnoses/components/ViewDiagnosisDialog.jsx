@@ -100,17 +100,6 @@ export function ViewDiagnosisDialog({ diagnosis, children }) {
                             }
                         </CardContent>
                     </Card>
-
-                    {/* Quick Actions */}
-                    <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button
-                            variant="outline"
-                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                        >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download Report
-                        </Button>
-                    </div>
                 </div>
             </DialogContent>
         </Dialog>

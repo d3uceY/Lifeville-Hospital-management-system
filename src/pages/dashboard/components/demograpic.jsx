@@ -24,23 +24,23 @@ const populationChartConfig = {
   },
   teenagers: {
     label: "Teenagers (13-19)",
-    color: "#268A63",
+    color: "var(--color-chart-1)",
   },
   "young adults": {
     label: "Young Adults (20-39)",
-    color: "#22C55E",
+    color: "var(--color-chart-2)",
   },
   adults: {
     label: "Adults (40-64)",
-    color: "#FE0B05",
+    color: "var(--color-chart-3)",
   },
   "senior citizens": {
     label: "Senior Citizens (65+)",
-    color: "#B2D2C6",
+    color: "var(--color-chart-4)",
   },
   children: {
     label: "Children (0-12)",
-    color: "#2563EB",
+    color: "var(--color-chart-5)",
   },
 }
 
@@ -50,11 +50,11 @@ const genderPopulationChartConfig = {
   },
   male: {
     label: "Male",
-    color: "#268A63",
+    color: "var(--color-chart-1)",
   },
   female: {
     label: "Female",
-    color: "#FE0B05",
+    color: "var(--color-chart-2)",
   }
 }
 

@@ -107,7 +107,7 @@ const columns = [
             return (
                 <div className="flex gap-2 items-center">
                     {
-                        hasPermission(["superadmin", "doctor", "nurse"]) && (
+                        hasPermission(["superadmin"]) && (
                             <CustomTooltip content="Edit Vital Sign">
                                 <EditProfileVitalSignsDialog vitalSign={currentVitalSign}>
                                     <Button className="action-edit-btn">

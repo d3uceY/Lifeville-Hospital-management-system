@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import EditAppointmentDialog from "./EditAppointmentDialog"
 import { useQueryClient } from "@tanstack/react-query"
+import { hasPermission } from "../../../helpers/hasPermission"
 
 // Helper function to get status badge color
 const getStatusColor = (status) => {
@@ -231,12 +232,16 @@ export default function AppointmentCard({ appointment }) {
                                 </DropdownMenuPortal>
                             </DropdownMenuSub>
                             <DropdownMenuSeparator className="bg-[#e0f0e8]" />
-                            <DropdownMenuItem
-                                className="flex items-center gap-2 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700"
-                                onClick={handleDeleteAppointment}>
-                                <Trash2 className="h-4 w-4" />
-                                <span>Delete</span>
-                            </DropdownMenuItem>
+                            {
+                                hasPermission([`superadmin`]) && (
+                                    <DropdownMenuItem
+                                        className="flex items-center gap-2 cursor-pointer text-red-600 hover:bg-red-50 hover:text-red-700 focus:bg-red-50 focus:text-red-700"
+                                        onClick={handleDeleteAppointment}>
+                                        <Trash2 className="h-4 w-4" />
+                                        <span>Delete</span>
+                                    </DropdownMenuItem>
+                                )
+                            }
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

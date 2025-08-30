@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Edit, Calendar, CreditCard, User, FileText, Receipt } from "lucide-react"
 import { getBillStatusBadge } from "../../../helpers/getBillStatusBadge"
 import { formatToNaira } from "../../../helpers/formatToNaira"
+import PrintWrapper from "../../../components/print/print-wrapper"
+import BillPrint from "../../../components/print/prints/bill-print"
 
 export function ProfileViewBillDialog({ bill, children }) {
 
@@ -31,7 +33,7 @@ export function ProfileViewBillDialog({ bill, children }) {
     return (
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
                         <Receipt className="h-5 w-5" />
@@ -217,6 +219,9 @@ export function ProfileViewBillDialog({ bill, children }) {
                             </div>
                         </CardContent>
                     </Card>
+                    <PrintWrapper triggerLabel="Print Bill">
+                        <BillPrint bill={bill} />
+                    </PrintWrapper>
                 </div>
             </DialogContent>
         </Dialog>

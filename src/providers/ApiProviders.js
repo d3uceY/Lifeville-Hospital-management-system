@@ -733,7 +733,7 @@ export const updateNursesNote = async (nursesNoteId, nursesNoteData) => {
 }
 
 /* ============================
-   API Helper function here for SUMMARIES
+   API Helper function here for PATIENT SUMMARIES
    ============================ */
 
 export const getAdmissionSummaryByPatientId = async (patientId) => {
@@ -755,3 +755,65 @@ export const getVitalSignSummaryByPatientId = async (patientId) => {
   const response = await api.get(`/vital-sign-summary/${patientId}`);
   return response.data;
 }
+
+
+/* ============================
+   API Helper function here for OVERVIEW STATISTICS
+   ============================ */
+
+   export const getPatientStatusDistribution = async ({ accessToken }) => {
+     const response = await api.get(`/stats/patient-status-distribution`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+     );
+     return response.data;
+   }
+   
+
+   export const getStaffRolesDistribution = async ({ accessToken }) => {
+     const response = await api.get(`/stats/staff-roles-distribution`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+     );
+     return response.data;
+   }
+
+   export const getAppointmentStatusDistribution = async ({ accessToken }) => {
+     const response = await api.get(`/stats/appointment-status-distribution`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+     );
+     return response.data;
+   }
+
+   export const getAppointmensToday = async ({ accessToken }) => {
+     const response = await api.get(`/stats/appointments-today`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+     );
+     return response.data;
+   }
+
+   export const getLabTestPending = async ({ accessToken }) => {
+     const response = await api.get(`/stats/lab-test-pending`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+     );
+     return response.data;
+   }
+

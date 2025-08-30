@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --color-chart-6: #37614c;
   --background: #e6f5f1;
   --foreground: #354a3f;
   --card: #f5fffc;
@@ -29,6 +30,7 @@
   --chart-3: #3a735a;
   --chart-4: #6fb390;
   --chart-5: #80c0a0;
+  --chart-6: #37614c;
   --sidebar: white;
   --sidebar-foreground: #354a3f;
   --sidebar-primary: #52a67c;
@@ -81,6 +83,7 @@
   --chart-3: #52a67c;
   --chart-4: #4c8d6e;
   --chart-5: #3a735a;
+  --chart-6: #37614c;
   --sidebar: #212d26;
   --sidebar-foreground: #d8ece5;
   --sidebar-primary: #80c0a0;
@@ -133,6 +136,7 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

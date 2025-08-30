@@ -5,19 +5,11 @@ import {
     User,
     Calendar,
     ClipboardList,
-    FileText,
     Stethoscope,
-    Download,
-    Activity,
-    Heart,
-    Wind,
-    Utensils,
-    Baby,
-    Dumbbell,
-    Brain,
-    Eye,
 } from "lucide-react";
 import { formatDate } from "../../../helpers/formatDate";
+import PrintWrapper from "../../../components/print/print-wrapper";
+import PhysicalExaminationPrint from "../../../components/print/prints/physical-examination-print";
 
 export function ViewPhysicalExaminationDialog({ examination, children }) {
     return (
@@ -58,6 +50,12 @@ export function ViewPhysicalExaminationDialog({ examination, children }) {
                                 </div>
                                 <div>
                                     <label className="text-sm font-medium text-gray-500">
+                                        Hospital Number
+                                    </label>
+                                    <p className="text-sm font-medium">{examination.hospital_number}</p>
+                                </div>
+                                <div>
+                                    <label className="text-sm font-medium text-gray-500">
                                         Recorded By
                                     </label>
                                     <p className="text-sm font-medium">{examination.recorded_by}</p>
@@ -92,16 +90,6 @@ export function ViewPhysicalExaminationDialog({ examination, children }) {
                                 <ClipboardList className="h-4 w-4" />
                                 Examination Results
                             </CardTitle>
-                            <div className="flex gap-2">
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                                >
-                                    <Download className="h-4 w-4 mr-2" />
-                                    Download
-                                </Button>
-                            </div>
                         </CardHeader>
                         <CardContent className="pt-4 space-y-4">
                             {renderField("General Appearance", examination.general_appearance)}
@@ -151,12 +139,14 @@ export function ViewPhysicalExaminationDialog({ examination, children }) {
 
                     {/* Quick Actions */}
                     <div className="flex justify-end gap-3 pt-4 border-t">
-                        <Button
-                            variant="outline"
-                            className="border-[#268a6461] hover:bg-[#e6f2ed] text-[#106041] bg-transparent"
-                        >
-                            Print Report
-                        </Button>
+                        <div className="flex justify-end gap-3 pt-4 border-t">
+                            <PrintWrapper
+                                triggerLabel="Print Report"
+                                documentTitle={`Physical_Examination_${examination.id}`}
+                            >
+                                <PhysicalExaminationPrint examination={examination} />
+                            </PrintWrapper>
+                        </div>
                     </div>
                 </div>
             </DialogContent>

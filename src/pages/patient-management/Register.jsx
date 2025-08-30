@@ -251,7 +251,7 @@ export default function Register() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger className="w-full bg-white">
                                                 <SelectValue placeholder="Select sex" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -276,7 +276,7 @@ export default function Register() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={(value) => field.onChange(value)} value={field.value || ""}>
-                                            <SelectTrigger className="w-full border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
+                                            <SelectTrigger className="w-full bg-white border border-[#268a6461] rounded-sm focus-visible:ring-[#268a6429]">
                                                 <SelectValue placeholder="Select marital status" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -328,7 +328,7 @@ export default function Register() {
                             />
                             {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
                         </div>
-                        <div>
+                        <div className="mt-6">
                             <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="occupation">
                                 Occupation
                             </Label>
@@ -390,7 +390,7 @@ export default function Register() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger className="w-full bg-white">
                                                 <SelectValue placeholder="Select religion" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -416,7 +416,7 @@ export default function Register() {
                                     control={control}
                                     render={({ field }) => (
                                         <Select onValueChange={field.onChange} value={field.value}>
-                                            <SelectTrigger className="w-full">
+                                            <SelectTrigger className="w-full bg-white">
                                                 <SelectValue placeholder="Select nationality" />
                                             </SelectTrigger>
                                             <SelectContent>
