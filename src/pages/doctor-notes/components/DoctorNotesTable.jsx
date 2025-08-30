@@ -107,7 +107,7 @@ const columns = [
                             </Button>
                         </ViewDoctorNoteDialog>
                     </CustomTooltip>
-                    {hasPermission(["doctor", "superadmin"]) && (
+                    {hasPermission(["superadmin"]) && (
                         <CustomTooltip content="Edit Note">
                             <EditDoctorNoteDialog note={note}>
                                 <Button variant="outline" size="sm" className="action-edit-btn">

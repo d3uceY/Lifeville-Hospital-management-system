@@ -118,7 +118,7 @@ export default function LabTests() {
                       <TableCell>
                         <div className="flex items-center gap-2">
                           {
-                            hasPermission(['superadmin', 'doctor', 'lab']) && (
+                            hasPermission(['superadmin', 'lab']) && (
                               <CustomTooltip content="Edit Lab Test">
                                 <EditLabTestResultDialog testResult={test}>
                                   <Button
