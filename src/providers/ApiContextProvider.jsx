@@ -13,6 +13,11 @@ import {
   getBedGroups,
   getBedTypes,
   getLabTestTypes,
+  getPatientStatusDistribution,
+  getStaffRolesDistribution,
+  getAppointmentStatusDistribution,
+  getAppointmensToday,
+  getLabTestPending,
 } from './ApiProviders';
 import { useAuth } from './AuthContext';
 
@@ -25,6 +30,7 @@ const SymptomHeads = createContext(null);
 const InpatientAdmissions = createContext(null);
 const Beds = createContext(null);
 const LabTests = createContext(null);
+const OverviewStatistics = createContext(null);
 
 // Exported hooks
 export const usePatientData = () => useContext(PatientContext);
@@ -35,77 +41,111 @@ export const useSymptomHeads = () => useContext(SymptomHeads);
 export const useInpatientAdmissions = () => useContext(InpatientAdmissions);
 export const useBeds = () => useContext(Beds);
 export const useLabTests = () => useContext(LabTests);
+export const useOverviewStatistics = () => useContext(OverviewStatistics);
 
 // Main provider component
 export function AppDataProvider({ children }) {
   const { accessToken } = useAuth();
 
+  //Overview Statistics
+  const patientStatusDistributionQ = useQuery({
+    queryKey: ['patientStatusDistribution'],
+    queryFn: () => getPatientStatusDistribution(accessToken),
+    enabled: !!accessToken,
+  });
+
+  const staffRolesDistributionQ = useQuery({
+    queryKey: ['staffRolesDistribution'],
+    queryFn: () => getStaffRolesDistribution(accessToken),
+    enabled: !!accessToken,
+  });
+
+  const appointmentStatusDistributionQ = useQuery({
+    queryKey: ['appointmentStatusDistribution'],
+    queryFn: () => getAppointmentStatusDistribution(accessToken),
+    enabled: !!accessToken,
+  });
+
+  const appointmentsTodayQ = useQuery({
+    queryKey: ['appointmentsToday'],
+    queryFn: () => getAppointmensToday(accessToken),
+    enabled: !!accessToken,
+  });
+
+  const labTestPendingQ = useQuery({
+    queryKey: ['labTestPending'],
+    queryFn: () => getLabTestPending(accessToken),
+    enabled: !!accessToken,
+  });
+
+
+  //Patients
   const patientsQ = useQuery({
     queryKey: ['patients'],
     queryFn: () => getRegisteredPatients(accessToken),
     enabled: !!accessToken,
   });
-  
+
   const doctorsQ = useQuery({
     queryKey: ['doctors'],
     queryFn: () => getDoctors(accessToken),
     enabled: !!accessToken,
   });
-  
+
   const deathsQ = useQuery({
     queryKey: ['deaths'],
     queryFn: () => getDeaths(accessToken),
     enabled: !!accessToken,
   });
-  
+
   const birthsQ = useQuery({
     queryKey: ['births'],
     queryFn: () => getBirths(accessToken),
     enabled: !!accessToken,
   });
-  
+
   const symptomTypesQ = useQuery({
     queryKey: ['symptomTypes'],
     queryFn: getSymptomTypes,
     enabled: !!accessToken,
   });
-  
+
   const symptomHeadsQ = useQuery({
     queryKey: ['symptomHeads'],
     queryFn: getSymptomHeads,
     enabled: !!accessToken,
   });
-  
+
   const inpatientsQ = useQuery({
     queryKey: ['inpatients'],
     queryFn: () => getInpatients(accessToken),
     enabled: !!accessToken,
   });
-  
+
   const bedsQ = useQuery({
     queryKey: ['beds'],
     queryFn: getBeds,
     enabled: !!accessToken,
   });
-  
+
   const bedGroupsQ = useQuery({
     queryKey: ['bedGroups'],
     queryFn: getBedGroups,
     enabled: !!accessToken,
   });
-  
+
   const bedTypesQ = useQuery({
     queryKey: ['bedTypes'],
     queryFn: getBedTypes,
     enabled: !!accessToken,
   });
-  
+
   const labTestTypesQ = useQuery({
     queryKey: ['labTestTypes'],
     queryFn: getLabTestTypes,
     enabled: !!accessToken,
   });
-  
+
 
   return (
     <DoctorContext.Provider value={{
@@ -157,7 +197,25 @@ export function AppDataProvider({ children }) {
                     loadingLabTestTypes: labTestTypesQ.isLoading,
                     refreshLabTestTypes: labTestTypesQ.refetch,
                   }}>
-                    {children}
+                    <OverviewStatistics.Provider value={{
+                      patientStatusDistribution: patientStatusDistributionQ.data ?? [],
+                      loadingPatientStatusDistribution: patientStatusDistributionQ.isLoading,
+                      refreshPatientStatusDistribution: patientStatusDistributionQ.refetch,
+                      staffRolesDistribution: staffRolesDistributionQ.data ?? [],
+                      loadingStaffRolesDistribution: staffRolesDistributionQ.isLoading,
+                      refreshStaffRolesDistribution: staffRolesDistributionQ.refetch,
+                      appointmentStatusDistribution: appointmentStatusDistributionQ.data ?? [],
+                      loadingAppointmentStatusDistribution: appointmentStatusDistributionQ.isLoading,
+                      refreshAppointmentStatusDistribution: appointmentStatusDistributionQ.refetch,
+                      appointmentsToday: appointmentsTodayQ.data ?? [],
+                      loadingAppointmentsToday: appointmentsTodayQ.isLoading,
+                      refreshAppointmentsToday: appointmentsTodayQ.refetch,
+                      labTestPending: labTestPendingQ.data ?? [],
+                      loadingLabTestPending: labTestPendingQ.isLoading,
+                      refreshLabTestPending: labTestPendingQ.refetch,
+                    }}>
+                      {children}
+                    </OverviewStatistics.Provider>
                   </LabTests.Provider>
                 </Beds.Provider>
               </InpatientAdmissions.Provider>
