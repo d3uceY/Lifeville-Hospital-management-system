@@ -2,28 +2,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from "recharts"
 import { useOverviewStatistics } from "../../../providers/ApiContextProvider"
-// Sample data for charts
-const patientStatusData = [
-    { name: "Admitted", value: 234, fill: "var(--color-chart-1)" },
-    { name: "Outpatient", value: 2613, fill: "var(--color-chart-2)" },
-]
-
-// const appointmentStatusData = [
-//     { status: "Scheduled", count: 45, fill: "var(--color-chart-1)" },
-//     { status: "Confirmed", count: 78, fill: "var(--color-chart-2)" },
-//     { status: "Pending", count: 23, fill: "var(--color-chart-3)" },
-//     { status: "Completed", count: 156, fill: "var(--color-chart-4)" },
-//     { status: "Canceled", count: 12, fill: "var(--color-chart-5)" },
-// ]
-
-// const staffRolesData = [
-//     { role: "Doctor", count: 45, fill: "var(--color-chart-1)" },
-//     { role: "Nurse", count: 128, fill: "var(--color-chart-2)" },
-//     { role: "Receptionist", count: 23, fill: "var(--color-chart-3)" },
-//     { role: "Lab Technician", count: 34, fill: "var(--color-chart-4)" },
-//     { role: "Accountant", count: 12, fill: "var(--color-chart-5)" },
-//     { role: "Super Admin", count: 3, fill: "var(--color-chart-1)" },
-// ]
 
 const monthlyAdmissionsData = [
     { month: "Jan", admissions: 145, discharges: 132 },
@@ -44,13 +22,11 @@ const departmentUtilizationData = [
 ]
 
 const chartConfig = {
-    "Admitted": { label: "Admitted", color: "var(--color-chart-1)" },
-    "Outpatient": { label: "Outpatient", color: "var(--color-chart-2)" },
     "Scheduled": { label: "Scheduled", color: "var(--color-chart-1)" },
+    "Completed": { label: "Completed", color: "var(--color-chart-2)" },
+    "Canceled": { label: "Canceled", color: "var(--color-chart-1)" },
     "Confirmed": { label: "Confirmed", color: "var(--color-chart-2)" },
     "Pending": { label: "Pending", color: "var(--color-chart-3)" },
-    "Completed": { label: "Completed", color: "var(--color-chart-4)" },
-    "Canceled": { label: "Canceled", color: "var(--color-chart-5)" },
 }
 
 const staffRolesConfig = {
@@ -74,15 +50,9 @@ export function DashboardCharts() {
         appointmentStatusDistribution,
         loadingAppointmentStatusDistribution,
         refreshAppointmentStatusDistribution,
-        appointmentsToday,
-        loadingAppointmentsToday,
-        refreshAppointmentsToday,
-        labTestPending,
-        loadingLabTestPending,
-        refreshLabTestPending,
     } = useOverviewStatistics();
 
-    console.log(staffRolesDistribution);
+    console.log(patientStatusDistribution);
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -96,7 +66,7 @@ export function DashboardCharts() {
                     <ChartContainer config={chartConfig} className="h-[200px]">
                         <PieChart>
                             <Pie
-                                data={patientStatusData}
+                                data={patientStatusDistribution}
                                 cx="50%"
                                 cy="50%"
                                 innerRadius={40}
@@ -104,7 +74,7 @@ export function DashboardCharts() {
                                 paddingAngle={5}
                                 dataKey="value"
                             >
-                                {patientStatusData.map((entry, index) => (
+                                {patientStatusDistribution.map((entry, index) => (
                                     <Cell key={`cell-${index}`} fill={entry.fill} />
                                 ))}
                             </Pie>
@@ -162,7 +132,7 @@ export function DashboardCharts() {
             </Card>
 
             {/* Monthly Admissions Trend */}
-            <Card className="md:col-span-2">
+            {/* <Card className="md:col-span-2">
                 <CardHeader>
                     <CardTitle>Monthly Admissions & Discharges</CardTitle>
                     <CardDescription>6-month trend comparison</CardDescription>
@@ -194,7 +164,7 @@ export function DashboardCharts() {
             </Card>
 
             {/* Department Utilization */}
-            <Card>
+            {/* <Card>
                 <CardHeader>
                     <CardTitle>Department Utilization</CardTitle>
                     <CardDescription>Current capacity usage by department</CardDescription>
@@ -210,7 +180,7 @@ export function DashboardCharts() {
                         </BarChart>
                     </ChartContainer>
                 </CardContent>
-            </Card>
+            </Card>  */}
         </div>
     )
 }

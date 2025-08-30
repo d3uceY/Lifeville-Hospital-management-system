@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Calendar, UserPlus, Activity, Bed, FlaskConical } from "lucide-react"
+import { usePatientData, useOverviewStatistics } from "../../../providers/ApiContextProvider"
 
 
 function StatCard({ title, value, icon: Icon, trend }) {
@@ -23,13 +24,28 @@ function StatCard({ title, value, icon: Icon, trend }) {
 }
 
 export function DashboardStats() {
+
+  const { patientData } = usePatientData();
+  const {
+    patientStatusDistribution,
+    loadingPatientStatusDistribution,
+    refreshPatientStatusDistribution,
+    appointmentsToday,
+    loadingAppointmentsToday,
+    refreshAppointmentsToday,
+    labTestPending,
+    loadingLabTestPending,
+    refreshLabTestPending,
+  } = useOverviewStatistics();
+
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-      <StatCard title="Total Patients" value="2,847" icon={Users} trend={{ value: 12, isPositive: true }} />
-      <StatCard title="Appointments Today" value="156" icon={Calendar} trend={{ value: 8, isPositive: true }} />
-      <StatCard title="Admissions" value="23" icon={UserPlus} trend={{ value: -2, isPositive: false }} />
+      <StatCard title="Total Patients" value={patientData?.length} icon={Users} />
+      <StatCard title="Appointments Today" value={appointmentsToday} icon={Calendar} />
+      <StatCard title="Admissions" value={patientStatusDistribution?.[0]?.value} icon={UserPlus} />
       {/* <StatCard title="Available Beds" value="47" icon={Bed} trend={{ value: 5, isPositive: true }} /> */}
-      <StatCard title="Lab Tests Pending" value="89" icon={FlaskConical} trend={{ value: -15, isPositive: false }} />
+      <StatCard title="Lab Tests Pending" value={labTestPending} icon={FlaskConical} />
       {/* <StatCard title="Critical Patients" value="12" icon={Activity} trend={{ value: -3, isPositive: false }} /> */}
     </div>
   )
