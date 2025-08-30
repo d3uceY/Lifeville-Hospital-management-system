@@ -40,7 +40,7 @@ export function DashboardStats() {
 
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <StatCard title="Total Patients" value={patientData?.length} icon={Users} />
       <StatCard title="Appointments Today" value={appointmentsToday} icon={Calendar} />
       <StatCard title="Admissions" value={patientStatusDistribution?.[0]?.value} icon={UserPlus} />
