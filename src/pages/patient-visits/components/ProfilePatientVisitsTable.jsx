@@ -30,6 +30,7 @@ import { getPatientVisitsByPatientId } from "../../../providers/ApiProviders";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 import { useAuth } from "../../../providers/AuthContext";
+import { ViewPatientVisitDialog } from "./ViewPatientVisitDialog";
 
 const columns = [
     {
@@ -118,6 +119,7 @@ const columns = [
             return (
                 <div className="flex items-center gap-2">
                     <CustomTooltip content="View Visit">
+                        <ViewPatientVisitDialog visit={visit}>
                         <Button
                             variant="outline"
                             size="sm"
@@ -125,6 +127,7 @@ const columns = [
                         >
                             <Eye className="h-4 w-4" />
                         </Button>
+                        </ViewPatientVisitDialog>
                     </CustomTooltip>
                 </div>
             );
