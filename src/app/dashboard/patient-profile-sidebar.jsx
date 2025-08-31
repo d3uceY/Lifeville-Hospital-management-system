@@ -42,7 +42,7 @@ export default function PatientProfileSidebar() {
       {
         name: "Visits",
         icon: Repeat,
-        href: `/patient-profile/${patient_id}/${surname}/${first_name}/visits`,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/patient-visits`,
         roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"],
       },
       {

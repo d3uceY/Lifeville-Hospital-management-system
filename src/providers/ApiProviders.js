@@ -834,8 +834,8 @@ export const getPatientVisits = async ({ accessToken }) => {
   return response.data;
 }
 
-export const getPatientVisitsByPatientId = async ({ accessToken, patientId }) => {
-  const response = await api.get(`/patient-visits/${patientId}/patient`,
+export const getPatientVisitsByPatientId = async ({ accessToken, patient_id }) => {
+  const response = await api.get(`/patient-visits/${patient_id}/patient`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
