@@ -52,7 +52,7 @@ export function DashboardCharts() {
         refreshAppointmentStatusDistribution,
     } = useOverviewStatistics();
 
-    console.log(patientStatusDistribution);
+   const totalStaffCount = staffRolesDistribution.reduce((total, role) => total + role.count, 0);
 
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -107,7 +107,7 @@ export function DashboardCharts() {
             <Card>
                 <CardHeader>
                     <CardTitle>Staff Distribution</CardTitle>
-                    <CardDescription>Total staff: 245 across all roles</CardDescription>
+                    <CardDescription>Total staff: {totalStaffCount} across all roles</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <ChartContainer config={staffRolesConfig} className="h-[200px]">
