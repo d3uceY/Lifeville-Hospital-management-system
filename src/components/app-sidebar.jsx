@@ -112,7 +112,7 @@ export const data = {
         {
           title: "Laboratory",
           url: "/lab-tests",
-          tags: ["lab tests", "pathology", "laboratory"],
+          tags: ["lab tests", "pathology", "laboratory", "analysis", "investigation"],
           roles: ["superadmin", "lab", "doctor"],
         }
       ],

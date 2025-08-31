@@ -65,24 +65,24 @@ export default function DashboardCharts() {
                     :
                     (<Card>
                         <CardHeader>
-                          <CardTitle>Appointment Status</CardTitle>
-                          <CardDescription>Current appointment distribution</CardDescription>
+                            <CardTitle>Appointment Status</CardTitle>
+                            <CardDescription>Current appointment distribution</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                          <ChartContainer config={chartConfig} className="h-[200px] mx-auto">
-                              <BarChart data={appointmentStatusDistribution}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="status" />
-                                <YAxis />
-                                <ChartTooltip content={<ChartTooltipContent />} />
-                                <Bar dataKey="count" fill="var(--color-chart-1)" />
-                              </BarChart>
-                          </ChartContainer>
+                        <CardContent className="px-0">
+                            <ChartContainer config={chartConfig} className="h-[200px]">
+                                <BarChart data={appointmentStatusDistribution}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="status" />
+                                    <YAxis />
+                                    <ChartTooltip content={<ChartTooltipContent />} />
+                                    <Bar dataKey="count" fill="var(--color-chart-1)" />
+                                </BarChart>
+                            </ChartContainer>
                         </CardContent>
-                      </Card>
-                      )
+                    </Card>
+                    )
             }
-            
+
             {/* Patient Status Chart */}
             {
                 loadingPatientStatusDistribution ?
@@ -93,7 +93,7 @@ export default function DashboardCharts() {
                             <CardTitle>Patient Status</CardTitle>
                             <CardDescription>Admitted vs Outpatient Distribution</CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="px-0">
                             <ChartContainer config={chartConfig} className="h-[200px] mx-auto">
                                 <PieChart>
                                     <Pie
@@ -126,8 +126,8 @@ export default function DashboardCharts() {
                             <CardTitle>Staff Distribution</CardTitle>
                             <CardDescription>Total staff: {totalStaffCount} across all roles</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <ChartContainer config={staffRolesConfig} className="h-[200px] mx-auto">
+                        <CardContent className="px-0">
+                            <ChartContainer config={staffRolesConfig} className="h-[200px]">
                                 <BarChart data={staffRolesDistribution}>
                                     <CartesianGrid strokeDasharray="3 3" />
                                     <XAxis dataKey="role" />

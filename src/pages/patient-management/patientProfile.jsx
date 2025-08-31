@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -8,31 +7,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { viewRegisteredPatient } from '../../providers/ApiProviders';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 //skeleton loader
 import PatientProfileSkeleton from './components/patientProfileSkeleton';
 import { hasPermission } from '../../helpers/hasPermission';
 
 export default function PatientProfile() {
     const [patient, setPatient] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
-    const location = useLocation();
     const { patient_id: id, surname, first_name } = useParams();
 
-    useEffect(() => {
-        const fetchPatient = async () => {
-            try {
-                setIsLoading(true);
-                const response = await viewRegisteredPatient(id);
-                setPatient(response);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchPatient();
-    }, [id]);
+    const { data: patientData, isLoading: patientLoading } = useQuery({
+        queryKey: ["patient", id],
+        queryFn: () => viewRegisteredPatient(id).then((data) => {
+            setPatient(data);
+            return data;
+        }),
+        
+    });
 
     // Helper to format a date string (ISO) to yyyy-mm-dd for the input fields.
     const formatDate = (dateString) => {
@@ -40,7 +31,7 @@ export default function PatientProfile() {
         const date = new Date(dateString);
         return date.toISOString().split('T')[0];
     };
-    if (isLoading) return (
+    if (patientLoading) return (
         <PatientProfileSkeleton />
     )
     return (

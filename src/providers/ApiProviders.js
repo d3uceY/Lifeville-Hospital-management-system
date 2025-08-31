@@ -761,59 +761,97 @@ export const getVitalSignSummaryByPatientId = async (patientId) => {
    API Helper function here for OVERVIEW STATISTICS
    ============================ */
 
-   export const getPatientStatusDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/patient-status-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
-   
+export const getPatientStatusDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/patient-status-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getStaffRolesDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/staff-roles-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
 
-   export const getAppointmentStatusDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/appointment-status-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getStaffRolesDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/staff-roles-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getAppointmensToday = async ({ accessToken }) => {
-     const response = await api.get(`/stats/appointments-today`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getAppointmentStatusDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/appointment-status-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getLabTestPending = async ({ accessToken }) => {
-     const response = await api.get(`/stats/lab-test-pending`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getAppointmensToday = async ({ accessToken }) => {
+  const response = await api.get(`/stats/appointments-today`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
+export const getLabTestPending = async ({ accessToken }) => {
+  const response = await api.get(`/stats/lab-test-pending`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+
+
+/* ============================
+API Helper function here for PATIENT VISITS
+============================ */
+
+export const getPatientVisits = async ({ accessToken }) => {
+  const response = await api.get(`/patient-visits`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const getPatientVisitsByPatientId = async ({ accessToken, patientId }) => {
+  const response = await api.get(`/patient-visits/${patientId}/patient`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const createPatientVisit = async ({ accessToken, patientVisitData }) => {
+  const response = await api.post(`/patient-visits`, patientVisitData,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}

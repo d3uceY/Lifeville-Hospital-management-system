@@ -2,7 +2,7 @@
 import {
   FileText, IdCard, Activity, Stethoscope, MessageSquare,
   ClipboardList, TestTube, Brain, Pill, NotebookPen, Receipt,
-  Hospital, CalendarDays
+  Hospital, CalendarDays, Repeat
 } from "lucide-react";
 
 import { Link, useLocation } from "react-router-dom"
@@ -37,6 +37,12 @@ export default function PatientProfileSidebar() {
         name: "full info",
         icon: IdCard,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/full-profile`,
+        roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"],
+      },
+      {
+        name: "Visits",
+        icon: Repeat,
+        href: `/patient-profile/${patient_id}/${surname}/${first_name}/visits`,
         roles: ["superadmin", "doctor", "receptionist", "lab", "nurse"],
       },
       {
