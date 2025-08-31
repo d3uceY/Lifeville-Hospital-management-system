@@ -1,7 +1,8 @@
 
 import { lazy } from 'react'
-import { DashboardStats } from './components/dashboardStats'
-import { DashboardCharts } from './components/dashboardCharts'
+
+const DashboardStats = lazy(() => import('./components/dashboardStats'))
+const DashboardCharts = lazy(() => import('./components/dashboardCharts'))
 const DemographicCharts = lazy(() => import('./components/demograpic'))
 
 export default function Overview() {
