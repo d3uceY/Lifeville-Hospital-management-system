@@ -91,7 +91,7 @@ A full-stack web application for managing patient records, appointments, and rea
 Create a `.env` file inside the `server/` directory with:
 
 ```env
-VITE_API_URL=http://localhost:3000/api
+VITE_API_URL=http://localhost:3000
 ```
 
 Add any additional variables as needed (e.g., database URL, JWT secrets).
@@ -104,7 +104,7 @@ Add any additional variables as needed (e.g., database URL, JWT secrets).
 
    ```bash
    cd server
-   npm run dev  # or nodemon index.js
+   npm start
    ```
 
 2. **Frontend**
