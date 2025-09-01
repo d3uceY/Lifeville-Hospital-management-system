@@ -9,6 +9,7 @@ import { Outlet } from "react-router-dom"
 import { Toaster } from "sonner"
 import SuspenseFallback from "../../components/loader/SuspenseFallback"
 import { Suspense } from "react"
+import ToastNotifications from "../../components/notifications/toast-notifications"
 // import { useLocation } from "react-router-dom"
 // import ThemeToggle from "../../components/themeToggle"
 
@@ -37,6 +38,7 @@ export default function Page() {
               <Outlet />
             </Suspense>
             {/* this is the universal toaster component*/}
+            <ToastNotifications />
             <Toaster richColors />
           </div>
         </div>
