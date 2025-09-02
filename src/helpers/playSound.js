@@ -2,7 +2,7 @@ import { Howl } from "howler";
 
 let currentSound = null;
 
-export function playSound({ soundSrc, soundOn }) {
+export function playSound(soundSrc, soundOn = true) {
   if (!soundOn) return;
 
   // Stop previous sound

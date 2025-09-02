@@ -1,6 +1,8 @@
 import { useSocket } from '../../providers/SocketContextProvider';
 import { useEffect } from 'react';
 import { toast } from "sonner";
+import infoSound from '/sounds/info-sound.mp3'
+import { playSound } from '../../helpers/playSound';
 
 const ToastNotifications = () => {
     const socket = useSocket();
@@ -10,6 +12,7 @@ const ToastNotifications = () => {
         socket.connect();
 
         socket.on('notification', (notification) => {
+            playSound(infoSound);
             toast.info(notification?.message, {
                 description: notification?.description,
                 duration: 10000,
