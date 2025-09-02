@@ -109,6 +109,7 @@ export default function Register() {
         register,
         control,
         getValues,
+        reset,
     } = methods
 
     const onSubmit = async (values) => {
