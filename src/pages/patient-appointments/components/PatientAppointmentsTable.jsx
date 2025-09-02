@@ -106,7 +106,7 @@ const columns = [
                         )
                     }
                     {
-                        hasPermission(["superadmin", "doctor"]) && (
+                        hasPermission(["superadmin"]) && (
                             <CustomTooltip content="Edit Appointment">
                                 <EditPatientAppointmentDialog appointment={appointment}>
                                     <Button

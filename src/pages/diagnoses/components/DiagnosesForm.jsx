@@ -12,6 +12,17 @@ import { useAuth } from "../../../providers/AuthContext"
 import { useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectGroup,
+    SelectLabel,
+    SelectItem,
+} from "@/components/ui/select"
+import { Controller } from "react-hook-form"
+
 
 export default function DiagnosesForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,6 +42,7 @@ export default function DiagnosesForm() {
         formState: { errors, isValid },
         handleSubmit,
         reset,
+        control,
     } = useForm({
         mode: "onChange",
         resolver: zodResolver(schema),
@@ -89,18 +101,27 @@ export default function DiagnosesForm() {
                     {/* Condition Dropdown */}
                     <div className="mb-4">
                         <Label className="mb-3" htmlFor="condition">Condition</Label>
-                        <select
-                            id="condition"
-                            className="bg-gray-50 border border-gray-300 rounded-md p-2 w-full"
-                            {...register("condition")}
-                        >
-                            <option value="">Select a condition</option>
-                            {conditions.map((cond) => (
-                                <option key={cond.id} value={cond.name}>
-                                    {cond.name}
-                                </option>
-                            ))}
-                        </select>
+                        <Controller
+                            name="condition"
+                            control={control}
+                            render={({ field }) => (
+                                <Select onValueChange={field.onChange} value={field.value}>
+                                    <SelectTrigger className="w-full bg-gray-50">
+                                        <SelectValue placeholder="Select test type" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>Conditions</SelectLabel>
+                                            {conditions.map((condition) => (
+                                                <SelectItem key={condition.id} value={condition.name}>
+                                                    {condition.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
                         {errors.condition && (
                             <p className="text-red-500 text-sm">{errors.condition.message}</p>
                         )}
