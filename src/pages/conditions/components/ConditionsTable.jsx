@@ -38,6 +38,7 @@ import EditConditionDialog from "./EditConditionDialog";
 import DeleteConditionDialog from "./DeleteConditionsDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import TableSkeleton from "../../../components/table-skeleton";
+import { hasPermission } from "../../../helpers/hasPermission";
 
 export default function ConditionsTable() {
     // Fetch conditions using react-query
@@ -83,7 +84,9 @@ export default function ConditionsTable() {
                             <EditConditionDialog condition={conditionData} />
                         </CustomTooltip>
                         <CustomTooltip content="Delete Condition">
-                            <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                            {hasPermission(["superadmin"]) && (
+                                <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                            )}
                         </CustomTooltip>
                     </div>
                 );

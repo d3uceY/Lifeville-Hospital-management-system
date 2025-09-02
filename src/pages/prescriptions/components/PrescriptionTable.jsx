@@ -115,7 +115,9 @@ const columns = [
                         )
                     }
                     <CustomTooltip content="Change Prescription Status">
-                        <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
+                        {hasPermission(['doctor', 'superadmin']) && (
+                            <PrescriptionStatusDropdown prescriptionId={prescription.prescription_id} />
+                        )}
                     </CustomTooltip>
                 </div>
             );

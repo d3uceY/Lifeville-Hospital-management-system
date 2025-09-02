@@ -36,6 +36,7 @@ import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
 import { CustomTooltip } from "../../helpers/customTooltip"
+import { hasPermission } from "../../helpers/hasPermission"
 
 const columns = [
 
@@ -64,7 +65,9 @@ const columns = [
                         <EditSymptomTypeDialog symptom={symptomTypeData} />
                     </CustomTooltip>
                     <CustomTooltip content="Delete Symptom Type">
-                        <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                        {hasPermission(["superadmin"]) && (
+                            <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                        )}
                     </CustomTooltip>
                 </div>
             )

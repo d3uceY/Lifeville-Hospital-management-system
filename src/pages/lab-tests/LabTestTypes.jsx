@@ -26,6 +26,7 @@ import DeleteLabTestTypeDialog from "./components/DeleteLabTestTypeDialog";
 import { CreateLabTestTypesDialog } from "./components/AddLabTestTypesDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
 import TableSkeleton from "../../components/table-skeleton";
+import { hasPermission } from "../../helpers/hasPermission";
 
 const columns = [
 
@@ -69,7 +70,9 @@ const columns = [
             <EditLabTestTypesDialog labTestType={labTestTypeData} />
           </CustomTooltip>
           <CustomTooltip content="Delete Lab Test Type">
-            <DeleteLabTestTypeDialog deletedLabTestTypeRecordInfo={labTestTypeData} />
+            {hasPermission(["superadmin"]) && (
+              <DeleteLabTestTypeDialog deletedLabTestTypeRecordInfo={labTestTypeData} />
+            )}
           </CustomTooltip>
         </div>
       );

@@ -100,7 +100,7 @@ const columns = [
                         </ViewAdmissionDialog>
                     </CustomTooltip>
                     {
-                        hasPermission(["superadmin", "doctor"]) && (
+                        hasPermission(["superadmin"]) && (
                             <CustomTooltip content="Delete Admission">
                                 <DeleteAdmissionDialog admission={admission}>
                                     <Button

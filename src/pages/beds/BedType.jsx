@@ -26,6 +26,7 @@ import DeleteBedTypeDialog from "./components/deletBedTypesDialog";
 import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
 import TableSkeleton from "../../components/table-skeleton";
+import { hasPermission } from "../../helpers/hasPermission";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -55,7 +56,9 @@ const columns = [
             <EditBedTypesDialog bedType={bedTypeData} />
           </CustomTooltip>
           <CustomTooltip content="Delete Bed Type">
-            <DeleteBedTypeDialog deletedBedTypeRecordInfo={bedTypeData} />
+            {hasPermission(["superadmin"]) && (
+              <DeleteBedTypeDialog deletedBedTypeRecordInfo={bedTypeData} />
+            )}
           </CustomTooltip>
         </div>
       );

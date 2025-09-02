@@ -26,6 +26,7 @@ import { EditBedGroupDialog } from "./components/editBedGroupDialog";
 import DeleteBedGroupDialog from "./components/deleteBedGroupDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
 import TableSkeleton from "../../components/table-skeleton";
+import { hasPermission } from "../../helpers/hasPermission";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -55,7 +56,9 @@ const columns = [
             <EditBedGroupDialog bedGroup={bedGroupData} />
           </CustomTooltip>
           <CustomTooltip content="Delete Bed Group">
-            <DeleteBedGroupDialog deletedBedGroupRecordInfo={bedGroupData} />
+            {hasPermission(["superadmin"]) && (
+              <DeleteBedGroupDialog deletedBedGroupRecordInfo={bedGroupData} />
+            )}
           </CustomTooltip>
         </div>
 
