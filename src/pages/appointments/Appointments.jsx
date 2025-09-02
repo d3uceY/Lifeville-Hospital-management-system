@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select"
 import { useDebounce } from "../../hooks/use-debounce"
 import TableSkeleton from "../../components/table-skeleton"
+import { hasPermission } from "../../helpers/hasPermission"
 
 
 export default function DoctorAppointmentsUI() {
@@ -142,7 +143,9 @@ export default function DoctorAppointmentsUI() {
                           {appointment.doctor_name}
                         </TableCell>
                         <TableCell>
-                          <AppointmentDropdownOptions appointment={appointment} />
+                          {hasPermission(["superadmin", "doctor"]) ? (
+                            <AppointmentDropdownOptions appointment={appointment} />
+                          ) : null}
                         </TableCell>
                       </TableRow>
                     ))
