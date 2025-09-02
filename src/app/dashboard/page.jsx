@@ -10,6 +10,8 @@ import { Toaster } from "sonner"
 import SuspenseFallback from "../../components/loader/SuspenseFallback"
 import { Suspense } from "react"
 import ToastNotifications from "../../components/notifications/toast-notifications"
+import { UserAvatar } from "../../components/nav-header-user"
+import { NotificationButton } from "../../components/notifications/notification-button"
 // import { useLocation } from "react-router-dom"
 // import ThemeToggle from "../../components/themeToggle"
 
@@ -21,25 +23,23 @@ export default function Page() {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="flex py-4 h-fit shrink-0 mt-3 rounded-(--radius) items-center bg-white gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
           </div>
-          {/* <div>
-            <ThemeToggle />
-          </div> */}
+          <div className="flex items-center gap-4 ml-auto px-4">
+            <UserAvatar/>
+            <NotificationButton />
+          </div>
         </header>
         <div className="md:p-6 p-2 min-h-screen overflow-y-auto">
           <div className="rounded-2xl shadow-md h-full bg-white md:p-4 p-2">
-            {/* this is where the app routes are rendered */}
-            {/* key={location.key} */}
             <Suspense fallback={<SuspenseFallback />} >
               <Outlet />
             </Suspense>
-            {/* this is the universal toaster component*/}
             <ToastNotifications />
-            <Toaster richColors closeButton/>
+            <Toaster richColors closeButton />
           </div>
         </div>
       </SidebarInset>
