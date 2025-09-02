@@ -39,7 +39,7 @@ export default function Page() {
             </Suspense>
             {/* this is the universal toaster component*/}
             <ToastNotifications />
-            <Toaster richColors />
+            <Toaster richColors closeButton/>
           </div>
         </div>
       </SidebarInset>
