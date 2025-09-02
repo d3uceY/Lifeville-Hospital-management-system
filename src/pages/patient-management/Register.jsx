@@ -124,6 +124,7 @@ export default function Register() {
                 throw err;
             } finally {
                 setIsSubmitting(false)
+                reset()
             }
         }
 
