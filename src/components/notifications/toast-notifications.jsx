@@ -10,9 +10,9 @@ const ToastNotifications = () => {
         socket.connect();
 
         socket.on('notification', (notification) => {
-            toast(notification?.message, {
+            toast.info(notification?.message, {
                 description: notification?.description,
-                duration: 5000,
+                duration: 10000,
                 position: "top-right"
             });
         });
