@@ -855,3 +855,16 @@ export const createPatientVisit = async ({ accessToken, patientVisitData }) => {
   );
   return response.data;
 }
+
+
+
+
+/* ============================
+API Helper function here for notifications
+============================ */
+
+export const getUnreadNotifications = async (userData) => {
+  console.log(userData)
+  const response = await api.get(`/notifications/unread`, userData);
+  return response.data;
+}

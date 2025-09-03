@@ -227,7 +227,7 @@ export function AppDataProvider({ children }) {
   );
 }
 
-// Root-level wrapper
+
 const queryClient = new QueryClient();
 
 export default function AppProviders({ children }) {

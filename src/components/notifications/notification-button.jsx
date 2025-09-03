@@ -10,6 +10,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useAuth } from "../../providers/AuthContext"
+import { timeAgo } from "../../helpers/getTimeAgo"
+import { useQuery } from "@tanstack/react-query"
+import { getUnreadNotifications } from "../../providers/ApiProviders"
 
 const mockNotifications = [
     {
@@ -45,8 +49,21 @@ const mockNotifications = [
 ]
 
 export function NotificationButton() {
-    const [notifications] = useState(mockNotifications)
-    const unreadCount = notifications.length
+    const { user, accessToken } = useAuth();
+    const { id, role } = user;
+
+    const { data: notifications, isLoading } = useQuery({
+        queryKey: ["notifications", id],
+        queryFn: () => getUnreadNotifications({ id, role }),
+        enabled: !!accessToken
+    })
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+
+    const { unreadNotifications, totalUnread } = notifications;
+    const unreadCount = totalUnread;
 
     return (
         <DropdownMenu>
@@ -66,7 +83,7 @@ export function NotificationButton() {
                     <p className="text-sm text-muted-foreground">You have {unreadCount} unread notifications</p>
                 </div>
                 <DropdownMenuSeparator />
-                {notifications.slice(0, 5).map((notification) => (
+                {unreadNotifications.slice(0, 5).map((notification) => (
                     <DropdownMenuItem key={notification.id} className="flex flex-col items-start p-3">
                         <div className="flex w-full justify-between items-start">
                             <div className="flex-1">
