@@ -884,3 +884,14 @@ export const markNotificationAsRead = async ({ accessToken, notificationId }) =>
   );
   return response.data;
 }
+
+export const getPaginatedNotifications = async ({ accessToken, page, pageSize }) => {
+  const response = await api.get(`/notifications/paginated?page=${page}&pageSize=${pageSize}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}

@@ -17,6 +17,7 @@ import { getNotificationBadge } from "../../helpers/getNotificationBadge"
 // import { ExternalLink } from "lucide-react"
 import { markNotificationAsRead } from "../../providers/ApiProviders"
 import { CustomTooltip } from "../../helpers/customTooltip"
+import { Link } from "react-router-dom"
 
 export function NotificationButton() {
     const { accessToken } = useAuth();
@@ -115,9 +116,11 @@ export function NotificationButton() {
 
                 <DropdownMenuSeparator />
                 <div className="p-2">
-                    <Button variant="ghost" size="sm" className="w-full text-xs h-8">
-                        View all notifications
-                    </Button>
+                    <Link to="/notifications">
+                        <Button variant="ghost" size="sm" className="w-full text-xs h-8">
+                            View all notifications
+                        </Button>
+                    </Link>
                 </div>
             </DropdownMenuContent>
         </DropdownMenu>
