@@ -1,8 +1,6 @@
-"use client"
-
-import { useState } from "react"
-import { Bell } from "lucide-react"
+import { Bell, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,6 +12,8 @@ import { useAuth } from "../../providers/AuthContext"
 import { timeAgo } from "../../helpers/getTimeAgo"
 import { useQuery } from "@tanstack/react-query"
 import { getUnreadNotifications } from "../../providers/ApiProviders"
+import { getNotificationBadge } from "../../helpers/getNotificationBadge"
+import { ExternalLink } from "lucide-react"
 
 export function NotificationButton() {
     const { accessToken } = useAuth();
@@ -24,10 +24,8 @@ export function NotificationButton() {
         enabled: !!accessToken
     })
 
-    console.log(notifications)
-
     if (isLoading) {
-        return <div>Loading...</div>
+        return <Loader2 className="h-4 w-4 animate-spin" />
     }
 
     const { unreadNotifications, totalUnread } = notifications;
@@ -37,37 +35,66 @@ export function NotificationButton() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
-                    <Bell className="h-4 w-4" />
-                    {unreadCount > 0 && (
+                    {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bell className="h-4 w-4" />}
+                    {unreadCount > 0 && !isLoading && (
                         <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full flex items-center justify-center">
                             <span className="sr-only">{unreadCount} unread notifications</span>
                         </span>
                     )}
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
-                <div className="px-3 py-2">
-                    <h4 className="font-medium">Notifications</h4>
-                    <p className="text-sm text-muted-foreground">You have {unreadCount} unread notifications</p>
+            <DropdownMenuContent align="end" className="w-96">
+                <div className="px-4 py-3 border-b">
+                    <h4 className="font-semibold text-sm">Notifications</h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                        {unreadCount > 0 ? `${unreadCount} unread notifications` : "All caught up!"}
+                    </p>
                 </div>
+
+                <div className="max-h-80 overflow-y-auto">
+                    {unreadNotifications.map((notification) => {
+                        const badgeComponent = getNotificationBadge(notification)
+                        return (
+                            <DropdownMenuItem key={notification.id} className="p-0 focus:bg-muted/50">
+                                <div className="flex items-start gap-3 p-3 w-full">
+                                    <div className="flex-shrink-0 pt-1">{badgeComponent}</div>
+
+                                    <div className="flex-1 min-w-0">
+                                        <p className="font-medium text-xs leading-tight text-balance">{notification.title}</p>
+                                        <p className="text-xs text-muted-foreground mt-1 line-clamp-2 text-pretty">
+                                            {notification.message}
+                                        </p>
+                                        <span className="text-xs text-muted-foreground/80 mt-1 block">{notification.time}</span>
+                                    </div>
+
+                                    <div className="flex-shrink-0">
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            className="h-7 w-7 p-0 hover:bg-muted"
+                                        >
+                                            <ExternalLink className="h-3 w-3" />
+                                            <span className="sr-only">View notification</span>
+                                        </Button>
+                                    </div>
+                                </div>
+                            </DropdownMenuItem>
+                        )
+                    })}
+                </div>
+
+                {unreadNotifications.length === 0 && (
+                    <div className="p-6 text-center">
+                        <p className="text-xs text-muted-foreground">No new notifications</p>
+                    </div>
+                )}
+
                 <DropdownMenuSeparator />
-                {unreadNotifications.slice(0, 5).map((notification) => (
-                    <DropdownMenuItem key={notification.id} className="flex flex-col items-start p-3">
-                        <div className="flex w-full justify-between items-start">
-                            <div className="flex-1">
-                                <p className="font-medium text-sm">{notification.title}</p>
-                                <p className="text-sm text-muted-foreground mt-1">{notification.message}</p>
-                            </div>
-                            <span className="text-xs text-muted-foreground ml-2">{notification.time}</span>
-                        </div>
-                    </DropdownMenuItem>
-                ))}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-center justify-center">
-                    <Button variant="ghost" size="sm" className="w-full">
+                <div className="p-2">
+                    <Button variant="ghost" size="sm" className="w-full text-xs h-8">
                         View all notifications
                     </Button>
-                </DropdownMenuItem>
+                </div>
             </DropdownMenuContent>
         </DropdownMenu>
     )
