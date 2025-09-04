@@ -52,7 +52,6 @@ export function NavUser() {
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <div className="flex items-center gap-2">
                   <span className="truncate font-medium">{user?.name}</span>
-                  <span className="truncate">{getRoleBadge(user?.role, "text-[8px]")}</span>
                 </div>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
@@ -74,30 +73,17 @@ export function NavUser() {
                   <span className="truncate font-medium">{user?.name}</span>
                   <span className="truncate text-xs">{user?.email}</span>
                 </div>
+                <span className="text-xs text-muted-foreground">{getRoleBadge(user?.role, "text-[8px]")}</span>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <User2 />
-                View Profile
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link to="/settings" className="flex items-center gap-2 w-full">
-                  <Settings />
-                  <span> Settings </span>
-                </Link>
-              </DropdownMenuItem>
+              <Link to="/notifications">
+                <DropdownMenuItem>
+                  <Bell />
+                  Notifications
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>

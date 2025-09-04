@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useAuth } from "../providers/AuthContext"
 import { getInitials } from "../helpers/getinitials"
 
+
 export function UserAvatar() {
     const { user } = useAuth()
 
