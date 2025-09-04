@@ -1,4 +1,4 @@
-import { Bell, Loader2 } from "lucide-react"
+import { Bell, CheckCheck, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 import {
@@ -11,18 +11,29 @@ import {
 import { useAuth } from "../../providers/AuthContext"
 import { timeAgo } from "../../helpers/getTimeAgo"
 import { useQuery } from "@tanstack/react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { getUnreadNotifications } from "../../providers/ApiProviders"
 import { getNotificationBadge } from "../../helpers/getNotificationBadge"
-import { ExternalLink } from "lucide-react"
+// import { ExternalLink } from "lucide-react"
+import { markNotificationAsRead } from "../../providers/ApiProviders"
+import { CustomTooltip } from "../../helpers/customTooltip"
 
 export function NotificationButton() {
     const { accessToken } = useAuth();
+    const queryClient = useQueryClient();
 
     const { data: notifications, isLoading } = useQuery({
         queryKey: ["unreadNotifications", accessToken],
         queryFn: () => getUnreadNotifications({ accessToken }),
         enabled: !!accessToken
     })
+
+    const handleMarkedAsRead = async (notificationId) => {
+        await markNotificationAsRead({ accessToken, notificationId });
+        queryClient.invalidateQueries({
+            queryKey: ["unreadNotifications", accessToken],
+        });
+    }
 
     if (isLoading) {
         return <Loader2 className="h-4 w-4 animate-spin" />
@@ -67,7 +78,7 @@ export function NotificationButton() {
                                         <span className="text-xs text-muted-foreground/80 mt-1 block">{notification.time}</span>
                                     </div>
 
-                                    <div className="flex-shrink-0">
+                                    {/* <div className="flex-shrink-0">
                                         <Button
                                             variant="ghost"
                                             size="sm"
@@ -76,7 +87,20 @@ export function NotificationButton() {
                                             <ExternalLink className="h-3 w-3" />
                                             <span className="sr-only">View notification</span>
                                         </Button>
-                                    </div>
+                                    </div> */}
+                                    <CustomTooltip content="Mark as read">
+                                        <div className="flex-shrink-0">
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="h-7 w-7 p-0 hover:bg-green-100 text-green-600"
+                                                onClick={() => handleMarkedAsRead(notification.id)}
+                                            >
+                                                <CheckCheck className="h-3 w-3" />
+                                                <span className="sr-only">Mark notification as read</span>
+                                            </Button>
+                                        </div>
+                                    </CustomTooltip>
                                 </div>
                             </DropdownMenuItem>
                         )

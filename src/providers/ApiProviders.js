@@ -873,3 +873,14 @@ export const getUnreadNotifications = async ({ accessToken }) => {
   );
   return response.data;
 }
+
+export const markNotificationAsRead = async ({ accessToken, notificationId }) => {
+  const response = await api.post(`/notifications/${notificationId}/mark-as-read`, {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
