@@ -15,48 +15,16 @@ import { timeAgo } from "../../helpers/getTimeAgo"
 import { useQuery } from "@tanstack/react-query"
 import { getUnreadNotifications } from "../../providers/ApiProviders"
 
-const mockNotifications = [
-    {
-        id: "1",
-        title: "New message",
-        message: "You have a new message from John Doe",
-        time: "2 min ago",
-    },
-    {
-        id: "2",
-        title: "System update",
-        message: "Your system has been updated successfully",
-        time: "1 hour ago",
-    },
-    {
-        id: "3",
-        title: "Payment received",
-        message: "Payment of $299 has been received",
-        time: "3 hours ago",
-    },
-    {
-        id: "4",
-        title: "New user registered",
-        message: "A new user has registered on your platform",
-        time: "5 hours ago",
-    },
-    {
-        id: "5",
-        title: "Backup completed",
-        message: "Your daily backup has been completed",
-        time: "1 day ago",
-    },
-]
-
 export function NotificationButton() {
-    const { user, accessToken } = useAuth();
-    const { id, role } = user;
+    const { accessToken } = useAuth();
 
     const { data: notifications, isLoading } = useQuery({
-        queryKey: ["notifications", id],
-        queryFn: () => getUnreadNotifications({ id, role }),
+        queryKey: ["unreadNotifications", accessToken],
+        queryFn: () => getUnreadNotifications({ accessToken }),
         enabled: !!accessToken
     })
+
+    console.log(notifications)
 
     if (isLoading) {
         return <div>Loading...</div>

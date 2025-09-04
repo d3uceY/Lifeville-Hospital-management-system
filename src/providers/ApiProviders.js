@@ -863,8 +863,13 @@ export const createPatientVisit = async ({ accessToken, patientVisitData }) => {
 API Helper function here for notifications
 ============================ */
 
-export const getUnreadNotifications = async (userData) => {
-  console.log(userData)
-  const response = await api.get(`/notifications/unread`, userData);
+export const getUnreadNotifications = async ({ accessToken }) => {
+  const response = await api.get(`/notifications/unread`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
   return response.data;
 }

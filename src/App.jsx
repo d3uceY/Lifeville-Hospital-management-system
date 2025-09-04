@@ -8,6 +8,7 @@ import { AuthProvider } from './providers/AuthContext';
 // Context providers
 import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
+import { UseFunTitle } from './helpers/useFunTitle';
 
 
 // Lazy-loaded components
