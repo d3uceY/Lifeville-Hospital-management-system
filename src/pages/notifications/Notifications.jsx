@@ -139,7 +139,7 @@ export default function NotificationsPage() {
                                                     <Button
                                                         variant="outline"
                                                         size="sm"
-                                                        onClick={() => handleMarkAsRead(notification.id)}
+                                                        onClick={() => handleMarkedAsRead(notification.id)}
                                                         className="text-xs h-6 px-2"
                                                     >
                                                         Mark as Read
