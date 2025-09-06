@@ -823,6 +823,17 @@ export const getLabTestPending = async ({ accessToken }) => {
 API Helper function here for PATIENT VISITS
 ============================ */
 
+export const getPaginatedPatientVisits = async ({ accessToken, page = 1, pageSize = 10, firstName = "", surname = "", phoneNumber = "", hospitalNumber = "", startDate = "", endDate = "" }) => {
+  const response = await api.get(`/patient-visits/paginated?page=${page}&pageSize=${pageSize}&firstName=${firstName}&surname=${surname}&phoneNumber=${phoneNumber}&hospitalNumber=${hospitalNumber}&startDate=${startDate}&endDate=${endDate}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
 export const getPatientVisits = async ({ accessToken }) => {
   const response = await api.get(`/patient-visits`,
     {

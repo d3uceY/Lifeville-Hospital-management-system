@@ -85,6 +85,12 @@ export const data = {
           tags: ["inpatients", "admitted patients", "hospitalized"],
           roles: ["superadmin", "doctor", "nurse"],
         },
+        {
+          title: "Visits",
+          url: "/visits",
+          tags: ["visits", "admitted patients", "hospitalized", "outpatients"],
+          roles: ["superadmin", "doctor", "nurse", "receptionist"],
+        },
       ],
     },
     {

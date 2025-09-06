@@ -49,6 +49,7 @@ const Admissions = lazy(() => import('./pages/admissions/Admissions'));
 const PatientAppointments = lazy(() => import('./pages/patient-appointments/PatientAppointments'));
 const PatientSummary = lazy(() => import('./pages/patient-summary/PatientSummary'));
 const ProfilePatientVisits = lazy(() => import('./pages/patient-visits/ProfilePatientVisits'));
+const Visits = lazy(() => import('./pages/visits/Visits'));
 const Notifications = lazy(() => import('./pages/notifications/Notifications'));
 
 function App() {
@@ -121,6 +122,9 @@ function App() {
 
                       {/* Notifications */}
                       <Route path="notifications" element={<Notifications />} />
+
+                      {/* Visits */}
+                      <Route path="visits" element={<Visits />} />
                     </Route>
                   </Route>
                 </Routes>
