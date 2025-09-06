@@ -22,6 +22,7 @@ const ToastNotifications = () => {
                 position: "top-right"
             });
 
+            // this refreshes the unread notifications api query
             queryClient.invalidateQueries({
                 queryKey: ['unreadNotifications'],
             });

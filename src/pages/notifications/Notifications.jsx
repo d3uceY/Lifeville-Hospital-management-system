@@ -23,12 +23,22 @@ import { markNotificationAsRead } from "../../providers/ApiProviders"
 import { formatDate } from "../../helpers/formatDate"
 import { useQueryClient } from "@tanstack/react-query"
 import NotificationSkeleton from "./components/NotificationSkeleton"
+import { getServerTime } from "../../providers/ApiProviders"
+import { useEffect } from "react"
 
 export default function NotificationsPage() {
     const { accessToken } = useAuth()
     const [currentPage, setCurrentPage] = useState(1)
     const pageSize = 10;
     const queryClient = useQueryClient();
+
+    useEffect(() => {
+        const fetchServerTime = async () => {
+            const serverTime = await getServerTime();
+            console.log("Server Time:", serverTime);
+        };
+        fetchServerTime();
+    }, []);
 
     const {
         data: notifications,
@@ -71,7 +81,8 @@ export default function NotificationsPage() {
     }
 
     const totalPages = notifications?.totalPages || Math.ceil((notifications?.totalItems || 0) / pageSize)
-
+    console.log("Local:", new Date().toString());
+    console.log("UTC:", new Date().toISOString());
     return (
         <div className="container mx-auto px-4 py-4">
             <div className="space-y-3">

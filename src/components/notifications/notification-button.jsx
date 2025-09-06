@@ -23,6 +23,9 @@ export function NotificationButton() {
     const { accessToken } = useAuth();
     const queryClient = useQueryClient();
 
+    // PS: this message is actually for me, because i forget things easily 
+    // but the reason this refreshes is because because in the toast-notifications.jsx file, 
+    // i invalidate the unreadNotifications query when a notification event is detected by the socket
     const { data: notifications, isLoading } = useQuery({
         queryKey: ["unreadNotifications", accessToken],
         queryFn: () => getUnreadNotifications({ accessToken }),

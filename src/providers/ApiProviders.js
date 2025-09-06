@@ -895,3 +895,9 @@ export const getPaginatedNotifications = async ({ accessToken, page, pageSize })
   );
   return response.data;
 }
+
+
+export const getServerTime = async () => {
+  const response = await api.get(`/server-time`);
+  return response.data;
+}

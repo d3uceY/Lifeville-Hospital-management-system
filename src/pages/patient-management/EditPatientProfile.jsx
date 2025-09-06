@@ -34,12 +34,12 @@ export default function EditPatientProfile() {
   // Get patient data from location
   const location = useLocation()
   const patient = location.state
-  const { patient_id: id } = useParams();
+  const { patient_id: id, surname, first_name } = useParams();
   const navigate = useNavigate()
 
   //function that takes you back to the patient profile
   function goBackToProfile() {
-    navigate(`/patient-profile/${id}/full-profile/`)
+    navigate(`/patient-profile/${id}/${surname}/${first_name}/full-profile`)
   }
 
 
