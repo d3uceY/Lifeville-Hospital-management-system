@@ -40,16 +40,6 @@ const columns = [
         cell: ({ row }) => <div className="font-medium text-gray-700">APD-{row.getValue("appointment_id")}</div>,
     },
     {
-        accessorKey: "patient_first_name",
-        header: () => <div className="font-medium text-gray-700">First Name</div>,
-        cell: ({ row }) => <div className="capitalize">{row.getValue("patient_first_name")}</div>,
-    },
-    {
-        accessorKey: "patient_surname",
-        header: () => <div className="font-medium text-gray-700">Surname</div>,
-        cell: ({ row }) => <div className="capitalize">{row.getValue("patient_surname")}</div>,
-    },
-    {
         accessorKey: "status",
         header: ({ column }) => (
             <Button

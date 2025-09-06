@@ -40,18 +40,18 @@ const columns = [
         ),
         cell: ({ row }) => <div className="font-medium text-gray-700">ADM-{row.getValue("id")}</div>,
     },
-    {
-        accessorKey: "hospital_number",
-        header: "Hospital No.",
-        cell: ({ row }) => <div>{row.getValue("hospital_number")}</div>,
-    },
-    {
-        accessorFn: (row) =>
-            `${row.surname} ${row.first_name} ${row.other_names || ""}`.trim(),
-        id: "patient_name",
-        header: "Patient Name",
-        cell: ({ row }) => <div className="capitalize">{row.getValue("patient_name")}</div>,
-    },
+    // {
+    //     accessorKey: "hospital_number",
+    //     header: "Hospital No.",
+    //     cell: ({ row }) => <div>{row.getValue("hospital_number")}</div>,
+    // },
+    // {
+    //     accessorFn: (row) =>
+    //         `${row.surname} ${row.first_name} ${row.other_names || ""}`.trim(),
+    //     id: "patient_name",
+    //     header: "Patient Name",
+    //     cell: ({ row }) => <div className="capitalize">{row.getValue("patient_name")}</div>,
+    // },
     {
         accessorKey: "admission_date",
         header: "Admission Date",
