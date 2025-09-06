@@ -684,6 +684,7 @@ export const getProceduresByPatientId = async (patientId) => {
   return response.data;
 }
 
+
 /* ============================
 API Helper function here for DOCTOR's NOTES
 ============================ */
@@ -708,6 +709,7 @@ export const updateDoctorsNote = async (doctorsNoteId, doctorsNoteData) => {
   return response.data;
 }
 
+
 /* ============================
 API Helper function here for NURSES NOTES
 ============================ */
@@ -731,6 +733,7 @@ export const updateNursesNote = async (nursesNoteId, nursesNoteData) => {
   const response = await api.put(`/nurse-notes/${nursesNoteId}`, nursesNoteData);
   return response.data;
 }
+
 
 /* ============================
    API Helper function here for PATIENT SUMMARIES

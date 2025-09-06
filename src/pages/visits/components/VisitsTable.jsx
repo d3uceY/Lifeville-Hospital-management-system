@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, Filter, Stethoscope } from "lucide-react"
 import { CustomTooltip } from "../../../helpers/customTooltip"
-import TableSkeleton from "../../../components/patient-profile-table-skeleton";
 import { formatToShortDate } from "../../../helpers/formatToShortDate"
 import { useAuth } from "../../../providers/AuthContext"
+import { TableSkeletonV2 } from "../../../components/table-skeleton-v2"
 
 export default function VisitsTable() {
     const { accessToken } = useAuth()
@@ -65,7 +65,6 @@ export default function VisitsTable() {
         enabled: !!accessToken
     })
 
-    if (isLoading) return <TableSkeleton title="Visits" icon={<Stethoscope className="h-5 w-5" />} />
 
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
@@ -166,52 +165,54 @@ export default function VisitsTable() {
                         </div>
                     </div>
 
-                    {/* Table */}
-                    <div className="rounded-md border overflow-hidden shadow-sm">
-                        <Table>
-                            <TableHeader className="bg-[#f0f8f4]">
-                                <TableRow>
-                                    <TableHead>Patient Name</TableHead>
-                                    <TableHead>Hospital Number</TableHead>
-                                    <TableHead>Phone Number</TableHead>
-                                    <TableHead>Purpose</TableHead>
-                                    <TableHead>Recorded By</TableHead>
-                                    <TableHead>Visit Date</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {data?.data?.length ? (
-                                    data.data.map((visit) => (
-                                        <TableRow key={visit.id}>
-                                            <TableCell>{visit.patient_name}</TableCell>
-                                            <TableCell>{visit.hospital_number}</TableCell>
-                                            <TableCell>{visit.phone_number}</TableCell>
-                                            <TableCell>{visit.purpose}</TableCell>
-                                            <TableCell>{visit.recorded_by}</TableCell>
-                                            <TableCell>{formatToShortDate(visit.created_at)}</TableCell>
-                                        </TableRow>
-                                    ))
-                                ) : (
+                    {/* Table */} {
+                        isLoading ? <TableSkeletonV2 /> : (<div className="rounded-md border overflow-hidden shadow-sm">
+                            <Table>
+                                <TableHeader className="bg-[#f0f8f4]">
                                     <TableRow>
-                                        <TableCell colSpan={6} className="text-center py-10">
-                                            No visits found
-                                        </TableCell>
+                                        <TableHead>Patient Name</TableHead>
+                                        <TableHead>Hospital Number</TableHead>
+                                        <TableHead>Phone Number</TableHead>
+                                        <TableHead>Purpose</TableHead>
+                                        <TableHead>Recorded By</TableHead>
+                                        <TableHead>Visit Date</TableHead>
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {data?.data?.length ? (
+                                        data.data.map((visit) => (
+                                            <TableRow key={visit.id}>
+                                                <TableCell>{visit.patient_name}</TableCell>
+                                                <TableCell>{visit.hospital_number}</TableCell>
+                                                <TableCell>{visit.phone_number}</TableCell>
+                                                <TableCell>{visit.purpose}</TableCell>
+                                                <TableCell>{visit.recorded_by}</TableCell>
+                                                <TableCell>{formatToShortDate(visit.created_at)}</TableCell>
+                                            </TableRow>
+                                        ))
+                                    ) : (
+                                        <TableRow>
+                                            <TableCell colSpan={6} className="text-center py-10">
+                                                No visits found
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
 
-                        {/* Pagination */}
-                        <div className="flex items-center justify-between py-4 px-6 border-t">
-                            <div className="text-sm text-gray-500">
-                                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems} visit(s)
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</Button>
-                                <Button onClick={() => setPage(page + 1)} disabled={page >= data?.totalPages}>Next</Button>
+                            {/* Pagination */}
+                            <div className="flex items-center justify-between py-4 px-6 border-t">
+                                <div className="text-sm text-gray-500">
+                                    Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems} visit(s)
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</Button>
+                                    <Button onClick={() => setPage(page + 1)} disabled={page >= data?.totalPages}>Next</Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        )
+                    }
                 </CardContent>
             </Card>
         </div>
