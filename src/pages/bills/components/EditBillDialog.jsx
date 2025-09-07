@@ -83,7 +83,7 @@ export function EditBillDialog({ bill, children }) {
             <DialogContent className="max-w-md">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Save className="h-5 w-5" />
+                        <Save className="h-5 w-5 shrink-0" />
                         Edit Bill - {bill.billNumber}
                     </DialogTitle>
                 </DialogHeader>

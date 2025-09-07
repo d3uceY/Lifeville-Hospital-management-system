@@ -37,7 +37,7 @@ export function ViewAdmissionDialog({ admission, children }) {
     const { data: dischargeSummary } = useQuery({
         queryKey: ["discharge-summary", admission.id],
         queryFn: () => getDischarSummaryByAdmissionId(admission.id),
-        enabled: admission.discharge_condition !== "on admission"
+        enabled: (admission.discharge_condition !== "on admission") && (admission.discharge_condition !== "") && (admission.discharge_condition !== null)
     })
 
 
@@ -47,7 +47,7 @@ export function ViewAdmissionDialog({ admission, children }) {
             <DialogContent className="w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <ClipboardList className="h-5 w-5" />
+                        <ClipboardList className="h-5 w-5 shrink-0" />
                         Admission - #{admission.id}
                     </DialogTitle>
                 </DialogHeader>

@@ -1,4 +1,4 @@
-"use client";
+" ";
 
 import { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";

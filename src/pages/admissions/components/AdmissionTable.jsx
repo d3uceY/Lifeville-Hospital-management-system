@@ -40,18 +40,18 @@ const columns = [
         ),
         cell: ({ row }) => <div className="font-medium text-gray-700">ADM-{row.getValue("id")}</div>,
     },
-    {
-        accessorKey: "hospital_number",
-        header: "Hospital No.",
-        cell: ({ row }) => <div>{row.getValue("hospital_number")}</div>,
-    },
-    {
-        accessorFn: (row) =>
-            `${row.surname} ${row.first_name} ${row.other_names || ""}`.trim(),
-        id: "patient_name",
-        header: "Patient Name",
-        cell: ({ row }) => <div className="capitalize">{row.getValue("patient_name")}</div>,
-    },
+    // {
+    //     accessorKey: "hospital_number",
+    //     header: "Hospital No.",
+    //     cell: ({ row }) => <div>{row.getValue("hospital_number")}</div>,
+    // },
+    // {
+    //     accessorFn: (row) =>
+    //         `${row.surname} ${row.first_name} ${row.other_names || ""}`.trim(),
+    //     id: "patient_name",
+    //     header: "Patient Name",
+    //     cell: ({ row }) => <div className="capitalize">{row.getValue("patient_name")}</div>,
+    // },
     {
         accessorKey: "admission_date",
         header: "Admission Date",
@@ -100,7 +100,7 @@ const columns = [
                         </ViewAdmissionDialog>
                     </CustomTooltip>
                     {
-                        hasPermission(["superadmin", "doctor"]) && (
+                        hasPermission(["superadmin"]) && (
                             <CustomTooltip content="Delete Admission">
                                 <DeleteAdmissionDialog admission={admission}>
                                     <Button
@@ -175,7 +175,7 @@ export default function AdmissionTable() {
             headerCount={columns.length}
             rowCount={5}
             title="Admissions"
-            icon={<Hospital className="h-5 w-5" />}
+            icon={<Hospital className="h-5 w-5 shrink-0" />}
             showPagination
         />);
 
@@ -184,11 +184,11 @@ export default function AdmissionTable() {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <Hospital className="h-5 w-5" />
+                        <Hospital className="h-5 w-5 shrink-0" />
                         Admissions
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     <div className="rounded-md border  overflow-hidden shadow-sm">
                         <Table>
                             <TableHeader className="bg-[#f0f8f4]">

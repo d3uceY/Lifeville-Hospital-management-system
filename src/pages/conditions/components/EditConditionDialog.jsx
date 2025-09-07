@@ -70,7 +70,7 @@ export default function EditConditionDialog({ condition }) {
             <DialogContent className="sm:max-w-[500px] overflow-y-auto ">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Stethoscope className="h-5 w-5" />
+                        <Stethoscope className="h-5 w-5 shrink-0" />
                         Edit Condition
                     </DialogTitle>
                 </DialogHeader>

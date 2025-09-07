@@ -10,7 +10,7 @@ export function ViewNurseNoteDialog({ note, children }) {
             <DialogContent className="w-[100vw] !max-w-[60vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <Stethoscope className="h-5 w-5" />
+                        <Stethoscope className="h-5 w-5 shrink-0" />
                         Nurse's Note - #{note.id}
                     </DialogTitle>
                 </DialogHeader>

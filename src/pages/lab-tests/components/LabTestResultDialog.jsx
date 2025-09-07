@@ -18,7 +18,7 @@ export function LabTestResultDialog({ testResult, children }) {
             <DialogContent className="w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <TestTube className="h-5 w-5" />
+                        <TestTube className="h-5 w-5 shrink-0" />
                         Test Result Details - #{testResult.id}
                     </DialogTitle>
                 </DialogHeader>

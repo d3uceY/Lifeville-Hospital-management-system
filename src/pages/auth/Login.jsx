@@ -12,7 +12,7 @@ export default function Login() {
             <div className="bg-primary/20 text-primary-foreground flex size-6 items-center justify-center rounded-md">
               <img src={lifeVilleLogo} alt="Lifeville Hospital HMS" />
             </div>
-            Lifeville Hospital <span className="text-primary">HMS</span>
+            Lifeville <span className="text-primary">HMS</span>
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">

@@ -1,4 +1,4 @@
-"use client"
+" "
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Separator } from "@/components/ui/separator"
@@ -38,7 +38,7 @@ export function ViewBillDialog({ bill, children }) {
             <DialogContent className="!w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <Receipt className="h-5 w-5" />
+                        <Receipt className="h-5 w-5 shrink-0" />
                         Bill Details - {bill.billNumber}
                     </DialogTitle>
                 </DialogHeader>

@@ -1,7 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from "recharts"
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
 import { useOverviewStatistics } from "../../../providers/ApiContextProvider"
+import ChartSkeleton from "./chartSkeleton"
 
 const monthlyAdmissionsData = [
     { month: "Jan", admissions: 145, discharges: 132 },
@@ -39,7 +40,7 @@ const staffRolesConfig = {
     "Super Admin": { label: "Super Admin", color: "var(--color-chart-6)" },
 }
 
-export function DashboardCharts() {
+export default function DashboardCharts() {
     const {
         patientStatusDistribution,
         loadingPatientStatusDistribution,
@@ -52,84 +53,94 @@ export function DashboardCharts() {
         refreshAppointmentStatusDistribution,
     } = useOverviewStatistics();
 
-    console.log(patientStatusDistribution);
+    const totalStaffCount = staffRolesDistribution.reduce((total, role) => total + role.count, 0);
 
     return (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {/* Patient Status Chart */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Patient Status</CardTitle>
-                    <CardDescription>Admitted vs Outpatient Distribution</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ChartContainer config={chartConfig} className="h-[200px]">
-                        <PieChart>
-                            <Pie
-                                data={patientStatusDistribution}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={40}
-                                outerRadius={80}
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {patientStatusDistribution.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                                ))}
-                            </Pie>
-                            <ChartTooltip content={<ChartTooltipContent />} />
-                        </PieChart>
-                    </ChartContainer>
-                </CardContent>
-            </Card>
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(340px,1fr))]">
 
             {/* Appointment Status Chart */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Appointment Status</CardTitle>
-                    <CardDescription>Current appointment distribution</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ChartContainer config={chartConfig} className="h-[200px]">
-                        <BarChart data={appointmentStatusDistribution}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="status" />
-                            <YAxis />
-                            <ChartTooltip content={<ChartTooltipContent />} />
-                            <Bar dataKey="count" fill="var(--color-chart-1)" />
-                        </BarChart>
-                    </ChartContainer>
-                </CardContent>
-            </Card>
+            {
+                loadingAppointmentStatusDistribution ?
+                    (<ChartSkeleton />)
+                    :
+                    (<Card>
+                        <CardHeader>
+                            <CardTitle>Appointment Status</CardTitle>
+                            <CardDescription>Current appointment distribution</CardDescription>
+                        </CardHeader>
+                        <CardContent className="px-0">
+                            <ChartContainer config={chartConfig} className="h-[200px]">
+                                <BarChart data={appointmentStatusDistribution}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="status" />
+                                    <YAxis />
+                                    <ChartTooltip content={<ChartTooltipContent />} />
+                                    <Bar dataKey="count" fill="var(--color-chart-1)" />
+                                </BarChart>
+                            </ChartContainer>
+                        </CardContent>
+                    </Card>
+                    )
+            }
 
-            {/* Staff Roles Chart */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Staff Distribution</CardTitle>
-                    <CardDescription>Total staff: 245 across all roles</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ChartContainer config={staffRolesConfig} className="h-[200px]">
-                        <PieChart>
-                            <Pie
-                                data={staffRolesDistribution}
-                                cx="50%"
-                                cy="50%"
-                                outerRadius={80}
-                                dataKey="count"
-                                nameKey="role"
-                                label={(data) => `${data.role}: ${data.count}`}
-                            >
-                                {staffRolesDistribution.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                                ))}
-                            </Pie>
-                            <ChartTooltip content={<ChartTooltipContent />} />
-                        </PieChart>
-                    </ChartContainer>
-                </CardContent>
-            </Card>
+            {/* Patient Status Chart */}
+            {
+                loadingPatientStatusDistribution ?
+                    (<ChartSkeleton />)
+                    :
+                    (<Card>
+                        <CardHeader>
+                            <CardTitle>Patient Status</CardTitle>
+                            <CardDescription>Admitted vs Outpatient Distribution</CardDescription>
+                        </CardHeader>
+                        <CardContent className="px-0">
+                            <ChartContainer config={chartConfig} className="h-[200px] mx-auto">
+                                <PieChart>
+                                    <Pie
+                                        data={patientStatusDistribution}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={40}
+                                        outerRadius={80}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                    >
+                                        {patientStatusDistribution.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.fill} />
+                                        ))}
+                                    </Pie>
+                                    <ChartTooltip content={<ChartTooltipContent />} />
+                                </PieChart>
+                            </ChartContainer>
+                        </CardContent>
+                    </Card>)
+            }
+
+            {/* Staff Roles Chart (Bar Chart Alternative) */}
+            {
+                loadingStaffRolesDistribution ? (
+                    <ChartSkeleton />
+                ) : (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Staff Distribution</CardTitle>
+                            <CardDescription>Total staff: {totalStaffCount} across all roles</CardDescription>
+                        </CardHeader>
+                        <CardContent className="px-0">
+                            <ChartContainer config={staffRolesConfig} className="h-[200px]">
+                                <BarChart data={staffRolesDistribution}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="role" />
+                                    <YAxis />
+                                    <ChartTooltip content={<ChartTooltipContent />} />
+                                    <Bar dataKey="count" stackId="a" fill="var(--color-chart-1)" />
+                                </BarChart>
+
+                            </ChartContainer>
+                        </CardContent>
+                    </Card>
+                )
+            }
 
             {/* Monthly Admissions Trend */}
             {/* <Card className="md:col-span-2">

@@ -89,7 +89,7 @@ export function UpdateUserDialog({ user }) {
             <DialogContent className="sm:max-w-[500px] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Shield className="h-5 w-5" /> Update User
+                        <Shield className="h-5 w-5 shrink-0" /> Update User
                     </DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit(onSubmit)}>

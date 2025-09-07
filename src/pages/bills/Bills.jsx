@@ -20,7 +20,7 @@ import { formatToShortDate } from "../../helpers/formatToShortDate"
 import { formatToNaira } from "../../helpers/formatToNaira"
 import { ViewBillDialog } from "./components/ViewBillDialog"
 import { CustomTooltip } from "../../helpers/customTooltip"
-import TableSkeleton from "../../components/table-skeleton"
+import TableSkeletonV2 from "../../components/table-skeleton-v2"
 import PrintWrapper from "../../components/print/print-wrapper"
 import BillPrint from "../../components/print/prints/bill-print"
 
@@ -68,7 +68,7 @@ export default function Bills() {
             ),
     })
 
-    if (isLoading) return <TableSkeleton title="Bills" icon={<Receipt className="h-5 w-5" />} />
+
 
     if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
@@ -77,12 +77,12 @@ export default function Bills() {
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6">
                     <CardTitle className="flex items-center gap-2">
-                        <Receipt className="h-5 w-5" />
+                        <Receipt className="h-5 w-5 shrink-0" />
                         Bills
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="md:p-6">
-                    <div className="mb-6 bg-white rounded-lg border p-4 shadow-sm">
+                <CardContent className="md:p-6 p-2">
+                    <div className="mb-6 bg-white rounded-lg border md:p-4 p-3 shadow-sm">
                         <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                             <Filter className="h-4 w-4" />
                             Filter Bills
@@ -156,74 +156,77 @@ export default function Bills() {
                     </div>
 
                     {/* Table */}
-                    <div className="rounded-md border overflow-hidden shadow-sm">
-                        <Table>
-                            <TableHeader className="bg-[#f0f8f4]">
-                                <TableRow>
-                                    <TableHead>Bill Number</TableHead>
-                                    <TableHead>Patient Name</TableHead>
-                                    <TableHead>Hospital Number</TableHead>
-                                    <TableHead>Patient ID</TableHead>
-                                    <TableHead>Bill Date</TableHead>
-                                    <TableHead>Total Amount</TableHead>
-                                    <TableHead>Status</TableHead>
-                                    <TableHead>Payment Method</TableHead>
-                                    <TableHead>Issued By</TableHead>
-                                    <TableHead>Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {data?.data?.length ? (
-                                    data.data.map((bill) => (
-                                        <TableRow key={bill.id}>
-                                            <TableCell>{bill.billNumber}</TableCell>
-                                            <TableCell>{bill.patientName}</TableCell>
-                                            <TableCell>{bill.hospitalNumber}</TableCell>
-                                            <TableCell>{bill.patientId}</TableCell>
-                                            <TableCell>{formatToShortDate(bill.billDate)}</TableCell>
-                                            <TableCell>{formatToNaira(bill.totalAmount)}</TableCell>
-                                            <TableCell>{getBillStatusBadge(bill.status)}</TableCell>
-                                            <TableCell>{bill.paymentMethod.replace("_", " ")}</TableCell>
-                                            <TableCell>{bill.issuedBy}</TableCell>
-                                            <TableCell>
-                                                <div className="flex items-center gap-2">
-                                                    <CustomTooltip content="View Bill">
-                                                        <ViewBillDialog bill={bill}>
-                                                            <Button size="sm" variant="outline" className="action-view-btn">
-                                                                <Eye className="h-4 w-4" />
-                                                            </Button>
-                                                        </ViewBillDialog>
-                                                    </CustomTooltip>
-                                                    <CustomTooltip content="Print Bill">
-                                                       <PrintWrapper triggerLabel="" bill={bill}>
-                                                               <BillPrint bill={bill}/>
-                                                       </PrintWrapper>
-                                                    </CustomTooltip>
-                                                </div>
+                    {
+                        isLoading ? <TableSkeletonV2 /> : (<div className="rounded-md border overflow-hidden shadow-sm">
+                            <Table>
+                                <TableHeader className="bg-[#f0f8f4]">
+                                    <TableRow>
+                                        <TableHead>Bill Number</TableHead>
+                                        <TableHead>Patient Name</TableHead>
+                                        <TableHead>Hospital Number</TableHead>
+                                        <TableHead>Patient ID</TableHead>
+                                        <TableHead>Bill Date</TableHead>
+                                        <TableHead>Total Amount</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Payment Method</TableHead>
+                                        <TableHead>Issued By</TableHead>
+                                        <TableHead>Actions</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {data?.data?.length ? (
+                                        data.data.map((bill) => (
+                                            <TableRow key={bill.id}>
+                                                <TableCell>{bill.billNumber}</TableCell>
+                                                <TableCell>{bill.patientName}</TableCell>
+                                                <TableCell>{bill.hospitalNumber}</TableCell>
+                                                <TableCell>{bill.patientId}</TableCell>
+                                                <TableCell>{formatToShortDate(bill.billDate)}</TableCell>
+                                                <TableCell>{formatToNaira(bill.totalAmount)}</TableCell>
+                                                <TableCell>{getBillStatusBadge(bill.status)}</TableCell>
+                                                <TableCell>{bill.paymentMethod.replace("_", " ")}</TableCell>
+                                                <TableCell>{bill.issuedBy}</TableCell>
+                                                <TableCell>
+                                                    <div className="flex items-center gap-2">
+                                                        <CustomTooltip content="View Bill">
+                                                            <ViewBillDialog bill={bill}>
+                                                                <Button size="sm" variant="outline" className="action-view-btn">
+                                                                    <Eye className="h-4 w-4" />
+                                                                </Button>
+                                                            </ViewBillDialog>
+                                                        </CustomTooltip>
+                                                        <CustomTooltip content="Print Bill">
+                                                            <PrintWrapper triggerLabel="" bill={bill}>
+                                                                <BillPrint bill={bill} />
+                                                            </PrintWrapper>
+                                                        </CustomTooltip>
+                                                    </div>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                    ) : (
+                                        <TableRow>
+                                            <TableCell colSpan={10} className="text-center py-10">
+                                                No bills found
                                             </TableCell>
                                         </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell colSpan={10} className="text-center py-10">
-                                            No bills found
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
+                                    )}
+                                </TableBody>
+                            </Table>
 
-                        {/* Pagination */}
-                        <div className="flex items-center justify-between py-4 px-6 border-t">
-                            <div className="text-sm text-gray-500">
-                                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems} bill(s)
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</Button>
-                                <Button onClick={() => setPage(page + 1)} disabled={page >= data?.totalPages}>Next</Button>
+                            {/* Pagination */}
+                            <div className="flex items-center justify-between py-4 px-6 border-t">
+                                <div className="text-sm text-gray-500">
+                                    Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, data?.totalItems)} of {data?.totalItems} bill(s)
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>Previous</Button>
+                                    <Button onClick={() => setPage(page + 1)} disabled={page >= data?.totalPages}>Next</Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        )
+                    }
                 </CardContent>
             </Card>
         </div>

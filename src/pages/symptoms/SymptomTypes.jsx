@@ -36,6 +36,7 @@ import DeleteSymptomTypeDialog from "./components/deleteSymptomTypeDialog"
 
 import { SymptomTypeSkeletonLoader } from "./components/symptomTypeSkeletonLoader"
 import { CustomTooltip } from "../../helpers/customTooltip"
+import { hasPermission } from "../../helpers/hasPermission"
 
 const columns = [
 
@@ -64,7 +65,9 @@ const columns = [
                         <EditSymptomTypeDialog symptom={symptomTypeData} />
                     </CustomTooltip>
                     <CustomTooltip content="Delete Symptom Type">
-                        <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                        {hasPermission(["superadmin"]) && (
+                            <DeleteSymptomTypeDialog deletedSymptomTypeRecordInfo={symptomTypeData} />
+                        )}
                     </CustomTooltip>
                 </div>
             )
@@ -104,12 +107,12 @@ export default function SymptomTypes() {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <AlertTriangle className="h-5 w-5" />
+                        <AlertTriangle className="h-5 w-5 shrink-0" />
                         Symptom Types
                     </CardTitle>
                     <CreateSymptomTypeDialog />
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
                         <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                             <Filter className="h-4 w-4" />

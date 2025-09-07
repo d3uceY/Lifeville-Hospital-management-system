@@ -8,7 +8,7 @@ import { AuthProvider } from './providers/AuthContext';
 // Context providers
 import { AppDataProvider } from './providers/ApiContextProvider';
 import { SocketContextProvider } from './providers/SocketContextProvider';
- 
+import { UseFunTitle } from './helpers/useFunTitle';
 
 
 // Lazy-loaded components
@@ -48,6 +48,9 @@ const NurseNotes = lazy(() => import('./pages/nurse-notes/NurseNotes'));
 const Admissions = lazy(() => import('./pages/admissions/Admissions'));
 const PatientAppointments = lazy(() => import('./pages/patient-appointments/PatientAppointments'));
 const PatientSummary = lazy(() => import('./pages/patient-summary/PatientSummary'));
+const ProfilePatientVisits = lazy(() => import('./pages/patient-visits/ProfilePatientVisits'));
+const Visits = lazy(() => import('./pages/visits/Visits'));
+const Notifications = lazy(() => import('./pages/notifications/Notifications'));
 
 function App() {
   const queryClient = new QueryClient()
@@ -84,6 +87,7 @@ function App() {
                           <Route path="admissions" element={<Admissions />} />
                           <Route path="appointments" element={<PatientAppointments />} />
                           <Route path="patient-summary" element={<PatientSummary />} />
+                          <Route path="patient-visits" element={<ProfilePatientVisits />} />
                         </Route>
                       </Route>
                       {/* Birth and Death */}
@@ -115,6 +119,12 @@ function App() {
 
                       {/* Users */}
                       <Route path="users" element={<Users />} />
+
+                      {/* Notifications */}
+                      <Route path="notifications" element={<Notifications />} />
+
+                      {/* Visits */}
+                      <Route path="visits" element={<Visits />} />
                     </Route>
                   </Route>
                 </Routes>

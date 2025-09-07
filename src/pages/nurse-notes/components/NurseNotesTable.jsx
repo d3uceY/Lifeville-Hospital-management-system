@@ -158,7 +158,7 @@ export default function NurseNotesTable() {
             headerCount={columns.length}
             rowCount={5}
             title="Nurse Notes"
-            icon={<NotebookPen className="h-5 w-5" />}
+            icon={<NotebookPen className="h-5 w-5 shrink-0" />}
             showPagination
         />);
 
@@ -168,11 +168,11 @@ export default function NurseNotesTable() {
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <NotebookPen className="h-5 w-5" />
+                        <NotebookPen className="h-5 w-5 shrink-0" />
                         Nurse Notes
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     <div className="rounded-md border overflow-hidden shadow-sm">
                         <Table>
                             <TableHeader className="bg-[#f0f8f4]">

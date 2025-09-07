@@ -44,8 +44,8 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
-import DeleteAlertDialog from "./components/deleteAlertDialog";
+// import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
+// import DeleteAlertDialog from "./components/deleteAlertDialog";
 
 const columns = [
   {
@@ -272,7 +272,7 @@ export default function Patients() {
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex justify-between items-center">
           <CardTitle className="flex items-center gap-2">
-            <BedIcon className="h-5 w-5" />
+            <BedIcon className="h-5 w-5 shrink-0" />
             In Patients
           </CardTitle>
 
@@ -283,8 +283,8 @@ export default function Patients() {
             </Button>
           </Link> */}
         </CardHeader>
-        <CardContent className="md:p-6">
-          <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
+        <CardContent className="md:p-6 p-2">
+          <div className="mb-6 bg-white rounded-lg border  md:p-4 p-3 shadow-sm">
             <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
               <Filter className="h-4 w-4" />
               Filter Patients

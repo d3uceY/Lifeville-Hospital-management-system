@@ -15,7 +15,7 @@ import ProfileFormHeader from "../../components/profile-form-header"
 export default function PatientSummaryPage() {
     const { patient_id, surname, first_name } = useParams()
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto md:p-6  space-y-6">
             <div className="space-y-4">
                 <ProfileFormHeader title="Patient Summary Dashboard" description="" noID />
             </div>
@@ -24,7 +24,7 @@ export default function PatientSummaryPage() {
                 <Card className="w-full col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
-                            <Activity className="h-5 w-5" />
+                            <Activity className="h-5 w-5 shrink-0" />
                             Recent Vital Signs
                         </CardTitle>
                         <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/vital-signs`}>
@@ -42,7 +42,7 @@ export default function PatientSummaryPage() {
                 <Card className="w-full col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-4 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
-                            <Hospital className="h-5 w-5" />
+                            <Hospital className="h-5 w-5 shrink-0" />
                             Recent Admissions
                         </CardTitle>
                         <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/admissions`}>
@@ -60,7 +60,7 @@ export default function PatientSummaryPage() {
                 <Card className="w-full col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
-                            <ClipboardList className="h-5 w-5" />
+                            <ClipboardList className="h-5 w-5 shrink-0" />
                             Recent Diagnosis
                         </CardTitle>
                         <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/diagnoses`}>
@@ -78,7 +78,7 @@ export default function PatientSummaryPage() {
                 <Card className="w-full col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-7 pt-0">
                     <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                         <CardTitle className="flex items-center gap-2">
-                            <TestTube className="h-5 w-5" />
+                            <TestTube className="h-5 w-5 shrink-0" />
                             Recent Analysis/Tests
                         </CardTitle>
                         <Link to={`/patient-profile/${patient_id}/${surname}/${first_name}/analysis`}>

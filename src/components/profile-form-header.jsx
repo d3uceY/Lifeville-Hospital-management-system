@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 
-export default function ProfileFormHeader({ title, description, noID }) {
+export default function ProfileFormHeader({ title, description, noID = true }) {
     const { patient_id, surname, first_name } = useParams();
 
     return (
-        <div className="mb-8 border-l-4 border-l-[#106041] pl-6 bg-[#f0f8f4] p-6 rounded-r-md shadow-sm">
-            <div className="flex flex-col space-y-2">
+        <div className="mb-8 border-l-4 border-l-[#106041] md:pl-6 pl-4 bg-[#f0f8f4] md:p-6 p-3 rounded-r-md shadow-sm">
+            <div className="flex flex-col md:space-y-2">
                 {/* Small label-like heading */}
                 <h1 className="text-sm font-semibold uppercase tracking-wider text-gray-500">
                     {title}

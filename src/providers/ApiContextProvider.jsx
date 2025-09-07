@@ -1,4 +1,4 @@
-'use client';
+' ';
 import React, { createContext, useContext } from 'react';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
@@ -227,7 +227,7 @@ export function AppDataProvider({ children }) {
   );
 }
 
-// Root-level wrapper
+
 const queryClient = new QueryClient();
 
 export default function AppProviders({ children }) {

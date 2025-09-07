@@ -160,7 +160,7 @@ export default function LabTestAnalysisTable({ patientId }) {
             headerCount={columns.length}
             rowCount={5}
             title="Lab Tests"
-            icon={<TestTube className="h-5 w-5" />}
+            icon={<TestTube className="h-5 w-5 shrink-0" />}
             showPagination
         />);
 
@@ -170,11 +170,11 @@ export default function LabTestAnalysisTable({ patientId }) {
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <TestTube className="h-5 w-5" />
+                        <TestTube className="h-5 w-5 shrink-0" />
                         Lab Test Analysis
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     <div className="rounded-md border  overflow-hidden shadow-sm">
                         <Table>
                             <TableHeader className="bg-[#f0f8f4]">

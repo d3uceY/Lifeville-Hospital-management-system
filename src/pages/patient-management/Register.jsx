@@ -109,6 +109,7 @@ export default function Register() {
         register,
         control,
         getValues,
+        reset,
     } = methods
 
     const onSubmit = async (values) => {
@@ -123,6 +124,7 @@ export default function Register() {
                 throw err;
             } finally {
                 setIsSubmitting(false)
+                reset()
             }
         }
 
@@ -134,7 +136,7 @@ export default function Register() {
     }
 
     return (
-        <div className="container mx-auto py-8 px-4 max-w-5xl">
+        <div className="container mx-auto py-8 md:px-4 max-w-5xl">
             <FormHeader title="Register Patient" description="Fill in the details to register a new patient" />
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Floating Edit Indicator */}

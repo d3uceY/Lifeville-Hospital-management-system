@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Users, Calendar, UserPlus, Activity, Bed, FlaskConical } from "lucide-react"
 import { usePatientData, useOverviewStatistics } from "../../../providers/ApiContextProvider"
 
-
 function StatCard({ title, value, icon: Icon, trend }) {
   return (
     <Card>
@@ -23,7 +22,7 @@ function StatCard({ title, value, icon: Icon, trend }) {
   )
 }
 
-export function DashboardStats() {
+export default function DashboardStats() {
 
   const { patientData } = usePatientData();
   const {

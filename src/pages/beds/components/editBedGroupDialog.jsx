@@ -69,7 +69,7 @@ export function EditBedGroupDialog({ bedGroup }) {
             <DialogContent className="sm:max-w-[500px] overflow-y-auto ">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <BedDouble className="h-5 w-5" />
+                        <BedDouble className="h-5 w-5 shrink-0" />
                         Edit Bed Group
                     </DialogTitle>
                 </DialogHeader>

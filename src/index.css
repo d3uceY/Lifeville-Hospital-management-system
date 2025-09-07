@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --heading-font-family: "Plus Jakarta Sans", sans-serif !important;
   --color-chart-6: #37614c;
   --background: #e6f5f1;
   --foreground: #354a3f;
@@ -39,7 +40,7 @@
   --sidebar-accent-foreground: #354a3f;
   --sidebar-border: #badbd0;
   --sidebar-ring: #52a67c;
-  --font-sans: Oxanium, sans-serif;
+  --font-sans: Inter, sans-serif;
   --font-serif: Lora, serif;
   --font-mono: IBM Plex Mono, monospace;
   --radius: 0.5rem;
@@ -92,7 +93,7 @@
   --sidebar-accent-foreground: #d8ece5;
   --sidebar-border: #394a40;
   --sidebar-ring: #80c0a0;
-  --font-sans: Oxanium, sans-serif;
+  --font-sans: Inter, sans-serif;
   --font-serif: Lora, serif;
   --font-mono: IBM Plex Mono, monospace;
   --radius: 0.25rem;
@@ -228,6 +229,10 @@ button{
          shadow-sm hover:shadow-md
          focus:outline-none focus:ring-2 focus:ring-gray-500 
          flex items-center space-x-2 cursor-pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font-family);
 }
 
 

@@ -21,7 +21,7 @@ export function TableSkeleton({
             {title && <Skeleton className="h-6 w-32" />}
           </CardTitle>
         </CardHeader>
-        <CardContent className="md:p-6">
+        <CardContent className="md:p-6 p-2">
           <div className="rounded-md border overflow-hidden shadow-sm">
             <Table>
               <TableHeader className="bg-[#f0f8f4]">

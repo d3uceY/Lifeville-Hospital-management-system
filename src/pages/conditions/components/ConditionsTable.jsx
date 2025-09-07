@@ -38,6 +38,7 @@ import EditConditionDialog from "./EditConditionDialog";
 import DeleteConditionDialog from "./DeleteConditionsDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import TableSkeleton from "../../../components/table-skeleton";
+import { hasPermission } from "../../../helpers/hasPermission";
 
 export default function ConditionsTable() {
     // Fetch conditions using react-query
@@ -83,7 +84,9 @@ export default function ConditionsTable() {
                             <EditConditionDialog condition={conditionData} />
                         </CustomTooltip>
                         <CustomTooltip content="Delete Condition">
-                            <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                            {hasPermission(["superadmin"]) && (
+                                <DeleteConditionDialog deletedConditionInfo={conditionData} />
+                            )}
                         </CustomTooltip>
                     </div>
                 );
@@ -105,21 +108,21 @@ export default function ConditionsTable() {
         state: { sorting, columnFilters, columnVisibility, rowSelection },
     });
 
-    if (isLoading) return <TableSkeleton title="Conditions" icon={<FileText className="h-5 w-5" />} />;
+    if (isLoading) return <TableSkeleton title="Conditions" icon={<FileText className="h-5 w-5 shrink-0" />} />;
 
     return (
         <div className="lg:p-6">
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <FileText className="h-5 w-5" />
+                        <FileText className="h-5 w-5 shrink-0" />
                         Conditions
                     </CardTitle>
                     <CreateConditionDialog />
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     {/* Filter Section */}
-                    <div className="mb-6 bg-white rounded-lg border p-4 shadow-sm">
+                    <div className="mb-6 bg-white rounded-lg border md:p-4 p-3 shadow-sm">
                         <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                             <Filter className="h-4 w-4" />
                             Filter Conditions

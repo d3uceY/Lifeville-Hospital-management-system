@@ -684,6 +684,7 @@ export const getProceduresByPatientId = async (patientId) => {
   return response.data;
 }
 
+
 /* ============================
 API Helper function here for DOCTOR's NOTES
 ============================ */
@@ -708,6 +709,7 @@ export const updateDoctorsNote = async (doctorsNoteId, doctorsNoteData) => {
   return response.data;
 }
 
+
 /* ============================
 API Helper function here for NURSES NOTES
 ============================ */
@@ -731,6 +733,7 @@ export const updateNursesNote = async (nursesNoteId, nursesNoteData) => {
   const response = await api.put(`/nurse-notes/${nursesNoteId}`, nursesNoteData);
   return response.data;
 }
+
 
 /* ============================
    API Helper function here for PATIENT SUMMARIES
@@ -761,59 +764,154 @@ export const getVitalSignSummaryByPatientId = async (patientId) => {
    API Helper function here for OVERVIEW STATISTICS
    ============================ */
 
-   export const getPatientStatusDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/patient-status-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
-   
+export const getPatientStatusDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/patient-status-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getStaffRolesDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/staff-roles-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
 
-   export const getAppointmentStatusDistribution = async ({ accessToken }) => {
-     const response = await api.get(`/stats/appointment-status-distribution`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getStaffRolesDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/staff-roles-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getAppointmensToday = async ({ accessToken }) => {
-     const response = await api.get(`/stats/appointments-today`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getAppointmentStatusDistribution = async ({ accessToken }) => {
+  const response = await api.get(`/stats/appointment-status-distribution`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
-   export const getLabTestPending = async ({ accessToken }) => {
-     const response = await api.get(`/stats/lab-test-pending`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-     );
-     return response.data;
-   }
+export const getAppointmensToday = async ({ accessToken }) => {
+  const response = await api.get(`/stats/appointments-today`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
 
+export const getLabTestPending = async ({ accessToken }) => {
+  const response = await api.get(`/stats/lab-test-pending`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+
+
+/* ============================
+API Helper function here for PATIENT VISITS
+============================ */
+
+export const getPaginatedPatientVisits = async ({ accessToken, page = 1, pageSize = 10, firstName = "", surname = "", phoneNumber = "", hospitalNumber = "", startDate = "", endDate = "" }) => {
+  const response = await api.get(`/patient-visits/paginated?page=${page}&pageSize=${pageSize}&firstName=${firstName}&surname=${surname}&phoneNumber=${phoneNumber}&hospitalNumber=${hospitalNumber}&startDate=${startDate}&endDate=${endDate}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const getPatientVisits = async ({ accessToken }) => {
+  const response = await api.get(`/patient-visits`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const getPatientVisitsByPatientId = async ({ accessToken, patient_id }) => {
+  const response = await api.get(`/patient-visits/${patient_id}/patient`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const createPatientVisit = async ({ accessToken, patientVisitData }) => {
+  const response = await api.post(`/patient-visits`, patientVisitData,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+
+
+
+/* ============================
+API Helper function here for notifications
+============================ */
+
+export const getUnreadNotifications = async ({ accessToken }) => {
+  const response = await api.get(`/notifications/unread`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const markNotificationAsRead = async ({ accessToken, notificationId }) => {
+  const response = await api.post(`/notifications/${notificationId}/mark-as-read`, {},
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+export const getPaginatedNotifications = async ({ accessToken, page, pageSize }) => {
+  const response = await api.get(`/notifications/paginated?page=${page}&pageSize=${pageSize}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data;
+}
+
+
+export const getServerTime = async () => {
+  const response = await api.get(`/server-time`);
+  return response.data;
+}
