@@ -157,7 +157,7 @@ export default function ProfileVitalSignsTable({ patientId }) {
             headerCount={columns.length}
             rowCount={5}
             title="Vital Signs"
-            icon={<Activity className="h-5 w-5" />}
+            icon={<Activity className="h-5 w-5 shrink-0" />}
             showPagination
         />);
 
@@ -165,11 +165,11 @@ export default function ProfileVitalSignsTable({ patientId }) {
         <Card className="shadow-sm py-0 overflow-hidden mt-8">
             <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                    <Activity className="h-5 w-5" />
+                    <Activity className="h-5 w-5 shrink-0" />
                     Vital Signs
                 </CardTitle>
             </CardHeader>
-            <CardContent className="md:p-6">
+            <CardContent className="md:p-6 p-2">
                 <div className="rounded-md border overflow-hidden shadow-sm">
                     <Table className="">
                         <TableHeader className="bg-[#f0f8f4]">

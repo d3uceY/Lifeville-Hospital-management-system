@@ -157,7 +157,7 @@ export default function PatientProfileSidebar() {
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col min-w-0">
           {/* Mobile Navigation */}
-          <div className="md:hidden bg-white border-b border-gray-200 p-4">
+          <div className="md:hidden bg-white border-b border-gray-200 md:p-4 p-3">
             <div className="flex overflow-x-auto space-x-2 pb-2">
               {data.nav.map((item) => (
                 <Link
@@ -177,7 +177,7 @@ export default function PatientProfileSidebar() {
 
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto">
-            <div className="p-6">
+            <div className="md:p-6 px-2">
               <Outlet />
             </div>
           </div>

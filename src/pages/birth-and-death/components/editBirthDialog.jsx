@@ -96,7 +96,7 @@ export function EditBirthDialog({  birthRecord }) {
             <DialogContent className="sm:max-w-[500px] h-[80vh] max-h-[700px]   overflow-y-auto ">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <FileText className="h-5 w-5" />
+                        <FileText className="h-5 w-5 shrink-0" />
                         Add Patient Birth Record
                     </DialogTitle>
                     <DialogDescription>

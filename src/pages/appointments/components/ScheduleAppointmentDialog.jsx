@@ -103,7 +103,7 @@ export default function ScheduleAppointmentDialog() {
             <DialogContent className="sm:max-w-[550px]">
                 <DialogHeader>
                     <DialogTitle className="text-xl flex items-center gap-2">
-                        <CalendarDays className="h-5 w-5" />
+                        <CalendarDays className="h-5 w-5 shrink-0" />
                         Schedule New Appointment
                     </DialogTitle>
                     <DialogDescription>

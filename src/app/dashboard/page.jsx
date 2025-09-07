@@ -30,7 +30,7 @@ export default function Page() {
           </div>
         </header>
         <div className="mx-1 mt-6 min-h-screen overflow-y-auto">
-          <div className="rounded-2xl shadow-md h-full bg-white p-3">
+          <div className="rounded-2xl shadow-md h-full bg-white p-1 md:p-3">
             <Suspense fallback={<SuspenseFallback />} >
               <Outlet />
             </Suspense>

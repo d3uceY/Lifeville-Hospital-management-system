@@ -10,7 +10,7 @@ export function ViewPatientVisitDialog({ visit, children }) {
             <DialogContent className="w-[100vw] !max-w-[60vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <ClipboardList className="h-5 w-5" />
+                        <ClipboardList className="h-5 w-5 shrink-0" />
                         Patient Visit - #{visit.id}
                     </DialogTitle>
                 </DialogHeader>

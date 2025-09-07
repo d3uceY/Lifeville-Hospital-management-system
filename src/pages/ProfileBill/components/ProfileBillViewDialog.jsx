@@ -36,7 +36,7 @@ export function ProfileViewBillDialog({ bill, children }) {
             <DialogContent className="w-[100vw] !max-w-[80vw] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2 text-xl">
-                        <Receipt className="h-5 w-5" />
+                        <Receipt className="h-5 w-5 shrink-0" />
                         Bill Details - {bill.bill_number}
                     </DialogTitle>
                 </DialogHeader>

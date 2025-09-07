@@ -123,7 +123,7 @@ export default function ProceduresTable() {
         headerCount={columns.length}
         rowCount={5}
         title="Procedures"
-        icon={<ClipboardList className="h-5 w-5" />}
+        icon={<ClipboardList className="h-5 w-5 shrink-0" />}
         showPagination
     />);
 
@@ -132,11 +132,11 @@ export default function ProceduresTable() {
     <Card className="shadow-sm py-0 overflow-hidden mt-8">
       <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
         <CardTitle className="flex items-center gap-2">
-          <ClipboardList className="h-5 w-5" />
+          <ClipboardList className="h-5 w-5 shrink-0" />
           Procedures
         </CardTitle>
       </CardHeader>
-      <CardContent className="md:p-6">
+      <CardContent className="md:p-6 p-2">
         <div className="rounded-md border overflow-hidden shadow-sm">
           <Table>
             <TableHeader className="bg-[#f0f8f4]">

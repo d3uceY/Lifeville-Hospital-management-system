@@ -25,7 +25,7 @@ export default function ViewDeathRecordDialog({ deathRecord }) {
                 <DialogHeader className="flex flex-row items-start justify-between">
                     <div>
                         <DialogTitle className="flex items-center gap-2">
-                            <FileText className="h-5 w-5" />
+                            <FileText className="h-5 w-5 shrink-0" />
                             Death Record
                         </DialogTitle>
                         <div className="flex items-center gap-2 mt-1">

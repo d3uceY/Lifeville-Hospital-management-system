@@ -12,7 +12,7 @@ export function TableSkeletonV2({
 }) {
     return (
         <div className={className}>
-            <CardContent className="md:p-6">
+            <CardContent className="md:p-6 p-2">
                 <div className="rounded-md border overflow-hidden shadow-sm">
                     <Table>
                         <TableHeader className="bg-[#f0f8f4]">

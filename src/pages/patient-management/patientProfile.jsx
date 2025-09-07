@@ -35,7 +35,7 @@ export default function PatientProfile() {
         <PatientProfileSkeleton />
     )
     return (
-        <div className="container mx-auto py-8">
+        <div className="container mx-auto md:py-8">
             <div className='flex justify-between items-center pl-4 p-4 border-l-4  mb-8  bg-[#f0f8f4] shadow-sm rounded-r-md'>
                 <div className="   bg-[#f0f8f4]   ">
                     <h1 className="text-3xl font-bold ">

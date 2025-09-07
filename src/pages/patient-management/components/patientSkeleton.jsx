@@ -7,7 +7,7 @@ export default function PatientSkeleton() {
             <Card className=" shadow-sm p-0">
                 <CardHeader className=" p-4 pt-6 border-b  bg-[#f0f8f4]">
                     <CardTitle className="flex items-center gap-2">
-                        <User2 className="h-5 w-5" />
+                        <User2 className="h-5 w-5 shrink-0" />
                         Patients
                     </CardTitle>
                 </CardHeader>

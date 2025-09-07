@@ -7,7 +7,7 @@ export default function DeathSkeleton() {
             <Card className=" shadow-sm ">
                 <CardHeader className="pb-3 p-0 border-b  bg-[#f0f8f4]">
                     <CardTitle className="flex items-center gap-2">
-                        <User2 className="h-5 w-5" />
+                        <User2 className="h-5 w-5 shrink-0" />
                         Patients
                     </CardTitle>
                 </CardHeader>

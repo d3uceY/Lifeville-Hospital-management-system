@@ -278,7 +278,7 @@ export default function AddAdmissionForm() {
                                 Symptom Types
                             </Label>
                             <div className="border w-fit md:w-full border-[#268a6477] bg-gray-50 rounded-md p-3">
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-[20rem] md:max-w-full max-h-[10rem] overflow-y-auto">
+                                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-[20rem] md:max-w-full max-h-[10rem] overflow-y-auto">
                                     {symptomTypes.map((type) => (
                                         <div key={type.symptom_type_id} className="flex items-center space-x-2">
                                             <Checkbox

@@ -7,7 +7,7 @@ const DemographicCharts = lazy(() => import('./components/demograpic'))
 
 export default function Overview() {
     return (
-        <div>
+        <div className='p-2 md:p-6'>
             <div className="space-y-6">
           <div>
             <h2 className="text-xl font-semibold text-foreground mb-4">Key Statistics</h2>

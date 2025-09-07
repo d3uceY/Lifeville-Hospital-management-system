@@ -72,7 +72,7 @@ export function CreateLabTestTypesDialog() {
             <DialogContent className="sm:max-w-[500px] overflow-y-auto ">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <FileText className="h-5 w-5" />
+                        <FileText className="h-5 w-5 shrink-0" />
                         Create Lab Test Type
                     </DialogTitle>
                 </DialogHeader>

@@ -87,19 +87,19 @@ export default function BedGroup() {
     state: { sorting, columnFilters, columnVisibility, rowSelection },
   });
 
-  if (loadingBedTypes) return <TableSkeleton title="Bed Types" icon={<BedSingleIcon className="h-5 w-5" />} />;
+  if (loadingBedTypes) return <TableSkeleton title="Bed Types" icon={<BedSingleIcon className="h-5 w-5 shrink-0" />} />;
 
   return (
     <div className="lg:p-6">
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
-            <BedSingleIcon className="h-5 w-5" />
+            <BedSingleIcon className="h-5 w-5 shrink-0" />
             Bed Types
           </CardTitle>
           <CreateBedTypeDialog />
         </CardHeader>
-        <CardContent className="md:p-6">
+        <CardContent className="md:p-6 p-2">
           <div className="mb-6 bg-white rounded-lg border  p-4 shadow-sm">
             <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
               <Filter className="h-4 w-4" />

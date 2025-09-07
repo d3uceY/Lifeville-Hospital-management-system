@@ -172,7 +172,7 @@ export default function ProfilePatientVisitsTable() {
                 headerCount={columns.length}
                 rowCount={5}
                 title="Patient Visits"
-                icon={<Repeat className="h-5 w-5" />}
+                icon={<Repeat className="h-5 w-5 shrink-0" />}
                 showPagination
             />
         );
@@ -182,11 +182,11 @@ export default function ProfilePatientVisitsTable() {
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                        <Repeat className="h-5 w-5" />
+                        <Repeat className="h-5 w-5 shrink-0" />
                         Patient Visits
                     </CardTitle>
                 </CardHeader>
-                <CardContent className="md:p-6">
+                <CardContent className="md:p-6 p-2">
                     <div className="rounded-md border overflow-hidden shadow-sm">
                         <Table>
                             <TableHeader className="bg-[#f0f8f4]">

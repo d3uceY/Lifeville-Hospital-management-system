@@ -50,7 +50,7 @@ export default function DoctorAppointmentsUI() {
     setTerm(value)
   }
 
-  if (isLoading) return <TableSkeleton title="Appointments" icon={<CalendarDays className="h-5 w-5" />} />
+  if (isLoading) return <TableSkeleton title="Appointments" icon={<CalendarDays className="h-5 w-5 shrink-0" />} />
 
   if (error) return <div className="flex justify-center items-center h-64 text-red-500">Error: {error.message}</div>
 
@@ -74,12 +74,12 @@ export default function DoctorAppointmentsUI() {
         <Card className="shadow-sm py-0 overflow-hidden">
           <CardHeader className="pb-3 border-b flex items-center justify-between bg-[#f0f8f4] pt-6">
             <CardTitle className="flex items-center gap-2">
-              <CalendarDays className="h-5 w-5" />
+              <CalendarDays className="h-5 w-5 shrink-0" />
               Appointments
             </CardTitle>
           </CardHeader>
-          <CardContent className="md:p-6">
-            <div className="mb-6 bg-white rounded-lg border p-4 shadow-sm">
+          <CardContent className="md:p-6 p-2">
+            <div className="mb-6 bg-white rounded-lg border md:p-4 p-3 shadow-sm">
               <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
                 <Filter className="h-4 w-4" />
                 Filter Appointments
@@ -152,7 +152,7 @@ export default function DoctorAppointmentsUI() {
                   ) : (
                     <TableRow>
                       <TableCell colSpan={8} className="text-center py-10 text-gray-500">
-                        {isLoading ? <Loader className="w-8 h-8 animate-spin mx-auto"/> : "No appointments found"}
+                        {isLoading ? <Loader className="w-8 h-8 animate-spin mx-auto" /> : "No appointments found"}
                       </TableCell>
                     </TableRow>
                   )}

@@ -96,7 +96,7 @@ export default function PatientAppointmentForm() {
 
                 <CardContent className="space-y-6">
                     {/* Appointment Date */}
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid md:grid-cols-2 gap-2">
                         <div>
                             <Label htmlFor="appointment_date" className="text-sm font-medium mb-2 block text-gray-700">
                                 Appointment Date & Time <span className="text-red-500">*</span>
