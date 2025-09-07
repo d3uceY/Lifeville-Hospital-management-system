@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { Calendar } from "lucide-react"
+import { Calendar, Repeat } from "lucide-react"
 import { FlaskConical } from "lucide-react"
 import { User } from "lucide-react"
 import { Bed } from "lucide-react"
@@ -45,6 +45,14 @@ export const getNotificationBadge = (notification) => {
                     Discharged
                 </Badge>
             )
+        case "PATIENT_VISIT":
+            return (
+                <Badge className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-800 hover:bg-indigo-200 border-0 flex items-center gap-1">
+                    <Repeat className="h-3 w-3" />
+                    Visit
+                </Badge>
+            )
+
         default:
             return (
                 <Badge className="text-xs px-2 py-0.5 bg-gray-100 text-gray-800 hover:bg-gray-200 border-0 flex items-center gap-1">

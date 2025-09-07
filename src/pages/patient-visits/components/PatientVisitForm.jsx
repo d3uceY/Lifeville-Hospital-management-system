@@ -66,7 +66,7 @@ export default function PatientVisitForm() {
         }
         const promise = async () => {
             try {
-                const response = await createPatientVisit({ accessToken, patientVisitData})
+                const response = await createPatientVisit({ accessToken, patientVisitData })
                 queryClient.invalidateQueries({
                     queryKey: ["patientVisits", patient_id],
                 })

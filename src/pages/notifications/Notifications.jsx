@@ -32,13 +32,13 @@ export default function NotificationsPage() {
     const pageSize = 10;
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        const fetchServerTime = async () => {
-            const serverTime = await getServerTime();
-            console.log("Server Time:", serverTime);
-        };
-        fetchServerTime();
-    }, []);
+    // useEffect(() => {
+    //     const fetchServerTime = async () => {
+    //         const serverTime = await getServerTime();
+    //         console.log("Server Time:", serverTime);
+    //     };
+    //     fetchServerTime();
+    // }, []);
 
     const {
         data: notifications,
@@ -60,6 +60,9 @@ export default function NotificationsPage() {
         queryClient.invalidateQueries({
             queryKey: ["notifications", accessToken, currentPage],
         });
+        queryClient.invalidateQueries({
+            queryKey: ["unreadNotifications", accessToken],
+        });
     }
 
     if (isLoading) {
@@ -67,6 +70,8 @@ export default function NotificationsPage() {
             <NotificationSkeleton />
         )
     }
+
+    // console.log(notifications)
 
     if (error) {
         return (
@@ -81,8 +86,8 @@ export default function NotificationsPage() {
     }
 
     const totalPages = notifications?.totalPages || Math.ceil((notifications?.totalItems || 0) / pageSize)
-    console.log("Local:", new Date().toString());
-    console.log("UTC:", new Date().toISOString());
+    // console.log("Local:", new Date().toString());
+    // console.log("UTC:", new Date().toISOString());
     return (
         <div className="container mx-auto px-4 py-4">
             <div className="space-y-3">
@@ -113,7 +118,7 @@ export default function NotificationsPage() {
                                     <div className="space-y-2">
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2">
-                                                {getNotificationBadge(notification.type)}
+                                                {getNotificationBadge(notification)}
                                                 {notification.is_read ? (
                                                     <CheckCircle className="w-3 h-3 text-green-600" />
                                                 ) : (
