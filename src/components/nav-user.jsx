@@ -1,5 +1,3 @@
-" "
-
 import {
   Bell,
   ChevronsUpDown,
