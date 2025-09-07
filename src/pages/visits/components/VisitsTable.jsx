@@ -5,11 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Stethoscope } from "lucide-react"
+import { Search, Filter, Stethoscope, SquareArrowOutUpRight, Repeat } from "lucide-react"
 import { CustomTooltip } from "../../../helpers/customTooltip"
 import { formatToShortDate } from "../../../helpers/formatToShortDate"
 import { useAuth } from "../../../providers/AuthContext"
 import { TableSkeletonV2 } from "../../../components/table-skeleton-v2"
+import { Link } from "react-router-dom"
 
 export default function VisitsTable() {
     const { accessToken } = useAuth()
@@ -73,7 +74,7 @@ export default function VisitsTable() {
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6">
                     <CardTitle className="flex items-center gap-2">
-                        <Stethoscope className="h-5 w-5" />
+                        <Repeat className="h-5 w-5" />
                         Patient Visits
                     </CardTitle>
                 </CardHeader>
@@ -176,6 +177,7 @@ export default function VisitsTable() {
                                         <TableHead>Purpose</TableHead>
                                         <TableHead>Recorded By</TableHead>
                                         <TableHead>Visit Date</TableHead>
+                                        <TableHead>Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -188,6 +190,20 @@ export default function VisitsTable() {
                                                 <TableCell>{visit.purpose}</TableCell>
                                                 <TableCell>{visit.recorded_by}</TableCell>
                                                 <TableCell>{formatToShortDate(visit.created_at)}</TableCell>
+                                                <TableCell>
+                                                    <CustomTooltip
+                                                        content="View Visit">
+                                                        <Link to={`/patient-profile/${visit.patient_id}/${visit.surname}/${visit.first_name}/patient-visits`}>
+                                                            <Button
+                                                                variant="outline"
+                                                                size="sm"
+                                                                className="action-view-btn"
+                                                            >
+                                                                <SquareArrowOutUpRight className="h-4 w-4" />
+                                                            </Button>
+                                                        </Link>
+                                                    </CustomTooltip>
+                                                </TableCell>
                                             </TableRow>
                                         ))
                                     ) : (
