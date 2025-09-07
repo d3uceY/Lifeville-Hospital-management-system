@@ -52,6 +52,8 @@ export function NavUser() {
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <div className="flex items-center gap-2">
                   <span className="truncate font-medium">{user?.name}</span>
+                  <span className="text-xs text-muted-foreground">{getRoleBadge(user?.role, "text-[8px]")}</span>
+
                 </div>
                 <span className="truncate text-xs">{user?.email}</span>
               </div>
