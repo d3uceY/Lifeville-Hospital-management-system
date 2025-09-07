@@ -18,6 +18,8 @@ export default defineConfig({
         short_name: "LifevilleHMS", 
         description: "Lifeville Hospital Management System",
         theme_color: "#88c682",
+        display: "standalone",
+        form_factor: "handset",
         icons: [
           {
             src: "web-app-manifest-192x192.png",
