@@ -19,7 +19,7 @@ export function SearchDialog({ data }) {
     const [open, setOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
     const navigate = useNavigate()
-    const { state } = useSidebar();
+    const { state, setOpenMobile: toggleMobileSidebar } = useSidebar();
     const { user } = useAuth();
 
     useEffect(() => {
@@ -95,6 +95,7 @@ export function SearchDialog({ data }) {
         setOpen(false)
         setSearchQuery("")
         navigate(url)
+        toggleMobileSidebar(false)
     }
 
     return (
