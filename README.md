@@ -5,7 +5,7 @@ A full-stack web application for managing patient records, appointments, and rea
 ---
 
 ##  Table of Contents
-
+ 
 1. [Features](#features)  
 2. [Tech Stack](#tech-stack)  
 3. [Prerequisites](#prerequisites)  
