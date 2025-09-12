@@ -22,6 +22,7 @@ import {
 } from './ApiProviders';
 import { useAuth } from './AuthContext';
 
+
 // Context definitions
 const PatientContext = createContext(null);
 const DoctorContext = createContext(null);
@@ -49,6 +50,9 @@ export const useConditions = () => useContext(Conditions);
 // Main provider component
 export function AppDataProvider({ children }) {
   const { accessToken } = useAuth();
+
+  // to persist certain ones
+  // const persistedQueryClient = 
 
   //Overview Statistics
   const patientStatusDistributionQ = useQuery({
