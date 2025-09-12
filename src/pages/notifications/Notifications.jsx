@@ -1,10 +1,7 @@
-"use client"
-
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useAuth } from "../../providers/AuthContext"
 import { getPaginatedNotifications } from "../../providers/ApiProviders"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -16,29 +13,19 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Calendar, FlaskConical, User, Bed, UserCheck, Bell, ExternalLink, CheckCircle, Circle } from "lucide-react"
+import { Bell, CheckCircle, Circle } from "lucide-react"
 import { getNotificationBadge } from "../../helpers/getNotificationBadge"
 import { markNotificationAsRead } from "../../providers/ApiProviders"
 import { formatDate } from "../../helpers/formatDate"
 import { useQueryClient } from "@tanstack/react-query"
 import NotificationSkeleton from "./components/NotificationSkeleton"
-import { getServerTime } from "../../providers/ApiProviders"
-import { useEffect } from "react"
 
 export default function NotificationsPage() {
-    const { accessToken } = useAuth()
-    const [currentPage, setCurrentPage] = useState(1)
+    const { accessToken } = useAuth();
+    const [isReadLoading, setIsReadLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
     const queryClient = useQueryClient();
-
-    // useEffect(() => {
-    //     const fetchServerTime = async () => {
-    //         const serverTime = await getServerTime();
-    //         console.log("Server Time:", serverTime);
-    //     };
-    //     fetchServerTime();
-    // }, []);
 
     const {
         data: notifications,
@@ -56,6 +43,7 @@ export default function NotificationsPage() {
     })
 
     const handleMarkedAsRead = async (notificationId) => {
+        setIsReadLoading(true);
         await markNotificationAsRead({ accessToken, notificationId });
         queryClient.invalidateQueries({
             queryKey: ["notifications", accessToken, currentPage],
@@ -63,6 +51,7 @@ export default function NotificationsPage() {
         queryClient.invalidateQueries({
             queryKey: ["unreadNotifications", accessToken],
         });
+        setIsReadLoading(false);
     }
 
     if (isLoading) {
@@ -157,6 +146,7 @@ export default function NotificationsPage() {
                                                         size="sm"
                                                         onClick={() => handleMarkedAsRead(notification.id)}
                                                         className="text-xs h-6 px-2"
+                                                        disabled={isReadLoading}
                                                     >
                                                         Mark as Read
                                                     </Button>
