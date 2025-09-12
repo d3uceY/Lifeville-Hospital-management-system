@@ -22,14 +22,14 @@ import {
     SelectItem,
 } from "@/components/ui/select"
 import { Controller } from "react-hook-form"
-
+import { useConditions } from "../../../providers/ApiContextProvider"
 
 export default function DiagnosesForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [conditions, setConditions] = useState([])
     const { user } = useAuth()
     const { patient_id } = useParams()
     const queryClient = useQueryClient()
+    const { conditions } = useConditions();
 
     const schema = z.object({
         recorded_by: z.string().nonempty({ message: "Recorded by is required" }),
@@ -53,17 +53,7 @@ export default function DiagnosesForm() {
         },
     })
 
-    useEffect(() => {
-        const fetchConditions = async () => {
-            try {
-                const data = await getConditions()
-                setConditions(data)
-            } catch (error) {
-                console.error("Failed to fetch conditions", error)
-            }
-        }
-        fetchConditions()
-    }, [])
+    
 
     const onSubmit = async (data) => {
         const promise = async () => {
