@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getConditions } from "../../../providers/ApiProviders";
 import { CreateConditionDialog } from "./CreateConditionDialog";
 import {
     flexRender,
@@ -39,13 +37,13 @@ import DeleteConditionDialog from "./DeleteConditionsDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import TableSkeleton from "../../../components/table-skeleton";
 import { hasPermission } from "../../../helpers/hasPermission";
+import { useConditions } from "../../../providers/ApiContextProvider";
 
 export default function ConditionsTable() {
     // Fetch conditions using react-query
-    const { data: conditions = [], isLoading } = useQuery({
-        queryKey: ["conditions"],
-        queryFn: getConditions,
-    });
+    const { conditions, loadingConditions } = useConditions();
+    // to reduce stress on my end i replaced this with the loadingConditions
+    const isLoading = loadingConditions;
 
     const [sorting, setSorting] = React.useState([]);
     const [columnFilters, setColumnFilters] = React.useState([]);

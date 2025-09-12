@@ -31,8 +31,7 @@ import { formatDateForDateTimeLocal } from "../../../helpers/formatDateForDateTi
 import { useParams } from "react-router-dom"
 import { useAuth } from "../../../providers/AuthContext"
 import { UserX } from "lucide-react"
-import { getConditions } from "../../../providers/ApiProviders"
-import { useQuery } from "@tanstack/react-query"
+import { useConditions } from "../../../providers/ApiContextProvider"
 
 // Schema
 const schema = z.object({
@@ -47,17 +46,14 @@ const schema = z.object({
 })
 
 export default function DischargeDialog({ admissionId, children, patient }) {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [open, setOpen] = useState(false)
-    const { doctors } = useDoctorData()
-    const queryClient = useQueryClient()
-    const { patient_id } = useParams()
-    const { user } = useAuth()
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [open, setOpen] = useState(false);
+    const { doctors } = useDoctorData();
+    const queryClient = useQueryClient();
+    const { patient_id } = useParams();
+    const { user } = useAuth();
 
-    const { data: finalDiagnosis } = useQuery({
-        queryKey: ["conditions"],
-        queryFn: getConditions,
-    })
+    const finalDiagnosis = useConditions()?.conditions;
 
 
     const methods = useForm({

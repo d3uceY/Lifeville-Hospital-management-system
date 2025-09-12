@@ -18,8 +18,10 @@ import {
   getAppointmentStatusDistribution,
   getAppointmensToday,
   getLabTestPending,
+  getConditions,
 } from './ApiProviders';
 import { useAuth } from './AuthContext';
+
 
 // Context definitions
 const PatientContext = createContext(null);
@@ -31,6 +33,7 @@ const InpatientAdmissions = createContext(null);
 const Beds = createContext(null);
 const LabTests = createContext(null);
 const OverviewStatistics = createContext(null);
+const Conditions = createContext(null);
 
 // Exported hooks
 export const usePatientData = () => useContext(PatientContext);
@@ -42,10 +45,14 @@ export const useInpatientAdmissions = () => useContext(InpatientAdmissions);
 export const useBeds = () => useContext(Beds);
 export const useLabTests = () => useContext(LabTests);
 export const useOverviewStatistics = () => useContext(OverviewStatistics);
+export const useConditions = () => useContext(Conditions);
 
 // Main provider component
 export function AppDataProvider({ children }) {
   const { accessToken } = useAuth();
+
+  // to persist certain ones
+  // const persistedQueryClient = 
 
   //Overview Statistics
   const patientStatusDistributionQ = useQuery({
@@ -146,6 +153,12 @@ export function AppDataProvider({ children }) {
     enabled: !!accessToken,
   });
 
+  const conditionsQ = useQuery({
+    queryKey: ['conditions'],
+    queryFn: getConditions,
+    enabled: !!accessToken,
+  });
+
 
   return (
     <DoctorContext.Provider value={{
@@ -214,7 +227,13 @@ export function AppDataProvider({ children }) {
                       loadingLabTestPending: labTestPendingQ.isLoading,
                       refreshLabTestPending: labTestPendingQ.refetch,
                     }}>
-                      {children}
+                      <Conditions.Provider value={{
+                        conditions: conditionsQ.data ?? [],
+                        loadingConditions: conditionsQ.isLoading,
+                        refreshConditions: conditionsQ.refetch,
+                      }}>
+                        {children}
+                      </Conditions.Provider>
                     </OverviewStatistics.Provider>
                   </LabTests.Provider>
                 </Beds.Provider>
