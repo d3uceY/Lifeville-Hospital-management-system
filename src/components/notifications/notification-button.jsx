@@ -9,19 +9,19 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAuth } from "../../providers/AuthContext"
-import { timeAgo } from "../../helpers/getTimeAgo"
 import { useQuery } from "@tanstack/react-query"
 import { useQueryClient } from "@tanstack/react-query"
 import { getUnreadNotifications } from "../../providers/ApiProviders"
 import { getNotificationBadge } from "../../helpers/getNotificationBadge"
-// import { ExternalLink } from "lucide-react"
 import { markNotificationAsRead } from "../../providers/ApiProviders"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import { Link } from "react-router-dom"
+import { useState } from "react";
 
 export function NotificationButton() {
     const { accessToken } = useAuth();
     const queryClient = useQueryClient();
+    const [isReadLoading, setIsReadLoading] = useState(false);
 
     // PS: this message is actually for me, because i forget things easily 
     // but the reason this refreshes is because because in the toast-notifications.jsx file, 
@@ -33,10 +33,12 @@ export function NotificationButton() {
     })
 
     const handleMarkedAsRead = async (notificationId) => {
+        setIsReadLoading(true);
         await markNotificationAsRead({ accessToken, notificationId });
         queryClient.invalidateQueries({
             queryKey: ["unreadNotifications", accessToken],
         });
+        setIsReadLoading(false);
     }
 
     if (isLoading) {
@@ -99,6 +101,7 @@ export function NotificationButton() {
                                                 size="sm"
                                                 className="h-7 w-7 p-0 hover:bg-green-100 text-green-600"
                                                 onClick={() => handleMarkedAsRead(notification.id)}
+                                                disabled={isReadLoading}
                                             >
                                                 <CheckCheck className="h-3 w-3" />
                                                 <span className="sr-only">Mark notification as read</span>

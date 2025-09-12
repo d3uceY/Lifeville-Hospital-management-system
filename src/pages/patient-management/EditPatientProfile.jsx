@@ -51,7 +51,6 @@ export default function EditPatientProfile() {
     date: z.string().nonempty({ message: "Date is required" }),
     surname: z.string().nonempty({ message: "Surname is required" }),
     firstName: z.string().nonempty({ message: "First name is required" }),
-    otherNames: z.string().nonempty({ message: "Other names are required" }),
     sex: z.string().nonempty({ message: "Sex is required" }),
     dateOfBirth: z.string().nonempty({ message: "Date of birth is required" }),
     phoneNumber: z
@@ -69,6 +68,7 @@ export default function EditPatientProfile() {
     addressOfNextOfKin: z.string().nonempty({ message: "Address of next of kin is required" }),
 
     // Optional Fields
+    otherNames: z.string().optional(),
     maritalStatus: z.string().optional(),
     occupation: z.string().optional(),
     placeOfWorkAddress: z.string().optional(),
@@ -160,6 +160,8 @@ export default function EditPatientProfile() {
     });
   }
 
+
+
   return (
     <div className="container mx-auto py-8 px-4 max-w-5xl">
       {/* Edit Mode Banner */}
@@ -229,7 +231,7 @@ export default function EditPatientProfile() {
             <div className="grid md:grid-cols-4 gap-6 mt-6">
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date">
-                  Date
+                  <span className="text-red-500">*</span> Date
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -241,7 +243,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="surname">
-                  Surname
+                  <span className="text-red-500">*</span> Surname
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -252,7 +254,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="first_name">
-                  First Name
+                  <span className="text-red-500">*</span> First Name
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -305,7 +307,7 @@ export default function EditPatientProfile() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="sex">
-                  Sex
+                  <span className="text-red-500">*</span> Sex
                 </Label>
                 <Controller
                   name="sex"
@@ -356,7 +358,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="date_of_birth">
-                  Date of Birth
+                  <span className="text-red-500">*</span> Date of Birth
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -368,7 +370,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="phone_number">
-                  Phone Number
+                  <span className="text-red-500">*</span> Phone Number
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -380,7 +382,7 @@ export default function EditPatientProfile() {
             </div>
             <div className="mt-6">
               <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="address">
-                Address
+                <span className="text-red-500">*</span>   Address
               </Label>
               <Textarea
                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
@@ -470,7 +472,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="nationality">
-                  Nationality
+                  <span className="text-red-500">*</span>    Nationality
                 </Label>
                 <Controller
                   name="nationality"
@@ -526,7 +528,7 @@ export default function EditPatientProfile() {
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin">
-                  Next of Kin
+                  <span className="text-red-500">*</span>  Next of Kin
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -537,7 +539,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="relationship">
-                  Relationship
+                  <span className="text-red-500">*</span> Relationship
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -548,7 +550,7 @@ export default function EditPatientProfile() {
               </div>
               <div>
                 <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_phone">
-                  Phone Number
+                  <span className="text-red-500">*</span> Phone Number
                 </Label>
                 <Input
                   className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
@@ -562,7 +564,7 @@ export default function EditPatientProfile() {
             </div>
             <div className="mt-6">
               <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="next_of_kin_address">
-                Address of Next of Kin
+                <span className="text-red-500">*</span> Address of Next of Kin
               </Label>
               <Textarea
                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
