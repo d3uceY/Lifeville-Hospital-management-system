@@ -15,6 +15,7 @@ export function DiagnosisSummaryTable() {
     } = useQuery({
         queryKey: ["diagnoses", patient_id],
         queryFn: () => getDiagnosisSummaryByPatientId(patient_id),
+        staleTime: 60 * 60 * 1000,
         enabled: !!patient_id,
     })
 

@@ -116,7 +116,7 @@ const columns = [
                 <>
                     {
                         hasPermission(['superadmin']) && (
-                              <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2">
                                 <CustomTooltip content="Edit User">
                                     <UpdateUserDialog user={user} />
                                 </CustomTooltip>
@@ -137,6 +137,8 @@ export default function UsersTable() {
     const { data: users = [], isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: () => listUsers({ accessToken }),
+        staleTime: 60 * 60 * 1000,
+        enabled: !!accessToken,
     });
 
     const [sorting, setSorting] = React.useState([]);
