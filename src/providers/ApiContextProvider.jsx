@@ -65,6 +65,7 @@ export function AppDataProvider({ children }) {
     queryKey: ['staffRolesDistribution'],
     queryFn: () => getStaffRolesDistribution(accessToken),
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const appointmentStatusDistributionQ = useQuery({
@@ -77,6 +78,7 @@ export function AppDataProvider({ children }) {
     queryKey: ['appointmentsToday'],
     queryFn: () => getAppointmensToday(accessToken),
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const labTestPendingQ = useQuery({
@@ -90,6 +92,7 @@ export function AppDataProvider({ children }) {
   const patientsQ = useQuery({
     queryKey: ['patients'],
     queryFn: () => getRegisteredPatients(accessToken),
+    staleTime: 60 * 60 * 1000,
     enabled: !!accessToken,
   });
 
@@ -97,30 +100,35 @@ export function AppDataProvider({ children }) {
     queryKey: ['doctors'],
     queryFn: () => getDoctors(accessToken),
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const deathsQ = useQuery({
     queryKey: ['deaths'],
     queryFn: () => getDeaths(accessToken),
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const birthsQ = useQuery({
     queryKey: ['births'],
     queryFn: () => getBirths(accessToken),
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const symptomTypesQ = useQuery({
     queryKey: ['symptomTypes'],
     queryFn: getSymptomTypes,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const symptomHeadsQ = useQuery({
     queryKey: ['symptomHeads'],
     queryFn: getSymptomHeads,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const inpatientsQ = useQuery({
@@ -133,18 +141,21 @@ export function AppDataProvider({ children }) {
     queryKey: ['beds'],
     queryFn: getBeds,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const bedGroupsQ = useQuery({
     queryKey: ['bedGroups'],
     queryFn: getBedGroups,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const bedTypesQ = useQuery({
     queryKey: ['bedTypes'],
     queryFn: getBedTypes,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
   const labTestTypesQ = useQuery({
@@ -157,6 +168,7 @@ export function AppDataProvider({ children }) {
     queryKey: ['conditions'],
     queryFn: getConditions,
     enabled: !!accessToken,
+    staleTime: 24 * 60 * 60 * 1000,
   });
 
 

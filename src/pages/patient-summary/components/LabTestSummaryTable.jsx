@@ -14,6 +14,7 @@ export function LabTestSummaryTable() {
     } = useQuery({
         queryKey: ["labTests", patient_id],
         queryFn: () => getLabTestSummaryByPatientId(patient_id),
+        staleTime: 60 * 60 * 1000,
         enabled: !!patient_id,
     })
 

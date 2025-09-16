@@ -16,6 +16,7 @@ export function VitalSignSummaryTable() {
     } = useQuery({
         queryKey: ["vitalSigns", patient_id],
         queryFn: () => getVitalSignSummaryByPatientId(patient_id),
+        staleTime: 60 * 60 * 1000,
         enabled: !!patient_id,
     })
 

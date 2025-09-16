@@ -21,7 +21,8 @@ export default function PatientProfile() {
         queryFn: () => viewRegisteredPatient(id).then((data) => {
             setPatient(data);
             return data;
-        })
+        }),
+        staleTime: 60 * 60 * 1000,
     });
 
     // Helper to format a date string (ISO) to yyyy-mm-dd for the input fields.
