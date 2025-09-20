@@ -125,7 +125,8 @@ export default function LabTestAnalysisTable({ patientId }) {
     const { data: patientLabTests, isLoading: loadingPatientLabTests } = useQuery(
         {
             queryKey: ['patientLabTests', patientId],
-            queryFn: () => getLabTestsByPatientId(patientId)
+            queryFn: () => getLabTestsByPatientId(patientId),
+            staleTime: 5 * 60 * 1000,
         }
     );
 

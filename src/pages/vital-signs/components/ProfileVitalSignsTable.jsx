@@ -127,6 +127,7 @@ export default function ProfileVitalSignsTable({ patientId }) {
     const { data: vitalSigns, isLoading } = useQuery({
         queryKey: ["vitalSigns", patientId],
         queryFn: () => getVitalSignsByPatientId(patientId),
+        staleTime: 5 * 60 * 1000,
     });
 
 

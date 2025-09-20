@@ -109,6 +109,7 @@ export default function ProfileBillsTable() {
   const { data: bills, isLoading } = useQuery({
     queryKey: ["bills", patient_id],
     queryFn: () => getBillByPatientId(patient_id),
+    staleTime: 5 * 60 * 1000,
   });
 
 

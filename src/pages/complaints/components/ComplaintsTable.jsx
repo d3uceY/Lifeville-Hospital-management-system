@@ -92,7 +92,8 @@ export default function ComplaintsTable({ patientId }) {
     const { data: patientComplaints, isLoading: loadingPatientComplaints } = useQuery(
         {
             queryKey: ['patientComplaints', patientId],
-            queryFn: () => getComplaintsByPatientId(patientId)
+            queryFn: () => getComplaintsByPatientId(patientId),
+            staleTime: 5 * 60 * 1000,
         }
     );
 

@@ -94,6 +94,7 @@ export default function ProceduresTable() {
   const { data: procedures = [], isLoading } = useQuery({
     queryKey: ["procedures", patient_id],
     queryFn: () => getProceduresByPatientId(patient_id),
+    staleTime: 5 * 60 * 1000,
   });
 
   const [sorting, setSorting] = React.useState([]);

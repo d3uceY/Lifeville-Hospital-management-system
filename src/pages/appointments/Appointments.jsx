@@ -44,6 +44,7 @@ export default function DoctorAppointmentsUI() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["appointments", page, pageSize, debouncedSearchTerm],
     queryFn: () => getAppointments(page, pageSize, debouncedSearchTerm),
+    staleTime: 5 * 60 * 1000, // 5 minutes
   })
 
   const handleSearchTermChange = async (value) => {
