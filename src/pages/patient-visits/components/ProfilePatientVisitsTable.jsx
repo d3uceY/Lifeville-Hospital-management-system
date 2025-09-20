@@ -120,13 +120,13 @@ const columns = [
                 <div className="flex items-center gap-2">
                     <CustomTooltip content="View Visit">
                         <ViewPatientVisitDialog visit={visit}>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="action-view-btn"
-                        >
-                            <Eye className="h-4 w-4" />
-                        </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="action-view-btn"
+                            >
+                                <Eye className="h-4 w-4" />
+                            </Button>
                         </ViewPatientVisitDialog>
                     </CustomTooltip>
                 </div>
@@ -141,7 +141,9 @@ export default function ProfilePatientVisitsTable() {
 
     const { data: visits, isLoading } = useQuery({
         queryKey: ["patientVisits", patient_id],
-        queryFn: () => getPatientVisitsByPatientId({accessToken, patient_id}),
+        queryFn: () => getPatientVisitsByPatientId({ accessToken, patient_id }),
+        staleTime: 5 * 60 * 1000,
+        enabled: !!accessToken
     });
 
     const [sorting, setSorting] = React.useState([]);
@@ -200,11 +202,11 @@ export default function ProfilePatientVisitsTable() {
                                                 {header.isPlaceholder
                                                     ? null
                                                     : flexRender(
-                                                          header.column
-                                                              .columnDef
-                                                              .header,
-                                                          header.getContext()
-                                                      )}
+                                                        header.column
+                                                            .columnDef
+                                                            .header,
+                                                        header.getContext()
+                                                    )}
                                             </TableHead>
                                         ))}
                                     </TableRow>

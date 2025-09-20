@@ -80,6 +80,7 @@ export default function PhysicalExaminationsTable() {
   const { data: physicalExaminations, isLoading } = useQuery({
     queryKey: ["physicalExaminations", patient_id],
     queryFn: () => getPhysicalExaminationsByPatientId(patient_id),
+    staleTime: 5 * 60 * 1000,
   });
   
   const [sorting, setSorting] = React.useState([]);

@@ -141,7 +141,8 @@ export default function AdmissionTable() {
     const { data: admissions, isLoading: loadingAdmissions } = useQuery(
         {
             queryKey: ['admissions', patient_id],
-            queryFn: () => getInpatientByPatientId(patient_id)
+            queryFn: () => getInpatientByPatientId(patient_id),
+            staleTime: 5 * 60 * 1000,
         }
     );
 

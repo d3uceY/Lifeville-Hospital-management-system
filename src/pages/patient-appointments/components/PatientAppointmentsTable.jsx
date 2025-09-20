@@ -121,6 +121,7 @@ export default function PatientAppointmentsTable() {
     const { data: patientAppointments, isLoading } = useQuery({
         queryKey: ["appointments", patient_id],
         queryFn: () => getAppointmentsByPatientId(patient_id),
+        staleTime: 5 * 60 * 1000,
     });
 
     const [sorting, setSorting] = React.useState([]);
