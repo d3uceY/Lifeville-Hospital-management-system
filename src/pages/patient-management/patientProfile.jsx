@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -13,17 +13,19 @@ import PatientProfileSkeleton from './components/patientProfileSkeleton';
 import { hasPermission } from '../../helpers/hasPermission';
 
 export default function PatientProfile() {
-    const [patient, setPatient] = useState({});
     const { patient_id: id, surname, first_name } = useParams();
 
     const { data: patientData, isLoading: patientLoading } = useQuery({
         queryKey: ["patient", id],
-        queryFn: () => viewRegisteredPatient(id).then((data) => {
-            setPatient(data);
-            return data;
-        }),
+        queryFn: () => viewRegisteredPatient(id),
         staleTime: 60 * 60 * 1000,
     });
+
+    // useEffect(() => {
+    //     if (patientData) {
+    //         setPatient(patientData);
+    //     }
+    // }, [patientData]);
 
     // Helper to format a date string (ISO) to yyyy-mm-dd for the input fields.
     const formatDate = (dateString) => {
@@ -39,17 +41,17 @@ export default function PatientProfile() {
             <div className='flex justify-between items-center pl-4 p-4 border-l-4  mb-8  bg-[#f0f8f4] shadow-sm rounded-r-md'>
                 <div className="   bg-[#f0f8f4]   ">
                     <h1 className="text-3xl font-bold ">
-                        {patient?.first_name} {patient?.surname}'s Profile
+                        {patientData?.first_name} {patientData?.surname}'s Profile
                     </h1>
                     <div className="flex items-center mt-2 text-gray-600">
                         <span className="bg-[#106041] text-white px-2 py-0.5 rounded text-xs mr-2">ID</span>
-                        <p className="text-muted-foreground">Hospital Number: {patient?.hospital_number || "N/A"}</p>
+                        <p className="text-muted-foreground">Hospital Number: {patientData?.hospital_number || "N/A"}</p>
                     </div>
                 </div>
                 {
                     hasPermission(["superadmin"]) && (
                         <div>
-                            <Link to={`/patient-profile/${id}/${surname}/${first_name}/edit`} state={patient}>
+                            <Link to={`/patient-profile/${id}/${surname}/${first_name}/edit`} state={patientData}>
                                 <Button className="bg-[#106041] text-white hover:bg-[#106041]/80">Update</Button>
                             </Link>
                         </div>
@@ -89,7 +91,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="date"
                                 type="date"
-                                value={formatDate(patient.date)}
+                                value={formatDate(patientData.date)}
                                 disabled
                             />
                         </div>
@@ -101,7 +103,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="hospitalNumber"
                                 type="number"
-                                value={patient.hospital_number || "N/A"}
+                                value={patientData.hospital_number || "N/A"}
                                 disabled
                             />
                         </div>
@@ -115,7 +117,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="surname"
                                 type="text"
-                                value={patient.surname || "N/A"}
+                                value={patientData.surname || "N/A"}
                                 disabled
                             />
                         </div>
@@ -127,7 +129,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="firstName"
                                 type="text"
-                                value={patient.first_name || "N/A"}
+                                value={patientData.first_name || "N/A"}
                                 disabled
                             />
                         </div>
@@ -139,7 +141,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="otherNames"
                                 type="text"
-                                value={patient.other_names || "N/A"}
+                                value={patientData.other_names || "N/A"}
                                 disabled
                             />
                         </div>
@@ -182,7 +184,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 capitalize"
                                 id="sex"
                                 type="text"
-                                value={patient.sex || "N/A"}
+                                value={patientData.sex || "N/A"}
                                 disabled
                             />
                         </div>
@@ -194,7 +196,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="maritalStatus"
                                 type="text"
-                                value={patient.marital_status || "N/A"}
+                                value={patientData.marital_status || "N/A"}
                                 disabled
                             />
                         </div>
@@ -206,7 +208,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="dateOfBirth"
                                 type="date"
-                                value={formatDate(patient.date_of_birth)}
+                                value={formatDate(patientData.date_of_birth)}
                                 disabled
                             />
                         </div>
@@ -218,7 +220,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="phoneNumber"
                                 type="text"
-                                value={patient.phone_number || "N/A"}
+                                value={patientData.phone_number || "N/A"}
                                 disabled
                             />
                         </div>
@@ -231,7 +233,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
                                 id="address"
-                                value={patient.address || "N/A"}
+                                value={patientData.address || "N/A"}
                                 disabled
                             />
                         </div>
@@ -243,7 +245,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="occupation"
                                 type="text"
-                                value={patient.occupation || "N/A"}
+                                value={patientData.occupation || "N/A"}
                                 disabled
                             />
                         </div>
@@ -254,7 +256,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
                                 id="placeOfWorkAddress"
-                                value={patient.place_of_work_address || "N/A"}
+                                value={patientData.place_of_work_address || "N/A"}
                                 disabled
                             />
                         </div>
@@ -296,7 +298,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="religion"
                                 type="text"
-                                value={patient.religion || "N/A"}
+                                value={patientData.religion || "N/A"}
                                 disabled
                             />
                         </div>
@@ -308,7 +310,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="nationality"
                                 type="text"
-                                value={patient.nationality || "N/A"}
+                                value={patientData.nationality || "N/A"}
                                 disabled
                             />
                         </div>
@@ -350,7 +352,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="nextOfKin"
                                 type="text"
-                                value={patient.next_of_kin || "N/A"}
+                                value={patientData.next_of_kin || "N/A"}
                                 disabled
                             />
                         </div>
@@ -362,7 +364,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="relationship"
                                 type="text"
-                                value={patient.relationship || "N/A"}
+                                value={patientData.relationship || "N/A"}
                                 disabled
                             />
                         </div>
@@ -374,7 +376,7 @@ export default function PatientProfile() {
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50"
                                 id="nextOfKinPhoneNumber"
                                 type="text"
-                                value={patient.next_of_kin_phone || "N/A"}
+                                value={patientData.next_of_kin_phone || "N/A"}
                                 disabled
                             />
                         </div>
@@ -387,7 +389,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[80px]"
                                 id="addressOfNextOfKin"
-                                value={patient.next_of_kin_address || "N/A"}
+                                value={patientData.next_of_kin_address || "N/A"}
                                 disabled
                             />
                         </div>
@@ -427,7 +429,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="pastMedicalHistory"
-                                value={patient.past_medical_history || "N/A"}
+                                value={patientData.past_medical_history || "N/A"}
                                 disabled
                             />
                         </div>
@@ -438,7 +440,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="pastSurgicalHistory"
-                                value={patient.past_surgical_history || "N/A"}
+                                value={patientData.past_surgical_history || "N/A"}
                                 disabled
                             />
                         </div>
@@ -449,7 +451,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="familyHistory"
-                                value={patient.family_history || "N/A"}
+                                value={patientData.family_history || "N/A"}
                                 disabled
                             />
                         </div>
@@ -460,7 +462,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="socialHistory"
-                                value={patient.social_history || "N/A"}
+                                value={patientData.social_history || "N/A"}
                                 disabled
                             />
                         </div>
@@ -471,7 +473,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="drugHistory"
-                                value={patient.drug_history || "N/A"}
+                                value={patientData.drug_history || "N/A"}
                                 disabled
                             />
                         </div>
@@ -511,7 +513,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="allergies"
-                                value={patient.allergies || "N/A"}
+                                value={patientData.allergies || "N/A"}
                                 disabled
                             />
                         </div>
@@ -522,7 +524,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="dietaryRestrictions"
-                                value={patient.dietary_restrictions || "N/A"}
+                                value={patientData.dietary_restrictions || "N/A"}
                                 disabled
                             />
                         </div>
@@ -533,7 +535,7 @@ export default function PatientProfile() {
                             <Textarea
                                 className="text-black disabled:opacity-90 border-[#268a6477] bg-gray-50 min-h-[100px]"
                                 id="dietAllergies"
-                                value={patient.diet_allergies_to_drugs || "N/A"}
+                                value={patientData.diet_allergies_to_drugs || "N/A"}
                                 disabled
                             />
                         </div>
