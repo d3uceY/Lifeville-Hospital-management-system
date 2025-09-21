@@ -16,6 +16,7 @@ import { hasPermission } from "../../helpers/hasPermission"
 import PrintWrapper from "../../components/print/print-wrapper"
 import LabTestResultPrint from "../../components/print/prints/lab-test-result-print"
 import TableSkeletonV2 from "../../components/table-skeleton-v2"
+import { GetTitle } from "../../helpers/getTitle"
 
 
 
@@ -58,6 +59,7 @@ export default function LabTests() {
 
   return (
     <div className="lg:p-6">
+      <GetTitle title="Lab Tests" />
       <Card className="shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6">
           <CardTitle className="flex items-center gap-2">

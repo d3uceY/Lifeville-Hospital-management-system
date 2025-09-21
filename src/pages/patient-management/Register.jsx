@@ -22,6 +22,7 @@ import { registerPatient } from "../../providers/ApiProviders"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
 import { FormHeader } from "../../components/form-header"
+import { GetTitle } from "../../helpers/getTitle"
 
 export default function Register() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -137,6 +138,7 @@ export default function Register() {
 
     return (
         <div className="container mx-auto py-8 md:px-4 max-w-5xl">
+            <GetTitle title="Register Patient" />
             <FormHeader title="Register Patient" description="Fill in the details to register a new patient" />
             <form onSubmit={handleSubmit(onSubmit)} className="relative">
                 {/* Floating Edit Indicator */}

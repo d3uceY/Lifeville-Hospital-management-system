@@ -51,6 +51,7 @@ import ViewDeathRecordDialog from "./components/viewDeathRecord"
 import EditDeathDialog from "./components/editDeathDialog"
 import { CustomTooltip } from "../../helpers/customTooltip"
 import { hasPermission } from "../../helpers/hasPermission"
+import { GetTitle } from "../../helpers/getTitle"
 
 const columns = [
     {
@@ -244,6 +245,7 @@ export default function Deaths() {
 
     return (
         <div className="lg:p-6">
+            <GetTitle title="Death Records" />
             <Card className=" shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">

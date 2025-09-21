@@ -43,6 +43,7 @@ import {
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { GetTitle } from "../../helpers/getTitle";
 
 // import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 // import DeleteAlertDialog from "./components/deleteAlertDialog";
@@ -269,6 +270,7 @@ export default function Patients() {
 
   return (
     <div className="lg:p-6">
+      <GetTitle title="In Patients" />
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex justify-between items-center">
           <CardTitle className="flex items-center gap-2">

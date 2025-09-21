@@ -49,6 +49,7 @@ import VitalSignsDialog from "../../components/forms/vitalSignsDialog"
 import DeleteAlertDialog from "./components/deleteAlertDialog";
 import { getAge } from "../../helpers/getAge";
 import { CustomTooltip } from "../../helpers/customTooltip";
+import { GetTitle } from "../../helpers/getTitle";
 
 const columns = [
   {
@@ -162,6 +163,7 @@ const columns = [
       const currentpatientData = row.original
       return (
         <div className="flex gap-2 items-center">
+          <GetTitle title="Patients" />
           {
             hasPermission(["superadmin", "doctor", "nurse"]) && (
               <CustomTooltip content="Record Vital Sign">
