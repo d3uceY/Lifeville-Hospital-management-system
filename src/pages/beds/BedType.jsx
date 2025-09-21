@@ -27,6 +27,7 @@ import { CreateBedTypeDialog } from "./components/createBedTypesDialog";
 import { CustomTooltip } from "../../helpers/customTooltip";
 import TableSkeleton from "../../components/table-skeleton";
 import { hasPermission } from "../../helpers/hasPermission";
+import { GetTitle } from "../../helpers/getTitle";
 // import { BedSkeletonLoader } from "./components/bedSkeletonLoader";
 
 const columns = [
@@ -91,6 +92,7 @@ export default function BedGroup() {
 
   return (
     <div className="lg:p-6">
+      <GetTitle title="Bed Types" />
       <Card className=" shadow-sm py-0 overflow-hidden">
         <CardHeader className="pb-3 border-b  bg-[#f0f8f4] pt-6 flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">

@@ -23,6 +23,7 @@ import { CustomTooltip } from "../../helpers/customTooltip"
 import TableSkeletonV2 from "../../components/table-skeleton-v2"
 import PrintWrapper from "../../components/print/print-wrapper"
 import BillPrint from "../../components/print/prints/bill-print"
+import { GetTitle } from "../../helpers/getTitle"
 
 export default function Bills() {
     const [page, setPage] = useState(1)
@@ -75,6 +76,7 @@ export default function Bills() {
 
     return (
         <div className="lg:p-6">
+            <GetTitle title="Bills" />
             <Card className="shadow-sm py-0 overflow-hidden">
                 <CardHeader className="pb-3 border-b bg-[#f0f8f4] pt-6">
                     <CardTitle className="flex items-center gap-2">

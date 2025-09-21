@@ -32,6 +32,7 @@ import {
 import { useDebounce } from "../../hooks/use-debounce"
 import TableSkeleton from "../../components/table-skeleton"
 import { hasPermission } from "../../helpers/hasPermission"
+import { GetTitle } from "../../helpers/getTitle"
 
 
 export default function DoctorAppointmentsUI() {
@@ -71,6 +72,7 @@ export default function DoctorAppointmentsUI() {
 
   return (
     <div>
+      <GetTitle title="Appointments" />
       <div className="lg:p-6">
         <Card className="shadow-sm py-0 overflow-hidden">
           <CardHeader className="pb-3 border-b flex items-center justify-between bg-[#f0f8f4] pt-6">

@@ -21,7 +21,7 @@ import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 import { filterMenuItems } from "../../helpers/filterMenuItems"
 import { useAuth } from "../../providers/AuthContext";
-
+import { GetTitle } from "../../helpers/getTitle";
 
 
 export default function PatientProfileSidebar() {
@@ -131,9 +131,11 @@ export default function PatientProfileSidebar() {
       },
     ],
   }
+
   if ((Number(patient_id)) && ((surname) || (first_name)) && (accessToken)) {
     return (
       <div className="flex h-screen bg-gray-50">
+        <GetTitle title="Patient Profile" />
         <SidebarProvider className="flex-1">
           <Sidebar collapsible="none" className="hidden md:flex border-r border-gray-200 bg-white shadow-sm">
             <SidebarContent className="p-4">
@@ -192,6 +194,6 @@ export default function PatientProfileSidebar() {
       </div>
     )
   } else {
-    return navigate("/patients")
+    return navigate("/patients");
   }
 }
