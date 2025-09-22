@@ -15,6 +15,8 @@ import { createComplaint } from '../../providers/ApiProviders'
 import ComplaintsTable from './components/ComplaintsTable'
 import { useQueryClient } from '@tanstack/react-query'
 import ProfileFormHeader from '../../components/profile-form-header'
+import { hasPermission } from '../../helpers/hasPermission'
+
 
 export default function Complaints() {
     const { user } = useAuth()
@@ -76,35 +78,40 @@ export default function Complaints() {
     return (
         <div>
             <ProfileFormHeader title="Record Complaint" description={`Fill in the details to record a complaint for patient #${patient_id}`} />
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
-                    <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
-                        <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
-                            <FileText size={20} />
-                            Record Complaint
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="mb-4">
-                            <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="complaint">
-                                Complaint
-                            </Label>
-                            <Textarea
-                                className="text-black border-[#268a6477] bg-gray-50"
-                                id="complaint"
-                                placeholder="add complaint here..."
-                                {...register("complaint")}
-                            />
-                        </div>
-                        <p className="text-red-500">{errors.complaint?.message}</p>
-                    <Button className="mt-6 ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
-                        {isSubmitting ? "Submitting..." : "Add Complaint"}
-                    </Button>
+            {
+                hasPermission(["superadmin", "doctor"]) && (<form onSubmit={handleSubmit(onSubmit)}>
+                    <Card className="pt-0 mb-8 shadow-sm border-t-4 border-t-[#106041]">
+                        <CardHeader className="bg-[#f0f8f4] border-b flex items-center justify-between">
+                            <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
+                                <FileText size={20} />
+                                Record Complaint
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="mb-4">
+                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="complaint">
+                                    Complaint
+                                </Label>
+                                <Textarea
+                                    className="text-black border-[#268a6477] bg-gray-50"
+                                    id="complaint"
+                                    placeholder="add complaint here..."
+                                    {...register("complaint")}
+                                />
+                            </div>
+                            <p className="text-red-500">{errors.complaint?.message}</p>
+                            <Button className="mt-6 ml-auto block w-fit" type="submit" disabled={!isValid || isSubmitting}>
+                                {isSubmitting ? "Submitting..." : "Add Complaint"}
+                            </Button>
 
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
 
-            </form>
+                </form>)
+
+
+            }
+
             <ComplaintsTable patientId={patient_id} />
         </div>
     )
