@@ -78,7 +78,7 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("surname")}</div>,
+    cell: ({ row }) => <div className="uppercase font-medium">{row.getValue("surname")}</div>,
   },
   {
     accessorKey: "first_name",
@@ -92,7 +92,7 @@ const columns = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div className="capitalize font-medium">{row.getValue("first_name")}</div>,
+    cell: ({ row }) => <div className="uppercase font-medium">{row.getValue("first_name")}</div>,
   },
   {
     accessorKey: "sex",
@@ -227,7 +227,7 @@ export default function Patients() {
 
   const { patientData, loading } = usePatientData()
 
-  console.log(patientData)
+
 
   const [sorting, setSorting] = React.useState([])
   const [columnFilters, setColumnFilters] = React.useState([])
@@ -235,7 +235,7 @@ export default function Patients() {
   const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
-    data: patientData,
+    data: patientData?.sort((a, b) => b.hospital_number - a.hospital_number),
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
