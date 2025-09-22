@@ -55,7 +55,7 @@ export default function PatientProfileSidebar() {
         name: "admissions",
         icon: Hospital,
         href: `/patient-profile/${patient_id}/${surname}/${first_name}/admissions`,
-        roles: ["superadmin", "doctor", "nurse"],
+        roles: ["superadmin", "doctor", "nurse", "receptionist"],
       },
       {
         name: "vital signs",
