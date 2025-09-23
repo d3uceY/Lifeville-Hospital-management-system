@@ -18,11 +18,19 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import { useLocation } from "react-router-dom";
+import { useSidebar } from "./ui/sidebar";
 
 export function NavSetup({
   items
 }) {
   const location = useLocation();
+  const sidebar = useSidebar();
+
+  const closeMobileSidebar = () => {
+    if (sidebar.isMobile) {
+      sidebar.setOpenMobile(false);
+    }
+  }
   return (
     (<SidebarGroup>
       <SidebarGroupLabel>{items.length > 0 ? "Setup" : ""}</SidebarGroupLabel>
@@ -46,7 +54,12 @@ export function NavSetup({
                 <SidebarMenuSub className="border-l-[#b2d2c6]" >
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton isActive={location.pathname === subItem.url} asChild className="">
+                      <SidebarMenuSubButton
+                        isActive={location.pathname === subItem.url}
+                        asChild
+                        className=""
+                        onClick={closeMobileSidebar}
+                      >
                         <Link to={subItem.url}>
                           <span>{subItem.title}</span>
                         </Link>

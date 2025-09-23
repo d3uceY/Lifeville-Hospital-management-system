@@ -7,22 +7,17 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ClipboardList } from "lucide-react"
-import { getConditions, createDiagnoses } from "../../../providers/ApiProviders"
+import { createDiagnoses } from "../../../providers/ApiProviders"
 import { useAuth } from "../../../providers/AuthContext"
 import { useParams } from "react-router-dom"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
-import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectGroup,
-    SelectLabel,
-    SelectItem,
-} from "@/components/ui/select"
 import { Controller } from "react-hook-form"
 import { useConditions } from "../../../providers/ApiContextProvider"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export default function DiagnosesForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -53,7 +48,7 @@ export default function DiagnosesForm() {
         },
     })
 
-    
+
 
     const onSubmit = async (data) => {
         const promise = async () => {
@@ -90,32 +85,70 @@ export default function DiagnosesForm() {
                 <CardContent>
                     {/* Condition Dropdown */}
                     <div className="mb-4">
-                        <Label className="mb-3" htmlFor="condition">Condition</Label>
+                        <Label className="mb-3" htmlFor="condition">
+                            Condition
+                        </Label>
                         <Controller
                             name="condition"
                             control={control}
-                            render={({ field }) => (
-                                <Select onValueChange={field.onChange} value={field.value}>
-                                    <SelectTrigger className="w-full bg-gray-50">
-                                        <SelectValue placeholder="Select test type" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>Conditions</SelectLabel>
-                                            {conditions.map((condition) => (
-                                                <SelectItem key={condition.id} value={condition.name}>
-                                                    {condition.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            )}
+                            render={({ field }) => {
+                                const selectedCondition = conditions.find(
+                                    (c) => c.name === field.value
+                                )
+
+                                return (
+                                    <Popover>
+                                        <PopoverTrigger asChild>
+                                            <Button
+                                                variant="outline"
+                                                role="combobox"
+                                                className={cn(
+                                                    "w-full justify-between bg-gray-50",
+                                                    !field.value && "text-muted-foreground"
+                                                )}
+                                            >
+                                                {selectedCondition ? selectedCondition.name : "Select condition"}
+                                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                            </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className="w-[300px] p-0">
+                                            <Command>
+                                                <CommandInput placeholder="Search condition..." className="h-9" />
+                                                <CommandList>
+                                                    <CommandEmpty>No condition found.</CommandEmpty>
+                                                    <CommandGroup heading="Conditions">
+                                                        {conditions.map((condition) => (
+                                                            <CommandItem
+                                                                key={condition.id}
+                                                                value={condition.name}
+                                                                onSelect={() => {
+                                                                    field.onChange(condition.name)
+                                                                }}
+                                                            >
+                                                                <Check
+                                                                    className={cn(
+                                                                        "mr-2 h-4 w-4",
+                                                                        field.value === condition.name
+                                                                            ? "opacity-100"
+                                                                            : "opacity-0"
+                                                                    )}
+                                                                />
+                                                                {condition.name}
+                                                            </CommandItem>
+                                                        ))}
+                                                    </CommandGroup>
+                                                </CommandList>
+                                            </Command>
+                                        </PopoverContent>
+                                    </Popover>
+                                )
+                            }}
                         />
                         {errors.condition && (
                             <p className="text-red-500 text-sm">{errors.condition.message}</p>
                         )}
                     </div>
+
 
                     {/* Notes */}
                     <div className="mb-4">

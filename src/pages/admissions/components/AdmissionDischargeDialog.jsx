@@ -32,6 +32,8 @@ import { useParams } from "react-router-dom"
 import { useAuth } from "../../../providers/AuthContext"
 import { UserX } from "lucide-react"
 import { useConditions } from "../../../providers/ApiContextProvider"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 
 // Schema
 const schema = z.object({
@@ -45,16 +47,15 @@ const schema = z.object({
     doctor_id: z.string().min(1, "Doctor is required"),
 })
 
-export default function DischargeDialog({ admissionId, children, patient }) {
+export default function DischargeDialog({ admissionId, children }) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [open, setOpen] = useState(false);
     const { doctors } = useDoctorData();
     const queryClient = useQueryClient();
-    const { patient_id } = useParams();
+    const { patient_id, first_name, surname } = useParams();
     const { user } = useAuth();
 
     const finalDiagnosis = useConditions()?.conditions;
-
 
     const methods = useForm({
         resolver: zodResolver(schema),
@@ -130,7 +131,7 @@ export default function DischargeDialog({ admissionId, children, patient }) {
                         <CardHeader className="bg-red-50 border-b flex items-center justify-between">
                             <CardTitle className="pt-6 text-xl font-semibold flex items-center gap-2">
                                 <UserX size={20} />
-                                Discharge Patient - {patient?.surname} {patient?.first_name}
+                                Discharge Patient - <span className="capitalize">{surname} {first_name}</span>
                             </CardTitle>
                             <Button
                                 className="mt-6 bg-red-600 hover:bg-red-700 text-white"
@@ -144,34 +145,57 @@ export default function DischargeDialog({ admissionId, children, patient }) {
                         <CardContent className="space-y-6">
                             {/* Final Diagnosis */}
                             <div>
-                                <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="final_diagnosis">
+                                <Label
+                                    className="text-sm font-medium mb-2 block text-gray-700"
+                                    htmlFor="final_diagnosis"
+                                >
                                     Final Diagnosis
                                 </Label>
                                 <Controller
                                     name="final_diagnosis"
                                     control={control}
                                     render={({ field }) => (
-                                        <Select onValueChange={field.onChange} value={field.value || ""}>
-                                            <SelectTrigger className="bg-gray-50">
-                                                <SelectValue placeholder="Select diagnosis" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectGroup>
-                                                    <SelectLabel>Diagnosis</SelectLabel>
-                                                    {finalDiagnosis?.map((condition) => (
-                                                        <SelectItem key={condition.id} value={`${condition.name}`}>
-                                                            {condition.name}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectGroup>
-                                            </SelectContent>
-                                        </Select>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <Button
+                                                    variant="outline"
+                                                    role="combobox"
+                                                    className="w-full justify-between bg-gray-50"
+                                                >
+                                                    {field.value
+                                                        ? finalDiagnosis?.find(
+                                                            (condition) => condition.name === field.value
+                                                        )?.name
+                                                        : "Select diagnosis"}
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-[300px] p-0">
+                                                <Command>
+                                                    <CommandInput placeholder="Search diagnosis..." />
+                                                    <CommandList>
+                                                        <CommandEmpty>No diagnosis found.</CommandEmpty>
+                                                        <CommandGroup>
+                                                            {finalDiagnosis?.map((condition) => (
+                                                                <CommandItem
+                                                                    key={condition.id}
+                                                                    value={condition.name}
+                                                                    onSelect={() => field.onChange(condition.name)}
+                                                                >
+                                                                    {condition.name}
+                                                                </CommandItem>
+                                                            ))}
+                                                        </CommandGroup>
+                                                    </CommandList>
+                                                </Command>
+                                            </PopoverContent>
+                                        </Popover>
                                     )}
                                 />
                                 {errors.final_diagnosis && (
                                     <p className="text-red-500 text-sm">{errors.final_diagnosis.message}</p>
                                 )}
                             </div>
+
 
                             {/* Diagnosis Details */}
                             <div>

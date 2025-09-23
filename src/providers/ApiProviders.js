@@ -548,7 +548,7 @@ export const updateLabTest = async (labTestId, labTestData) => {
 };
 
 export const deleteLabTest = async (labTestId) => {
-  const response = await api.delete(`/lab-tests/${labTestId}`);
+  const response = await api.delete(`/lab-tests/${labTestId}/delete`);
   return response.data;
 };
 
