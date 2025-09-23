@@ -9,6 +9,7 @@ import { useAuth } from "../providers/AuthContext"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { Toaster } from "sonner"
+import { useState } from "react"
 
 export default function LoginForm({
   className,
@@ -17,6 +18,7 @@ export default function LoginForm({
 
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const schema = z.object({
     email: z.string().email(),
@@ -38,6 +40,7 @@ export default function LoginForm({
 
   const onSubmit = async (data) => {
     const { email, password } = data;
+    setLoading(true);
     toast.promise(
       login(email, password),
       {
@@ -52,6 +55,7 @@ export default function LoginForm({
         },
       }
     )
+    setLoading(false);
   };
 
 
@@ -79,8 +83,8 @@ export default function LoginForm({
           <Input id="password" type="password" {...register("password")} required />
           {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         </div>
-        <Button type="submit" className="w-full">
-          Login
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
         </Button>
       </div>
       <Toaster richColors />
