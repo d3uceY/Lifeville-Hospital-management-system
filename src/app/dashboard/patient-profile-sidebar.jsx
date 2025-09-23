@@ -146,7 +146,7 @@ export default function PatientProfileSidebar() {
                       <SidebarMenuItem key={item.name}>
                         <SidebarMenuButton
                           asChild
-                          isActive={location.pathname === item.href}
+                          isActive={decodeURIComponent(location.pathname) === decodeURIComponent(item.href)}
                           className="w-full justify-start px-3 py-2 text-sm font-medium transition-colors hover:bg-[#e6f2ed] hover:text-[#106041] data-[active=true]:bg-[#f0f8f4] data-[active=true]:text-[#106041] data-[active=true]:border-r-2 data-[active=true]:border-[#268a64]"
                         >
                           <Link to={item.href} className="flex items-center gap-3 w-full">
