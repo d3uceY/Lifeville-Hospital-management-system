@@ -24,7 +24,7 @@ export default function DeleteLabTestAnalysisDialog({ deletedLabTestAnalysisReco
         const promise = async () => {
             try {
                 const response = await deleteLabTest(id);
-                queryClient.invalidateQueries({ queryKey: ['patientLabTests', patient_id] });
+                queryClient.invalidateQueries({ queryKey: ['patientLabTests'] });
                 return response;
             } catch (err) {
                 console.log(err)

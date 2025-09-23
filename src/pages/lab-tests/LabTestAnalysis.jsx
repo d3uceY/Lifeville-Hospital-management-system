@@ -91,7 +91,7 @@ export default function LabTestAnalysis() {
         });
         reset();
         queryClient.invalidateQueries({
-            queryKey: ['patientLabTests', patient_id],
+            queryKey: ['patientLabTests'],
         })
     }
 
