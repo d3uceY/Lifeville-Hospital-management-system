@@ -125,9 +125,6 @@ const columns = [
 ];
 
 export default function LabTestAnalysisTable({ patientId }) {
-
-    console.log(patientId, "table")
-
     const { data: patientLabTests, isLoading: loadingPatientLabTests } = useQuery(
         {
             queryKey: ['patientLabTests', patientId],

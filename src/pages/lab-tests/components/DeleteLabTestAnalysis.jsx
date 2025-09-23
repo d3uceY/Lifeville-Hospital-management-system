@@ -28,7 +28,6 @@ export default function DeleteLabTestAnalysisDialog({ deletedLabTestAnalysisReco
                 queryClient.invalidateQueries({ queryKey: ['patientLabTests', patientId], exact: false });
                 return response;
             } catch (err) {
-                console.log(err)
                 throw err;
             }
         };

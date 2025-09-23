@@ -36,7 +36,6 @@ export default function LabTestAnalysis() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const { labTestTypes } = useLabTests()
     const { patient_id } = useParams();
-    console.log(patient_id, "form")
 
     const schema = z.object({
         prescribedBy: z.string().optional(),
