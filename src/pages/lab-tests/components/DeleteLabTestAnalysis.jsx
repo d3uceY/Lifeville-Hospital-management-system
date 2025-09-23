@@ -14,17 +14,18 @@ import { Trash2 } from "lucide-react";
 import { deleteLabTest } from "../../../providers/ApiProviders";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useParams } from "react-router-dom";
 
 export default function DeleteLabTestAnalysisDialog({ deletedLabTestAnalysisRecordInfo }) {
+    const {patient_id: patientId} = useParams();
     const queryClient = useQueryClient();
     const { id, surname, first_name, patient_id } = deletedLabTestAnalysisRecordInfo;
-
 
     const handleDeleteLabTestAnalysis = async () => {
         const promise = async () => {
             try {
                 const response = await deleteLabTest(id);
-                queryClient.invalidateQueries({ queryKey: ['patientLabTests'] });
+                queryClient.invalidateQueries({ queryKey: ['patientLabTests', patientId], exact: false });
                 return response;
             } catch (err) {
                 console.log(err)
