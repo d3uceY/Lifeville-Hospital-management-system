@@ -15,9 +15,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getLabTestStatusBadge } from "../../../helpers/getLabTestStatusBadge";
 import { getLabTestsByPatientId } from "../../../providers/ApiProviders";
 import { formatDate } from "../../../helpers/formatDate";
-import {LabTestResultDialog} from "./LabTestResultDialog";
+import { LabTestResultDialog } from "./LabTestResultDialog";
 import { CustomTooltip } from "../../../helpers/customTooltip";
 import TableSkeleton from "../../../components/patient-profile-table-skeleton";
+import DeleteLabTestAnalysisDialog from "./DeleteLabTestAnalysis";
 
 
 
@@ -109,10 +110,13 @@ const columns = [
                                 variant="outline"
                                 size="sm"
                                 className="action-view-btn"
-                        >
-                            <Eye className="h-4 w-4" />
-                        </Button>
-                    </LabTestResultDialog>
+                            >
+                                <Eye className="h-4 w-4" />
+                            </Button>
+                        </LabTestResultDialog>
+                    </CustomTooltip>
+                    <CustomTooltip content="Delete Lab Test Analysis">
+                        <DeleteLabTestAnalysisDialog deletedLabTestAnalysisRecordInfo={labTest} />
                     </CustomTooltip>
                 </div>
             );
@@ -129,7 +133,6 @@ export default function LabTestAnalysisTable({ patientId }) {
             staleTime: 5 * 60 * 1000,
         }
     );
-
 
 
     const [sorting, setSorting] = React.useState([]);
@@ -151,7 +154,7 @@ export default function LabTestAnalysisTable({ patientId }) {
         state: { sorting, columnFilters, columnVisibility, rowSelection },
         initialState: {
             pagination: {
-                pageSize: 5, 
+                pageSize: 5,
             },
         },
     });
