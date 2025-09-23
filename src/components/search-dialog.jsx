@@ -102,20 +102,20 @@ export function SearchDialog({ data }) {
         <>
             <div className="px-3 my-3">
                 {
-                state == "expanded" && (
-                    <Button
-                        variant="outline"
-                        className="relative h-9 w-full justify-start rounded-md bg-muted/50 text-sm font-normal text-muted-foreground shadow-none "
-                        onClick={() => setOpen(true)}
-                    >
-                        <Search className="mr-2 h-4 w-4" />
-                        <span className="hidden lg:inline-flex">Search navigation...</span>
-                        <span className="inline-flex lg:hidden">Search...</span>
-                        <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                            <span className="text-xs">⌘</span> <span className="shrink-0">K</span>
-                        </kbd>
-                    </Button>
-                )
+                    state == "expanded" && (
+                        <Button
+                            variant="outline"
+                            className="relative h-9 w-full justify-start rounded-md bg-muted/50 text-sm font-normal text-muted-foreground shadow-none "
+                            onClick={() => setOpen(true)}
+                        >
+                            <Search className="mr-2 h-4 w-4" />
+                            <span className="hidden lg:inline-flex">Search navigation...</span>
+                            <span className="inline-flex lg:hidden">Search...</span>
+                            <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                                <span className="text-xs">⌘</span> <span className="shrink-0">K</span>
+                            </kbd>
+                        </Button>
+                    )
                 }
             </div>
 

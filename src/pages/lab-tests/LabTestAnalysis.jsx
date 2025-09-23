@@ -1,24 +1,23 @@
 import React from 'react'
 import { useState } from "react"
-import { useForm, Controller, useFieldArray } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-    Select,
-    SelectTrigger,
-    SelectValue,
-    SelectContent,
-    SelectGroup,
-    SelectLabel,
-    SelectItem,
-} from "@/components/ui/select"
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import { FileText } from 'lucide-react'
+import { FileText, ChevronsUpDown } from 'lucide-react'
 import { useAuth } from "../../providers/AuthContext"
 import { useLabTests } from '../../providers/ApiContextProvider'
 import { useParams } from 'react-router-dom'
@@ -27,6 +26,10 @@ import LabTestAnalysisTable from './components/LabTestAnalysisTable'
 import { useQueryClient } from '@tanstack/react-query'
 import ProfileFormHeader from '../../components/profile-form-header'
 import { hasPermission } from '../../helpers/hasPermission'
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Check } from "lucide-react"
+import { cn } from "@/lib/utils"
+
 
 export default function LabTestAnalysis() {
     const { user } = useAuth()
@@ -108,31 +111,61 @@ export default function LabTestAnalysis() {
                             </CardHeader>
                             <CardContent>
                                 <div className="mb-4">
-                                    <Label className="text-sm font-medium mb-2 block text-gray-700" htmlFor="testType">
-                                        Test Type
-                                    </Label>
                                     <Controller
                                         name="testType"
                                         control={control}
-                                        render={({ field }) => (
-                                            <Select onValueChange={field.onChange} value={field.value}>
-                                                <SelectTrigger className="w-full bg-gray-50">
-                                                    <SelectValue placeholder="Select test type" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        <SelectLabel>Test Types</SelectLabel>
-                                                        {labTestTypes.map((testType) => (
-                                                            <SelectItem key={testType.id} value={testType.name}>
-                                                                {testType.name}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-                                        )}
+                                        render={({ field }) => {
+                                            const selectedTest = labTestTypes.find((t) => t.name === field.value)
+
+                                            return (
+                                                <Popover>
+                                                    <PopoverTrigger asChild>
+                                                        <Button
+                                                            variant="outline"
+                                                            role="combobox"
+                                                            className={cn(
+                                                                "w-full justify-between bg-gray-50",
+                                                                !field.value && "text-muted-foreground"
+                                                            )}
+                                                        >
+                                                            {selectedTest ? selectedTest.name : "Select test type"}
+                                                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                                        </Button>
+                                                    </PopoverTrigger>
+                                                    <PopoverContent className="w-[300px] p-0">
+                                                        <Command>
+                                                            <CommandInput placeholder="Search test type..." className="h-9" />
+                                                            <CommandList>
+                                                                <CommandEmpty>No test type found.</CommandEmpty>
+                                                                <CommandGroup heading="Test Types">
+                                                                    {labTestTypes.map((testType) => (
+                                                                        <CommandItem
+                                                                            key={testType.id}
+                                                                            value={testType.name}
+                                                                            onSelect={() => {
+                                                                                field.onChange(testType.name)
+                                                                            }}
+                                                                        >
+                                                                            <Check
+                                                                                className={cn(
+                                                                                    "mr-2 h-4 w-4",
+                                                                                    field.value === testType.name ? "opacity-100" : "opacity-0"
+                                                                                )}
+                                                                            />
+                                                                            {testType.name}
+                                                                        </CommandItem>
+                                                                    ))}
+                                                                </CommandGroup>
+                                                            </CommandList>
+                                                        </Command>
+                                                    </PopoverContent>
+                                                </Popover>
+                                            )
+                                        }}
                                     />
-                                    {errors.testType && <p className="text-red-500 text-sm mt-1">{errors.testType.message}</p>}
+                                    {errors.testType && (
+                                        <p className="text-red-500 text-sm mt-1">{errors.testType.message}</p>
+                                    )}
                                 </div>
 
                                 <div>
