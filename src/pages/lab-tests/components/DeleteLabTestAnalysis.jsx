@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 export default function DeleteLabTestAnalysisDialog({ deletedLabTestAnalysisRecordInfo }) {
     const {patient_id: patientId} = useParams();
     const queryClient = useQueryClient();
-    const { id, surname, first_name, patient_id } = deletedLabTestAnalysisRecordInfo;
+    const { id, surname, first_name } = deletedLabTestAnalysisRecordInfo;
 
     const handleDeleteLabTestAnalysis = async () => {
         const promise = async () => {
