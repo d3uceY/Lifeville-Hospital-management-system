@@ -76,9 +76,9 @@ export default function LoginForm({
         <div className="grid gap-3">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
+            {/* <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
               Forgot your password?
-            </a>
+            </a> */}
           </div>
           <Input id="password" type="password" {...register("password")} required />
           {errors.password && <p className="text-red-500">{errors.password.message}</p>}
