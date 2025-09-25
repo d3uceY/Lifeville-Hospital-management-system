@@ -28,6 +28,7 @@ import DeleteUserDialog from './DeleteUserDialog'
 import { CustomTooltip } from "../../helpers/customTooltip";
 import { hasPermission } from "../../helpers/hasPermission";
 import TableSkeleton from "../../components/table-skeleton";
+import UserActiveToggle from "./UserActiveToggle";
 
 
 const columns = [
@@ -117,6 +118,9 @@ const columns = [
                     {
                         hasPermission(['superadmin']) && (
                             <div className="flex items-center gap-2">
+                                <CustomTooltip content={`${user.is_active ? "Deactivate" : "Activate"} User`}>
+                                    <UserActiveToggle user={user} />
+                                </CustomTooltip>
                                 <CustomTooltip content="Edit User">
                                     <UpdateUserDialog user={user} />
                                 </CustomTooltip>

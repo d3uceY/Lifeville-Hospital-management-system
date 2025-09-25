@@ -23,13 +23,27 @@ import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
 import { FormHeader } from "../../components/form-header"
 import { GetTitle } from "../../helpers/getTitle"
+import { Switch } from "@/components/ui/switch"
 
 export default function Register() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [enableHospitalNumber, setEnableHospitalNumber] = useState(false);
     const queryClient = useQueryClient()
 
     const schema = z.object({
         // Required Fields
+        hospitalNumber: z
+            .string()
+            .refine(
+                (value) => {
+                    // If empty string or undefined, it's valid (disabled case)
+                    if (!value || value === "") return true;
+                    // If has value, must be only numbers
+                    return /^\d+$/.test(value);
+                },
+                { message: "Hospital number must contain only numbers" }
+            )
+            .optional(),
         date: z.string().nonempty({ message: "Date is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
         firstName: z.string().nonempty({ message: "First name is required" }),
@@ -70,7 +84,8 @@ export default function Register() {
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            date: "",
+            hospitalNumber: "",
+            date: new Date().toISOString().split("T")[0],
             surname: "",
             firstName: "",
             otherNames: "",
@@ -115,9 +130,13 @@ export default function Register() {
 
     const onSubmit = async (values) => {
         const promise = async () => {
+            const payload = {
+                ...values,
+                hospitalNumber: enableHospitalNumber ? Number(values.hospitalNumber) : null,
+            }
             try {
                 setIsSubmitting(true)
-                const response = await registerPatient(values)
+                const response = await registerPatient(payload)
                 queryClient.invalidateQueries({ queryKey: ["patients"] })
                 return response;
             } catch (err) {
@@ -214,6 +233,24 @@ export default function Register() {
                                     {...register("otherNames")}
                                 />
                                 {errors.otherNames && <p className="text-red-500 text-sm mt-1">{errors.otherNames.message}</p>}
+                            </div>
+                            <div>
+                                <Label className="text-sm font-medium mb-2 text-gray-700 gap-1" htmlFor="hospitalNumber">
+                                    Hospital Number
+                                    <Switch
+                                        className="ml-3"
+                                        checked={enableHospitalNumber}
+                                        onCheckedChange={setEnableHospitalNumber}
+                                    />
+                                </Label>
+                                <Input
+                                    className="text-black disabled:opacity-50 border-[#268a6477] bg-gray-50"
+                                    id="hospitalNumber"
+                                    type="text"
+                                    disabled={!enableHospitalNumber}
+                                    {...register("hospitalNumber")}
+                                />
+                                {errors.hospitalNumber && <p className="text-red-500 text-sm mt-1">{errors.hospitalNumber.message}</p>}
                             </div>
                         </div>
                     </CardContent>
