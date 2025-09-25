@@ -46,6 +46,15 @@ export const deleteUser = async (accessToken, userId) => {
   return response.data;
 };
 
+export const toggleActiveUser = async (accessToken, userId) => {
+  const response = await api.put("/users/" + userId + "/toggle", {}, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
 
 /* ============================
 API Helper function here for PATIENTS
