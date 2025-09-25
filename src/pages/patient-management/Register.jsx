@@ -23,13 +23,16 @@ import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
 import { FormHeader } from "../../components/form-header"
 import { GetTitle } from "../../helpers/getTitle"
+import { Switch } from "@/components/ui/switch"
 
 export default function Register() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [enableHospitalNumber, setEnableHospitalNumber] = useState(false);
     const queryClient = useQueryClient()
 
     const schema = z.object({
         // Required Fields
+        hospital_number: z.string().nonempty({ message: "Hospital number is required" }),
         date: z.string().nonempty({ message: "Date is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
         firstName: z.string().nonempty({ message: "First name is required" }),
@@ -70,7 +73,8 @@ export default function Register() {
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            date: "",
+            hospital_number: "",
+            date: new Date().toISOString().split("T")[0],
             surname: "",
             firstName: "",
             otherNames: "",
@@ -125,7 +129,7 @@ export default function Register() {
                 throw err;
             } finally {
                 setIsSubmitting(false)
-                reset()
+                // reset()
             }
         }
 
@@ -214,6 +218,24 @@ export default function Register() {
                                     {...register("otherNames")}
                                 />
                                 {errors.otherNames && <p className="text-red-500 text-sm mt-1">{errors.otherNames.message}</p>}
+                            </div>
+                            <div>
+                                <Label className="text-sm font-medium mb-2 text-gray-700 gap-1" htmlFor="hospital_number">
+                                    Hospital Number
+                                    <Switch
+                                        className="ml-3"
+                                        checked={enableHospitalNumber}
+                                        onCheckedChange={setEnableHospitalNumber}
+                                    />
+                                </Label>
+                                <Input
+                                    className="text-black disabled:opacity-50 border-[#268a6477] bg-gray-50"
+                                    id="hospital_number"
+                                    type="text"
+                                    disabled={!enableHospitalNumber}
+                                    {...register("hospital_number")}
+                                />
+                                {errors.hospital_number && <p className="text-red-500 text-sm mt-1">{errors.hospital_number.message}</p>}
                             </div>
                         </div>
                     </CardContent>
