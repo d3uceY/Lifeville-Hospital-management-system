@@ -32,7 +32,18 @@ export default function Register() {
 
     const schema = z.object({
         // Required Fields
-        hospital_number: z.string().nonempty({ message: "Hospital number is required" }),
+        hospitalNumber: z
+            .string()
+            .refine(
+                (value) => {
+                    // If empty string or undefined, it's valid (disabled case)
+                    if (!value || value === "") return true;
+                    // If has value, must be only numbers
+                    return /^\d+$/.test(value);
+                },
+                { message: "Hospital number must contain only numbers" }
+            )
+            .optional(),
         date: z.string().nonempty({ message: "Date is required" }),
         surname: z.string().nonempty({ message: "Surname is required" }),
         firstName: z.string().nonempty({ message: "First name is required" }),
@@ -73,7 +84,7 @@ export default function Register() {
         mode: "onChange",
         resolver: zodResolver(schema),
         defaultValues: {
-            hospital_number: "",
+            hospitalNumber: "",
             date: new Date().toISOString().split("T")[0],
             surname: "",
             firstName: "",
@@ -119,9 +130,13 @@ export default function Register() {
 
     const onSubmit = async (values) => {
         const promise = async () => {
+            const payload = {
+                ...values,
+                hospitalNumber: enableHospitalNumber ? Number(values.hospitalNumber) : null,
+            }
             try {
                 setIsSubmitting(true)
-                const response = await registerPatient(values)
+                const response = await registerPatient(payload)
                 queryClient.invalidateQueries({ queryKey: ["patients"] })
                 return response;
             } catch (err) {
@@ -129,7 +144,7 @@ export default function Register() {
                 throw err;
             } finally {
                 setIsSubmitting(false)
-                // reset()
+                reset()
             }
         }
 
@@ -220,7 +235,7 @@ export default function Register() {
                                 {errors.otherNames && <p className="text-red-500 text-sm mt-1">{errors.otherNames.message}</p>}
                             </div>
                             <div>
-                                <Label className="text-sm font-medium mb-2 text-gray-700 gap-1" htmlFor="hospital_number">
+                                <Label className="text-sm font-medium mb-2 text-gray-700 gap-1" htmlFor="hospitalNumber">
                                     Hospital Number
                                     <Switch
                                         className="ml-3"
@@ -230,12 +245,12 @@ export default function Register() {
                                 </Label>
                                 <Input
                                     className="text-black disabled:opacity-50 border-[#268a6477] bg-gray-50"
-                                    id="hospital_number"
+                                    id="hospitalNumber"
                                     type="text"
                                     disabled={!enableHospitalNumber}
-                                    {...register("hospital_number")}
+                                    {...register("hospitalNumber")}
                                 />
-                                {errors.hospital_number && <p className="text-red-500 text-sm mt-1">{errors.hospital_number.message}</p>}
+                                {errors.hospitalNumber && <p className="text-red-500 text-sm mt-1">{errors.hospitalNumber.message}</p>}
                             </div>
                         </div>
                     </CardContent>
