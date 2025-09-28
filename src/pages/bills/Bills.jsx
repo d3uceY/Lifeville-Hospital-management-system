@@ -67,7 +67,7 @@ export default function Bills() {
                 debouncedTerm.issuedByTerm,
                 debouncedTerm.patientIdTerm
             ),
-        staleTime: 5 * 60 * 1000, // 5 minutes
+        staleTime: 60 * 1000, // 1 minute
     })
 
 

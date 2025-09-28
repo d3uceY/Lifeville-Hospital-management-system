@@ -129,7 +129,7 @@ export default function LabTestAnalysisTable({ patientId }) {
         {
             queryKey: ['patientLabTests', patientId],
             queryFn: () => getLabTestsByPatientId(patientId),
-            staleTime: 5 * 60 * 1000,
+            staleTime: 60 * 1000,
         }
     );
 

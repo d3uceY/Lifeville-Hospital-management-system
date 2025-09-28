@@ -62,7 +62,7 @@ export default function VisitsTable() {
                 startDate: debouncedTerm.startDate,
                 endDate: debouncedTerm.endDate
             }),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 1000,
         enabled: !!accessToken
     })
 
