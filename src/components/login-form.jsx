@@ -47,15 +47,16 @@ export default function LoginForm({
         loading: "Logging in...",
         success: () => {
           navigate("/");
+          setLoading(false);
           return "Login successful!";
         },
         error: (error) => {
           console.error(error)
+          setLoading(false);
           return "Login failed!";
         },
       }
     )
-    setLoading(false);
   };
 
 
