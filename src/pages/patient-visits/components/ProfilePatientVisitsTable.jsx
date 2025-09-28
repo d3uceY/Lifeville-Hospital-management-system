@@ -142,7 +142,7 @@ export default function ProfilePatientVisitsTable() {
     const { data: visits, isLoading } = useQuery({
         queryKey: ["patientVisits", patient_id],
         queryFn: () => getPatientVisitsByPatientId({ accessToken, patient_id }),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 1000,
         enabled: !!accessToken
     });
 

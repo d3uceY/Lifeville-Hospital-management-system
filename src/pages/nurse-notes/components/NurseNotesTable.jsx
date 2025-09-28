@@ -129,7 +129,7 @@ export default function NurseNotesTable() {
     const { data: nurseNotes, isLoading } = useQuery({
         queryKey: ["nurseNotes", patient_id],
         queryFn: () => getNursesNotesByPatientId(patient_id),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 1000,
     });
 
     const [sorting, setSorting] = React.useState([]);

@@ -130,7 +130,7 @@ export default function PrescriptionTable() {
     const { data: prescriptions, isLoading } = useQuery({
         queryKey: ["patientPrescriptions", patient_id],
         queryFn: () => getPrescriptionsByPatientId(patient_id),
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 1000,
     });
 
     const [sorting, setSorting] = React.useState([]);

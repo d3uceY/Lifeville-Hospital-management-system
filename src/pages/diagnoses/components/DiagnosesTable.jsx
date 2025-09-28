@@ -113,7 +113,7 @@ export default function DiagnosesTable() {
   const { data: diagnoses, isLoading } = useQuery({
     queryKey: ["diagnoses", patient_id],
     queryFn: () => getDiagnosesByPatientId(patient_id),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 60 * 1000,
   });
 
 
