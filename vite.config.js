@@ -15,7 +15,7 @@ export default defineConfig({
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
         name: "Lifeville Specialist Hospital Management System",
-        short_name: "LifevilleHMS", 
+        short_name: "LifevilleHMS",
         description: "Lifeville Hospital Management System",
         theme_color: "#88c682",
         display: "standalone",
@@ -30,6 +30,22 @@ export default defineConfig({
             src: "web-app-manifest-512x512.png",
             sizes: "512x512",
             type: "image/png",
+          },
+        ],
+        shortcuts: [
+          {
+            name: "Patients",
+            short_name: "Patients",
+            description: "View and manage patients",
+            url: "/patients",
+            icons: [{ src: "patients.png", sizes: "96x96" }],
+          },
+          {
+            name: "Overview",
+            short_name: "Overview",
+            description: "See hospital overview dashboard",
+            url: "/",
+            icons: [{ src: "overview.png", sizes: "96x96" }],
           },
         ],
       },
